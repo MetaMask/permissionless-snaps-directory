@@ -68,8 +68,8 @@ describe('theme', () => {
                 "background": "background.header",
                 "boxShadow": "md",
               },
-              "small": Object {
-                "_groupHover": Object {
+              "small": {
+                "_groupHover": {
                   "background": "info.default",
                   "color": "white",
                 },
@@ -83,8 +83,8 @@ describe('theme', () => {
                 "textTransform": "uppercase",
                 "transitionDuration": "normal",
               },
-              "solid": Object {
-                "_active": Object {
+              "solid": {
+                "_active": {
                   "bg": "#0376C9",
                 },
                 "_hover": {
@@ -126,11 +126,11 @@ describe('theme', () => {
                 "paddingY": "3",
                 "width": "100%",
               },
-              "landing": Object {
+              "landing": {
                 "color": "info.default",
                 "fontWeight": "500",
               },
-              "navigation-active": Object {
+              "navigation-active": {
                 "background": "background.alternative",
                 "borderRadius": "lg",
                 "opacity": "1",
@@ -338,11 +338,11 @@ describe('theme', () => {
                 "_dark": "#1D1F23",
                 "default": "#FFFFFF",
               },
-              "default": Object {
+              "default": {
                 "_dark": "#24272A",
                 "default": "#FFFFFF",
               },
-              "header": Object {
+              "header": {
                 "_dark": "rgba(29, 31, 35, 0.5)",
                 "default": "rgba(255, 255, 255, 0.75)",
               },
