@@ -1,13 +1,47 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
+import { configureChains } from '@wagmi/core';
+import { mainnet, goerli } from '@wagmi/core/chains';
+import { ConnectKitProvider } from 'connectkit';
 import type { GatsbyBrowser } from 'gatsby';
+import { WagmiConfig, createConfig } from 'wagmi';
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { infuraProvider } from 'wagmi/providers/infura';
+import { publicProvider } from 'wagmi/providers/public';
 
 import { Layout, SnapsProvider } from './components';
 import { messages } from './locales/en/messages';
 import { createStore } from './store';
 
+import { getConfig } from '@/utils/config/config';
+import { lineaMainnet, lineaTestnet } from '@/utils/customChains';
+
 // eslint-disable-next-line import/no-unassigned-import, import/extensions
 import './assets/fonts/fonts.css';
+
+/** * Wagmi */
+const config = getConfig();
+
+const { chains, publicClient } = configureChains(
+  [mainnet, goerli, lineaMainnet, lineaTestnet],
+  [infuraProvider({ apiKey: config.infuraId }), publicProvider()],
+);
+
+const wagmiConfig = createConfig({
+  autoConnect: true,
+  connectors: [
+    new MetaMaskConnector({ chains }),
+    new WalletConnectConnector({
+      chains,
+      options: {
+        projectId: config.walletConnectId,
+      },
+    }),
+  ],
+  publicClient,
+});
 
 i18n.load('en', messages);
 i18n.activate('en');
@@ -27,7 +61,13 @@ i18n.activate('en');
 export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
   element,
 }) => {
-  return <Layout>{element}</Layout>;
+  return (
+    <WagmiConfig config={wagmiConfig}>
+      <ConnectKitProvider>
+        <Layout>{element}</Layout>
+      </ConnectKitProvider>
+    </WagmiConfig>
+  );
 };
 
 /**

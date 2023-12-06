@@ -1,11 +1,16 @@
 /* eslint-disable no-restricted-globals */
+import * as dotenv from 'dotenv';
 import type { GatsbyConfig } from 'gatsby';
+
+dotenv.config({
+  path: `.env`,
+});
 
 const config: GatsbyConfig = {
   siteMetadata: {
     title: 'MetaMask Snaps Directory',
     description:
-      'Explore community-built Snaps to customize your web3 experience via our official directory.',
+      'Explore community-built Snaps to customize your web3 esxperience via our official directory.',
     siteUrl: 'https://snaps.metamask.io',
     author: 'MetaMask',
   },
@@ -95,6 +100,15 @@ const config: GatsbyConfig = {
           },
         ]
       : []),
+    {
+      resolve: `gatsby-plugin-alias-imports`,
+      options: {
+        alias: {
+          '@': 'src',
+        },
+        extensions: ['js', 'ts', 'tsx'],
+      },
+    },
   ],
 };
 

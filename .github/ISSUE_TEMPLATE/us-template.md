@@ -4,7 +4,6 @@ about: User Story
 title: ''
 labels: ''
 assignees: ''
-
 ---
 
 As a XXX,

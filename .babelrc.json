@@ -1,5 +1,12 @@
 {
   "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": { "node": "current" }
+      }
+    ],
+    "@babel/preset-react",
     "@babel/preset-typescript",
     [
       "babel-preset-gatsby",
@@ -7,5 +14,6 @@
         "reactRuntime": "automatic"
       }
     ]
-  ]
+  ],
+  "plugins": ["@babel/plugin-transform-modules-commonjs"]
 }

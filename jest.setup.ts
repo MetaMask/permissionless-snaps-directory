@@ -1,7 +1,20 @@
+/* eslint-disable no-restricted-globals */
+/* eslint-disable import/no-nodejs-modules */
+// eslint-disable-next-line import/order
 import { beforeEach } from '@jest/globals';
 import { toMatchImageSnapshot } from 'jest-image-snapshot';
+import React from 'react';
+import { TextEncoder, TextDecoder } from 'util';
+
+// import '@testing-library/jest-dom';
 
 expect.extend({ toMatchImageSnapshot });
+
+global.React = React;
+
+// Polyfill global TextEncoder and TextDecoder
+global.TextEncoder = TextEncoder as unknown as typeof globalThis.TextEncoder;
+global.TextDecoder = TextDecoder as unknown as typeof globalThis.TextDecoder;
 
 beforeEach(() => {
   const originalConsoleError = console.error;

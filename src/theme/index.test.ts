@@ -5,35 +5,35 @@ import { themeConfig } from '.';
 describe('theme', () => {
   it('matches the snapshot', () => {
     expect(themeConfig).toMatchInlineSnapshot(`
-      Object {
-        "colors": Object {
-          "error": Object {
+      {
+        "colors": {
+          "error": {
             "default": "#D34C46",
             "muted": "rgba(215, 56, 71, 0.1)",
           },
-          "gray": Object {
+          "gray": {
             "40": "#F2F4F6",
           },
-          "success": Object {
+          "success": {
             "default": "#579F6E",
             "muted": "rgba(40, 167, 69, 0.1)",
           },
-          "text": Object {
+          "text": {
             "alternative": "#535A61",
             "error": "#D34C46",
             "success": "#579F6E",
             "white": "#FFFFFF",
           },
         },
-        "components": Object {
-          "Button": Object {
-            "baseStyle": Object {
-              "_hover": Object {
+        "components": {
+          "Button": {
+            "baseStyle": {
+              "_hover": {
                 "opacity": "0.75",
               },
             },
-            "variants": Object {
-              "outline": Object {
+            "variants": {
+              "outline": {
                 "background": "transparent",
                 "border": "1.5px solid",
                 "borderColor": "info.default",
@@ -45,9 +45,9 @@ describe('theme', () => {
                 "lineHeight": "157%",
                 "padding": "4",
               },
-              "primary": Object {
-                "_hover": Object {
-                  "_disabled": Object {
+              "primary": {
+                "_hover": {
+                  "_disabled": {
                     "background": "info.default",
                   },
                 },
@@ -61,8 +61,8 @@ describe('theme', () => {
                 "lineHeight": "157%",
                 "padding": "4",
               },
-              "shadow": Object {
-                "_hover": Object {
+              "shadow": {
+                "_hover": {
                   "opacity": "0.75",
                 },
                 "background": "background.header",
@@ -87,7 +87,7 @@ describe('theme', () => {
                 "_active": Object {
                   "bg": "#0376C9",
                 },
-                "_hover": Object {
+                "_hover": {
                   "bg": "#0376C9",
                 },
                 "bg": "#24272A",
@@ -95,28 +95,28 @@ describe('theme', () => {
               },
             },
           },
-          "Container": Object {
-            "baseStyle": Object {
+          "Container": {
+            "baseStyle": {
               "paddingX": 4,
               "paddingY": 4,
             },
-            "sizes": Object {
-              "fullWidth": Object {
+            "sizes": {
+              "fullWidth": {
                 "maxWidth": "100%",
               },
             },
           },
-          "Divider": Object {
-            "baseStyle": Object {
+          "Divider": {
+            "baseStyle": {
               "opacity": 1,
             },
           },
-          "Link": Object {
-            "baseStyle": Object {
+          "Link": {
+            "baseStyle": {
               "color": "info.default",
             },
-            "variants": Object {
-              "box": Object {
+            "variants": {
+              "box": {
                 "backgroundColor": "background.alternative",
                 "border": "1px solid",
                 "borderColor": "border.default",
@@ -135,29 +135,29 @@ describe('theme', () => {
                 "borderRadius": "lg",
                 "opacity": "1",
               },
-              "navigation-default": Object {
+              "navigation-default": {
                 "borderRadius": "lg",
                 "opacity": "0.6",
               },
             },
           },
-          "Menu": Object {
-            "baseStyle": Object {
-              "groupTitle": Object {
+          "Menu": {
+            "baseStyle": {
+              "groupTitle": {
                 "color": "text.muted",
                 "fontSize": "sm",
                 "fontWeight": "500",
                 "marginBottom": "1",
                 "textTransform": "uppercase",
               },
-              "item": Object {
-                "_hover": Object {
+              "item": {
+                "_hover": {
                   "background": "background.alternative",
                 },
                 "background": "none",
                 "padding": "2",
               },
-              "list": Object {
+              "list": {
                 "background": "background.menu",
                 "border": "none",
                 "borderRadius": "lg",
@@ -165,7 +165,7 @@ describe('theme', () => {
                 "padding": "1",
               },
             },
-            "parts": Array [
+            "parts": [
               "button",
               "list",
               "item",
@@ -175,13 +175,13 @@ describe('theme', () => {
               "divider",
             ],
           },
-          "Modal": Object {
-            "baseStyle": Object {
-              "dialog": Object {
+          "Modal": {
+            "baseStyle": {
+              "dialog": {
                 "bg": "chakra-body-bg",
               },
             },
-            "parts": Array [
+            "parts": [
               "overlay",
               "dialogContainer",
               "dialog",
@@ -190,12 +190,12 @@ describe('theme', () => {
               "body",
               "footer",
             ],
-            "variants": Object {
-              "minimal": Object {
-                "body": Object {
+            "variants": {
+              "minimal": {
+                "body": {
                   "padding": "0",
                 },
-                "dialog": Object {
+                "dialog": {
                   "background": "chakra-body-bg",
                   "borderRadius": "3xl",
                   "padding": "6",
@@ -203,15 +203,15 @@ describe('theme', () => {
               },
             },
           },
-          "Skeleton": Object {
-            "baseStyle": Object {
+          "Skeleton": {
+            "baseStyle": {
               "--skeleton-end-color": "colors.border",
               "--skeleton-start-color": "colors.background.alternative",
               "borderRadius": "lg",
             },
           },
-          "Tabs": Object {
-            "parts": Array [
+          "Tabs": {
+            "parts": [
               "root",
               "tab",
               "tablist",
@@ -219,13 +219,13 @@ describe('theme', () => {
               "tabpanels",
               "indicator",
             ],
-            "variants": Object {
-              "line": Object {
-                "tab": Object {
-                  "& + &": Object {
+            "variants": {
+              "line": {
+                "tab": {
+                  "& + &": {
                     "marginLeft": "4",
                   },
-                  "_selected": Object {
+                  "_selected": {
                     "borderBottom": "2px solid",
                     "borderColor": "border.active",
                     "color": "text.tab.selected",
@@ -241,7 +241,7 @@ describe('theme', () => {
                   "paddingX": "0",
                   "textTransform": "uppercase",
                 },
-                "tablist": Object {
+                "tablist": {
                   "background": "background.alternative",
                   "borderBottom": "1px solid",
                   "borderColor": "border.default",
@@ -250,9 +250,9 @@ describe('theme', () => {
               },
             },
           },
-          "Tag": Object {
-            "baseStyle": Object {
-              "container": Object {
+          "Tag": {
+            "baseStyle": {
+              "container": {
                 "background": "info.muted",
                 "borderRadius": "full",
                 "color": "info.default",
@@ -262,14 +262,14 @@ describe('theme', () => {
                 "textTransform": "uppercase",
               },
             },
-            "parts": Array [
+            "parts": [
               "container",
               "label",
               "closeButton",
             ],
-            "variants": Object {
-              "category": Object {
-                "container": Object {
+            "variants": {
+              "category": {
+                "container": {
                   "background": "tag.category",
                   "lineHeight": "1.5",
                   "paddingX": "3",
@@ -277,8 +277,8 @@ describe('theme', () => {
                   "textTransform": "none",
                 },
               },
-              "code": Object {
-                "container": Object {
+              "code": {
+                "container": {
                   "background": "info.muted",
                   "borderRadius": "0px",
                   "color": "info.default",
@@ -286,55 +286,55 @@ describe('theme', () => {
                   "fontWeight": "normal",
                 },
               },
-              "muted": Object {
-                "container": Object {
+              "muted": {
+                "container": {
                   "backgroundColor": "tag.muted",
                   "color": "gray.muted",
                 },
               },
             },
           },
-          "Text": Object {
-            "baseStyle": Object {
-              "color": Object {
+          "Text": {
+            "baseStyle": {
+              "color": {
                 "_dark": "white",
                 "default": "black",
               },
             },
-            "variants": Object {
-              "muted": Object {
+            "variants": {
+              "muted": {
                 "color": "text.muted",
               },
             },
           },
         },
-        "config": Object {
+        "config": {
           "initialColorMode": "system",
           "useSystemColorMode": true,
         },
-        "fonts": Object {
-          "body": "\\"Euclid Circular B\\", -apple-system, BlinkMacSystemFont, \\"Segoe UI\\", Roboto, Helvetica, Arial, sans-serif, \\"Apple Color Emoji\\", \\"Segoe UI Emoji\\", \\"Segoe UI Symbol\\"",
-          "code": "SFMono-Regular, Consolas, \\"Liberation Mono\\", Menlo, Courier, monospace",
-          "heading": "\\"Euclid Circular B\\", -apple-system, BlinkMacSystemFont, \\"Segoe UI\\", Roboto, Helvetica, Arial, sans-serif, \\"Apple Color Emoji\\", \\"Segoe UI Emoji\\", \\"Segoe UI Symbol\\"",
+        "fonts": {
+          "body": ""Euclid Circular B", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"",
+          "code": "SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace",
+          "heading": ""Euclid Circular B", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"",
         },
-        "semanticTokens": Object {
-          "borders": Object {
-            "muted": Object {
+        "semanticTokens": {
+          "borders": {
+            "muted": {
               "_dark": "1px solid #3B4046",
               "default": "1px solid #D6D9DC",
             },
           },
-          "colors": Object {
-            "background": Object {
-              "alternative": Object {
+          "colors": {
+            "background": {
+              "alternative": {
                 "_dark": "#1D1F22",
                 "default": "#F5F5F5",
               },
-              "body": Object {
+              "body": {
                 "_dark": "#141618",
                 "default": "#F8F8F8",
               },
-              "card": Object {
+              "card": {
                 "_dark": "#1D1F23",
                 "default": "#FFFFFF",
               },
@@ -346,93 +346,93 @@ describe('theme', () => {
                 "_dark": "rgba(29, 31, 35, 0.5)",
                 "default": "rgba(255, 255, 255, 0.75)",
               },
-              "hover": Object {
+              "hover": {
                 "_dark": "#33373E",
                 "default": "#EEEEEE",
               },
-              "menu": Object {
+              "menu": {
                 "_dark": "#282B2E",
                 "default": "#FFFFFF",
               },
             },
-            "border": Object {
-              "active": Object {
+            "border": {
+              "active": {
                 "_dark": "rgba(255, 255, 255, 0.06)",
                 "default": "#24272A",
               },
-              "default": Object {
+              "default": {
                 "_dark": "#3B4046",
                 "default": "#D6D9DC",
               },
             },
-            "gray": Object {
-              "light": Object {
+            "gray": {
+              "light": {
                 "_dark": "#1A1C1F",
                 "default": "#F1F1F1",
               },
-              "muted": Object {
+              "muted": {
                 "_dark": "#D6D9DC",
                 "default": "#878787",
               },
             },
-            "icon": Object {
-              "alternative": Object {
+            "icon": {
+              "alternative": {
                 "_dark": "#141618",
                 "default": "#F2F4F6",
               },
-              "muted": Object {
+              "muted": {
                 "default": "#6A737D",
               },
             },
-            "info": Object {
-              "default": Object {
+            "info": {
+              "default": {
                 "_dark": "#1098FC",
                 "default": "#0376C9",
               },
-              "muted": Object {
+              "muted": {
                 "_dark": "#141618",
                 "default": "rgba(3, 118, 201, 0.1)",
               },
             },
-            "tag": Object {
-              "category": Object {
+            "tag": {
+              "category": {
                 "_dark": "rgba(16, 152, 252, 0.15)",
                 "default": "info.muted",
               },
-              "muted": Object {
+              "muted": {
                 "_dark": "#141618",
                 "default": "#F5F5F5",
               },
             },
-            "text": Object {
+            "text": {
               "_dark": "#9FA6AE",
-              "console": Object {
+              "console": {
                 "_dark": "#D6D9DC",
                 "default": "#535A61",
               },
               "default": "#24272A",
-              "muted": Object {
+              "muted": {
                 "_dark": "#D6D9DC",
                 "default": "#BBC0C5",
               },
-              "tab": Object {
+              "tab": {
                 "_dark": "#FFFFFF",
                 "default": "#535A61",
-                "selected": Object {
+                "selected": {
                   "_dark": "#FFFFFF",
                   "default": "#24272A",
                 },
               },
             },
           },
-          "shadows": Object {
+          "shadows": {
             "lg": "0px 2px 40px 0px #0000001A",
             "md": "0px 2px 16px 0px #0000001A",
           },
         },
-        "styles": Object {
-          "global": Object {
-            "body": Object {
+        "styles": {
+          "global": {
+            "body": {
               "background": "background.body",
               "overflowY": "scroll",
             },
