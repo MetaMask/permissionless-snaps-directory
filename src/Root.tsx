@@ -21,7 +21,7 @@ import { lineaMainnet, lineaTestnet } from '@/utils/customChains';
 // eslint-disable-next-line import/no-unassigned-import, import/extensions
 import './assets/fonts/fonts.css';
 
-/** * Wagmi */
+/* Wagmi */
 const config = getConfig();
 
 const { chains, publicClient } = configureChains(

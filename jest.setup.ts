@@ -6,8 +6,6 @@ import { toMatchImageSnapshot } from 'jest-image-snapshot';
 import React from 'react';
 import { TextEncoder, TextDecoder } from 'util';
 
-// import '@testing-library/jest-dom';
-
 expect.extend({ toMatchImageSnapshot });
 
 global.React = React;
