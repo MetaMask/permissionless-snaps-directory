@@ -1,6 +1,6 @@
 import type { Address } from 'viem';
 
-const lineaMainnet = {
+const LINEA_MAINNET = {
   id: 59_144,
   name: 'Linea Mainnet',
   network: 'linea-mainnet',
@@ -72,4 +72,4 @@ const lineaTestnet = {
   testnet: true,
 };
 
-export { lineaMainnet, lineaTestnet };
+export { LINEA_MAINNET, lineaTestnet };

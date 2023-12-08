@@ -1,5 +1,3 @@
-import type React from 'react';
-
 type MockConnectKitProviderProps = {
   children: React.ReactNode;
 };

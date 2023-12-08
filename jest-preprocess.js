@@ -1,6 +1,11 @@
 const babelOptions = {
   presets: [
-    'babel-preset-gatsby',
+    [
+      'babel-preset-gatsby',
+      {
+        reactRuntime: 'automatic',
+      },
+    ],
     '@babel/preset-typescript',
     ['@babel/preset-env', { targets: { node: 'current' } }],
     '@babel/preset-react',

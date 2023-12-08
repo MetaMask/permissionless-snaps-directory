@@ -1,26 +1,23 @@
-/* eslint-disable n/no-process-env */
 describe('config module', () => {
-  const setupTestEnvironment = () => {
-    process.env.GATSBY_PUBLIC_INFURA_ID = 'mockInfuraId';
-    process.env.GATSBY_PUBLIC_WALLET_CONNECT_ID = 'mockWalletConnectId';
-  };
-
   beforeEach(() => {
-    jest.resetModules(); // Clear module cache
-    setupTestEnvironment();
+    // eslint-disable-next-line n/no-process-env
+    process.env.GATSBY_PUBLIC_INFURA_ID = 'mockInfuraId';
+    // eslint-disable-next-line n/no-process-env
+    process.env.GATSBY_PUBLIC_WALLET_CONNECT_ID = 'mockWalletConnectId';
   });
+
   it('validates correct configuration without throwing', async () => {
     const { getConfig } = await import('./config');
-    const { configSchema } = await import('./config.schema');
+    const { configSchema } = await import('./config-schema');
     const config = getConfig();
     expect(() => configSchema(config)).not.toThrow();
   });
 
   it('throws an error for invalid configuration', async () => {
-    const { configSchema } = await import('./config.schema');
+    const { configSchema } = await import('./config-schema');
     const invalidConfig = { infuraId: '', walletConnectId: '' };
     expect(() => configSchema(invalidConfig)).toThrow(
-      'infuraId is required and cannot be empty',
+      '`infuraId` is required and cannot be empty.',
     );
   });
 
@@ -32,7 +29,9 @@ describe('config module', () => {
   });
 
   it('handles missing environment variables', async () => {
+    // eslint-disable-next-line n/no-process-env
     delete process.env.GATSBY_PUBLIC_INFURA_ID;
+    // eslint-disable-next-line n/no-process-env
     delete process.env.GATSBY_PUBLIC_WALLET_CONNECT_ID;
     jest.resetModules();
     const { getConfig } = await import('./config');

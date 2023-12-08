@@ -1,28 +1,17 @@
-import type React from 'react';
+export const createConfig = () => ({});
 
-const createConfig = () => ({});
+export const MetaMaskConnector = () => ({});
 
-const MetaMaskConnector = () => ({});
+export const WalletConnectConnector = () => ({});
 
-const WalletConnectConnector = () => ({});
+export const infuraProvider = () => ({});
 
-const infuraProvider = () => ({});
-
-const publicProvider = () => ({});
+export const publicProvider = () => ({});
 
 type MockWagmiConfigProps = {
   children: React.ReactNode;
 };
 
-const WagmiConfig: React.FC<MockWagmiConfigProps> = ({ children }) => (
+export const WagmiConfig: React.FC<MockWagmiConfigProps> = ({ children }) => (
   <div className="mock-wagmi-config">{children}</div>
 );
-
-export {
-  WagmiConfig,
-  createConfig,
-  MetaMaskConnector,
-  WalletConnectConnector,
-  infuraProvider,
-  publicProvider,
-};

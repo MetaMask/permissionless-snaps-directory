@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
-import type { Config } from './config.schema';
-import { configSchema } from './config.schema';
+import type { Config } from './config-schema';
+import { configSchema } from './config-schema';
 
 /**
  * Generates and returns the application configuration.

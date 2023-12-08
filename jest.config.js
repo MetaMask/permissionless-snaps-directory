@@ -95,8 +95,8 @@ module.exports = {
   moduleNameMapper: {
     '^.+\\.svg$': '<rootDir>/src/__mocks__/svg.tsx',
     '^.+\\.(png|css)': '<rootDir>/src/__mocks__/file.ts',
-    // '^connectkit$': '<rootDir>/src/__mocks__/connectkit.tsx',
-    // '^wagmi$': '<rootDir>/src/__mocks__/wagmi.tsx',
+    '^connectkit$': '<rootDir>/src/__mocks__/connectkit.tsx',
+    '^wagmi$': '<rootDir>/src/__mocks__/wagmi.tsx',
     '^@/(.*)$': '<rootDir>/src/$1',
   },
 

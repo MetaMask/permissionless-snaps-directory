@@ -14,9 +14,8 @@ import { publicProvider } from 'wagmi/providers/public';
 import { Layout, SnapsProvider } from './components';
 import { messages } from './locales/en/messages';
 import { createStore } from './store';
-
-import { getConfig } from '@/utils/config/config';
-import { lineaMainnet, lineaTestnet } from '@/utils/customChains';
+import { getConfig } from './utils/config/config';
+import { LINEA_MAINNET, lineaTestnet } from './utils/custom-chains';
 
 // eslint-disable-next-line import/no-unassigned-import, import/extensions
 import './assets/fonts/fonts.css';
@@ -25,7 +24,7 @@ import './assets/fonts/fonts.css';
 const config = getConfig();
 
 const { chains, publicClient } = configureChains(
-  [mainnet, goerli, lineaMainnet, lineaTestnet],
+  [mainnet, goerli, LINEA_MAINNET, lineaTestnet],
   [infuraProvider({ apiKey: config.infuraId }), publicProvider()],
 );
 

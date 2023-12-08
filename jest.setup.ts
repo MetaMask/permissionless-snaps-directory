@@ -3,12 +3,9 @@
 // eslint-disable-next-line import/order
 import { beforeEach } from '@jest/globals';
 import { toMatchImageSnapshot } from 'jest-image-snapshot';
-import React from 'react';
 import { TextEncoder, TextDecoder } from 'util';
 
 expect.extend({ toMatchImageSnapshot });
-
-global.React = React;
 
 // Polyfill global TextEncoder and TextDecoder
 global.TextEncoder = TextEncoder as unknown as typeof globalThis.TextEncoder;
