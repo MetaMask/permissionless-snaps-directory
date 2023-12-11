@@ -64,6 +64,9 @@
     "@metamask/snaps-controllers": "^3.0.0",
     "@metamask/utils": "^8.1.0",
     "@reduxjs/toolkit": "^1.9.6",
+    "@wagmi/core": "^1.4.10",
+    "connectkit": "^1.5.3",
+    "crypto-browserify": "^3.12.0",
     "framer-motion": "^10.16.2",
     "gatsby": "^5.12.3",
     "linkify-react": "^4.1.1",
@@ -75,10 +78,13 @@
     "react-redux": "^8.1.2",
     "react-use-fusejs": "^2.0.2",
     "redux": "^4.2.1",
-    "semver": "^7.5.4"
+    "semver": "^7.5.4",
+    "viem": "^1.19.13",
+    "wagmi": "^1.4.10"
   },
   "devDependencies": {
     "@babel/core": "^7.22.11",
+    "@babel/preset-typescript": "^7.23.3",
     "@jest/globals": "^29.7.0",
     "@lavamoat/allow-scripts": "^2.3.1",
     "@lavamoat/preinstall-always-fail": "^1.0.0",
@@ -96,6 +102,7 @@
     "@svgr/webpack": "^8.1.0",
     "@testing-library/jest-dom": "^6.1.3",
     "@testing-library/react": "^14.0.0",
+    "@types/jest": "^29.5.11",
     "@types/jest-image-snapshot": "^6.2.1",
     "@types/jest-when": "^3.5.3",
     "@types/node": "^20.3.3",
@@ -165,7 +172,9 @@
       "gatsby-plugin-sharp>sharp": true,
       "sharp": true,
       "@metamask/snaps-utils>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>keccak": false,
-      "@metamask/snaps-utils>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>secp256k1": false
+      "@metamask/snaps-utils>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>secp256k1": false,
+      "wagmi>@wagmi/core>@wagmi/connectors>@coinbase/wallet-sdk>keccak": false,
+      "@wagmi/core>@wagmi/connectors>@coinbase/wallet-sdk>keccak": false
     }
   }
 }
