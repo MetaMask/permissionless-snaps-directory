@@ -1,5 +1,6 @@
-const babelOptions = {
+module.exports = {
   presets: [
+    '@babel/preset-typescript',
     [
       'babel-preset-gatsby',
       {
@@ -8,5 +9,3 @@ const babelOptions = {
     ],
   ],
 };
-
-module.exports = require('babel-jest').createTransformer(babelOptions);
