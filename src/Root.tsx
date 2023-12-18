@@ -32,6 +32,7 @@ export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
 }) => {
   return <Layout>{element}</Layout>;
 };
+
 /**
  * Wrap every page in the specified components. This can be used to wrap the
  * root in provider components. Layout components should be specified in the
