@@ -95,7 +95,7 @@ module.exports = {
   moduleNameMapper: {
     '^.+\\.svg$': '<rootDir>/src/__mocks__/svg.tsx',
     '^.+\\.(png|css)': '<rootDir>/src/__mocks__/file.ts',
-    '^connectkit$': '<rootDir>/src/__mocks__/connectkit.tsx',
+    '^connectkit$': '<rootDir>/node_modules/connectkit/build/index.es.js',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -194,7 +194,8 @@ module.exports = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    '^.+\\.(js|mjs|jsx|ts|tsx)$': '<rootDir>/jest-preprocess.js',
+    '^.+\\.tsx?$': 'babel-jest',
+    '^.+\\.m?jsx?$': 'babel-jest',
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
