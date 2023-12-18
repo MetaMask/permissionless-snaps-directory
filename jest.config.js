@@ -95,7 +95,7 @@ module.exports = {
   moduleNameMapper: {
     '^.+\\.svg$': '<rootDir>/src/__mocks__/svg.tsx',
     '^.+\\.(png|css)': '<rootDir>/src/__mocks__/file.ts',
-    'connectkit': '<rootDir>/node_modules/connectkit/build/index.es.js',
+    '^connectkit$': '<rootDir>/node_modules/connectkit/build/index.es.js',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
