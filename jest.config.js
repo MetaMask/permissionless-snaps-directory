@@ -199,10 +199,6 @@ module.exports = {
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  // transformIgnorePatterns: [
-  //   "/node_modules/",
-  //   "\\.pnp\\.[^\\/]+$"
-  // ],
   transformIgnorePatterns: [
     `node_modules/(?!(connectkit|@wagmi|wagmi|isows|uint8arrays|multiformats|viem)/)`,
   ],
