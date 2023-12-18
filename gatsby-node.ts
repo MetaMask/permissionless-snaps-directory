@@ -435,13 +435,12 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
     return rule;
   });
 
-  if (config?.externals && config.externals[0]) {
-    if (
-      typeof config.externals[0] === 'object' &&
-      !Array.isArray(config.externals[0])
-    ) {
-      config.externals[0]['node:crypto'] = cryptoBrowserify;
-    }
+  if (
+    config?.externals &&
+    typeof config.externals[0] === 'object' &&
+    !Array.isArray(config.externals[0])
+  ) {
+    config.externals[0]['node:crypto'] = cryptoBrowserify;
   }
 
   replaceWebpackConfig({

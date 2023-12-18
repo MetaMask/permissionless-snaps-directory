@@ -5,7 +5,7 @@ import type { GatsbyBrowser } from 'gatsby';
 import { WagmiConfig } from 'wagmi';
 
 import { Layout, SnapsProvider } from './components';
-import { wagmiConfig } from './config/wagmi-config';
+import { WAGMI_CONFIG } from './config/wagmi-config';
 import { messages } from './locales/en/messages';
 import { createStore } from './store';
 
@@ -53,7 +53,7 @@ export const wrapRootElement: GatsbyBrowser['wrapRootElement'] = ({
   const store = createStore();
 
   return (
-    <WagmiConfig config={wagmiConfig}>
+    <WagmiConfig config={WAGMI_CONFIG}>
       <ConnectKitProvider>
         <SnapsProvider store={store}>
           <I18nProvider i18n={i18n}>{element}</I18nProvider>

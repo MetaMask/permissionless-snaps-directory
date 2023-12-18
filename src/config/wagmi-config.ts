@@ -9,7 +9,7 @@ const { chains, publicClient } = configureChains(
   [publicProvider()],
 );
 
-export const wagmiConfig = createConfig({
+export const WAGMI_CONFIG = createConfig({
   autoConnect: true,
   connectors: [new MetaMaskConnector({ chains })],
   publicClient,
