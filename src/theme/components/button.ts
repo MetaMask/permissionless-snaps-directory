@@ -80,5 +80,31 @@ export const Button = defineStyleConfig({
         },
       },
     }),
+
+    connect: defineStyle({
+      borderRadius: '36px',
+      background: 'info.default',
+      fontSize: 'md',
+      fontWeight: '500',
+      lineHeight: '157%',
+      color: 'white',
+      borderColor: 'info.default',
+      padding: '4',
+    }),
+
+    connected: defineStyle({
+      borderRadius: '36px',
+      background: 'background.alternative',
+      fontSize: 'sm',
+      fontWeight: '500',
+      lineHeight: '157%',
+      color: 'text.alternative',
+      borderColor: 'background.alternative',
+      padding: '4',
+      _hover: {
+        background: 'info.default',
+        color: 'white',
+      },
+    }),
   },
 });

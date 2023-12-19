@@ -1,11 +1,11 @@
-import { Button, Text } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import { Trans } from '@lingui/macro';
 import { ConnectKitButton } from 'connectkit';
 import type { FunctionComponent } from 'react';
 
-import { MetaMaskIcon } from './icons';
+import { MetaMaskIcon, AvatarIcon, AvatarFallbackIcon } from './icons';
 
-type CustomConnectButtonProps = {
+export type CustomConnectButtonProps = {
   handleOnClick?: (() => void) | undefined;
   isConnected: boolean;
   ensName?: string | undefined;
@@ -15,21 +15,25 @@ type CustomConnectButtonProps = {
 export const CustomConnectButton: FunctionComponent<
   CustomConnectButtonProps
 > = ({ handleOnClick, isConnected, ensName, truncatedAddress }) => {
+  let icon = <MetaMaskIcon width={{ base: '0', sm: '1.3rem' }} />;
+  if (isConnected) {
+    if (ensName) {
+      icon = <AvatarIcon width={{ base: '0', sm: '1.3rem' }} />;
+    } else {
+      icon = <AvatarFallbackIcon width={{ base: '0', sm: '1.3rem' }} />;
+    }
+  }
+
   return (
     <Button
-      variant="primary"
-      leftIcon={<MetaMaskIcon width={{ base: '0', sm: '1.3rem' }} />}
+      variant={isConnected ? 'connected' : 'connect'}
+      leftIcon={icon}
       iconSpacing="0"
       onClick={handleOnClick}
       width={isConnected ? '55%' : '50%'}
-      height="2.5rem"
-      gap="0.5rem"
+      gap="2"
     >
-      {isConnected ? (
-        ensName ?? <Text fontSize="sm">{truncatedAddress}</Text>
-      ) : (
-        <Trans>Connect</Trans>
-      )}
+      {isConnected ? ensName ?? truncatedAddress : <Trans>Connect</Trans>}
     </Button>
   );
 };
@@ -37,16 +41,14 @@ export const CustomConnectButton: FunctionComponent<
 export const ConnectButton: FunctionComponent = () => {
   return (
     <ConnectKitButton.Custom>
-      {({ isConnected, show, truncatedAddress, ensName }) => {
-        return (
-          <CustomConnectButton
-            handleOnClick={show}
-            isConnected={isConnected}
-            truncatedAddress={truncatedAddress}
-            ensName={ensName}
-          />
-        );
-      }}
+      {({ isConnected, show, truncatedAddress, ensName }) => (
+        <CustomConnectButton
+          handleOnClick={show}
+          isConnected={isConnected}
+          truncatedAddress={truncatedAddress}
+          ensName={ensName}
+        />
+      )}
     </ConnectKitButton.Custom>
   );
 };

@@ -1,96 +1,67 @@
-import { i18n } from '@lingui/core';
-import { I18nProvider } from '@lingui/react';
-import { render, act } from '@testing-library/react';
+import { act } from '@testing-library/react';
 
 import { ConnectButton, CustomConnectButton } from './ConnectButton';
-import { messages } from '../locales/en/messages';
-
-i18n.load('en', messages);
-i18n.activate('en');
+import { render } from '../utils/test-utils';
 
 describe('ConnectKitButton.Custom', () => {
   it('renders', () => {
+    const { queryByText } = render(<ConnectButton />);
+
+    expect(queryByText('Connect')).toBeInTheDocument();
+  });
+
+  it('triggers `onClick` when the button is clicked', async () => {
+    const btnClick = jest.fn();
     const { getByText } = render(
-      <I18nProvider i18n={i18n}>
-        <ConnectButton />
-      </I18nProvider>,
+      <CustomConnectButton handleOnClick={btnClick} isConnected={false} />,
     );
-    expect(getByText('Connect')).toBeInTheDocument();
-  });
-});
 
-describe('CustomConnectButton', () => {
-  let btnClick: jest.Mock;
-
-  beforeEach(() => {
-    btnClick = jest.fn();
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('trigger onClick when button clicked', async () => {
-    const { getByText } = render(
-      <I18nProvider i18n={i18n}>
-        <CustomConnectButton
-          handleOnClick={btnClick}
-          isConnected={false}
-          truncatedAddress={''}
-          ensName={''}
-        />
-      </I18nProvider>,
-    );
     const button = getByText('Connect');
     await act(async () => act(() => button.click()));
+
     expect(btnClick).toHaveBeenCalledTimes(1);
   });
 
-  describe('when MetaMask not connected', () => {
+  describe('when MetaMask is not connected', () => {
     it('renders "Connect"', () => {
-      const { getByText } = render(
-        <I18nProvider i18n={i18n}>
-          <CustomConnectButton
-            handleOnClick={btnClick}
-            isConnected={false}
-            truncatedAddress={''}
-            ensName={''}
-          />
-        </I18nProvider>,
+      const btnClick = jest.fn();
+      const { queryByText } = render(
+        <CustomConnectButton handleOnClick={btnClick} isConnected={false} />,
       );
-      expect(getByText('Connect')).toBeInTheDocument();
+
+      expect(queryByText('Connect')).toBeInTheDocument();
     });
   });
 
   describe('when MetaMask connected', () => {
-    describe('when ensName provided', () => {
-      it('renders ensName', () => {
-        const { getByText } = render(
-          <I18nProvider i18n={i18n}>
-            <CustomConnectButton
-              handleOnClick={btnClick}
-              isConnected={true}
-              truncatedAddress={'truncatedAddress'}
-              ensName={'ensName'}
-            />
-          </I18nProvider>,
+    describe('when an ENS name is provided', () => {
+      it('renders ENS name', () => {
+        const btnClick = jest.fn();
+        const { queryByText } = render(
+          <CustomConnectButton
+            handleOnClick={btnClick}
+            isConnected={true}
+            truncatedAddress="truncatedAddress"
+            ensName="ensName"
+          />,
         );
-        expect(getByText('ensName')).toBeInTheDocument();
+
+        expect(queryByText('ensName')).toBeInTheDocument();
       });
     });
 
-    describe('when ensName not provided', () => {
-      it('renders truncatedAddress', () => {
-        const { getByText } = render(
-          <I18nProvider i18n={i18n}>
-            <CustomConnectButton
-              handleOnClick={btnClick}
-              isConnected={true}
-              truncatedAddress={'truncatedAddress'}
-            />
-          </I18nProvider>,
+    describe('when n ENS name is not provided', () => {
+      it('renders the truncated address', () => {
+        const btnClick = jest.fn();
+        const { queryByText } = render(
+          <CustomConnectButton
+            handleOnClick={btnClick}
+            isConnected={true}
+            truncatedAddress="truncatedAddress"
+          />,
         );
-        expect(getByText('truncatedAddress')).toBeInTheDocument();
+
+        expect(queryByText('truncatedAddress')).toBeInTheDocument();
       });
     });
   });
