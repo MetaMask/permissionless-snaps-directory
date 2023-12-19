@@ -4,6 +4,7 @@ import { Link } from 'gatsby';
 import type { FunctionComponent } from 'react';
 
 import { ColorModeToggle } from './ColorModeToggle';
+import { ConnectButton } from './ConnectButton';
 import { Logo } from './Logo';
 import { FilterSearch, Notifications } from '../features';
 
@@ -42,6 +43,7 @@ export const Header: FunctionComponent<HeaderProps> = (props) => (
           <FilterSearch />
           <ColorModeToggle />
           <Notifications />
+          <ConnectButton />
         </Stack>
       </Stack>
     </Container>
