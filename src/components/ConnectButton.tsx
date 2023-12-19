@@ -38,17 +38,15 @@ export const CustomConnectButton: FunctionComponent<
   );
 };
 
-export const ConnectButton: FunctionComponent = () => {
-  return (
-    <ConnectKitButton.Custom>
-      {({ isConnected, show, truncatedAddress, ensName }) => (
-        <CustomConnectButton
-          handleOnClick={show}
-          isConnected={isConnected}
-          truncatedAddress={truncatedAddress}
-          ensName={ensName}
-        />
-      )}
-    </ConnectKitButton.Custom>
-  );
-};
+export const ConnectButton: FunctionComponent = () => (
+  <ConnectKitButton.Custom>
+    {({ isConnected, show, truncatedAddress, ensName }) => (
+      <CustomConnectButton
+        handleOnClick={show}
+        isConnected={isConnected}
+        truncatedAddress={truncatedAddress}
+        ensName={ensName}
+      />
+    )}
+  </ConnectKitButton.Custom>
+);
