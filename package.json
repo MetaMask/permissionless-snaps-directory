@@ -67,6 +67,9 @@
     "@metamask/snaps-utils": "^7.0.3",
     "@metamask/utils": "^8.3.0",
     "@reduxjs/toolkit": "^1.9.6",
+    "@wagmi/core": "^1.4.10",
+    "connectkit": "^1.5.3",
+    "crypto-browserify": "^3.12.0",
     "framer-motion": "^10.16.2",
     "gatsby": "^5.13.3",
     "gatsby-plugin-image": "^3.13.1",
@@ -80,7 +83,9 @@
     "react-redux": "^8.1.2",
     "react-use-fusejs": "^2.0.2",
     "redux": "^4.2.1",
-    "semver": "^7.5.4"
+    "semver": "^7.5.4",
+    "viem": "^1.19.13",
+    "wagmi": "^1.4.10"
   },
   "devDependencies": {
     "@babel/core": "^7.22.11",
@@ -173,7 +178,9 @@
       "gatsby-plugin-sharp>sharp": true,
       "sharp": true,
       "@metamask/snaps-utils>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>keccak": false,
-      "@metamask/snaps-utils>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>secp256k1": false
+      "@metamask/snaps-utils>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>secp256k1": false,
+      "wagmi>@wagmi/core>@wagmi/connectors>@coinbase/wallet-sdk>keccak": false,
+      "@wagmi/core>@wagmi/connectors>@coinbase/wallet-sdk>keccak": false
     }
   }
 }

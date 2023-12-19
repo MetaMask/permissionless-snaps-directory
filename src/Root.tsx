@@ -1,6 +1,9 @@
+import { ConnectKitProvider } from 'connectkit';
 import type { GatsbyBrowser } from 'gatsby';
+import { WagmiConfig } from 'wagmi';
 
 import { Layout, LocaleProvider, SnapsProvider } from './components';
+import { WAGMI_CONFIG } from './config/wagmi-config';
 import { DEFAULT_LOCALE } from './locales';
 import { createStore } from './store';
 
@@ -55,5 +58,11 @@ export const wrapRootElement: GatsbyBrowser['wrapRootElement'] = ({
   // cause the state to be reset.
   const store = createStore();
 
-  return <SnapsProvider store={store}>{element}</SnapsProvider>;
+  return (
+    <WagmiConfig config={WAGMI_CONFIG}>
+      <ConnectKitProvider>
+        <SnapsProvider store={store}>{element}</SnapsProvider>
+      </ConnectKitProvider>
+    </WagmiConfig>
+  );
 };
