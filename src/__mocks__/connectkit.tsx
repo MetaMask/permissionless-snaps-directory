@@ -39,3 +39,5 @@ export const MockConnectKitButtonCustom: FunctionComponent<
 export const ConnectKitButton = {
   Custom: MockConnectKitButtonCustom,
 };
+
+export const ConnectKitProvider = MockConnectKitProvider;
