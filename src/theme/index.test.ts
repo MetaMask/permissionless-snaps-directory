@@ -31,7 +31,7 @@ describe('theme', () => {
                 "fontSize": "md",
                 "fontWeight": "500",
                 "lineHeight": "157%",
-                "padding": "4px 40px",
+                "padding": "4",
               },
               "connected": Object {
                 "_hover": Object {
@@ -44,7 +44,7 @@ describe('theme', () => {
                 "fontSize": "sm",
                 "fontWeight": "500",
                 "lineHeight": "157%",
-                "padding": "4px 40px",
+                "padding": "4",
               },
               "filter": Object {
                 "_hover": Object {
