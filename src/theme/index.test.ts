@@ -26,13 +26,12 @@ describe('theme', () => {
             "variants": Object {
               "connect": Object {
                 "background": "info.default",
-                "borderColor": "info.default",
                 "borderRadius": "36px",
                 "color": "white",
                 "fontSize": "md",
                 "fontWeight": "500",
                 "lineHeight": "157%",
-                "padding": "4",
+                "padding": "4px 40px",
               },
               "connected": Object {
                 "_hover": Object {
@@ -40,13 +39,12 @@ describe('theme', () => {
                   "color": "white",
                 },
                 "background": "background.alternative",
-                "borderColor": "background.alternative",
                 "borderRadius": "36px",
                 "color": "text.alternative",
                 "fontSize": "sm",
                 "fontWeight": "500",
                 "lineHeight": "157%",
-                "padding": "4",
+                "padding": "4px 40px",
               },
               "filter": Object {
                 "_hover": Object {

@@ -88,8 +88,7 @@ export const Button = defineStyleConfig({
       fontWeight: '500',
       lineHeight: '157%',
       color: 'white',
-      borderColor: 'info.default',
-      padding: '4',
+      padding: '4px 40px',
     }),
 
     connected: defineStyle({
@@ -99,8 +98,7 @@ export const Button = defineStyleConfig({
       fontWeight: '500',
       lineHeight: '157%',
       color: 'text.alternative',
-      borderColor: 'background.alternative',
-      padding: '4',
+      padding: '4px 40px',
       _hover: {
         background: 'info.default',
         color: 'white',

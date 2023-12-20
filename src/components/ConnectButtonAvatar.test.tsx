@@ -4,33 +4,19 @@ import { render } from '../utils/test-utils';
 describe('ConnectButtonAvatar', () => {
   describe('when props `isConnected` is false', () => {
     it('renders `MetaMaskIcon`', () => {
-      const { getByTestId } = render(
-        <ConnectButtonAvatar isConnected={false} isFallback={false} />,
+      const { queryByTestId } = render(
+        <ConnectButtonAvatar isConnected={false} />,
       );
 
-      expect(getByTestId('connect-btn-avatar')).toBeInTheDocument();
+      expect(queryByTestId('connect-btn-avatar')).toBeInTheDocument();
     });
   });
 
   describe('when props `isConnected` is true', () => {
-    describe('when props `isFallback` is false', () => {
-      it('renders null', () => {
-        const { container } = render(
-          <ConnectButtonAvatar isConnected={true} isFallback={false} />,
-        );
+    it('renders null', () => {
+      const { container } = render(<ConnectButtonAvatar isConnected={true} />);
 
-        expect(container.querySelector('svg')).not.toBeInTheDocument();
-      });
-    });
-
-    describe('when props `isFallback` is true', () => {
-      it('renders null', () => {
-        const { container } = render(
-          <ConnectButtonAvatar isConnected={true} isFallback={true} />,
-        );
-
-        expect(container.querySelector('svg')).not.toBeInTheDocument();
-      });
+      expect(container.querySelector('svg')).not.toBeInTheDocument();
     });
   });
 });
