@@ -14,6 +14,7 @@ import BaseFilterIcon from './filter.svg';
 import { wrapIcon } from './Icon';
 import BaseInteroperabilityIcon from './interoperability.svg';
 import BaseLightModeIcon from './light-mode.svg';
+import BaseLiveIcon from './live.svg';
 import BaseMetaMaskIcon from './metamask.svg';
 import BaseNotificationsIcon from './notifications.svg';
 import BaseReviewerIcon from './reviewer.svg';
@@ -57,6 +58,8 @@ export const LightModeIcon = wrapIcon(
   BaseLightModeIcon,
   defineMessage`Enable light mode`,
 );
+
+export const LiveIcon = wrapIcon(BaseLiveIcon, defineMessage`Live`);
 
 export const MetaMaskIcon = wrapIcon(BaseMetaMaskIcon, defineMessage`MetaMask`);
 
