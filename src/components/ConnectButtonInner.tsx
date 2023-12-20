@@ -23,7 +23,7 @@ export const ConnectButtonInner: FunctionComponent<ConnectButtonInnerProps> = ({
       leftIcon={
         <ConnectButtonAvatar isConnected={isConnected} isFallback={!ensName} />
       }
-      iconSpacing="2"
+      iconSpacing={isConnected ? '0' : '2'} // TODO: Add Space for Avatar Icon if Avatar Icon is ready
       onClick={handleOnClick}
       width={isConnected ? '55%' : '50%'}
     >

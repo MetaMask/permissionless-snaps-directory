@@ -1,6 +1,6 @@
 import type { FunctionComponent } from 'react';
 
-import { MetaMaskIcon, AvatarIcon, AvatarFallbackIcon } from './icons';
+import { MetaMaskIcon } from './icons';
 
 export type ConnectButtonAvatarProps = {
   isConnected: boolean;
@@ -12,18 +12,12 @@ export const ConnectButtonAvatar: FunctionComponent<
 > = ({ isConnected, isFallback }) => {
   const width = { base: '0', sm: '1.3rem' };
 
+  // TODO: Add Avatar Icon if Avatar Icon is ready
   if (isConnected) {
     if (isFallback) {
-      return (
-        <AvatarFallbackIcon
-          width={width}
-          data-testid="connect-btn-avatar-connected-fallabck"
-        />
-      );
+      return null;
     }
-    return (
-      <AvatarIcon width={width} data-testid="connect-btn-avatar-connected" />
-    );
+    return null;
   }
   return <MetaMaskIcon width={width} data-testid="connect-btn-avatar" />;
 };

@@ -14,24 +14,22 @@ describe('ConnectButtonAvatar', () => {
 
   describe('when props `isConnected` is true', () => {
     describe('when props `isFallback` is false', () => {
-      it('renders `AvatarIcon`', () => {
-        const { getByTestId } = render(
+      it('renders null', () => {
+        const { container } = render(
           <ConnectButtonAvatar isConnected={true} isFallback={false} />,
         );
 
-        expect(getByTestId('connect-btn-avatar-connected')).toBeInTheDocument();
+        expect(container.querySelector('svg')).not.toBeInTheDocument();
       });
     });
 
     describe('when props `isFallback` is true', () => {
-      it('renders `AvatarFallbackIcon`', () => {
-        const { getByTestId } = render(
+      it('renders null', () => {
+        const { container } = render(
           <ConnectButtonAvatar isConnected={true} isFallback={true} />,
         );
 
-        expect(
-          getByTestId('connect-btn-avatar-connected-fallabck'),
-        ).toBeInTheDocument();
+        expect(container.querySelector('svg')).not.toBeInTheDocument();
       });
     });
   });
