@@ -1,7 +1,5 @@
 import { defineMessage } from '@lingui/macro';
 
-import BaseAvatarFallbackIcon from './avatar-fallback.svg';
-import BaseAvatarIcon from './avatar.svg';
 import BaseBackIcon from './back.svg';
 import BaseCheckThinIcon from './check-thin.svg';
 import BaseCheckIcon from './check.svg';
@@ -79,13 +77,6 @@ export const SnapIcon = wrapIcon(BaseSnapIcon, defineMessage`Snap`);
 export const TransactionInsightsIcon = wrapIcon(
   BaseTransactionInsightsIcon,
   defineMessage`Security`,
-);
-
-export const AvatarIcon = wrapIcon(BaseAvatarIcon, defineMessage`MetaMask`);
-
-export const AvatarFallbackIcon = wrapIcon(
-  BaseAvatarFallbackIcon,
-  defineMessage`MetaMask`,
 );
 
 export type { IconProps } from './Icon';
