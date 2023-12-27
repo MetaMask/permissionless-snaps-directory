@@ -59,6 +59,11 @@ msgstr ""
 msgid "Audit"
 msgstr ""
 
+#: src/components/icons/index.ts
+#: src/features/account/components/AccountRoleTags.tsx
+msgid "Auditor"
+msgstr ""
+
 #: src/components/InstallUnsupportedMobile.tsx
 msgid "Available on desktop"
 msgstr ""
@@ -137,6 +142,8 @@ msgstr ""
 msgid "Developed Snaps"
 msgstr ""
 
+#: src/components/icons/index.ts
+#: src/features/account/components/AccountRoleTags.tsx
 #: src/features/snap/components/MetadataItems.tsx
 msgid "Developer"
 msgstr ""
@@ -372,6 +379,11 @@ msgstr ""
 
 #: src/pages/explore.tsx
 msgid "Results for \"{searchQuery}\""
+msgstr ""
+
+#: src/components/icons/index.ts
+#: src/features/account/components/AccountRoleTags.tsx
+msgid "Reviewer"
 msgstr ""
 
 #: src/features/account/AccountProfileTabs.tsx
