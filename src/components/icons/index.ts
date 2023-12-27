@@ -17,6 +17,8 @@ import BaseMetaMaskIcon from './metamask.svg';
 import BaseNotificationsIcon from './notifications.svg';
 import BaseSearchIcon from './search.svg';
 import BaseSnapIcon from './snap.svg';
+import BaseStarFilledIcon from './star-filled.svg';
+import BaseStarIcon from './star.svg';
 import BaseTransactionInsightsIcon from './transaction-insights.svg';
 
 export const BackIcon = wrapIcon(BaseBackIcon, defineMessage`Back`);
@@ -78,5 +80,12 @@ export const TransactionInsightsIcon = wrapIcon(
   BaseTransactionInsightsIcon,
   defineMessage`Security`,
 );
+
+export const StarFilledIcon = wrapIcon(
+  BaseStarFilledIcon,
+  defineMessage`MetaMask`,
+);
+
+export const StarIcon = wrapIcon(BaseStarIcon, defineMessage`MetaMask`);
 
 export type { IconProps } from './Icon';
