@@ -10,7 +10,7 @@ import {
 } from './snaps';
 import { getRequestMethodMock } from './test-utils';
 
-describe('hasSnapsSupport', () => {
+describe('trimText', () => {
   it('returns `true` if the provider supports Snaps', async () => {
     const provider = getRequestMethodMock({
       // eslint-disable-next-line @typescript-eslint/naming-convention
