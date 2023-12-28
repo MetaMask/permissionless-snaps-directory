@@ -116,6 +116,10 @@ msgstr ""
 msgid "Desktop only"
 msgstr ""
 
+#: src/features/account/AccountProfileTabs.tsx
+msgid "Developed Snaps"
+msgstr ""
+
 #: src/features/snap/components/MetadataItems.tsx
 msgid "Developer"
 msgstr ""
@@ -337,6 +341,10 @@ msgstr ""
 msgid "Results for \"{searchQuery}\""
 msgstr ""
 
+#: src/features/account/AccountProfileTabs.tsx
+msgid "Reviews"
+msgstr ""
+
 #: src/components/icons/index.ts
 msgid "Search"
 msgstr ""
@@ -348,6 +356,10 @@ msgstr ""
 #: src/components/icons/index.ts
 #: src/constants.ts
 msgid "Security"
+msgstr ""
+
+#: src/features/account/AccountProfileTabs.tsx
+msgid "Security Reports"
 msgstr ""
 
 #: src/constants.ts
@@ -413,6 +425,10 @@ msgstr ""
 
 #: src/components/ColorModeToggle.tsx
 msgid "Toggle color mode"
+msgstr ""
+
+#: src/features/account/AccountProfileTabs.tsx
+msgid "Trusted Circle"
 msgstr ""
 
 #: src/components/icons/index.ts
