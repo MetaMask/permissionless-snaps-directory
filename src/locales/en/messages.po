@@ -29,8 +29,12 @@ msgstr ""
 msgid "About"
 msgstr ""
 
+#: src/pages/account/[address].tsx
+msgid "Account Profile"
+msgstr ""
+
 #: src/features/account/MoreOptionMenu.tsx
-msgid "Access obilities"
+msgid "Access abilities"
 msgstr ""
 
 #: src/components/InstallSnapButton.tsx
@@ -165,6 +169,10 @@ msgstr ""
 msgid "Discover Snaps"
 msgstr ""
 
+#: src/pages/account/[address].tsx
+msgid "Discover the MetaMask Snaps Directory Account Profile page."
+msgstr ""
+
 #: src/features/banner/components/create-snap-banner/CreateSnapBanner.tsx
 msgid "Documentation"
 msgstr ""
@@ -175,6 +183,10 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Dropdown"
+msgstr ""
+
+#: src/pages/account/[address].tsx
+msgid "Edit Profile"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -314,6 +326,10 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "MetaMask"
+msgstr ""
+
+#: src/pages/account/[address].tsx
+msgid "MetaMask Snaps Directory - Account Profile"
 msgstr ""
 
 #: src/components/InstallUnsupportedMobile.tsx
