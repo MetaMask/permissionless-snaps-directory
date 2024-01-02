@@ -1,5 +1,6 @@
-import { HStack } from '@chakra-ui/react';
-import type { FunctionComponent } from 'react';
+import { HStack, useColorMode } from '@chakra-ui/react';
+import { useMemo } from 'react';
+import type { ReactElement, FunctionComponent } from 'react';
 
 import { StarFilledIcon, StarIcon } from '.';
 
@@ -12,18 +13,29 @@ export const Rating: FunctionComponent<RatingProps> = ({
   rate,
   maxRate = 5,
 }) => {
-  const _rate = rate > maxRate ? maxRate : rate;
-  const filledStar = new Array(_rate).fill(0);
-  const emptyStar = new Array(maxRate - _rate).fill(0);
+  const { colorMode } = useColorMode();
 
-  return (
-    <HStack justifyContent="center">
-      {filledStar.map((_, idx) => (
-        <StarFilledIcon key={idx} data-testid={`filled-${idx}`} />
-      ))}
-      {emptyStar.map((_, idx) => (
-        <StarIcon key={idx} data-testid={`empty-${idx}`} />
-      ))}
-    </HStack>
-  );
+  const star: ReactElement[] = useMemo(() => {
+    const _star: ReactElement[] = [];
+    for (let i = 0; i < maxRate; i++) {
+      _star.push(
+        i < rate ? (
+          <StarFilledIcon
+            key={i}
+            data-testid={`filled-${i}`}
+            fill={colorMode === 'light' ? '#6A737D' : '#BBC0C5'}
+          />
+        ) : (
+          <StarIcon
+            key={i}
+            data-testid={`empty-${i}`}
+            fill={colorMode === 'light' ? '#BBC0C5' : '#6A737D'}
+          />
+        ),
+      );
+    }
+    return _star;
+  }, [maxRate, rate, colorMode]);
+
+  return <HStack justifyContent="center">{star}</HStack>;
 };
