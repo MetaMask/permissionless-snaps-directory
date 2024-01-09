@@ -1,4 +1,4 @@
-## What does this PR do?
+## Description
 
 ### Related ticket
 
