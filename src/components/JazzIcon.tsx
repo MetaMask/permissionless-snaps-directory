@@ -26,7 +26,7 @@ export const JazzIcon: FunctionComponent<JazzIconProps> = ({
     <Box
       data-testid="jazzicon"
       ref={ref as React.MutableRefObject<HTMLDivElement>}
-      sx={{ div: { borderRadius: `50% !important` } }}
+      sx={{ div: { borderRadius: `${size}px!important` } }}
     />
   );
 };
