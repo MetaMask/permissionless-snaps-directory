@@ -14,10 +14,13 @@ import BaseInteroperabilityIcon from './interoperability.svg';
 import BaseLightModeIcon from './light-mode.svg';
 import BaseLiveIcon from './live.svg';
 import BaseMetaMaskIcon from './metamask.svg';
+import BaseMoreVerticalOutlineIcon from './more-vertical-outline.svg';
 import BaseNotificationsIcon from './notifications.svg';
 import BaseSearchIcon from './search.svg';
+import BaseShareIcon from './share.svg';
 import BaseSnapIcon from './snap.svg';
 import BaseTransactionInsightsIcon from './transaction-insights.svg';
+import BaseUserCircleAddFillIcon from './user-cirlce-add-filled.svg';
 
 export const BackIcon = wrapIcon(BaseBackIcon, defineMessage`Back`);
 
@@ -72,11 +75,22 @@ export const NotificationsCategoryIcon = wrapIcon(
 
 export const SearchIcon = wrapIcon(BaseSearchIcon, defineMessage`Search`);
 
+export const ShareIcon = wrapIcon(BaseShareIcon, defineMessage`Share`);
 export const SnapIcon = wrapIcon(BaseSnapIcon, defineMessage`Snap`);
 
 export const TransactionInsightsIcon = wrapIcon(
   BaseTransactionInsightsIcon,
   defineMessage`Security`,
+);
+
+export const MoreOptionIcon = wrapIcon(
+  BaseMoreVerticalOutlineIcon,
+  defineMessage`More Options`,
+);
+
+export const UserCircleAddIcon = wrapIcon(
+  BaseUserCircleAddFillIcon,
+  defineMessage`Add to my circle`,
 );
 
 export type { IconProps } from './Icon';

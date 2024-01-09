@@ -34,6 +34,11 @@ msgstr ""
 msgid "Add to MetaMask"
 msgstr ""
 
+#: src/components/icons/index.ts
+#: src/components/MoreOptionMenu.tsx
+msgid "Add to my circle"
+msgstr "Add to my circle"
+
 #: src/features/snaps/components/NoSnaps.tsx
 msgid "Adjust your search or display all available Snaps by clicking below."
 msgstr ""
@@ -108,6 +113,10 @@ msgstr ""
 msgid "Continue to <0>{name}</0>'s website to get started with this snap."
 msgstr ""
 
+#: src/components/MoreOptionMenu.tsx
+msgid "Copy profile link"
+msgstr "Copy profile link"
+
 #: src/features/banner/components/create-snap-banner/CreateSnapBanner.tsx
 msgid "Create your own Snap"
 msgstr ""
@@ -160,6 +169,10 @@ msgstr ""
 #: src/components/icons/index.ts
 msgid "Enable light mode"
 msgstr ""
+
+#: src/components/MoreOptionMenu.tsx
+msgid "Etherscan"
+msgstr "Etherscan"
 
 #: src/pages/index.tsx
 msgid "Explore All Snaps"
@@ -288,6 +301,10 @@ msgstr ""
 msgid "MetaMask Snaps is in open beta and only supported via our extension clients on desktop such as <0>Brave</0>, <1>Chrome</1>, or <2>Firefox</2>."
 msgstr ""
 
+#: src/components/icons/index.ts
+msgid "More Options"
+msgstr "More Options"
+
 #: src/pages/index.tsx
 msgid "Most Popular"
 msgstr ""
@@ -376,6 +393,10 @@ msgstr ""
 #: src/pages/index.tsx
 msgid "See Latest"
 msgstr ""
+
+#: src/components/icons/index.ts
+msgid "Share"
+msgstr "Share"
 
 #: src/components/icons/index.ts
 msgid "Snap"
