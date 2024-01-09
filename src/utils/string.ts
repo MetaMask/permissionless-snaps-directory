@@ -38,7 +38,7 @@ export function trimTextByHeadTail(
     return content;
   }
 
-  const _content = content.trim();
+  const trimmedContent = content.trim();
 
   // Handle sepcial characters
   const contentArr = [..._content];
