@@ -5,9 +5,9 @@ import type { FunctionComponent } from 'react';
 import { AuditorIcon, DeveloperIcon, ReviewerIcon } from '../../../components';
 
 export enum AccountRole {
-  DEVELOPER = 'developer',
-  AUDITOR = 'auditor',
-  REVIEWER = 'reviewer',
+  Developer = 'developer',
+  Auditor = 'auditor',
+  Reviewer = 'reviewer',
 }
 
 export type AccountRoleTagProps = {
@@ -24,7 +24,7 @@ export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
     <HStack spacing={2} alignItems="center">
       {roleArr.map((role, i) => {
         switch (role) {
-          case AccountRole.DEVELOPER:
+          case AccountRole.Developer:
             return (
               <Tag
                 key={i}
@@ -40,7 +40,7 @@ export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
                 </TagLabel>
               </Tag>
             );
-          case AccountRole.AUDITOR:
+          case AccountRole.Auditor:
             return (
               <Tag
                 key={i}
@@ -56,7 +56,7 @@ export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
                 </TagLabel>
               </Tag>
             );
-          case AccountRole.REVIEWER:
+          case AccountRole.Reviewer:
             return (
               <Tag
                 key={i}
