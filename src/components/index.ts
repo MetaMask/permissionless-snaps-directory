@@ -15,3 +15,4 @@ export * from './PostInstallModal';
 export * from './SnapAvatar';
 export * from './SnapsProvider';
 export * from './SnapWebsiteButton';
+export * from './JazzIcon';
