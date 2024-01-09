@@ -12,7 +12,7 @@ export const JazzIcon: FunctionComponent<JazzIconProps> = ({
   size,
 }) => {
   const ref = useRef<HTMLDivElement>();
-  const addr = address.trim().slice(2, 10);
+  const trimmedAddress = address.trim().slice(2, 10);
   const seed = parseInt(addr, 16);
 
   useEffect(() => {
