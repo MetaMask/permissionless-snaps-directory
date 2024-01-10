@@ -11,7 +11,7 @@ export const JazzIcon: FunctionComponent<JazzIconProps> = ({
   address,
   size,
 }) => {
-  const ref = useRef<HTMLDivElement>();
+  const ref = useRef<HTMLDivElement>(null);
   const addr = address.trim().slice(2, 10);
   const seed = parseInt(addr, 16);
 
@@ -25,7 +25,7 @@ export const JazzIcon: FunctionComponent<JazzIconProps> = ({
   return (
     <Box
       data-testid="jazzicon"
-      ref={ref as React.MutableRefObject<HTMLDivElement>}
+      ref={ref}
       sx={{ div: { borderRadius: `50%!important` } }}
     />
   );
