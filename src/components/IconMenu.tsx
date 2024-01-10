@@ -1,10 +1,10 @@
 import type { MenuProps } from '@chakra-ui/react';
 import { IconButton, Menu, MenuButton, MenuList } from '@chakra-ui/react';
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, ReactNode } from 'react';
 
 export type ItemMenuProps = MenuProps & {
   iconButtonVariant?: 'outline' | 'ghost' | 'solid' | 'link' | 'unstyled';
-  icon: ReactNode;
+  icon: JSX.Element;
   children?: ReactNode;
 };
 
