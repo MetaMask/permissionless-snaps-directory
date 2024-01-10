@@ -20,7 +20,7 @@ export const MoreOptionMenu: FunctionComponent = () => {
       <MenuItemCard
         icon={<WarningFilledIcon />}
         label={t`Report user`}
-        textColor="error"
+        textColor="red"
       />
     </IconMenu>
   );

@@ -338,6 +338,9 @@ describe('theme', () => {
               "muted": Object {
                 "color": "text.muted",
               },
+              "red": Object {
+                "color": "error.default",
+              },
             },
           },
         },
