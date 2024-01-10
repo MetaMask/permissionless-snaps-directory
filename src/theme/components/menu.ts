@@ -28,4 +28,20 @@ export const Menu = defineMultiStyleConfig({
       marginBottom: '1',
     },
   }),
+  variants: {
+    'icon-menu': {
+      list: {
+        background: 'background.alternative',
+        _hover: {
+          background: 'background.alternative-hover',
+        },
+      },
+      item: {
+        background: 'background.default',
+        _hover: {
+          background: 'background.default-hover',
+        },
+      },
+    },
+  },
 });

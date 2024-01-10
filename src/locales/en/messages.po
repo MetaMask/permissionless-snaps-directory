@@ -35,9 +35,9 @@ msgid "Add to MetaMask"
 msgstr ""
 
 #: src/components/icons/index.ts
-#: src/components/MoreOptionMenu.tsx
+#: src/features/account/MoreOptionMenu.tsx
 msgid "Add to my circle"
-msgstr "Add to my circle"
+msgstr ""
 
 #: src/features/snaps/components/NoSnaps.tsx
 msgid "Adjust your search or display all available Snaps by clicking below."
@@ -113,9 +113,9 @@ msgstr ""
 msgid "Continue to <0>{name}</0>'s website to get started with this snap."
 msgstr ""
 
-#: src/components/MoreOptionMenu.tsx
+#: src/features/account/MoreOptionMenu.tsx
 msgid "Copy profile link"
-msgstr "Copy profile link"
+msgstr ""
 
 #: src/features/banner/components/create-snap-banner/CreateSnapBanner.tsx
 msgid "Create your own Snap"
@@ -170,9 +170,9 @@ msgstr ""
 msgid "Enable light mode"
 msgstr ""
 
-#: src/components/MoreOptionMenu.tsx
+#: src/features/account/MoreOptionMenu.tsx
 msgid "Etherscan"
-msgstr "Etherscan"
+msgstr ""
 
 #: src/pages/index.tsx
 msgid "Explore All Snaps"
@@ -188,6 +188,10 @@ msgstr ""
 
 #: src/components/Banner.tsx
 msgid "Explore, install, and use community-built features in MetaMask. <0>Learn more</0> and <1>FAQ</1>."
+msgstr ""
+
+#: src/components/icons/index.ts
+msgid "Export"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -303,7 +307,7 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "More Options"
-msgstr "More Options"
+msgstr ""
 
 #: src/pages/index.tsx
 msgid "Most Popular"
@@ -354,6 +358,10 @@ msgstr ""
 msgid "Related Snaps"
 msgstr ""
 
+#: src/features/account/MoreOptionMenu.tsx
+msgid "Report user"
+msgstr ""
+
 #: src/pages/explore.tsx
 msgid "Results for \"{searchQuery}\""
 msgstr ""
@@ -396,7 +404,7 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Share"
-msgstr "Share"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Snap"
@@ -474,6 +482,10 @@ msgstr ""
 
 #: src/features/snaps/components/SnapCard.tsx
 msgid "View"
+msgstr ""
+
+#: src/components/icons/index.ts
+msgid "Warning"
 msgstr ""
 
 #: src/components/FooterLinks.tsx

@@ -201,6 +201,22 @@ describe('theme', () => {
               "command",
               "divider",
             ],
+            "variants": Object {
+              "icon-menu": Object {
+                "item": Object {
+                  "_hover": Object {
+                    "background": "background.default-hover",
+                  },
+                  "background": "background.default",
+                },
+                "list": Object {
+                  "_hover": Object {
+                    "background": "background.alternative-hover",
+                  },
+                  "background": "background.alternative",
+                },
+              },
+            },
           },
           "Modal": Object {
             "baseStyle": Object {

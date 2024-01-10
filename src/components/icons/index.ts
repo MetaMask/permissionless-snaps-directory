@@ -7,6 +7,7 @@ import BaseCloseIcon from './close.svg';
 import BaseDarkModeIcon from './dark-mode.svg';
 import BaseDotIcon from './dot.svg';
 import BaseDropdownIcon from './dropdown.svg';
+import BaseExportOutlineIcon from './export-outline.svg';
 import BaseExternalLinkIcon from './external-link.svg';
 import BaseFilterIcon from './filter.svg';
 import { wrapIcon } from './Icon';
@@ -21,6 +22,7 @@ import BaseShareIcon from './share.svg';
 import BaseSnapIcon from './snap.svg';
 import BaseTransactionInsightsIcon from './transaction-insights.svg';
 import BaseUserCircleAddFillIcon from './user-cirlce-add-filled.svg';
+import BaseWarningFilledIcon from './warning-filled.svg';
 
 export const BackIcon = wrapIcon(BaseBackIcon, defineMessage`Back`);
 
@@ -45,6 +47,11 @@ export const DropdownIcon = wrapIcon(BaseDropdownIcon, defineMessage`Dropdown`);
 export const ExternalLinkIcon = wrapIcon(
   BaseExternalLinkIcon,
   defineMessage`External link`,
+);
+
+export const ExportOutlineIcon = wrapIcon(
+  BaseExportOutlineIcon,
+  defineMessage`Export`,
 );
 
 export const FilterIcon = wrapIcon(BaseFilterIcon, defineMessage`Filter`);
@@ -91,6 +98,11 @@ export const MoreOptionIcon = wrapIcon(
 export const UserCircleAddIcon = wrapIcon(
   BaseUserCircleAddFillIcon,
   defineMessage`Add to my circle`,
+);
+
+export const WarningFilledIcon = wrapIcon(
+  BaseWarningFilledIcon,
+  defineMessage`Warning`,
 );
 
 export type { IconProps } from './Icon';

@@ -6,8 +6,8 @@ import type { FunctionComponent } from 'react';
 import { ColorModeToggle } from './ColorModeToggle';
 import { ConnectButton } from './ConnectButton';
 import { Logo } from './Logo';
-import { MoreOptionMenu } from './MoreOptionMenu';
 import { FilterSearch, Notifications } from '../features';
+import { MoreOptionMenu } from '../features/account/MoreOptionMenu';
 
 type HeaderProps = BoxProps;
 
