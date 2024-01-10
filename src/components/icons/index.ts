@@ -70,6 +70,11 @@ export const LiveIcon = wrapIcon(BaseLiveIcon, defineMessage`Live`);
 
 export const MetaMaskIcon = wrapIcon(BaseMetaMaskIcon, defineMessage`MetaMask`);
 
+export const MoreOptionIcon = wrapIcon(
+  BaseMoreVerticalOutlineIcon,
+  defineMessage`More Options`,
+);
+
 export const NotificationsIcon = wrapIcon(
   BaseNotificationsIcon,
   defineMessage`Notifications`,
@@ -88,11 +93,6 @@ export const SnapIcon = wrapIcon(BaseSnapIcon, defineMessage`Snap`);
 export const TransactionInsightsIcon = wrapIcon(
   BaseTransactionInsightsIcon,
   defineMessage`Security`,
-);
-
-export const MoreOptionIcon = wrapIcon(
-  BaseMoreVerticalOutlineIcon,
-  defineMessage`More Options`,
 );
 
 export const UserCircleAddIcon = wrapIcon(
