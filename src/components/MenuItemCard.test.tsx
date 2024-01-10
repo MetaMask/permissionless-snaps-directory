@@ -86,6 +86,56 @@ describe('MenuItemCard', () => {
         </MenuList>
       </Menu>,
     );
-    expect(asFragment()).toMatchInlineSnapshot();
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        <div
+          class="css-r6z5ec"
+          style="visibility: visible; position: absolute; min-width: max-content; inset: 0 auto auto 0;"
+        >
+          <div
+            aria-orientation="vertical"
+            class="chakra-menu__menu-list css-1kfu8nn"
+            id="menu-list-:rd:"
+            role="menu"
+            style="transform-origin: var(--popper-transform-origin); visibility: visible; opacity: 1; transform: none;"
+            tabindex="-1"
+          >
+            <button
+              class="chakra-menu__menuitem css-1qilg0h"
+              data-index="0"
+              id="menu-list-:rd:-menuitem-:re:"
+              role="menuitem"
+              tabindex="-1"
+              type="button"
+            >
+              <div
+                class="css-ive15a"
+              >
+                <div
+                  class="chakra-stack css-1uodvt1"
+                >
+                  <p
+                    class="chakra-text css-0"
+                  >
+                    <span>
+                      Icon
+                    </span>
+                  </p>
+                  <p
+                    class="chakra-text css-0"
+                  >
+                    Label
+                  </p>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+        <span
+          hidden=""
+          id="__chakra_env"
+        />
+      </DocumentFragment>
+    `);
   });
 });
