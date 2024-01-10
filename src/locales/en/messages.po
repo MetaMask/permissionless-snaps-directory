@@ -29,17 +29,18 @@ msgstr ""
 msgid "About"
 msgstr ""
 
+#: src/features/account/MoreOptionMenu.tsx
+msgid "Access obilities"
+msgstr ""
+
 #: src/components/InstallSnapButton.tsx
 #: src/components/InstallUnsupported.tsx
 msgid "Add to MetaMask"
 msgstr ""
 
 #: src/components/icons/index.ts
-msgid "Add to my circle"
-msgstr ""
-
 #: src/features/account/MoreOptionMenu.tsx
-msgid "Add user"
+msgid "Add to my circle"
 msgstr ""
 
 #: src/features/snaps/components/NoSnaps.tsx
@@ -114,6 +115,10 @@ msgstr ""
 
 #: src/components/PostInstallModal.tsx
 msgid "Continue to <0>{name}</0>'s website to get started with this snap."
+msgstr ""
+
+#: src/features/account/MoreOptionMenu.tsx
+msgid "Copy profile link"
 msgstr ""
 
 #: src/features/banner/components/create-snap-banner/CreateSnapBanner.tsx
@@ -402,7 +407,6 @@ msgid "See Latest"
 msgstr ""
 
 #: src/components/icons/index.ts
-#: src/features/account/MoreOptionMenu.tsx
 msgid "Share"
 msgstr ""
 
@@ -470,6 +474,10 @@ msgstr ""
 
 #: src/constants.ts
 msgid "Use MetaMask Beyond Ethereum"
+msgstr ""
+
+#: src/components/icons/index.ts
+msgid "User check"
 msgstr ""
 
 #: src/features/snap/components/MetadataModal.tsx

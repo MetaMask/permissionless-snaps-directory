@@ -335,6 +335,9 @@ describe('theme', () => {
               "lineHeight": "base",
             },
             "variants": Object {
+              "blue": Object {
+                "color": "info.default",
+              },
               "muted": Object {
                 "color": "text.muted",
               },

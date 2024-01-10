@@ -13,5 +13,8 @@ export const Text = defineStyleConfig({
     red: {
       color: 'error.default',
     },
+    blue: {
+      color: 'info.default',
+    },
   },
 });

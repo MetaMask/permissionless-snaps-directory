@@ -6,7 +6,7 @@ import { Card } from './Card';
 export type MenuCardProps = {
   icon: JSX.Element;
   label: string;
-  textColor?: 'default' | 'red';
+  textColor?: 'default' | 'red' | 'blue';
   onClick?: () => void;
 };
 
