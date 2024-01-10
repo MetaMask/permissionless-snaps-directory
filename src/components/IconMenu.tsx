@@ -4,7 +4,7 @@ import type { FunctionComponent } from 'react';
 
 export type ItemMenuProps = MenuProps & {
   iconButtonVariant?: 'outline' | 'ghost' | 'solid' | 'link' | 'unstyled';
-  icon: JSX.Element;
+  icon: ReactNode;
   children?: ReactNode;
 };
 
