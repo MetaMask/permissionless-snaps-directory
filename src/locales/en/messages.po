@@ -35,8 +35,11 @@ msgid "Add to MetaMask"
 msgstr ""
 
 #: src/components/icons/index.ts
-#: src/features/account/MoreOptionMenu.tsx
 msgid "Add to my circle"
+msgstr ""
+
+#: src/features/account/MoreOptionMenu.tsx
+msgid "Add user"
 msgstr ""
 
 #: src/features/snaps/components/NoSnaps.tsx
@@ -111,10 +114,6 @@ msgstr ""
 
 #: src/components/PostInstallModal.tsx
 msgid "Continue to <0>{name}</0>'s website to get started with this snap."
-msgstr ""
-
-#: src/features/account/MoreOptionMenu.tsx
-msgid "Copy profile link"
 msgstr ""
 
 #: src/features/banner/components/create-snap-banner/CreateSnapBanner.tsx
@@ -403,6 +402,7 @@ msgid "See Latest"
 msgstr ""
 
 #: src/components/icons/index.ts
+#: src/features/account/MoreOptionMenu.tsx
 msgid "Share"
 msgstr ""
 

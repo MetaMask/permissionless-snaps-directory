@@ -14,8 +14,8 @@ import { MenuItemCard } from '../../components/MenuItemCard';
 export const MoreOptionMenu: FunctionComponent = () => {
   return (
     <IconMenu icon={<MoreOptionIcon />}>
-      <MenuItemCard icon={<UserCircleAddIcon />} label={t`Add to my circle`} />
-      <MenuItemCard icon={<ShareIcon />} label={t`Copy profile link`} />
+      <MenuItemCard icon={<UserCircleAddIcon />} label={t`Add user`} />
+      <MenuItemCard icon={<ShareIcon />} label={t`Share`} />
       <MenuItemCard icon={<ExportOutlineIcon />} label={t`Etherscan`} />
       <MenuItemCard
         icon={<WarningFilledIcon />}
