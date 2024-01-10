@@ -34,7 +34,7 @@ export const AccountProfileTabs: FunctionComponent = () => {
         </Tab>
       </TabList>
 
-      <TabIndicator mt="-1.5px" height="2px" bg="text.default" />
+      <TabIndicator mt="-0.375rem" height="0.5rem" bg="text.default" />
 
       <TabPanels>
         <TabPanel>

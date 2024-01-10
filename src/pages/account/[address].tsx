@@ -1,5 +1,6 @@
 import { Container, Divider, VStack, Box, Link } from '@chakra-ui/react';
 import { Trans, t } from '@lingui/macro';
+import type { Hex } from '@metamask/utils';
 import { graphql, Link as GatsbyLink, withPrefix } from 'gatsby';
 import type { FunctionComponent } from 'react';
 import { getAddress } from 'viem';
@@ -15,7 +16,7 @@ import NotFound from '../404';
 
 type AccountPageProps = {
   params: {
-    address: string;
+    address: Hex;
   };
 };
 

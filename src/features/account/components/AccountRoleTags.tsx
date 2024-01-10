@@ -5,9 +5,9 @@ import type { FunctionComponent } from 'react';
 import { AuditorIcon, DeveloperIcon, ReviewerIcon } from '../../../components';
 
 export enum AccountRole {
-  DEVELOPER = 'developer',
-  AUDITOR = 'auditor',
-  REVIEWER = 'reviewer',
+  Developer = 'developer',
+  Auditor = 'auditor',
+  Reviewer = 'reviewer',
 }
 
 export type AccountRoleTagProps = {
@@ -21,53 +21,53 @@ export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
   const roleArr = Array.from(roleset);
 
   return (
-    <HStack spacing={2} alignItems="center">
+    <HStack spacing="2" alignItems="center">
       {roleArr.map((role, i) => {
         switch (role) {
-          case AccountRole.DEVELOPER:
+          case AccountRole.Developer:
             return (
               <Tag
                 key={i}
-                size={'lg'}
-                variant={'solid'}
-                bg={'#FFDC5B40'}
-                borderRadius={'full'}
+                size="lg"
+                variant="solid"
+                bg="#FFDC5B40"
+                borderRadius="full"
                 data-testid="account-role-developer"
               >
-                <TagLeftIcon boxSize={'16px'} as={DeveloperIcon} />
-                <TagLabel color={'#FFC700'}>
+                <TagLeftIcon boxSize="16px" as={DeveloperIcon} />
+                <TagLabel color="#FFC700">
                   <Trans>Developer</Trans>
                 </TagLabel>
               </Tag>
             );
-          case AccountRole.AUDITOR:
+          case AccountRole.Auditor:
             return (
               <Tag
                 key={i}
-                size={'lg'}
-                variant={'solid'}
-                bg={'#72398E40'}
-                borderRadius={'full'}
+                size="lg"
+                variant="solid"
+                bg="#72398E40"
+                borderRadius="full"
                 data-testid="account-role-auditor"
               >
-                <TagLeftIcon boxSize={'16px'} as={AuditorIcon} />
-                <TagLabel color={'#AE00FF'}>
+                <TagLeftIcon boxSize="16px" as={AuditorIcon} />
+                <TagLabel color="#AE00FF">
                   <Trans>Auditor</Trans>
                 </TagLabel>
               </Tag>
             );
-          case AccountRole.REVIEWER:
+          case AccountRole.Reviewer:
             return (
               <Tag
                 key={i}
-                size={'lg'}
-                variant={'solid'}
-                bg={'#42FF3240'}
-                borderRadius={'full'}
+                size="lg"
+                variant="solid"
+                bg="#42FF3240"
+                borderRadius="full"
                 data-testid="account-role-reviewer"
               >
-                <TagLeftIcon boxSize={'16px'} as={ReviewerIcon} />
-                <TagLabel color={'#0FB900'}>
+                <TagLeftIcon boxSize="16px" as={ReviewerIcon} />
+                <TagLabel color="#0FB900">
                   <Trans>Reviewer</Trans>
                 </TagLabel>
               </Tag>

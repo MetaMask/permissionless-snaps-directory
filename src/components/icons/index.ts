@@ -28,6 +28,8 @@ import BaseUserCheckIcon from './user-check.svg';
 import BaseUserCircleAddFillIcon from './user-cirlce-add-filled.svg';
 import BaseWarningFilledIcon from './warning-filled.svg';
 
+export const AuditorIcon = wrapIcon(BaseAuditorIcon, defineMessage`Auditor`);
+
 export const BackIcon = wrapIcon(BaseBackIcon, defineMessage`Back`);
 
 export const CloseIcon = wrapIcon(BaseCloseIcon, defineMessage`Close`);
@@ -39,6 +41,11 @@ export const CheckThinIcon = wrapIcon(BaseCheckThinIcon, defineMessage`Check`);
 export const DarkModeIcon = wrapIcon(
   BaseDarkModeIcon,
   defineMessage`Enable dark mode`,
+);
+
+export const DeveloperIcon = wrapIcon(
+  BaseDeveloperIcon,
+  defineMessage`Developer`,
 );
 
 export const DotIcon = wrapIcon(
@@ -89,6 +96,8 @@ export const NotificationsCategoryIcon = wrapIcon(
   defineMessage`Communication`,
 );
 
+export const ReviewerIcon = wrapIcon(BaseReviewerIcon, defineMessage`Reviewer`);
+
 export const SearchIcon = wrapIcon(BaseSearchIcon, defineMessage`Search`);
 
 export const ShareIcon = wrapIcon(BaseShareIcon, defineMessage`Share`);
@@ -112,15 +121,6 @@ export const UserCircleAddIcon = wrapIcon(
 export const WarningFilledIcon = wrapIcon(
   BaseWarningFilledIcon,
   defineMessage`Warning`,
-);
-
-export const AuditorIcon = wrapIcon(BaseAuditorIcon, defineMessage`Auditor`);
-
-export const ReviewerIcon = wrapIcon(BaseReviewerIcon, defineMessage`Reviewer`);
-
-export const DeveloperIcon = wrapIcon(
-  BaseDeveloperIcon,
-  defineMessage`Developer`,
 );
 
 export type { IconProps } from './Icon';

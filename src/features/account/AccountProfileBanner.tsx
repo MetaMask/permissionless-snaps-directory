@@ -14,5 +14,5 @@ export const AccountProfileBanner = () => (
       'linear-gradient(93deg, rgba(221, 221, 221, 0.50) 0%, rgba(242, 242, 242, 0.50) 26.04%, rgba(220, 220, 220, 0.50) 55.79%, rgba(175, 175, 175, 0.50) 100%);'
     }
     data-testid="account-profile-banner"
-  ></Box>
+  />
 );

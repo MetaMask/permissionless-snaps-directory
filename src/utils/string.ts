@@ -6,15 +6,11 @@
  * @returns The trimed text.
  */
 export function trimText(content: string, length = 100) {
-  if (!content) {
-    return content;
-  }
+  const trimmedContent = content.trim();
 
-  const _content = content.trim();
-
-  const contentArr = [..._content];
+  const contentArr = [...trimmedContent];
   if (contentArr.length <= length) {
-    return _content;
+    return trimmedContent;
   }
 
   // Handle sepcial characters
@@ -34,16 +30,12 @@ export function trimTextByHeadTail(
   head: number,
   tail: number,
 ) {
-  if (!content) {
-    return content;
-  }
-
-  const _content = content.trim();
+  const trimmedContent = content.trim();
 
   // Handle sepcial characters
-  const contentArr = [..._content];
+  const contentArr = [...trimmedContent];
   if (contentArr.length <= head + tail) {
-    return _content;
+    return trimmedContent;
   }
 
   return `${contentArr.slice(0, head).join('')}...${contentArr

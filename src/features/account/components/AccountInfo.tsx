@@ -1,21 +1,23 @@
 import { CircularProgress, Heading, VStack } from '@chakra-ui/react';
+import type { Hex } from '@metamask/utils';
 import type { FunctionComponent } from 'react';
 import { useEnsName } from 'wagmi';
 
 import { AccountRoleTags, AccountRole } from '.';
-import { JazzIcon } from '../../../components/JazzIcon';
-import { trimAddress } from '../../../utils/string';
+import { JazzIcon } from '../../../components';
+import { trimAddress } from '../../../utils';
 
 export type AccountInfoProps = {
-  address: string;
+  address: Hex;
 };
 
 export const AccountInfo: FunctionComponent<AccountInfoProps> = ({
   address,
 }) => {
   const { data, isLoading } = useEnsName({
-    address: `${address}` as unknown as `0x${string}`,
+    address,
   });
+
   return (
     <VStack spacing="8" data-testid="account-info">
       <JazzIcon address={address} size={130} />
@@ -33,9 +35,9 @@ export const AccountInfo: FunctionComponent<AccountInfoProps> = ({
       </Heading>
       <AccountRoleTags
         roles={[
-          AccountRole.DEVELOPER,
-          AccountRole.REVIEWER,
-          AccountRole.REVIEWER,
+          AccountRole.Developer,
+          AccountRole.Auditor,
+          AccountRole.Reviewer,
         ]}
       />
     </VStack>

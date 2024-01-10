@@ -6,9 +6,9 @@ describe('AccountRoleTags', () => {
     const { queryByTestId } = render(
       <AccountRoleTags
         roles={[
-          AccountRole.AUDITOR,
-          AccountRole.DEVELOPER,
-          AccountRole.REVIEWER,
+          AccountRole.Auditor,
+          AccountRole.Developer,
+          AccountRole.Reviewer,
         ]}
       />,
     );
@@ -20,7 +20,8 @@ describe('AccountRoleTags', () => {
 
   it('does not render account role tags if provided `roles` is not an `AccountRole`', () => {
     const { queryByTestId } = render(
-      <AccountRoleTags roles={['test' as unknown as AccountRole]} />,
+      // @ts-expect-error - Invalid role.
+      <AccountRoleTags roles={['test']} />,
     );
 
     expect(queryByTestId('account-role-developer')).not.toBeInTheDocument();

@@ -47,13 +47,7 @@ describe('Account Profile page', () => {
 
   describe('Head', () => {
     it('has the correct title', () => {
-      const { queryByText } = render(
-        <Head
-          data={{
-            ...getMockSiteMetadata(),
-          }}
-        />,
-      );
+      const { queryByText } = render(<Head data={getMockSiteMetadata()} />);
       expect(
         queryByText('MetaMask Snaps Directory - Account Profile'),
       ).toBeInTheDocument();
