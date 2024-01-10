@@ -4,7 +4,7 @@ import type { FunctionComponent } from 'react';
 import { Card } from './Card';
 
 export type MenuCardProps = {
-  icon: JSX.Element;
+  icon: ReactNode;
   label: string;
   textColor?: 'default' | 'red' | 'blue';
   onClick?: () => void;
