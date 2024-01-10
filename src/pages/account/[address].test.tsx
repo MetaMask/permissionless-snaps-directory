@@ -24,12 +24,12 @@ describe('Account Profile page', () => {
     const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
     mockGetAddress.mockReturnValue(address);
 
-    const { queryByTestId } = render(
-      <AccountProfilePage params={{ address }} />,
-    );
+    const { queryByText } = render(<AccountProfilePage params={{ address }} />);
 
-    expect(queryByTestId('account-profile-not-found')).not.toBeInTheDocument();
-    expect(queryByTestId('account-profile')).toBeInTheDocument();
+    expect(
+      queryByText("The page you're looking for can't be found."),
+    ).not.toBeInTheDocument();
+    expect(queryByText('Edit Profile')).toBeInTheDocument();
   });
 
   it('renders not found page if parameter `address` is incorrect', async () => {
@@ -37,12 +37,14 @@ describe('Account Profile page', () => {
       throw new Error('Incorrect address');
     });
 
-    const { queryByTestId } = render(
-      <AccountProfilePage params={{ address: 'incorrect-address' }} />,
+    const { queryByText } = render(
+      <AccountProfilePage params={{ address: '0x6B24aE0ABbeb' }} />,
     );
 
-    expect(queryByTestId('account-profile-not-found')).toBeInTheDocument();
-    expect(queryByTestId('account-profile')).not.toBeInTheDocument();
+    expect(
+      queryByText("The page you're looking for can't be found."),
+    ).toBeInTheDocument();
+    expect(queryByText('Edit Profile')).not.toBeInTheDocument();
   });
 
   describe('Head', () => {

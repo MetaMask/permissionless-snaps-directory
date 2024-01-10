@@ -3,7 +3,6 @@ import { Trans, t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
 import { graphql, Link as GatsbyLink, withPrefix } from 'gatsby';
 import type { FunctionComponent } from 'react';
-import { getAddress } from 'viem';
 
 import banner from '../../assets/images/seo/home.png';
 import {
@@ -11,7 +10,7 @@ import {
   AccountProfileTabs,
   AccountInfo,
 } from '../../features/account';
-import type { Fields } from '../../utils';
+import { type Fields, parseAddress } from '../../utils';
 import NotFound from '../404';
 
 type AccountPageProps = {
@@ -21,19 +20,13 @@ type AccountPageProps = {
 };
 
 const AccountPage: FunctionComponent<AccountPageProps> = ({ params }) => {
-  let { address } = params;
-  try {
-    address = getAddress(params.address);
-  } catch {
-    return (
-      <Box data-testid="account-profile-not-found">
-        <NotFound />
-      </Box>
-    );
+  const address = parseAddress(params.address);
+  if (!address) {
+    return <NotFound />;
   }
 
   return (
-    <Box position="relative" data-testid="account-profile">
+    <Box position="relative">
       <AccountProfileBanner />
       <Container maxWidth="container.xl" paddingTop="0" position="relative">
         <VStack mt="175" spacing={['10', null, '20']}>
