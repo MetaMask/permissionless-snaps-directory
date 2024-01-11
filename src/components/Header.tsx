@@ -7,7 +7,6 @@ import { ColorModeToggle } from './ColorModeToggle';
 import { ConnectButton } from './ConnectButton';
 import { Logo } from './Logo';
 import { FilterSearch, Notifications } from '../features';
-import { MoreOptionMenu } from '../features/account/MoreOptionMenu';
 
 type HeaderProps = BoxProps;
 
@@ -44,7 +43,6 @@ export const Header: FunctionComponent<HeaderProps> = (props) => (
           <FilterSearch />
           <ColorModeToggle />
           <Notifications />
-          <MoreOptionMenu />
           <ConnectButton />
         </Stack>
       </Stack>
