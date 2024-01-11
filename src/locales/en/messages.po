@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/components/ProfileTrustModal.tsx
+msgid "{buttonText}"
+msgstr ""
+
 #: src/components/PostInstallModal.tsx
 msgid "{name} is now ready to use."
 msgstr ""
@@ -70,6 +74,13 @@ msgstr ""
 
 #: src/components/InstallUnsupportedMobile.tsx
 msgid "Available on desktop"
+msgstr ""
+
+#: src/components/icons/index.ts
+#: src/components/icons/index.ts
+#: src/components/icons/index.ts
+#: src/components/icons/index.ts
+msgid "Avatar"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -448,6 +459,10 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Share"
+msgstr ""
+
+#: src/components/icons/index.ts
+msgid "Sign"
 msgstr ""
 
 #: src/components/icons/index.ts

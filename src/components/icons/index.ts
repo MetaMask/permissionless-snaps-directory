@@ -1,6 +1,10 @@
 import { defineMessage } from '@lingui/macro';
 
 import BaseAuditorIcon from './auditor.svg';
+import BaseAvatarBlueIcon from './avatar-blue.svg';
+import BaseAvatarRedIcon from './avatar-red.svg';
+import BaseAvatarReportBlueIcon from './avatar-report-blue.svg';
+import BaseAvatarReportRedIcon from './avatar-report-red.svg';
 import BaseBackIcon from './back.svg';
 import BaseCheckThinIcon from './check-thin.svg';
 import BaseCheckIcon from './check.svg';
@@ -22,6 +26,7 @@ import BaseNotificationsIcon from './notifications.svg';
 import BaseReviewerIcon from './reviewer.svg';
 import BaseSearchIcon from './search.svg';
 import BaseShareIcon from './share.svg';
+import BaseSignIcon from './sign.svg';
 import BaseSnapIcon from './snap.svg';
 import BaseTransactionInsightsIcon from './transaction-insights.svg';
 import BaseUserCheckIcon from './user-check.svg';
@@ -29,6 +34,23 @@ import BaseUserCircleAddFillIcon from './user-cirlce-add-filled.svg';
 import BaseWarningFilledIcon from './warning-filled.svg';
 
 export const AuditorIcon = wrapIcon(BaseAuditorIcon, defineMessage`Auditor`);
+
+export const AvatarBlueIcon = wrapIcon(
+  BaseAvatarBlueIcon,
+  defineMessage`Avatar`,
+);
+
+export const AvatarRedIcon = wrapIcon(BaseAvatarRedIcon, defineMessage`Avatar`);
+
+export const AvatarReportBlueIcon = wrapIcon(
+  BaseAvatarReportBlueIcon,
+  defineMessage`Avatar`,
+);
+
+export const AvatarReportRedIcon = wrapIcon(
+  BaseAvatarReportRedIcon,
+  defineMessage`Avatar`,
+);
 
 export const BackIcon = wrapIcon(BaseBackIcon, defineMessage`Back`);
 
@@ -102,6 +124,8 @@ export const SearchIcon = wrapIcon(BaseSearchIcon, defineMessage`Search`);
 
 export const ShareIcon = wrapIcon(BaseShareIcon, defineMessage`Share`);
 export const SnapIcon = wrapIcon(BaseSnapIcon, defineMessage`Snap`);
+
+export const SignIcon = wrapIcon(BaseSignIcon, defineMessage`Sign`);
 
 export const TransactionInsightsIcon = wrapIcon(
   BaseTransactionInsightsIcon,
