@@ -1,16 +1,16 @@
 import { t } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
 
-import { IconMenu } from '../../components/IconMenu';
 import {
   ExportOutlineIcon,
+  IconMenu,
+  MenuItemCard,
   MoreOptionIcon,
   ShareIcon,
   UserCheckIcon,
   UserCircleAddIcon,
   WarningFilledIcon,
-} from '../../components/icons';
-import { MenuItemCard } from '../../components/MenuItemCard';
+} from '../../components';
 
 export const MoreOptionMenu: FunctionComponent = () => {
   return (
