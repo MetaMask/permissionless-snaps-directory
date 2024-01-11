@@ -3,7 +3,7 @@ import type { Hex } from '@metamask/utils';
 import type { FunctionComponent } from 'react';
 import { useEnsName } from 'wagmi';
 
-import { AccountRoleTags, AccountRole } from '.';
+import { AccountRole, AccountRoleTags } from './AccountRoleTags';
 import { JazzIcon } from '../../../components';
 import { trimAddress } from '../../../utils';
 

@@ -15,7 +15,7 @@ describe('MoreOptionMenu', () => {
     expect(queryByText('Add to my circle')).toBeInTheDocument();
     expect(queryByText('Copy profile link')).toBeInTheDocument();
     expect(queryByText('Etherscan')).toBeInTheDocument();
-    expect(queryByText('Access obilities')).toBeInTheDocument();
+    expect(queryByText('Access abilities')).toBeInTheDocument();
     expect(queryByText('Report user')).toBeInTheDocument();
   });
 

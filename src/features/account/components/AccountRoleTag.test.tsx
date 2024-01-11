@@ -3,7 +3,7 @@ import { render } from '../../../utils/test-utils';
 
 describe('AccountRoleTags', () => {
   it('renders', () => {
-    const { queryByTestId } = render(
+    const { queryByText } = render(
       <AccountRoleTags
         roles={[
           AccountRole.Auditor,
@@ -13,27 +13,27 @@ describe('AccountRoleTags', () => {
       />,
     );
 
-    expect(queryByTestId('account-role-developer')).toBeInTheDocument();
-    expect(queryByTestId('account-role-reviewer')).toBeInTheDocument();
-    expect(queryByTestId('account-role-auditor')).toBeInTheDocument();
+    expect(queryByText('Developer')).toBeInTheDocument();
+    expect(queryByText('Reviewer')).toBeInTheDocument();
+    expect(queryByText('Auditor')).toBeInTheDocument();
   });
 
   it('does not render account role tags if provided `roles` is not an `AccountRole`', () => {
-    const { queryByTestId } = render(
+    const { queryByText } = render(
       // @ts-expect-error - Invalid role.
       <AccountRoleTags roles={['test']} />,
     );
 
-    expect(queryByTestId('account-role-developer')).not.toBeInTheDocument();
-    expect(queryByTestId('account-role-reviewer')).not.toBeInTheDocument();
-    expect(queryByTestId('account-role-auditor')).not.toBeInTheDocument();
+    expect(queryByText('Developer')).not.toBeInTheDocument();
+    expect(queryByText('Reviewer')).not.toBeInTheDocument();
+    expect(queryByText('Auditor')).not.toBeInTheDocument();
   });
 
   it('does not render account role tags if provided `roles` is an empty array', () => {
-    const { queryByTestId } = render(<AccountRoleTags roles={[]} />);
+    const { queryByText } = render(<AccountRoleTags roles={[]} />);
 
-    expect(queryByTestId('account-role-developer')).not.toBeInTheDocument();
-    expect(queryByTestId('account-role-reviewer')).not.toBeInTheDocument();
-    expect(queryByTestId('account-role-auditor')).not.toBeInTheDocument();
+    expect(queryByText('Developer')).not.toBeInTheDocument();
+    expect(queryByText('Reviewer')).not.toBeInTheDocument();
+    expect(queryByText('Auditor')).not.toBeInTheDocument();
   });
 });

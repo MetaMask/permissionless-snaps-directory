@@ -29,12 +29,12 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: src/pages/account/[address].tsx
-msgid "Account Profile"
-msgstr ""
-
 #: src/features/account/MoreOptionMenu.tsx
 msgid "Access abilities"
+msgstr ""
+
+#: src/pages/account/[address].tsx
+msgid "Account Profile"
 msgstr ""
 
 #: src/components/InstallSnapButton.tsx
