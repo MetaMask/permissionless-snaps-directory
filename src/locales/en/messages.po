@@ -88,6 +88,10 @@ msgstr ""
 msgid "Communication"
 msgstr ""
 
+#: src/components/ConnectButtonInner.tsx
+msgid "Connect"
+msgstr ""
+
 #: src/constants.ts
 msgid "Connect to non-Ethereum blockchains with MetaMask."
 msgstr ""

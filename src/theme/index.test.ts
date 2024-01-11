@@ -24,6 +24,28 @@ describe('theme', () => {
               },
             },
             "variants": Object {
+              "connect": Object {
+                "background": "info.default",
+                "borderRadius": "36px",
+                "color": "white",
+                "fontSize": "md",
+                "fontWeight": "500",
+                "lineHeight": "157%",
+                "padding": "4",
+              },
+              "connected": Object {
+                "_hover": Object {
+                  "background": "info.default",
+                  "color": "white",
+                },
+                "background": "background.alternative",
+                "borderRadius": "36px",
+                "color": "text.alternative",
+                "fontSize": "sm",
+                "fontWeight": "500",
+                "lineHeight": "157%",
+                "padding": "4",
+              },
               "filter": Object {
                 "_hover": Object {
                   "background": "background.alternative-hover",
