@@ -208,6 +208,8 @@ describe('theme', () => {
                     "background": "background.default-hover",
                   },
                   "background": "background.default",
+                  "borderRadius": "0.5rem",
+                  "margin": "0.5rem",
                 },
                 "list": Object {
                   "_hover": Object {

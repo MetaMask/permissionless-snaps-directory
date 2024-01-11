@@ -80,7 +80,7 @@ describe('MenuItemCard', () => {
             tabindex="-1"
           >
             <button
-              class="chakra-menu__menuitem css-1qilg0h"
+              class="chakra-menu__menuitem css-15s64o5"
               data-index="0"
               data-testid="menu-item-card"
               id="menu-list-:ra:-menuitem-:rb:"
@@ -89,7 +89,7 @@ describe('MenuItemCard', () => {
               type="button"
             >
               <div
-                class="css-ive15a"
+                class="css-22li0n"
               >
                 <div
                   class="chakra-stack css-1uodvt1"

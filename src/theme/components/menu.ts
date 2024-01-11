@@ -37,6 +37,8 @@ export const Menu = defineMultiStyleConfig({
         },
       },
       item: {
+        margin: '0.5rem',
+        borderRadius: '0.5rem',
         background: 'background.default',
         _hover: {
           background: 'background.default-hover',
