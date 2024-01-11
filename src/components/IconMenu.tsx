@@ -16,7 +16,12 @@ export const IconMenu: FunctionComponent<ItemMenuProps> = ({
 }) => {
   return (
     <Menu closeOnSelect={false} isLazy={true} variant="icon-menu" {...props}>
-      <MenuButton as={IconButton} icon={icon} variant={iconButtonVariant} />
+      <MenuButton
+        as={IconButton}
+        icon={icon}
+        variant={iconButtonVariant}
+        data-testid="icon-menu-button"
+      />
       <MenuList>{children}</MenuList>
     </Menu>
   );

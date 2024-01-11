@@ -4,7 +4,7 @@ import type { FunctionComponent } from 'react';
 import { Card } from './Card';
 
 export type MenuCardProps = {
-  icon: ReactNode;
+  icon: JSX.Element;
   label: string;
   textColor?: 'default' | 'red' | 'blue';
   onClick?: () => void;
@@ -17,7 +17,13 @@ export const MenuItemCard: FunctionComponent<MenuCardProps> = ({
   onClick,
 }) => {
   return (
-    <MenuItem m="0.5rem" borderRadius="0.5rem" w="95%" onClick={onClick}>
+    <MenuItem
+      m="0.5rem"
+      borderRadius="0.5rem"
+      w="95%"
+      onClick={onClick}
+      data-testid="menu-item-card"
+    >
       <Card padding="2">
         <HStack spacing="2">
           <Text variant={textColor}>{icon}</Text>
