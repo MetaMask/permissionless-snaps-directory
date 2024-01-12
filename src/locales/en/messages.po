@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/ProfileTrustModal.tsx
+#: src/components/RequestSignModal.tsx
 msgid "{buttonText}"
 msgstr ""
 

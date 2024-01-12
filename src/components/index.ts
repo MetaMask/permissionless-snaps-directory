@@ -14,7 +14,7 @@ export * from './Link';
 export * from './Logo';
 export * from './MultipleCheckboxOptions';
 export * from './PostInstallModal';
-export * from './ProfileTrustModal';
+export * from './RequestSignModal';
 export * from './SnapAvatar';
 export * from './SnapsProvider';
 export * from './SnapWebsiteButton';
