@@ -1,6 +1,5 @@
 import {
   Box,
-  Flex,
   Checkbox,
   Text,
   Slider,
@@ -8,14 +7,16 @@ import {
   SliderFilledTrack,
   SliderThumb,
   type ResponsiveValue,
+  VStack,
+  HStack,
 } from '@chakra-ui/react';
 import { type FunctionComponent, useState } from 'react';
 
 export type CheckboxWithSliderProps = {
-  label: string;
+  title: string;
   description: string;
-  options: string[];
-  steps: number;
+  sliderLabels: string[];
+  sliderSteps: number;
   onSliderChange: (value: number) => void;
 };
 
@@ -23,18 +24,18 @@ export type CheckboxWithSliderProps = {
  * Render the box with checkbox header and a slider with configurable options.
  *
  * @param props - The component props.
- * @param props.label - The label for checkbox header.
+ * @param props.title - The title for checkbox header.
  * @param props.description - The description for checkbox header.
- * @param props.options - The options to be shown along with slider.
- * @param props.steps - The number of steps for the slider.
+ * @param props.sliderLabels - The labels to be shown along with slider.
+ * @param props.sliderSteps - The number of steps for the slider.
  * @param props.onSliderChange - A function to be called when slider is moved.
  * @returns A React component.
  */
 export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
-  label,
+  title,
   description,
-  options,
-  steps,
+  sliderLabels,
+  sliderSteps,
   onSliderChange,
   ...props
 }) => {
@@ -46,10 +47,11 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
   };
 
   const getTextAlignmentForSlider = (index: number): ResponsiveValue<any> => {
+    const midIndex = (sliderLabels.length - 1) / 2;
     let textAlign = 'left';
-    if (index === (options.length - 1) / 2) {
+    if (index === midIndex) {
       textAlign = 'center';
-    } else if (index > (options.length - 1) / 2) {
+    } else if (index > midIndex) {
       textAlign = 'right';
     }
     return textAlign;
@@ -64,35 +66,26 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
       width="100%"
       {...props}
     >
-      <Flex direction="column" alignItems="flex-start" gap="1rem">
-        <Flex direction="column" alignItems="flex-start" gap="0.5rem">
-          <Flex direction="row" alignItems="center" height="1.5rem">
+      <VStack alignItems="flex-start" gap="1rem">
+        <VStack alignItems="flex-start" gap="0.5rem">
+          <HStack height="1.5rem">
             <Checkbox>
-              <Text p="1">{label}</Text>
+              <Text p="1">{title}</Text>
             </Checkbox>
-          </Flex>
+          </HStack>
           <Text variant="small-description">{description}</Text>
-        </Flex>
-        <Flex
-          direction="row"
-          justifyContent="space-between"
-          alignItems="baseline"
-          width="100%"
-          height="1rem"
-        >
+        </VStack>
+        <HStack alignItems="baseline" width="100%" height="1rem">
           <Slider
-            width="100%"
             value={sliderValue}
             min={0}
-            max={steps - 1}
-            step={1}
+            max={sliderSteps - 1}
             onChange={(value) => handleSliderChange(value)}
-            mb={2}
           >
             <SliderTrack>
               <SliderFilledTrack
                 bg={
-                  sliderValue < (steps - 1) / 2
+                  sliderValue < (sliderSteps - 1) / 2
                     ? 'error.default'
                     : 'info.default'
                 }
@@ -100,26 +93,20 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
             </SliderTrack>
             <SliderThumb boxSize={5} />
           </Slider>
-        </Flex>
-        <Flex
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          width="100%"
-          height="1rem"
-        >
-          {options.map((option, index) => (
+        </HStack>
+        <HStack width="100%">
+          {sliderLabels.map((sliderLabel, index) => (
             <Text
               variant="small-description"
               key={index}
               textAlign={getTextAlignmentForSlider(index)}
               flexGrow={1}
             >
-              {option}
+              {sliderLabel}
             </Text>
           ))}
-        </Flex>
-      </Flex>
+        </HStack>
+      </VStack>
     </Box>
   );
 };
