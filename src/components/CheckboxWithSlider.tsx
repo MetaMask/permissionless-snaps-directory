@@ -16,8 +16,14 @@ export type CheckboxWithSliderProps = {
   title: string;
   description: string;
   sliderLabels: string[];
-  sliderSteps: number;
+  sliderConfig: SliderConfig;
   onSliderChange: (value: number) => void;
+};
+
+export type SliderConfig = {
+  minValue: number;
+  maxValue: number;
+  stepSize: number;
 };
 
 /**
@@ -27,7 +33,7 @@ export type CheckboxWithSliderProps = {
  * @param props.title - The title for checkbox header.
  * @param props.description - The description for checkbox header.
  * @param props.sliderLabels - The labels to be shown along with slider.
- * @param props.sliderSteps - The number of steps for the slider.
+ * @param props.sliderConfig - The slider configuration like minimum value, maximum value and step size.
  * @param props.onSliderChange - A function to be called when slider is moved.
  * @returns A React component.
  */
@@ -35,7 +41,7 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
   title,
   description,
   sliderLabels,
-  sliderSteps,
+  sliderConfig,
   onSliderChange,
   ...props
 }) => {
@@ -56,6 +62,11 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
     }
     return textAlign;
   };
+
+  const numberOfSteps =
+    (sliderConfig.maxValue - sliderConfig.minValue) / sliderConfig.stepSize;
+  const midValue =
+    sliderConfig.minValue + (numberOfSteps / 2) * sliderConfig.stepSize;
 
   return (
     <Box
@@ -78,17 +89,14 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
         <HStack alignItems="baseline" width="100%" height="1rem">
           <Slider
             value={sliderValue}
-            min={0}
-            max={sliderSteps - 1}
+            min={sliderConfig.minValue}
+            max={sliderConfig.maxValue}
+            step={sliderConfig.stepSize}
             onChange={(value) => handleSliderChange(value)}
           >
             <SliderTrack>
               <SliderFilledTrack
-                bg={
-                  sliderValue < (sliderSteps - 1) / 2
-                    ? 'error.default'
-                    : 'info.default'
-                }
+                bg={sliderValue < midValue ? 'error.default' : 'info.default'}
               />
             </SliderTrack>
             <SliderThumb boxSize={5} />
