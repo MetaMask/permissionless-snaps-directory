@@ -22,7 +22,6 @@ describe('RequestSignModal', () => {
       </RequestSignModal>,
     );
 
-    // Add your assertions here
     expect(screen.getByText('Header Icon')).toBeInTheDocument();
     expect(screen.getByText('Modal Content')).toBeInTheDocument();
     expect(screen.getByText('Sign')).toBeInTheDocument();
