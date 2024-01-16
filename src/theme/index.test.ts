@@ -255,6 +255,21 @@ describe('theme', () => {
               "borderRadius": "lg",
             },
           },
+          "Tabs": Object {
+            "baseStyle": Object {
+              "root": Object {
+                "color": "text.alternative",
+                "width": "100%",
+              },
+              "tab": Object {
+                "_selected": Object {
+                  "color": "text.default",
+                },
+                "marginLeft": "4",
+                "marginRight": "4",
+              },
+            },
+          },
           "Tag": Object {
             "baseStyle": Object {
               "container": Object {

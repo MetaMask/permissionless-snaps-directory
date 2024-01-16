@@ -20,7 +20,7 @@ export const MoreOptionMenu: FunctionComponent = () => {
       <MenuItemCard icon={<ExportOutlineIcon />} label={t`Etherscan`} />
       <MenuItemCard
         icon={<UserCheckIcon />}
-        label={t`Access obilities`}
+        label={t`Access abilities`}
         textColor="blue"
       />
       <MenuItemCard

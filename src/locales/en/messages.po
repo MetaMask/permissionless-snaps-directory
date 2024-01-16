@@ -30,7 +30,11 @@ msgid "About"
 msgstr ""
 
 #: src/features/account/MoreOptionMenu.tsx
-msgid "Access obilities"
+msgid "Access abilities"
+msgstr ""
+
+#: src/pages/account/[address].tsx
+msgid "Account Profile"
 msgstr ""
 
 #: src/components/InstallSnapButton.tsx
@@ -57,6 +61,11 @@ msgstr ""
 
 #: src/features/snap/components/MetadataModal.tsx
 msgid "Audit"
+msgstr ""
+
+#: src/components/icons/index.ts
+#: src/features/account/components/AccountRoleTags.tsx
+msgid "Auditor"
 msgstr ""
 
 #: src/components/InstallUnsupportedMobile.tsx
@@ -133,6 +142,12 @@ msgstr ""
 msgid "Desktop only"
 msgstr ""
 
+#: src/features/account/AccountProfileTabs.tsx
+msgid "Developed Snaps"
+msgstr ""
+
+#: src/components/icons/index.ts
+#: src/features/account/components/AccountRoleTags.tsx
 #: src/features/snap/components/MetadataItems.tsx
 msgid "Developer"
 msgstr ""
@@ -154,6 +169,10 @@ msgstr ""
 msgid "Discover Snaps"
 msgstr ""
 
+#: src/pages/account/[address].tsx
+msgid "Discover the MetaMask Snaps Directory Account Profile page."
+msgstr ""
+
 #: src/features/banner/components/create-snap-banner/CreateSnapBanner.tsx
 msgid "Documentation"
 msgstr ""
@@ -164,6 +183,10 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Dropdown"
+msgstr ""
+
+#: src/pages/account/[address].tsx
+msgid "Edit Profile"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -305,6 +328,10 @@ msgstr ""
 msgid "MetaMask"
 msgstr ""
 
+#: src/pages/account/[address].tsx
+msgid "MetaMask Snaps Directory - Account Profile"
+msgstr ""
+
 #: src/components/InstallUnsupportedMobile.tsx
 msgid "MetaMask Snaps is in open beta and only supported via our extension clients on desktop such as <0>Brave</0>, <1>Chrome</1>, or <2>Firefox</2>."
 msgstr ""
@@ -371,6 +398,15 @@ msgid "Results for \"{searchQuery}\""
 msgstr ""
 
 #: src/components/icons/index.ts
+#: src/features/account/components/AccountRoleTags.tsx
+msgid "Reviewer"
+msgstr ""
+
+#: src/features/account/AccountProfileTabs.tsx
+msgid "Reviews"
+msgstr ""
+
+#: src/components/icons/index.ts
 msgid "Search"
 msgstr ""
 
@@ -381,6 +417,10 @@ msgstr ""
 #: src/components/icons/index.ts
 #: src/constants.ts
 msgid "Security"
+msgstr ""
+
+#: src/features/account/AccountProfileTabs.tsx
+msgid "Security Reports"
 msgstr ""
 
 #: src/constants.ts
@@ -450,6 +490,10 @@ msgstr ""
 
 #: src/components/ColorModeToggle.tsx
 msgid "Toggle color mode"
+msgstr ""
+
+#: src/features/account/AccountProfileTabs.tsx
+msgid "Trusted Circle"
 msgstr ""
 
 #: src/components/icons/index.ts
