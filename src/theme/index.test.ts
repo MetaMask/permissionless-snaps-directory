@@ -201,6 +201,24 @@ describe('theme', () => {
               "command",
               "divider",
             ],
+            "variants": Object {
+              "icon-menu": Object {
+                "item": Object {
+                  "_hover": Object {
+                    "background": "background.default-hover",
+                  },
+                  "background": "background.default",
+                  "borderRadius": "0.5rem",
+                  "margin": "0.5rem",
+                },
+                "list": Object {
+                  "_hover": Object {
+                    "background": "background.alternative-hover",
+                  },
+                  "background": "background.alternative",
+                },
+              },
+            },
           },
           "Modal": Object {
             "baseStyle": Object {
@@ -319,8 +337,14 @@ describe('theme', () => {
               "lineHeight": "base",
             },
             "variants": Object {
+              "blue": Object {
+                "color": "info.default",
+              },
               "muted": Object {
                 "color": "text.muted",
+              },
+              "red": Object {
+                "color": "error.default",
               },
             },
           },

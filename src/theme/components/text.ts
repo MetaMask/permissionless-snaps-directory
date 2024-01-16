@@ -10,5 +10,11 @@ export const Text = defineStyleConfig({
     muted: {
       color: 'text.muted',
     },
+    red: {
+      color: 'error.default',
+    },
+    blue: {
+      color: 'info.default',
+    },
   },
 });

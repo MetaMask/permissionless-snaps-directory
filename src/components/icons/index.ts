@@ -7,6 +7,7 @@ import BaseCloseIcon from './close.svg';
 import BaseDarkModeIcon from './dark-mode.svg';
 import BaseDotIcon from './dot.svg';
 import BaseDropdownIcon from './dropdown.svg';
+import BaseExportOutlineIcon from './export-outline.svg';
 import BaseExternalLinkIcon from './external-link.svg';
 import BaseFilterIcon from './filter.svg';
 import { wrapIcon } from './Icon';
@@ -14,10 +15,15 @@ import BaseInteroperabilityIcon from './interoperability.svg';
 import BaseLightModeIcon from './light-mode.svg';
 import BaseLiveIcon from './live.svg';
 import BaseMetaMaskIcon from './metamask.svg';
+import BaseMoreVerticalOutlineIcon from './more-vertical-outline.svg';
 import BaseNotificationsIcon from './notifications.svg';
 import BaseSearchIcon from './search.svg';
+import BaseShareIcon from './share.svg';
 import BaseSnapIcon from './snap.svg';
 import BaseTransactionInsightsIcon from './transaction-insights.svg';
+import BaseUserCheckIcon from './user-check.svg';
+import BaseUserCircleAddFillIcon from './user-cirlce-add-filled.svg';
+import BaseWarningFilledIcon from './warning-filled.svg';
 
 export const BackIcon = wrapIcon(BaseBackIcon, defineMessage`Back`);
 
@@ -44,6 +50,11 @@ export const ExternalLinkIcon = wrapIcon(
   defineMessage`External link`,
 );
 
+export const ExportOutlineIcon = wrapIcon(
+  BaseExportOutlineIcon,
+  defineMessage`Export`,
+);
+
 export const FilterIcon = wrapIcon(BaseFilterIcon, defineMessage`Filter`);
 
 export const InteroperabilityIcon = wrapIcon(
@@ -60,6 +71,11 @@ export const LiveIcon = wrapIcon(BaseLiveIcon, defineMessage`Live`);
 
 export const MetaMaskIcon = wrapIcon(BaseMetaMaskIcon, defineMessage`MetaMask`);
 
+export const MoreOptionIcon = wrapIcon(
+  BaseMoreVerticalOutlineIcon,
+  defineMessage`More Options`,
+);
+
 export const NotificationsIcon = wrapIcon(
   BaseNotificationsIcon,
   defineMessage`Notifications`,
@@ -72,11 +88,27 @@ export const NotificationsCategoryIcon = wrapIcon(
 
 export const SearchIcon = wrapIcon(BaseSearchIcon, defineMessage`Search`);
 
+export const ShareIcon = wrapIcon(BaseShareIcon, defineMessage`Share`);
 export const SnapIcon = wrapIcon(BaseSnapIcon, defineMessage`Snap`);
 
 export const TransactionInsightsIcon = wrapIcon(
   BaseTransactionInsightsIcon,
   defineMessage`Security`,
+);
+
+export const UserCheckIcon = wrapIcon(
+  BaseUserCheckIcon,
+  defineMessage`User check`,
+);
+
+export const UserCircleAddIcon = wrapIcon(
+  BaseUserCircleAddFillIcon,
+  defineMessage`Add to my circle`,
+);
+
+export const WarningFilledIcon = wrapIcon(
+  BaseWarningFilledIcon,
+  defineMessage`Warning`,
 );
 
 export type { IconProps } from './Icon';
