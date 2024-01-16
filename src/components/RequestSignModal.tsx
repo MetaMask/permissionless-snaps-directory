@@ -17,6 +17,8 @@ export type RequestSignModalProps = ModalProps & {
   mode: 'positive' | 'negative';
   headerIcon: JSX.Element;
   buttonText: string;
+  isLoading: boolean;
+  buttonDisabled?: boolean;
   onSignButtonClick: () => void;
 };
 
@@ -31,6 +33,8 @@ export type RequestSignModalProps = ModalProps & {
  * @param props.children - The children to render inside the modal.
  * @param props.buttonText - The text to be shown on sign button.
  * @param props.onSignButtonClick - A function to be called when Sign button is clicked.
+ * @param props.isLoading - Whether the modal is loading.
+ * @param props.buttonDisabled - Whether the button is disabled.
  * @returns A React component.
  */
 export const RequestSignModal: FunctionComponent<RequestSignModalProps> = ({
@@ -40,6 +44,8 @@ export const RequestSignModal: FunctionComponent<RequestSignModalProps> = ({
   headerIcon,
   children,
   buttonText,
+  isLoading,
+  buttonDisabled = false,
   onSignButtonClick,
   ...props
 }) => {
@@ -50,6 +56,7 @@ export const RequestSignModal: FunctionComponent<RequestSignModalProps> = ({
         size="sm"
         isOpen={isOpen}
         onClose={onClose}
+        closeOnOverlayClick={false}
         {...props}
       >
         <ModalOverlay />
@@ -65,6 +72,8 @@ export const RequestSignModal: FunctionComponent<RequestSignModalProps> = ({
                 fontSize="sm"
                 leftIcon={<SignIcon width="1rem" fill="currentColor" />}
                 width="100%"
+                isLoading={isLoading}
+                isDisabled={buttonDisabled}
                 onClick={() => onSignButtonClick()}
               >
                 <Trans>{buttonText}</Trans>

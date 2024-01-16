@@ -45,7 +45,12 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
   onSliderChange,
   ...props
 }) => {
-  const [sliderValue, setSliderValue] = useState<number>(2);
+  const numberOfSteps =
+    (sliderConfig.maxValue - sliderConfig.minValue) / sliderConfig.stepSize;
+  const midValue =
+    sliderConfig.minValue + (numberOfSteps / 2) * sliderConfig.stepSize;
+
+  const [sliderValue, setSliderValue] = useState<number>(1);
 
   const handleSliderChange = (value: number) => {
     setSliderValue(value);
@@ -62,11 +67,6 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
     }
     return textAlign;
   };
-
-  const numberOfSteps =
-    (sliderConfig.maxValue - sliderConfig.minValue) / sliderConfig.stepSize;
-  const midValue =
-    sliderConfig.minValue + (numberOfSteps / 2) * sliderConfig.stepSize;
 
   return (
     <Box
@@ -88,6 +88,7 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
         </VStack>
         <HStack alignItems="baseline" width="100%" height="1rem">
           <Slider
+            data-testid="slider"
             value={sliderValue}
             min={sliderConfig.minValue}
             max={sliderConfig.maxValue}
