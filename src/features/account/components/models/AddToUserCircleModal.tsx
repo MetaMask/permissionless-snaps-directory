@@ -1,8 +1,14 @@
 import { Center, Link, Text, VStack, useToast } from '@chakra-ui/react';
 import { Trans, t } from '@lingui/macro';
+import type { SignTypedDataArgs } from '@wagmi/core';
 import type { FunctionComponent } from 'react';
 import { useEffect, useState } from 'react';
-import { useAccount, usePublicClient, useSignMessage } from 'wagmi';
+import {
+  useAccount,
+  useChainId,
+  usePublicClient,
+  useSignTypedData,
+} from 'wagmi';
 
 import { AvatarBlueIcon, RequestSignModal } from '../../../../components';
 import { useDispatch, useSelector } from '../../../../hooks';
@@ -22,10 +28,12 @@ export const AddToUserCircleModal: FunctionComponent<
   );
   const dispatch = useDispatch();
   const { address } = useAccount();
-  const { signMessage, data: signMessageData } = useSignMessage();
+  const { data: signMessageData, signTypedData } = useSignTypedData();
+  const chainId = useChainId();
   const client = usePublicClient();
   const toast = useToast({ position: 'top' });
-  const [message, setMessage] = useState('');
+  const [trustCredentialTypedData, setTrustCredentialTypedData] =
+    useState<SignTypedDataArgs>();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,45 +45,62 @@ export const AddToUserCircleModal: FunctionComponent<
         return;
       }
 
-      client
-        .verifyMessage({
-          address,
-          message,
-          signature: signMessageData,
-        })
-        .then((res) => {
-          if (res) {
-            setIsLoading(false);
-            dispatch(setAddToUserModalOpen(false));
-            dispatch(addUserToUserCircle(subjectAddress));
+      if (trustCredentialTypedData !== undefined) {
+        const { domain } = trustCredentialTypedData;
+        const { types } = trustCredentialTypedData;
+        const { primaryType } = trustCredentialTypedData;
+        const { message } = trustCredentialTypedData;
+
+        client
+          .verifyTypedData({
+            address,
+            domain,
+            types,
+            primaryType,
+            message,
+            signature: signMessageData,
+          })
+          .then((res) => {
+            if (res) {
+              setIsLoading(false);
+              dispatch(setAddToUserModalOpen(false));
+              dispatch(addUserToUserCircle(subjectAddress));
+              toast({
+                title: t`Added to your trust circle`,
+                description: t`${shortSubAddress} has been added to your trust circle`,
+                status: 'success',
+                duration: 2000,
+                isClosable: true,
+              });
+
+              const payload = trustCredentialTypedData.message;
+              payload.proof = {
+                type: 'EthereumEip712Signature2021',
+                proofValue: signMessageData,
+              };
+              console.log('Following payload will be sent', payload);
+            } else {
+              toast({
+                title: t`Invalid Signature`,
+                description: t`Your signature is invalid`,
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+              });
+              setIsLoading(false);
+            }
+          })
+          .catch((error) => {
             toast({
-              title: t`Added to your trust circle`,
-              description: t`${shortSubAddress} has been added to your trust circle`,
-              status: 'success',
-              duration: 2000,
-              isClosable: true,
-            });
-          } else {
-            toast({
-              title: t`Invalid Signature`,
-              description: t`Your signature is invalid`,
+              title: t`Failed to verify signature`,
+              description: error,
               status: 'error',
               duration: 2000,
               isClosable: true,
             });
             setIsLoading(false);
-          }
-        })
-        .catch((error) => {
-          toast({
-            title: t`Failed to verify signature`,
-            description: error,
-            status: 'error',
-            duration: 2000,
-            isClosable: true,
           });
-          setIsLoading(false);
-        });
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [signMessageData]);
@@ -85,12 +110,14 @@ export const AddToUserCircleModal: FunctionComponent<
       return;
     }
     setIsLoading(true);
-    const tcMsg = generateAccountTrustMsg(address, subjectAddress, true);
-    signMessage({
-      message: tcMsg,
-    });
-
-    setMessage(tcMsg);
+    const trustCredential = generateAccountTrustMsg(
+      address,
+      subjectAddress,
+      chainId,
+      true,
+    );
+    signTypedData(trustCredential);
+    setTrustCredentialTypedData(trustCredential);
   };
 
   return (
