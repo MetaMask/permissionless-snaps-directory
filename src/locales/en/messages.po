@@ -25,6 +25,10 @@ msgstr ""
 msgid "{nameText} Snaps on the MetaMask Snaps Directory"
 msgstr ""
 
+#: src/features/account/components/models/AddToUserCircleModal.tsx
+msgid "{shortSubAddress} has been added to your trust circle"
+msgstr ""
+
 #: src/components/FooterCopyright.tsx
 msgid "©{0} MetaMask. All rights reserved."
 msgstr ""
@@ -33,12 +37,12 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: src/features/account/MoreOptionMenu.tsx
-msgid "Access abilities"
-msgstr ""
-
 #: src/pages/account/[address].tsx
 msgid "Account Profile"
+msgstr ""
+
+#: src/features/account/components/models/AddToUserCircleModal.tsx
+msgid "Add <0>{shortSubAddress}</0> to your trust circle"
 msgstr ""
 
 #: src/components/InstallSnapButton.tsx
@@ -49,6 +53,10 @@ msgstr ""
 #: src/components/icons/index.ts
 #: src/features/account/MoreOptionMenu.tsx
 msgid "Add to my circle"
+msgstr ""
+
+#: src/features/account/components/models/AddToUserCircleModal.tsx
+msgid "Added to your trust circle"
 msgstr ""
 
 #: src/features/snaps/components/NoSnaps.tsx
@@ -135,6 +143,10 @@ msgstr ""
 
 #: src/components/PostInstallModal.tsx
 msgid "Continue to <0>{name}</0>'s website to get started with this snap."
+msgstr ""
+
+#: src/features/account/MoreOptionMenu.tsx
+msgid "Copied"
 msgstr ""
 
 #: src/features/account/MoreOptionMenu.tsx
@@ -236,6 +248,10 @@ msgstr ""
 msgid "External link"
 msgstr ""
 
+#: src/features/account/components/models/AddToUserCircleModal.tsx
+msgid "Failed to verify signature"
+msgstr ""
+
 #: src/features/snap/components/Metadata.tsx
 msgid "FAQ"
 msgstr ""
@@ -314,6 +330,10 @@ msgstr ""
 msgid "Interoperability"
 msgstr ""
 
+#: src/features/account/components/models/AddToUserCircleModal.tsx
+msgid "Invalid Signature"
+msgstr ""
+
 #: src/features/snap/components/Metadata.tsx
 msgid "Knowledge Base"
 msgstr ""
@@ -329,6 +349,10 @@ msgstr ""
 
 #: src/pages/latest.tsx
 msgid "Latest Snaps on the MetaMask Snaps Directory"
+msgstr ""
+
+#: src/features/account/components/models/AddToUserCircleModal.tsx
+msgid "Learn more"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -396,12 +420,12 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
-#: src/features/snap/components/RelatedSnaps.tsx
-msgid "Related Snaps"
+#: src/features/account/MoreOptionMenu.tsx
+msgid "Profile link copied to clipboard"
 msgstr ""
 
-#: src/features/account/MoreOptionMenu.tsx
-msgid "Report user"
+#: src/features/snap/components/RelatedSnaps.tsx
+msgid "Related Snaps"
 msgstr ""
 
 #: src/pages/explore.tsx
@@ -463,6 +487,10 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Sign"
+msgstr ""
+
+#: src/features/account/components/models/AddToUserCircleModal.tsx
+msgid "Sign to add"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -561,4 +589,8 @@ msgstr ""
 
 #: src/components/FooterTerms.tsx
 msgid "You acknowledge that any Snap that you install is a Third Party Service, unless otherwise identified, as defined in the <0>Consensys Terms of Use</0>. Your use of Third Party Services is governed by separate terms and conditions set forth by the Third Party Service provider. Consensys does not recommend the use of any Snap by any particular person for any particular reason. You access, rely upon or use the Third Party Service at your own risk. Consensys disclaims all responsibility and liability for any losses on account of your use of Third Party Services. Any information you share with Third Party Services will be collected directly by those Third Party Services in accordance with their privacy policies. Please refer to their privacy policies for more information. Consensys has no access to information you share with Third Party Services."
+msgstr ""
+
+#: src/features/account/components/models/AddToUserCircleModal.tsx
+msgid "Your signature is invalid"
 msgstr ""
