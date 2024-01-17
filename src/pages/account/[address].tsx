@@ -10,7 +10,7 @@ import {
   AccountProfileTabs,
   AccountInfo,
 } from '../../features/account';
-import { type Fields } from '../../utils';
+import { type Fields, parseAddress } from '../../utils';
 
 type AccountPageProps = {
   params: {
@@ -20,6 +20,7 @@ type AccountPageProps = {
 
 const AccountPage: FunctionComponent<AccountPageProps> = ({ params }) => {
   const { address } = params;
+  parseAddress(params.address);
 
   return (
     <Box position="relative">
