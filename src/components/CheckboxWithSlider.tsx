@@ -50,7 +50,7 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
   const midValue =
     sliderConfig.minValue + (numberOfSteps / 2) * sliderConfig.stepSize;
 
-  const [sliderValue, setSliderValue] = useState<number>(1);
+  const [sliderValue, setSliderValue] = useState<number>(midValue);
 
   const handleSliderChange = (value: number) => {
     setSliderValue(value);

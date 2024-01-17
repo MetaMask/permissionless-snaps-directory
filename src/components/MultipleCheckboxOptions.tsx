@@ -3,7 +3,7 @@ import { useState, type FunctionComponent } from 'react';
 
 export type MultipleCheckboxOptionsProps = {
   options: string[];
-  onChange: (selectedOptions: string[]) => void;
+  onChange: (selectedOptions: boolean[]) => void;
 };
 
 /**
@@ -17,15 +17,11 @@ export type MultipleCheckboxOptionsProps = {
 export const MultipleCheckboxOptions: FunctionComponent<
   MultipleCheckboxOptionsProps
 > = ({ options, onChange, ...props }) => {
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-
-  const handleCheckboxChange = (option: string) => {
-    const updatedSelection = selectedOptions.includes(option)
-      ? selectedOptions.filter((item) => item !== option)
-      : [...selectedOptions, option];
-
-    setSelectedOptions(updatedSelection);
-    onChange(updatedSelection);
+  const [checkedItems, setCheckedItems] = useState(options.map(() => false));
+  const handleCheckboxChange = (checked: boolean, index: number) => {
+    checkedItems[index] = checked;
+    setCheckedItems([...checkedItems]);
+    onChange(checkedItems);
   };
 
   return (
@@ -36,15 +32,17 @@ export const MultipleCheckboxOptions: FunctionComponent<
       {...props}
     >
       <VStack alignItems="flex-start">
-        {options.map((option) => (
+        {options.map((option, index) => (
           <Checkbox
             size="md"
             borderRadius="0.25rem"
             padding="0.012rem"
             marginInline="1"
             key={option}
-            isChecked={selectedOptions.includes(option)}
-            onChange={() => handleCheckboxChange(option)}
+            isChecked={checkedItems[index] ?? false}
+            onChange={(event) =>
+              handleCheckboxChange(event.target.checked, index)
+            }
           >
             {option}
           </Checkbox>

@@ -27,12 +27,12 @@ describe('MultipleCheckboxOptions', () => {
     fireEvent.click(screen.getByText('Option 1'));
 
     // Assert that onChange is called with the selected options
-    expect(onChangeMock).toHaveBeenCalledWith(['Option 1']);
+    expect(onChangeMock).toHaveBeenCalledWith([true, false, false]);
 
     // Click on the second checkbox
     fireEvent.click(screen.getByText('Option 2'));
 
     // Assert that onChange is called with the updated selected options
-    expect(onChangeMock).toHaveBeenCalledWith(['Option 1', 'Option 2']);
+    expect(onChangeMock).toHaveBeenCalledWith([true, true, false]);
   });
 });
