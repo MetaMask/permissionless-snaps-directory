@@ -81,7 +81,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
     >
       <Banner snaps={data.allSnap.nodes} />
       <Divider my="8" />
-
+      <>Some good</>
       {GROUPS.map(
         ({ header, limit, category, link, linkText, order, images }, index) => (
           <Fragment key={`group-${index}`}>
