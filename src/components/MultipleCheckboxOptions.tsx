@@ -39,7 +39,6 @@ export const MultipleCheckboxOptions: FunctionComponent<
             padding="0.012rem"
             marginInline="1"
             key={option}
-            isChecked={checkedItems[index] ?? false}
             onChange={(event) =>
               handleCheckboxChange(event.target.checked, index)
             }

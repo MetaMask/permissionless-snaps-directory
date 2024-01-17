@@ -40,7 +40,7 @@ export type RequestSignModalProps = ModalProps & {
 export const RequestSignModal: FunctionComponent<RequestSignModalProps> = ({
   isOpen,
   onClose,
-  mode = 'positive',
+  mode,
   headerIcon,
   children,
   buttonText,
