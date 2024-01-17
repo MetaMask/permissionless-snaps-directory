@@ -32,21 +32,6 @@ describe('Account Profile page', () => {
     expect(queryByText('Edit Profile')).toBeInTheDocument();
   });
 
-  it('renders not found page if parameter `address` is incorrect', async () => {
-    mockGetAddress.mockImplementation(() => {
-      throw new Error('Incorrect address');
-    });
-
-    const { queryByText } = render(
-      <AccountProfilePage params={{ address: '0x6B24aE0ABbeb' }} />,
-    );
-
-    expect(
-      queryByText("The page you're looking for can't be found."),
-    ).toBeInTheDocument();
-    expect(queryByText('Edit Profile')).not.toBeInTheDocument();
-  });
-
   describe('Head', () => {
     it('has the correct title', () => {
       const { queryByText } = render(<Head data={getMockSiteMetadata()} />);
