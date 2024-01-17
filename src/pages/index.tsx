@@ -80,6 +80,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
       flexDirection="column"
     >
       <Banner snaps={data.allSnap.nodes} />
+      <>Something good</>
       <Divider my="8" />
 
       {GROUPS.map(
