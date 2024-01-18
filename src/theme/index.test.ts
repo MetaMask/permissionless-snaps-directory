@@ -361,6 +361,11 @@ describe('theme', () => {
               "red": Object {
                 "color": "error.default",
               },
+              "small-description": Object {
+                "fontSize": "0.625rem",
+                "letterSpacing": "0.016rem",
+                "lineHeight": "1rem",
+              },
             },
           },
         },

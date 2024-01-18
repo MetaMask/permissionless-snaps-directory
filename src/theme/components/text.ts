@@ -16,5 +16,10 @@ export const Text = defineStyleConfig({
     blue: {
       color: 'info.default',
     },
+    'small-description': {
+      fontSize: '0.625rem',
+      lineHeight: '1rem',
+      letterSpacing: '0.016rem',
+    },
   },
 });
