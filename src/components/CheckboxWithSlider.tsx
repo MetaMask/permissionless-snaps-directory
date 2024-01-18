@@ -86,6 +86,7 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
     if (!checked) {
       setSliderValue(sliderConfig.defaultValue);
     }
+    onCheckboxChange(checked);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checked]);
 
@@ -103,10 +104,7 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
       <VStack alignItems="flex-start" gap="1rem">
         <VStack alignItems="flex-start" gap="0.5rem">
           <HStack height="1.5rem">
-            <Checkbox
-              isChecked={checked}
-              onChange={(event) => setChecked(event.target.checked)}
-            >
+            <Checkbox onChange={(event) => setChecked(event.target.checked)}>
               <Text p="1">{title}</Text>
             </Checkbox>
           </HStack>
@@ -118,7 +116,7 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
             min={sliderConfig.minValue}
             max={maxValue}
             step={sliderConfig.stepSize}
-            onChange={(value) => setSliderValue(value)}
+            onChange={setSliderValue}
             value={sliderValue}
             isDisabled={!checked}
           >

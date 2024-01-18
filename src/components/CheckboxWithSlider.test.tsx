@@ -1,4 +1,4 @@
-import { act } from '@testing-library/react';
+import { act, fireEvent } from '@testing-library/react';
 
 import {
   CheckboxWithSlider,
@@ -42,6 +42,17 @@ describe('CheckboxWithSlider', () => {
     expect(queryByText('Label1')).toBeInTheDocument();
     expect(queryByText('Label2')).toBeInTheDocument();
     expect(queryByText('Label3')).toBeInTheDocument();
+  });
+
+  it('calls onCheckboxChange when checkbox is checked or unchecked', () => {
+    const { getByText } = render(<CheckboxWithSlider {...defaultProps} />);
+
+    const checkbox = getByText('Test Checkbox');
+    fireEvent.click(checkbox);
+    expect(mockOnCheckboxChange).toHaveBeenCalledWith(true);
+
+    fireEvent.click(checkbox);
+    expect(mockOnCheckboxChange).toHaveBeenCalledWith(false);
   });
 
   describe('getTextAlignmentForSlider', () => {
