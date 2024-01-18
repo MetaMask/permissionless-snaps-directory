@@ -1,7 +1,7 @@
 import { CircularProgress, HStack, Heading, VStack } from '@chakra-ui/react';
 import type { Hex } from '@metamask/utils';
 import type { FunctionComponent } from 'react';
-import { useEnsName } from 'wagmi';
+import { useAccount, useEnsName } from 'wagmi';
 
 import { AccountRole, AccountRoleTags } from './AccountRoleTags';
 import { AddToUserCircleModal } from './models';
@@ -19,6 +19,7 @@ export const AccountInfo: FunctionComponent<AccountInfoProps> = ({
   const { data, isLoading } = useEnsName({
     address,
   });
+  const { isConnected } = useAccount();
 
   return (
     <VStack spacing="8" data-testid="account-info">
@@ -36,8 +37,12 @@ export const AccountInfo: FunctionComponent<AccountInfoProps> = ({
             data ?? trimAddress(address)
           )}
         </Heading>
-        <MoreOptionMenu subjectAddress={address} />
-        <AddToUserCircleModal subjectAddress={address} />
+        {isConnected && (
+          <>
+            <MoreOptionMenu subjectAddress={address} />
+            <AddToUserCircleModal subjectAddress={address} />
+          </>
+        )}
       </HStack>
       <AccountRoleTags
         roles={[
