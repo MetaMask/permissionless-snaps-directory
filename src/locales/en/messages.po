@@ -25,6 +25,10 @@ msgstr ""
 msgid "{nameText} Snaps on the MetaMask Snaps Directory"
 msgstr ""
 
+#: src/features/account/components/models/AddToUserCircleModal.tsx
+msgid "{shortSubAddress} has been added to your trust circle"
+msgstr ""
+
 #: src/components/FooterCopyright.tsx
 msgid "©{0} MetaMask. All rights reserved."
 msgstr ""
@@ -49,6 +53,10 @@ msgstr ""
 #: src/components/icons/index.ts
 #: src/features/account/MoreOptionMenu.tsx
 msgid "Add to my circle"
+msgstr ""
+
+#: src/features/account/components/models/AddToUserCircleModal.tsx
+msgid "Added to your trust circle"
 msgstr ""
 
 #: src/features/snaps/components/NoSnaps.tsx
