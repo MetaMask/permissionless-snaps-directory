@@ -30,7 +30,8 @@ export function useTypedSignTrustCredetial(address: `0x${string}` | undefined) {
   // above useSignTypedData have isLoading, but for some reason, it is not working well with loading state, use following instead
   const [isLoading, setIsLoading] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
-  const [payload, setPayload] = useState();
+  // Type [key_4: string] is defined inside the  SignTypedDataArgs in Wagmi
+  const [payload, setPayload] = useState<{ [key_4: string]: unknown }>();
   const [signatureError, setSignatureError] = useState<SignatureError>();
 
   const submitTypedSignRequest = useCallback(
