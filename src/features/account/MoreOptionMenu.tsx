@@ -79,7 +79,6 @@ export const MoreOptionMenu: FunctionComponent<MoreOptionMenuProps> = ({
         icon={<ShareIcon />}
         label={t`Copy profile link`}
         onClick={() => {
-          // console.log('TODO: copyToClipboard');
           copyToClipboard();
         }}
       />

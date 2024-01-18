@@ -1,19 +1,17 @@
 import { Center, Link, Text, VStack, useToast } from '@chakra-ui/react';
 import { Trans, t } from '@lingui/macro';
-import type { SignTypedDataArgs } from '@wagmi/core';
 import type { FunctionComponent } from 'react';
-import { useEffect, useState } from 'react';
-import {
-  useAccount,
-  useChainId,
-  usePublicClient,
-  useSignTypedData,
-} from 'wagmi';
+import { useEffect, useMemo } from 'react';
+import { useAccount } from 'wagmi';
 
 import { AvatarBlueIcon, RequestSignModal } from '../../../../components';
 import { useDispatch, useSelector } from '../../../../hooks';
+import {
+  SignatureErrorTypes,
+  useTypedSignTrustCredetial,
+} from '../../../../hooks/useTypedSignTrustCredential';
 import type { ApplicationState } from '../../../../store';
-import { generateAccountTrustMsg, trimAddress } from '../../../../utils';
+import { trimAddress } from '../../../../utils';
 import { addUserToUserCircle, setAddToUserModalOpen } from '../../store';
 
 type AddToUserCircleModalProps = {
@@ -28,97 +26,60 @@ export const AddToUserCircleModal: FunctionComponent<
   );
   const dispatch = useDispatch();
   const { address } = useAccount();
-  const { data: signMessageData, signTypedData } = useSignTypedData();
-  const chainId = useChainId();
-  const client = usePublicClient();
+
+  const {
+    isLoading,
+    isVerified,
+    payload,
+    submitTypedSignRequest,
+    signatureError,
+  } = useTypedSignTrustCredetial(address);
+
   const toast = useToast({ position: 'top' });
-  const [trustCredentialTypedData, setTrustCredentialTypedData] =
-    useState<SignTypedDataArgs>();
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  const shortSubAddress = trimAddress(subjectAddress);
+  const shortSubAddress = useMemo(
+    () => trimAddress(subjectAddress),
+    [subjectAddress],
+  );
 
   useEffect(() => {
-    if (signMessageData && signMessageData.length > 0) {
-      if (!address) {
-        return;
+    if (signatureError) {
+      if (signatureError.type === SignatureErrorTypes.Error) {
+        toast({
+          title: t`Failed to verify signature`,
+          description: signatureError.message,
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: t`Invalid Signature`,
+          description: t`Your signature is invalid`,
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        });
       }
+    }
+  }, [signatureError, toast]);
 
-      if (trustCredentialTypedData !== undefined) {
-        const { domain } = trustCredentialTypedData;
-        const { types } = trustCredentialTypedData;
-        const { primaryType } = trustCredentialTypedData;
-        const { message } = trustCredentialTypedData;
-
-        client
-          .verifyTypedData({
-            address,
-            domain,
-            types,
-            primaryType,
-            message,
-            signature: signMessageData,
-          })
-          .then((res) => {
-            if (res) {
-              setIsLoading(false);
-              dispatch(setAddToUserModalOpen(false));
-              dispatch(addUserToUserCircle(subjectAddress));
-              toast({
-                title: t`Added to your trust circle`,
-                description: t`${shortSubAddress} has been added to your trust circle`,
-                status: 'success',
-                duration: 2000,
-                isClosable: true,
-              });
-
-              const payload = trustCredentialTypedData.message;
-              payload.proof = {
-                type: 'EthereumEip712Signature2021',
-                proofValue: signMessageData,
-              };
-              console.log('Following payload will be sent', payload);
-            } else {
-              toast({
-                title: t`Invalid Signature`,
-                description: t`Your signature is invalid`,
-                status: 'error',
-                duration: 2000,
-                isClosable: true,
-              });
-              setIsLoading(false);
-            }
-          })
-          .catch((error) => {
-            toast({
-              title: t`Failed to verify signature`,
-              description: error,
-              status: 'error',
-              duration: 2000,
-              isClosable: true,
-            });
-            setIsLoading(false);
-          });
-      }
+  useEffect(() => {
+    // confirm signature has been verified
+    if (isVerified) {
+      console.log(`TrustCredential payload is`, payload);
+      toast({
+        title: t`Added to your trust circle`,
+        description: t`${shortSubAddress} has been added to your trust circle`,
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      });
+      dispatch(addUserToUserCircle(subjectAddress));
+      dispatch(setAddToUserModalOpen(false));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signMessageData]);
-
-  const handleSignMessage = () => {
-    if (!address) {
-      return;
-    }
-    setIsLoading(true);
-    const trustCredential = generateAccountTrustMsg(
-      address,
-      subjectAddress,
-      chainId,
-      true,
-    );
-    signTypedData(trustCredential);
-    setTrustCredentialTypedData(trustCredential);
-  };
+  }, [isVerified]);
 
   return (
     <RequestSignModal
@@ -129,7 +90,7 @@ export const AddToUserCircleModal: FunctionComponent<
       buttonText={t`Sign to add`}
       isLoading={isLoading}
       onSignButtonClick={() => {
-        handleSignMessage();
+        submitTypedSignRequest(subjectAddress, true);
       }}
     >
       <Center>
