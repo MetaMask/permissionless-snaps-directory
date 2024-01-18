@@ -27,10 +27,8 @@ jobs:
     name: Publish staging site
     uses: ./.github/workflows/publish-staging.yml
     permissions:
-      contents: read
+      contents: write
       pull-requests: write
-    secrets:
-      PUBLISH_STAGING_PAGES_TOKEN: ${{ secrets.PUBLISH_STAGING_PAGES_TOKEN }}
 
   all-jobs-completed:
     name: All jobs completed

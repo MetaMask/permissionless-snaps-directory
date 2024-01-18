@@ -37,7 +37,7 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: src/pages/account/[address].tsx
+#: src/pages/account/index.tsx
 msgid "Account Profile"
 msgstr ""
 
@@ -192,7 +192,7 @@ msgstr ""
 msgid "Discover Snaps"
 msgstr ""
 
-#: src/pages/account/[address].tsx
+#: src/pages/account/index.tsx
 msgid "Discover the MetaMask Snaps Directory Account Profile page."
 msgstr ""
 
@@ -208,7 +208,7 @@ msgstr ""
 msgid "Dropdown"
 msgstr ""
 
-#: src/pages/account/[address].tsx
+#: src/pages/account/index.tsx
 msgid "Edit Profile"
 msgstr ""
 
@@ -363,7 +363,7 @@ msgstr ""
 msgid "MetaMask"
 msgstr ""
 
-#: src/pages/account/[address].tsx
+#: src/pages/account/index.tsx
 msgid "MetaMask Snaps Directory - Account Profile"
 msgstr ""
 

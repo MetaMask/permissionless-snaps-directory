@@ -10,7 +10,7 @@ import {
   VStack,
   HStack,
 } from '@chakra-ui/react';
-import { type FunctionComponent, useState } from 'react';
+import { type FunctionComponent, useState, useEffect } from 'react';
 
 export type CheckboxWithSliderProps = {
   title: string;
@@ -18,12 +18,33 @@ export type CheckboxWithSliderProps = {
   sliderLabels: string[];
   sliderConfig: SliderConfig;
   onSliderChange: (value: number) => void;
+  onCheckboxChange: (checked: boolean) => void;
 };
 
 export type SliderConfig = {
   minValue: number;
-  maxValue: number;
+  totalSteps: number;
+  defaultValue: number;
   stepSize: number;
+};
+
+export const getTextAlignmentForSlider = (
+  index: number,
+  midIndex: number,
+): ResponsiveValue<any> => {
+  if (index === midIndex) {
+    return 'center';
+  } else if (index > midIndex) {
+    return 'right';
+  }
+  return 'left';
+};
+
+export const getSliderTrackColor = (
+  sliderValue: number,
+  midValue: number,
+): ResponsiveValue<any> => {
+  return sliderValue < midValue ? 'error.default' : 'info.default';
 };
 
 /**
@@ -35,6 +56,7 @@ export type SliderConfig = {
  * @param props.sliderLabels - The labels to be shown along with slider.
  * @param props.sliderConfig - The slider configuration like minimum value, maximum value and step size.
  * @param props.onSliderChange - A function to be called when slider is moved.
+ * @param props.onCheckboxChange - A function to be called when checkbox is checked or unchecked.
  * @returns A React component.
  */
 export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
@@ -43,30 +65,32 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
   sliderLabels,
   sliderConfig,
   onSliderChange,
+  onCheckboxChange,
   ...props
 }) => {
-  const numberOfSteps =
-    (sliderConfig.maxValue - sliderConfig.minValue) / sliderConfig.stepSize;
-  const midValue =
-    sliderConfig.minValue + (numberOfSteps / 2) * sliderConfig.stepSize;
+  const maxValue =
+    sliderConfig.minValue +
+    sliderConfig.stepSize * (sliderConfig.totalSteps - 1);
 
-  const [sliderValue, setSliderValue] = useState<number>(1);
+  const [sliderValue, setSliderValue] = useState<number>(
+    sliderConfig.defaultValue,
+  );
+  const [checked, setChecked] = useState<boolean>(false);
 
-  const handleSliderChange = (value: number) => {
-    setSliderValue(value);
-    onSliderChange(value);
-  };
+  useEffect(() => {
+    onSliderChange(sliderValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sliderValue]);
 
-  const getTextAlignmentForSlider = (index: number): ResponsiveValue<any> => {
-    const midIndex = (sliderLabels.length - 1) / 2;
-    let textAlign = 'left';
-    if (index === midIndex) {
-      textAlign = 'center';
-    } else if (index > midIndex) {
-      textAlign = 'right';
+  useEffect(() => {
+    if (!checked) {
+      setSliderValue(sliderConfig.defaultValue);
     }
-    return textAlign;
-  };
+    onCheckboxChange(checked);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checked]);
+
+  const midLabelIndex = (sliderLabels.length - 1) / 2;
 
   return (
     <Box
@@ -80,7 +104,7 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
       <VStack alignItems="flex-start" gap="1rem">
         <VStack alignItems="flex-start" gap="0.5rem">
           <HStack height="1.5rem">
-            <Checkbox>
+            <Checkbox onChange={(event) => setChecked(event.target.checked)}>
               <Text p="1">{title}</Text>
             </Checkbox>
           </HStack>
@@ -89,15 +113,16 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
         <HStack alignItems="baseline" width="100%" height="1rem">
           <Slider
             data-testid="slider"
-            value={sliderValue}
             min={sliderConfig.minValue}
-            max={sliderConfig.maxValue}
+            max={maxValue}
             step={sliderConfig.stepSize}
-            onChange={(value) => handleSliderChange(value)}
+            onChange={setSliderValue}
+            value={sliderValue}
+            isDisabled={!checked}
           >
             <SliderTrack>
               <SliderFilledTrack
-                bg={sliderValue < midValue ? 'error.default' : 'info.default'}
+                bg={getSliderTrackColor(sliderValue, sliderConfig.defaultValue)}
               />
             </SliderTrack>
             <SliderThumb boxSize={5} />
@@ -108,7 +133,7 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
             <Text
               variant="small-description"
               key={index}
-              textAlign={getTextAlignmentForSlider(index)}
+              textAlign={getTextAlignmentForSlider(index, midLabelIndex)}
               flexGrow={1}
             >
               {sliderLabel}
