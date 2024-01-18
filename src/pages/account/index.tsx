@@ -36,7 +36,7 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
             <Link
               as={GatsbyLink}
               variant="landing"
-              to={`/account/${address}/edit`}
+              to={`/account/edit?address=${address}`}
             >
               <Trans>Edit Profile</Trans>
             </Link>
