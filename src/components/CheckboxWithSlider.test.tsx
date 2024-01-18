@@ -16,13 +16,15 @@ jest.mock('@chakra-ui/react', () => ({
 }));
 
 const mockOnSliderChange = jest.fn();
+const mockOnCheckboxChange = jest.fn();
 
 const defaultProps: CheckboxWithSliderProps = {
   title: 'Test Checkbox',
   description: 'Test Description',
   sliderLabels: ['Label1', 'Label2', 'Label3'],
-  sliderConfig: { minValue: 1, maxValue: 5, stepSize: 1 },
+  sliderConfig: { minValue: 1, totalSteps: 5, defaultValue: 3, stepSize: 1 },
   onSliderChange: mockOnSliderChange,
+  onCheckboxChange: mockOnCheckboxChange,
 };
 
 describe('CheckboxWithSlider', () => {
