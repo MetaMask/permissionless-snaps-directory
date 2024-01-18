@@ -1,7 +1,7 @@
 import { describe } from '@jest/globals';
 import { getAddress } from 'viem';
 
-import AccountProfilePage, { Head } from './[address]';
+import AccountProfilePage, { Head } from '.';
 import { render, getMockSiteMetadata } from '../../utils/test-utils';
 
 jest.mock('../../features/account/components/AccountInfo', () => ({
@@ -23,8 +23,13 @@ describe('Account Profile page', () => {
   it('renders', async () => {
     const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
     mockGetAddress.mockReturnValue(address);
+    const mockLocationSearchParam = {
+      search: new URLSearchParams({ address }),
+    };
 
-    const { queryByText } = render(<AccountProfilePage params={{ address }} />);
+    const { queryByText } = render(
+      <AccountProfilePage location={mockLocationSearchParam} />,
+    );
 
     expect(
       queryByText("The page you're looking for can't be found."),
@@ -33,12 +38,16 @@ describe('Account Profile page', () => {
   });
 
   it('renders not found page if parameter `address` is incorrect', async () => {
+    const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
     mockGetAddress.mockImplementation(() => {
       throw new Error('Incorrect address');
     });
+    const mockLocationSearchParam = {
+      search: new URLSearchParams({ address }),
+    };
 
     const { queryByText } = render(
-      <AccountProfilePage params={{ address: '0x6B24aE0ABbeb' }} />,
+      <AccountProfilePage location={mockLocationSearchParam} />,
     );
 
     expect(
