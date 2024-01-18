@@ -2,7 +2,7 @@ import type { SignTypedDataArgs } from '@wagmi/core';
 import { useCallback, useEffect, useState } from 'react';
 import { useChainId, usePublicClient, useSignTypedData } from 'wagmi';
 
-import { generateAccountTrustMsg } from '../utils';
+import { generateTCTypedSignPayload } from '../utils';
 
 export enum SignatureErrorTypes {
   Invalid = 'invalid',
@@ -40,14 +40,14 @@ export function useTypedSignTrustCredetial(address: `0x${string}` | undefined) {
         return;
       }
       setIsLoading(true);
-      const trustCredential = generateAccountTrustMsg(
+      const tcTypedSignData = generateTCTypedSignPayload(
         address,
         subjectAddress,
         chainId,
         isAdd,
       );
-      signTypedData(trustCredential);
-      setTrustCredentialTypedData(trustCredential);
+      signTypedData(tcTypedSignData);
+      setTrustCredentialTypedData(tcTypedSignData);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [address],

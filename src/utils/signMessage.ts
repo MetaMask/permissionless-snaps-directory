@@ -2,7 +2,7 @@ import type { SignTypedDataArgs } from '@wagmi/core';
 import { isAddress } from 'viem';
 
 /**
- * Generate the message containing TrustCredential to be signed.
+ * Generate the TrustCredential typed data payload which will be signed by the user.
  *
  * @param issueAddress - The issuer address to be included in the message.
  * @param subjectAddress - The subject address to be included in the message.
@@ -10,7 +10,7 @@ import { isAddress } from 'viem';
  * @param isAdd - The boolean to flag whether is for add or remove.
  * @returns The message to be signed.
  */
-export function generateAccountTrustMsg(
+export function generateTCTypedSignPayload(
   issueAddress: string,
   subjectAddress: string,
   chainId: number,
