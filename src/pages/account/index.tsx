@@ -14,13 +14,14 @@ import { type Fields, parseAddress } from '../../utils';
 import NotFound from '../404';
 
 type AccountPageProps = {
-  params: {
-    address: Hex;
+  location: {
+    search: Record<string, string> | URLSearchParams | undefined;
   };
 };
 
-const AccountPage: FunctionComponent<AccountPageProps> = ({ params }) => {
-  const address = parseAddress(params.address);
+const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
+  const params = new URLSearchParams(location.search);
+  const address = parseAddress(params.get('address') as Hex);
   if (!address) {
     return <NotFound />;
   }
