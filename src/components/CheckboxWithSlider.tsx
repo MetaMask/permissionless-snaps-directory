@@ -10,7 +10,7 @@ import {
   VStack,
   HStack,
 } from '@chakra-ui/react';
-import { type FunctionComponent, useState } from 'react';
+import { type FunctionComponent, useState, useEffect } from 'react';
 
 export type CheckboxWithSliderProps = {
   title: string;
@@ -24,6 +24,25 @@ export type SliderConfig = {
   minValue: number;
   maxValue: number;
   stepSize: number;
+};
+
+export const getTextAlignmentForSlider = (
+  index: number,
+  midIndex: number,
+): ResponsiveValue<any> => {
+  if (index === midIndex) {
+    return 'center';
+  } else if (index > midIndex) {
+    return 'right';
+  }
+  return 'left';
+};
+
+export const getSliderTrackColor = (
+  sliderValue: number,
+  midValue: number,
+): ResponsiveValue<any> => {
+  return sliderValue < midValue ? 'error.default' : 'info.default';
 };
 
 /**
@@ -52,21 +71,12 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
 
   const [sliderValue, setSliderValue] = useState<number>(midValue);
 
-  const handleSliderChange = (value: number) => {
-    setSliderValue(value);
-    onSliderChange(value);
-  };
+  useEffect(() => {
+    onSliderChange(sliderValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sliderValue]);
 
-  const getTextAlignmentForSlider = (index: number): ResponsiveValue<any> => {
-    const midIndex = (sliderLabels.length - 1) / 2;
-    let textAlign = 'left';
-    if (index === midIndex) {
-      textAlign = 'center';
-    } else if (index > midIndex) {
-      textAlign = 'right';
-    }
-    return textAlign;
-  };
+  const midIndex = (sliderLabels.length - 1) / 2;
 
   return (
     <Box
@@ -87,28 +97,30 @@ export const CheckboxWithSlider: FunctionComponent<CheckboxWithSliderProps> = ({
           <Text variant="small-description">{description}</Text>
         </VStack>
         <HStack alignItems="baseline" width="100%" height="1rem">
-          <Slider
-            data-testid="slider"
-            value={sliderValue}
-            min={sliderConfig.minValue}
-            max={sliderConfig.maxValue}
-            step={sliderConfig.stepSize}
-            onChange={(value) => handleSliderChange(value)}
-          >
-            <SliderTrack>
-              <SliderFilledTrack
-                bg={sliderValue < midValue ? 'error.default' : 'info.default'}
-              />
-            </SliderTrack>
-            <SliderThumb boxSize={5} />
-          </Slider>
+          <div data-testid="slider-wrapper">
+            <Slider
+              data-testid="slider"
+              min={sliderConfig.minValue}
+              max={sliderConfig.maxValue}
+              step={sliderConfig.stepSize}
+              onChange={setSliderValue}
+              value={sliderValue}
+            >
+              <SliderTrack>
+                <SliderFilledTrack
+                  bg={getSliderTrackColor(sliderValue, midValue)}
+                />
+              </SliderTrack>
+              <SliderThumb boxSize={5} />
+            </Slider>
+          </div>
         </HStack>
         <HStack width="100%">
           {sliderLabels.map((sliderLabel, index) => (
             <Text
               variant="small-description"
               key={index}
-              textAlign={getTextAlignmentForSlider(index)}
+              textAlign={getTextAlignmentForSlider(index, midIndex)}
               flexGrow={1}
             >
               {sliderLabel}
