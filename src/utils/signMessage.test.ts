@@ -1,8 +1,11 @@
 import { generateTCTypedSignPayload } from './signMessage';
+import {
+  INVALID_ADDRESS,
+  VALID_ACCOUNT_1,
+  VALID_ACCOUNT_2,
+} from './test-utils/input';
 
 const inputChainId = 1;
-const issueAddress = '0x89778E5Be144cd454C28670988A9F88e32C2b0Df';
-const subjectAddress = '0x7B17936E2a44C1fFef392d13e490fc8426d3329e';
 
 const generateExpectedResult = (isAdd: boolean) => {
   return {
@@ -13,9 +16,9 @@ const generateExpectedResult = (isAdd: boolean) => {
     },
     message: {
       type: ['TrustCredential'],
-      issuer: `did:pkh:eip155:${inputChainId}:${issueAddress}`,
+      issuer: `did:pkh:eip155:${inputChainId}:${VALID_ACCOUNT_1}`,
       credentialSubject: {
-        id: `did:pkh:eip155:${inputChainId}:${subjectAddress}`,
+        id: `did:pkh:eip155:${inputChainId}:${VALID_ACCOUNT_2}`,
         trustworthiness: [
           {
             scope: 'Honesty',
@@ -73,8 +76,8 @@ describe('generateTCTypedSignPayload', () => {
   it('generates a valid trust credential typed sign payload when all argument is valid', () => {
     const expectedResultForAdd = generateExpectedResult(true);
     const result = generateTCTypedSignPayload(
-      issueAddress,
-      subjectAddress,
+      VALID_ACCOUNT_1,
+      VALID_ACCOUNT_2,
       inputChainId,
       true,
     );
@@ -83,8 +86,8 @@ describe('generateTCTypedSignPayload', () => {
 
     const expectedResultForRemove = generateExpectedResult(false);
     const resultForRemove = generateTCTypedSignPayload(
-      issueAddress,
-      subjectAddress,
+      VALID_ACCOUNT_1,
+      VALID_ACCOUNT_2,
       inputChainId,
       false,
     );
@@ -95,8 +98,8 @@ describe('generateTCTypedSignPayload', () => {
   it('throws an error when issueAddress is not a valid address', () => {
     expect(() =>
       generateTCTypedSignPayload(
-        '0x123123123',
-        subjectAddress,
+        INVALID_ADDRESS,
+        VALID_ACCOUNT_2,
         inputChainId,
         true,
       ),
@@ -106,8 +109,8 @@ describe('generateTCTypedSignPayload', () => {
   it('throws an error when subjectAddress is not a valid address', () => {
     expect(() =>
       generateTCTypedSignPayload(
-        issueAddress,
-        '0x123123123',
+        VALID_ACCOUNT_1,
+        INVALID_ADDRESS,
         inputChainId,
         true,
       ),

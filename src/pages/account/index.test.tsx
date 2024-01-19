@@ -3,6 +3,7 @@ import { getAddress } from 'viem';
 
 import AccountProfilePage, { Head } from '.';
 import { render, getMockSiteMetadata } from '../../utils/test-utils';
+import { VALID_ACCOUNT_1 } from '../../utils/test-utils/input';
 
 jest.mock('../../features/account/components/AccountInfo', () => ({
   AccountInfo: () => <div />,
@@ -21,7 +22,7 @@ describe('Account Profile page', () => {
   });
 
   it('renders', async () => {
-    const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
+    const address = VALID_ACCOUNT_1;
     mockGetAddress.mockReturnValue(address);
     const mockLocationSearchParam = {
       search: new URLSearchParams({ address }),
@@ -38,7 +39,7 @@ describe('Account Profile page', () => {
   });
 
   it('renders not found page if parameter `address` is incorrect', async () => {
-    const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
+    const address = VALID_ACCOUNT_1;
     mockGetAddress.mockImplementation(() => {
       throw new Error('Incorrect address');
     });

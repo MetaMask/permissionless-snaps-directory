@@ -49,9 +49,7 @@ export const MoreOptionMenu: FunctionComponent<MoreOptionMenuProps> = ({
   }, [toast, subjectAddress]);
 
   const openBloxplorer = useCallback(() => {
-    if (chain) {
-      window.open(`${chain.blockExplorers?.etherscan?.url}/address/${address}`);
-    }
+    window.open(`${chain?.blockExplorers?.etherscan?.url}/address/${address}`);
   }, [chain, address]);
 
   const shouldShowAddModal = useMemo(() => {
@@ -72,12 +70,14 @@ export const MoreOptionMenu: FunctionComponent<MoreOptionMenuProps> = ({
         <MenuItemCard
           icon={<UserCircleAddIcon />}
           label={t`Add to my circle`}
+          testId="add-to-circle"
           onClick={() => dispatch(setAddToUserModalOpen(true))}
         />
       )}
       <MenuItemCard
         icon={<ShareIcon />}
         label={t`Copy profile link`}
+        testId="copy-profile-link"
         onClick={() => {
           copyToClipboard();
         }}
@@ -85,6 +85,7 @@ export const MoreOptionMenu: FunctionComponent<MoreOptionMenuProps> = ({
       <MenuItemCard
         icon={<ExportOutlineIcon />}
         label={t`Etherscan`}
+        testId="etherscan"
         onClick={() => openBloxplorer()}
       />
     </IconMenu>

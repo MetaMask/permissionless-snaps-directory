@@ -1,4 +1,5 @@
 import { trimText, trimAddress, trimTextByHeadTail } from './string';
+import { VALID_ACCOUNT_1 } from './test-utils/input';
 
 describe('trimText', () => {
   it('trim text with default length `100` when parameter length is not provided', async () => {
@@ -75,7 +76,7 @@ describe('trimTextByHeadTail', () => {
 
 describe('trimAddress', () => {
   it('trim address', async () => {
-    const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
+    const address = VALID_ACCOUNT_1;
 
     expect(trimAddress(address)).toBe('0x6B24a...57Cc7');
   });

@@ -1,18 +1,39 @@
-import { useEnsName } from 'wagmi';
+import { useAccount, useEnsName } from 'wagmi';
 
 import { AccountInfo } from './AccountInfo';
 import { render } from '../../../utils/test-utils';
+import { VALID_ACCOUNT_1 } from '../../../utils/test-utils/input';
 
+jest.mock('../../../hooks/useTypedSignTrustCredential', () => {
+  return {
+    useTypedSignTrustCredetial: () => ({
+      submitTypedSignRequest: jest.fn(),
+      isLoading: false,
+      isVerified: false,
+      payload: {},
+      signatureError: null,
+    }),
+  };
+});
 jest.mock('wagmi', () => ({
   useEnsName: jest.fn(),
+  useAccount: jest.fn(),
+  useNetwork: () => ({
+    data: {
+      chainId: 1,
+    },
+  }),
 }));
 
 describe('AccountInfo', () => {
   let mockUseEnsName: jest.Mock;
+  let mockUseAccount: jest.Mock;
 
   beforeEach(() => {
     mockUseEnsName = useEnsName as jest.Mock;
     mockUseEnsName.mockClear();
+    mockUseAccount = useAccount as jest.Mock;
+    mockUseAccount.mockClear();
   });
 
   it('renders', () => {
@@ -20,14 +41,19 @@ describe('AccountInfo', () => {
       data: 'name',
       isLoading: false,
     }));
+    mockUseAccount.mockImplementation(() => ({
+      address: VALID_ACCOUNT_1,
+      isConnected: true,
+    }));
 
     const { queryByTestId, queryByText } = render(
-      <AccountInfo address="0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7" />,
+      <AccountInfo address={VALID_ACCOUNT_1} />,
     );
 
     expect(queryByTestId('account-info-loading')).not.toBeInTheDocument();
     expect(queryByTestId('account-info')).toBeInTheDocument();
     expect(queryByText('name')).toBeInTheDocument();
+    expect(queryByTestId('icon-menu-button')).toBeInTheDocument();
   });
 
   it('renders loading component if `useEnsName` is not complete', () => {
@@ -35,10 +61,11 @@ describe('AccountInfo', () => {
       data: 'name',
       isLoading: true,
     }));
+    mockUseAccount.mockImplementation(() => ({
+      isConnected: true,
+    }));
 
-    const { queryByTestId } = render(
-      <AccountInfo address="0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7" />,
-    );
+    const { queryByTestId } = render(<AccountInfo address={VALID_ACCOUNT_1} />);
 
     expect(queryByTestId('account-info-loading')).toBeInTheDocument();
   });
@@ -48,11 +75,26 @@ describe('AccountInfo', () => {
       data: null,
       isLoading: false,
     });
+    mockUseAccount.mockImplementation(() => ({
+      isConnected: true,
+    }));
 
-    const { queryByText } = render(
-      <AccountInfo address="0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7" />,
-    );
+    const { queryByText } = render(<AccountInfo address={VALID_ACCOUNT_1} />);
 
     expect(queryByText('0x6B24a...57Cc7')).toBeInTheDocument();
+  });
+
+  it('does not render iconMenu if user is not connected', () => {
+    mockUseEnsName.mockReturnValue({
+      data: null,
+      isLoading: false,
+    });
+    mockUseAccount.mockImplementation(() => ({
+      isConnected: false,
+    }));
+
+    const { queryByTestId } = render(<AccountInfo address={VALID_ACCOUNT_1} />);
+
+    expect(queryByTestId('icon-menu-button')).not.toBeInTheDocument();
   });
 });

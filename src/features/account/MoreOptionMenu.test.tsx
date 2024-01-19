@@ -1,11 +1,46 @@
-import { fireEvent } from '@testing-library/react';
+/* eslint no-restricted-globals: 0 */
+import { act, fireEvent } from '@testing-library/react';
+import { useAccount } from 'wagmi';
 
 import { MoreOptionMenu } from './MoreOptionMenu';
+import { setUserAccount } from './store';
+import { createStore } from '../../store';
 import { render } from '../../utils/test-utils';
+import { VALID_ACCOUNT_1, VALID_ACCOUNT_2 } from '../../utils/test-utils/input';
+
+jest.mock('wagmi', () => ({
+  useAccount: jest.fn(),
+  useNetwork: () => ({
+    data: {
+      chainId: 1,
+    },
+  }),
+}));
 
 describe('MoreOptionMenu', () => {
+  let mockUseAccount: jest.Mock;
+  const writeText = jest.fn();
+
+  Object.assign(navigator, {
+    clipboard: {
+      writeText,
+    },
+  });
+
+  beforeEach(() => {
+    mockUseAccount = useAccount as jest.Mock;
+    mockUseAccount.mockClear();
+
+    mockUseAccount.mockImplementation(() => ({
+      address: VALID_ACCOUNT_1,
+      isConnected: true,
+    }));
+  });
+
   it('render', () => {
-    const { getByTestId, queryByText } = render(<MoreOptionMenu />);
+    const { getByTestId, queryByText } = render(
+      <MoreOptionMenu subjectAddress={VALID_ACCOUNT_2} />,
+    );
 
     const menuBtn = getByTestId('icon-menu-button');
     expect(menuBtn).toBeInTheDocument();
@@ -15,22 +50,91 @@ describe('MoreOptionMenu', () => {
     expect(queryByText('Add to my circle')).toBeInTheDocument();
     expect(queryByText('Copy profile link')).toBeInTheDocument();
     expect(queryByText('Etherscan')).toBeInTheDocument();
-    expect(queryByText('Access abilities')).toBeInTheDocument();
-    expect(queryByText('Report user')).toBeInTheDocument();
+  });
+
+  it('"Add to my circle" will not render when address is same as subjectAddress', async () => {
+    const { getByTestId, queryByText } = render(
+      <MoreOptionMenu subjectAddress={VALID_ACCOUNT_1} />,
+    );
+
+    const menuBtn = getByTestId('icon-menu-button');
+    expect(menuBtn).toBeInTheDocument();
+
+    fireEvent.click(menuBtn);
+
+    expect(queryByText('Add to my circle')).not.toBeInTheDocument();
+  });
+
+  it("add to my circle will not render when user's circle already contains subjectAddress", async () => {
+    const store = createStore();
+
+    const { getByTestId, queryByText } = await act(
+      async () =>
+        await act(() =>
+          render(<MoreOptionMenu subjectAddress={VALID_ACCOUNT_2} />, store),
+        ),
+    );
+
+    const menuBtn = getByTestId('icon-menu-button');
+    expect(menuBtn).toBeInTheDocument();
+
+    fireEvent.click(menuBtn);
+
+    expect(queryByText('Add to my circle')).toBeInTheDocument();
+
+    act(() => {
+      store.dispatch(setUserAccount({ userCircle: [VALID_ACCOUNT_2] }));
+    });
+
+    expect(queryByText('Add to my circle')).not.toBeInTheDocument();
+  });
+
+  it('test menu click', async () => {
+    const store = createStore();
+    navigator.clipboard.writeText.mockResolvedValue(undefined);
+
+    const { getByTestId, queryByText } = await act(
+      async () =>
+        await act(() =>
+          render(<MoreOptionMenu subjectAddress={VALID_ACCOUNT_2} />, store),
+        ),
+    );
+
+    const menuBtn = getByTestId('icon-menu-button');
+    expect(menuBtn).toBeInTheDocument();
+
+    fireEvent.click(menuBtn);
+
+    expect(queryByText('Add to my circle')).toBeInTheDocument();
+    expect(queryByText('Copy profile link')).toBeInTheDocument();
+    expect(queryByText('Etherscan')).toBeInTheDocument();
+
+    act(() => {
+      getByTestId('add-to-circle').click();
+    });
+    expect(store.getState().accountProfile.addToUserModalOpen).toBe(true);
+
+    act(() => {
+      getByTestId('copy-profile-link').click();
+    });
+    expect(writeText).toHaveBeenCalled();
+    getByTestId('etherscan').click();
   });
 
   it('matches the snapshot', () => {
-    const { container } = render(<MoreOptionMenu />);
+    const { container } = render(
+      <MoreOptionMenu subjectAddress={VALID_ACCOUNT_2} />,
+    );
 
     expect(container).toMatchInlineSnapshot(`
       <div>
         <button
-          aria-controls="menu-list-:r8:"
+          aria-controls="menu-list-:rk:"
           aria-expanded="false"
           aria-haspopup="menu"
           class="chakra-button chakra-menu__menu-button css-1m3sc6v"
           data-testid="icon-menu-button"
-          id="menu-button-:r8:"
+          id="menu-button-:rk:"
           type="button"
         >
           <span
@@ -51,7 +155,7 @@ describe('MoreOptionMenu', () => {
           <div
             aria-orientation="vertical"
             class="chakra-menu__menu-list css-1kfu8nn"
-            id="menu-list-:r8:"
+            id="menu-list-:rk:"
             role="menu"
             style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
             tabindex="-1"
