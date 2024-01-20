@@ -21,7 +21,7 @@ jest.mock('connectkit', () => ({
 }));
 
 describe('ConnectKitButton.Custom', () => {
-  it('renders', async () => {
+  it('renders', () => {
     const { queryByText } = render(<ConnectButton />);
 
     expect(queryByText('Connect')).toBeInTheDocument();
