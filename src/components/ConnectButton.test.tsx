@@ -1,10 +1,24 @@
 import { act } from '@testing-library/react';
 import { navigate } from 'gatsby';
+import type { FunctionComponent } from 'react';
 
 import { ConnectButton } from './ConnectButton';
-// eslint-disable-next-line jest/no-mocks-import
-import { mockGetIsConnected, mockShowModel } from '../__mocks__/connectkit';
 import { render } from '../utils/test-utils';
+
+const mockShowModel = jest.fn();
+const mockGetIsConnected = jest.fn().mockReturnValueOnce(false);
+
+jest.mock('connectkit', () => ({
+  ConnectKitButton: {
+    Custom: ({ children }: { children: FunctionComponent }) =>
+      children({
+        isConnected: mockGetIsConnected(),
+        show: mockShowModel,
+        truncatedAddress: '0x...',
+        ensName: 'mock.ens.name',
+      }),
+  },
+}));
 
 describe('ConnectKitButton.Custom', () => {
   it('renders', async () => {
@@ -33,7 +47,7 @@ describe('ConnectKitButton.Custom', () => {
 
     const { getByText } = render(<ConnectButton />);
 
-    const button = getByText('fake.ens.name');
+    const button = getByText('mock.ens.name');
 
     await act(async () => act(() => button.click()));
 
