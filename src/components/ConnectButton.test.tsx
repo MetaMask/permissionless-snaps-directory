@@ -1,35 +1,46 @@
 import { act } from '@testing-library/react';
+import { ConnectKitButton } from 'connectkit';
 import { navigate } from 'gatsby';
-import type { FunctionComponent } from 'react';
 
 import { ConnectButton } from './ConnectButton';
 import { render } from '../utils/test-utils';
 
-const mockShowModel = jest.fn();
-const mockGetIsConnected = jest.fn().mockReturnValueOnce(false);
-
 jest.mock('connectkit', () => ({
   ConnectKitButton: {
-    Custom: ({ children }: { children: FunctionComponent }) =>
-      children({
-        isConnected: mockGetIsConnected(),
-        show: mockShowModel,
-        truncatedAddress: '0x...',
-        ensName: 'mock.ens.name',
-      }),
+    Custom: jest.fn(),
   },
 }));
 
 describe('ConnectKitButton.Custom', () => {
+  const buildMockConnectButton = (isConnected = false) => {
+    const showModelSpy = jest.fn();
+    const mockComponent: jest.Mock = ConnectKitButton.Custom as jest.Mock;
+
+    mockComponent.mockImplementation(({ children }) =>
+      children({
+        isConnected,
+        show: showModelSpy,
+        truncatedAddress: '0x...',
+        ensName: 'mock.ens.name',
+      }),
+    );
+
+    return {
+      component: mockComponent,
+      showModelSpy,
+    };
+  };
+
   it('renders', () => {
+    buildMockConnectButton(false);
+
     const { queryByText } = render(<ConnectButton />);
 
     expect(queryByText('Connect')).toBeInTheDocument();
   });
 
   it('trigger showModal when account is not connected', async () => {
-    mockGetIsConnected.mockReset();
-    mockGetIsConnected.mockReturnValueOnce(false);
+    const { showModelSpy } = buildMockConnectButton(false);
 
     const { getByText } = render(<ConnectButton />);
 
@@ -37,13 +48,12 @@ describe('ConnectKitButton.Custom', () => {
 
     await act(async () => act(() => button.click()));
 
-    expect(mockShowModel).toHaveBeenCalledTimes(1);
+    expect(showModelSpy).toHaveBeenCalledTimes(1);
     expect(navigate).toHaveBeenCalledTimes(0);
   });
 
   it('trigger navigate when account is connected', async () => {
-    mockGetIsConnected.mockReset();
-    mockGetIsConnected.mockReturnValueOnce(true);
+    const { showModelSpy } = buildMockConnectButton(true);
 
     const { getByText } = render(<ConnectButton />);
 
@@ -51,7 +61,7 @@ describe('ConnectKitButton.Custom', () => {
 
     await act(async () => act(() => button.click()));
 
-    expect(mockShowModel).toHaveBeenCalledTimes(0);
+    expect(showModelSpy).toHaveBeenCalledTimes(0);
     expect(navigate).toHaveBeenCalledTimes(1);
   });
 });
