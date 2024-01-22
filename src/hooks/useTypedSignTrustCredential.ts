@@ -110,6 +110,7 @@ export function useTypedSignTrustCredential() {
   return {
     isLoading,
     isVerified,
+    signature,
     payload,
     submitTypedSignRequest,
     signatureError,
