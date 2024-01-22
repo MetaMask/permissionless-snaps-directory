@@ -1,20 +1,21 @@
+import { act } from '@testing-library/react';
 import { useAccount, useEnsName } from 'wagmi';
 
 import { AccountInfo } from './AccountInfo';
+import { createStore } from '../../../store';
 import { render } from '../../../utils/test-utils';
 import { VALID_ACCOUNT_1 } from '../../../utils/test-utils/input';
 
-jest.mock('../../../hooks/useTypedSignTrustCredential', () => {
-  return {
-    useTypedSignTrustCredetial: () => ({
-      submitTypedSignRequest: jest.fn(),
-      isLoading: false,
-      isVerified: false,
-      payload: {},
-      signatureError: null,
-    }),
-  };
-});
+jest.mock('../../../hooks/useTypedSignTrustCredential', () => ({
+  useTypedSignTrustCredential: () => ({
+    submitTypedSignRequest: jest.fn(),
+    isLoading: false,
+    isVerified: false,
+    payload: {},
+    signatureError: null,
+  }),
+}));
+
 jest.mock('wagmi', () => ({
   useEnsName: jest.fn(),
   useAccount: jest.fn(),
@@ -36,7 +37,8 @@ describe('AccountInfo', () => {
     mockUseAccount.mockClear();
   });
 
-  it('renders', () => {
+  it('renders', async () => {
+    const store = createStore();
     mockUseEnsName.mockImplementation(() => ({
       data: 'name',
       isLoading: false,
@@ -46,8 +48,11 @@ describe('AccountInfo', () => {
       isConnected: true,
     }));
 
-    const { queryByTestId, queryByText } = render(
-      <AccountInfo address={VALID_ACCOUNT_1} />,
+    const { queryByTestId, queryByText } = await act(
+      async () =>
+        await act(() =>
+          render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
+        ),
     );
 
     expect(queryByTestId('account-info-loading')).not.toBeInTheDocument();
@@ -56,7 +61,8 @@ describe('AccountInfo', () => {
     expect(queryByTestId('icon-menu-button')).toBeInTheDocument();
   });
 
-  it('renders loading component if `useEnsName` is not complete', () => {
+  it('renders loading component if `useEnsName` is not complete', async () => {
+    const store = createStore();
     mockUseEnsName.mockImplementation(() => ({
       data: 'name',
       isLoading: true,
@@ -65,12 +71,18 @@ describe('AccountInfo', () => {
       isConnected: true,
     }));
 
-    const { queryByTestId } = render(<AccountInfo address={VALID_ACCOUNT_1} />);
+    const { queryByTestId } = await act(
+      async () =>
+        await act(() =>
+          render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
+        ),
+    );
 
     expect(queryByTestId('account-info-loading')).toBeInTheDocument();
   });
 
-  it('renders trimmed address if ens name is not return from `useEnsName`', () => {
+  it('renders trimmed address if ens name is not return from `useEnsName`', async () => {
+    const store = createStore();
     mockUseEnsName.mockReturnValue({
       data: null,
       isLoading: false,
@@ -79,12 +91,17 @@ describe('AccountInfo', () => {
       isConnected: true,
     }));
 
-    const { queryByText } = render(<AccountInfo address={VALID_ACCOUNT_1} />);
-
+    const { queryByText } = await act(
+      async () =>
+        await act(() =>
+          render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
+        ),
+    );
     expect(queryByText('0x6B24a...57Cc7')).toBeInTheDocument();
   });
 
-  it('does not render iconMenu if user is not connected', () => {
+  it('does not render iconMenu if user is not connected', async () => {
+    const store = createStore();
     mockUseEnsName.mockReturnValue({
       data: null,
       isLoading: false,
@@ -93,7 +110,12 @@ describe('AccountInfo', () => {
       isConnected: false,
     }));
 
-    const { queryByTestId } = render(<AccountInfo address={VALID_ACCOUNT_1} />);
+    const { queryByTestId } = await act(
+      async () =>
+        await act(() =>
+          render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
+        ),
+    );
 
     expect(queryByTestId('icon-menu-button')).not.toBeInTheDocument();
   });

@@ -20,7 +20,9 @@ export type SignatureError = {
  * @param address - The address to be included in the message.
  * @returns The signature and the function to sign the message. isLoading and isVerified are used to indicate the status of the signature.
  */
-export function useTypedSignTrustCredetial(address: `0x${string}` | undefined) {
+export function useTypedSignTrustCredential(
+  address: `0x${string}` | undefined,
+) {
   const client = usePublicClient();
   const chainId = useChainId();
   const { data: signature, signTypedData } = useSignTypedData();

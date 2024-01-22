@@ -25,7 +25,7 @@ export function generateTCTypedSignPayload(
   }
 
   const domain = {
-    name: 'EIP712Example',
+    name: 'EIP712TrustCredential',
     version: '1',
     chainId,
   };

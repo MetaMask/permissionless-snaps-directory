@@ -33,7 +33,7 @@ export const MoreOptionMenu: FunctionComponent<MoreOptionMenuProps> = ({
   // Dont know why when we write following as async method, the typescript will have error complaining about the return type Promise<Void>
   const copyToClipboard = useCallback(() => {
     navigator.clipboard
-      .writeText(`${window.location.origin}/account/${subjectAddress}`)
+      .writeText(`${window.location.origin}/account/?address=${subjectAddress}`)
       .then(() => {
         toast({
           title: t`Copied`,

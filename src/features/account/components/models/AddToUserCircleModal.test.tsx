@@ -14,7 +14,7 @@ jest.mock('../../../../hooks/useTypedSignTrustCredential', () => {
 
   return {
     ...originalModule,
-    useTypedSignTrustCredetial: () => {
+    useTypedSignTrustCredential: () => {
       const [isVerified, setIsVerified] = React.useState(false);
       const [signatureError, setSignatureError] = React.useState();
 

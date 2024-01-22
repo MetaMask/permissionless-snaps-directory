@@ -10,7 +10,7 @@ const inputChainId = 1;
 const generateExpectedResult = (isAdd: boolean) => {
   return {
     domain: {
-      name: 'EIP712Example',
+      name: 'EIP712TrustCredential',
       version: '1',
       chainId: inputChainId,
     },

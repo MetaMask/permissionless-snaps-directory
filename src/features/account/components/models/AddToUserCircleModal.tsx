@@ -8,7 +8,7 @@ import { AvatarBlueIcon, RequestSignModal } from '../../../../components';
 import { useDispatch, useSelector } from '../../../../hooks';
 import {
   SignatureErrorTypes,
-  useTypedSignTrustCredetial,
+  useTypedSignTrustCredential,
 } from '../../../../hooks/useTypedSignTrustCredential';
 import type { ApplicationState } from '../../../../store';
 import { trimAddress } from '../../../../utils';
@@ -33,7 +33,7 @@ export const AddToUserCircleModal: FunctionComponent<
     payload,
     submitTypedSignRequest,
     signatureError,
-  } = useTypedSignTrustCredetial(address);
+  } = useTypedSignTrustCredential(address);
 
   const toast = useToast({ position: 'top' });
 
