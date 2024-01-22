@@ -1,4 +1,4 @@
-import { fireEvent } from '@testing-library/react';
+import { act, fireEvent } from '@testing-library/react';
 import { createPublicClient, http } from 'viem';
 import { WagmiConfig, createConfig, mainnet } from 'wagmi';
 
@@ -137,5 +137,21 @@ describe('AddToUserCircleModal', () => {
 
     expect(getByText('Failed to verify signature')).toBeInTheDocument();
     expect(getByText('failed message')).toBeInTheDocument();
+  });
+
+  it('closes modal when close button is clicked', async () => {
+    const { getByLabelText } = render(
+      <WagmiConfig config={config}>
+        <AddToUserCircleModal subjectAddress="passAddress" />,
+      </WagmiConfig>,
+      store,
+    );
+
+    const closeButton = getByLabelText('Close');
+    await act(async () => {
+      fireEvent.click(closeButton);
+    });
+
+    expect(store.getState().accountProfile.addToUserModalOpen).toBe(false);
   });
 });
