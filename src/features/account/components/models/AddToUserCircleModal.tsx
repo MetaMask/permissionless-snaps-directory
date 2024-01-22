@@ -2,7 +2,6 @@ import { Center, Link, Text, VStack, useToast } from '@chakra-ui/react';
 import { Trans, t } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
 import { useEffect, useMemo } from 'react';
-import { useAccount } from 'wagmi';
 
 import { AvatarBlueIcon, RequestSignModal } from '../../../../components';
 import { useDispatch, useSelector } from '../../../../hooks';
@@ -25,7 +24,6 @@ export const AddToUserCircleModal: FunctionComponent<
     (state: ApplicationState) => state.accountProfile,
   );
   const dispatch = useDispatch();
-  const { address } = useAccount();
 
   const {
     isLoading,
@@ -33,7 +31,7 @@ export const AddToUserCircleModal: FunctionComponent<
     payload,
     submitTypedSignRequest,
     signatureError,
-  } = useTypedSignTrustCredential(address);
+  } = useTypedSignTrustCredential();
 
   const toast = useToast({ position: 'top' });
 

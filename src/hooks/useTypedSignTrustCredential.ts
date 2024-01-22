@@ -1,6 +1,11 @@
 import type { SignTypedDataArgs } from '@wagmi/core';
 import { useCallback, useEffect, useState } from 'react';
-import { useChainId, usePublicClient, useSignTypedData } from 'wagmi';
+import {
+  useAccount,
+  useChainId,
+  usePublicClient,
+  useSignTypedData,
+} from 'wagmi';
 
 import { generateTCTypedSignPayload } from '../utils';
 
@@ -17,14 +22,12 @@ export type SignatureError = {
 /**
  * A Hook to sign TrustCredential typed data.
  *
- * @param address - The address to be included in the message.
  * @returns The signature and the function to sign the message. isLoading and isVerified are used to indicate the status of the signature.
  */
-export function useTypedSignTrustCredential(
-  address: `0x${string}` | undefined,
-) {
+export function useTypedSignTrustCredential() {
   const client = usePublicClient();
   const chainId = useChainId();
+  const { address } = useAccount();
   const { data: signature, signTypedData } = useSignTypedData();
 
   const [trustCredentialTypedData, setTrustCredentialTypedData] =
@@ -75,9 +78,9 @@ export function useTypedSignTrustCredential(
         .then((res) => {
           if (res) {
             setIsLoading(false);
-            if (res) {
-              setIsVerified(true);
-            }
+
+            setIsVerified(res);
+
             const tcPayload = trustCredentialTypedData.message;
             tcPayload.proof = {
               type: 'EthereumEip712Signature2021',

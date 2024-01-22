@@ -1,9 +1,9 @@
-import { act } from '@testing-library/react';
+import { act, waitFor } from '@testing-library/react';
 import { useAccount, usePublicClient, useSignTypedData } from 'wagmi';
 
 import { useTypedSignTrustCredential } from './useTypedSignTrustCredential';
 import { renderHook } from '../utils/test-utils';
-import { VALID_ACCOUNT_1 } from '../utils/test-utils/input';
+import { VALID_ACCOUNT_1, VALID_ACCOUNT_2 } from '../utils/test-utils/input';
 
 jest.mock('wagmi', () => ({
   useAccount: jest.fn(),
@@ -30,23 +30,122 @@ describe('useTypedSignTrustCredetial', () => {
 
   describe('submitTypedSignRequest', () => {
     it('check intial state is correct', async () => {
-      mockUseAccount.mockReturnValue(VALID_ACCOUNT_1);
+      mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
       mockUsePublicClient.mockReturnValue({
         verifyTypedData: jest.fn().mockResolvedValue(true),
       });
+
       mockUseSignTypedData.mockReturnValue({
         data: 'signature',
         signTypedData: () => true,
       });
 
       const { result } = await act(() =>
-        renderHook(() => useTypedSignTrustCredential(VALID_ACCOUNT_1)),
+        renderHook(() => useTypedSignTrustCredential()),
       );
+
+      expect(mockUseAccount).toHaveBeenCalled();
+      expect(mockUsePublicClient).toHaveBeenCalled();
+      expect(mockUseSignTypedData).toHaveBeenCalled();
 
       const { isVerified, isLoading } = result.current;
 
       expect(isVerified).toBe(false);
       expect(isLoading).toBe(false);
     });
+
+    it('check submitTypedSignRequest will not be called when useAccount return undefined or empty address', async () => {
+      mockUseAccount.mockReturnValue({ address: undefined });
+      mockUsePublicClient.mockReturnValue({
+        verifyTypedData: jest.fn().mockResolvedValue(true),
+      });
+      const mockSignTypedData = jest.fn();
+      mockUseSignTypedData.mockReturnValue({
+        data: 'signature',
+        signTypedData: mockSignTypedData,
+      });
+      mockSignTypedData.mockResolvedValue(true);
+
+      const { result } = await act(() =>
+        renderHook(() => useTypedSignTrustCredential()),
+      );
+
+      const { submitTypedSignRequest } = result.current;
+
+      await waitFor(() => submitTypedSignRequest(VALID_ACCOUNT_2, true));
+      expect(mockSignTypedData).not.toHaveBeenCalled();
+    });
+
+    it('check submitTypedSignRequest is called with correct arguments and verifyTypedData return true', async () => {
+      mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
+      mockUsePublicClient.mockReturnValue({
+        verifyTypedData: jest.fn().mockResolvedValue(Promise.resolve(true)),
+      });
+      const mockSignTypedData = jest.fn();
+      mockUseSignTypedData.mockReturnValue({
+        data: 'signature',
+        signTypedData: mockSignTypedData,
+      });
+      mockSignTypedData.mockResolvedValue(true);
+
+      const { result } = await act(() =>
+        renderHook(() => useTypedSignTrustCredential()),
+      );
+
+      const { submitTypedSignRequest } = result.current;
+
+      await waitFor(() => submitTypedSignRequest(VALID_ACCOUNT_2, true));
+
+      expect(mockSignTypedData).toHaveBeenCalled();
+    });
+  });
+
+  it('check submitTypedSignRequest is called with correct arguments and verifyTypedData return false', async () => {
+    mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
+    mockUsePublicClient.mockReturnValue({
+      verifyTypedData: jest.fn().mockResolvedValue(Promise.resolve(false)),
+    });
+    const mockSignTypedData = jest.fn();
+    mockUseSignTypedData.mockReturnValue({
+      data: 'signature',
+      signTypedData: mockSignTypedData,
+    });
+    mockSignTypedData.mockResolvedValue(true);
+
+    const { result } = await act(() =>
+      renderHook(() => useTypedSignTrustCredential()),
+    );
+
+    const { submitTypedSignRequest } = result.current;
+
+    await waitFor(() => submitTypedSignRequest(VALID_ACCOUNT_2, true));
+
+    expect(mockSignTypedData).toHaveBeenCalled();
+    const { isVerified } = result.current;
+    expect(isVerified).toBe(false);
+  });
+
+  it('check submitTypedSignRequest is called with correct arguments and verifyTypedData throw error', async () => {
+    mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
+    mockUsePublicClient.mockReturnValue({
+      verifyTypedData: jest.fn().mockRejectedValue(Promise.resolve(false)),
+    });
+    const mockSignTypedData = jest.fn();
+    mockUseSignTypedData.mockReturnValue({
+      data: 'signature',
+      signTypedData: mockSignTypedData,
+    });
+    mockSignTypedData.mockResolvedValue(true);
+    const { result } = await act(() =>
+      renderHook(() => useTypedSignTrustCredential()),
+    );
+
+    const { submitTypedSignRequest } = result.current;
+
+    await waitFor(() => submitTypedSignRequest(VALID_ACCOUNT_2, true));
+
+    expect(mockSignTypedData).toHaveBeenCalled();
+    const { isVerified } = result.current;
+    expect(isVerified).toBe(false);
   });
 });
