@@ -17,20 +17,18 @@ export type MockConnectKitButtonCustomProps = {
     truncatedAddress: string;
     ensName: string | null;
   }) => ReactNode;
-  mockIsConnected?: boolean;
-  mockEnsName?: string | null;
 };
 
 export const MockConnectKitButtonCustom: FunctionComponent<
   MockConnectKitButtonCustomProps
-> = ({ children, mockIsConnected = false, mockEnsName = null }) => {
+> = ({ children }) => {
   return (
     <div className="mock-connectkit-button-custom">
       {children({
-        isConnected: mockIsConnected,
+        isConnected: false,
         show: jest.fn(),
         truncatedAddress: '0x...',
-        ensName: mockEnsName,
+        ensName: 'mock.ens.name',
       })}
     </div>
   );
