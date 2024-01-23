@@ -48,7 +48,7 @@ export const MoreOptionMenu: FunctionComponent<MoreOptionMenuProps> = ({
       });
   }, [toast, subjectAddress]);
 
-  const openBloxplorer = useCallback(() => {
+  const openBlockExplorer = useCallback(() => {
     window.open(`${chain?.blockExplorers?.etherscan?.url}/address/${address}`);
   }, [chain, address]);
 
