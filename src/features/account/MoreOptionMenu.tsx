@@ -86,7 +86,7 @@ export const MoreOptionMenu: FunctionComponent<MoreOptionMenuProps> = ({
         icon={<ExportOutlineIcon />}
         label={t`Etherscan`}
         testId="etherscan"
-        onClick={() => openBloxplorer()}
+        onClick={() => openBlockExplorer()}
       />
     </IconMenu>
   );
