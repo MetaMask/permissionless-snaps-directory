@@ -21,11 +21,27 @@ describe('MoreOptionMenu', () => {
   let mockUseAccount: jest.Mock;
   const writeText = jest.fn();
 
-  Object.assign(navigator, {
-    clipboard: {
-      writeText,
-    },
-  });
+  const renderMenuWithStore = async () => {
+    const store = createStore();
+
+    const { getByTestId, queryByText } = await act(
+      async () =>
+        await act(() =>
+          render(<MoreOptionMenu subjectAddress={VALID_ACCOUNT_2} />, store),
+        ),
+    );
+
+    const menuBtn = getByTestId('icon-menu-button');
+    expect(menuBtn).toBeInTheDocument();
+
+    fireEvent.click(menuBtn);
+
+    expect(queryByText('Add to my circle')).toBeInTheDocument();
+    expect(queryByText('Copy profile link')).toBeInTheDocument();
+    expect(queryByText('Etherscan')).toBeInTheDocument();
+
+    return { getByTestId, queryByText, store };
+  };
 
   beforeEach(() => {
     mockUseAccount = useAccount as jest.Mock;
@@ -66,21 +82,7 @@ describe('MoreOptionMenu', () => {
   });
 
   it("add to my circle will not render when user's circle already contains subjectAddress", async () => {
-    const store = createStore();
-
-    const { getByTestId, queryByText } = await act(
-      async () =>
-        await act(() =>
-          render(<MoreOptionMenu subjectAddress={VALID_ACCOUNT_2} />, store),
-        ),
-    );
-
-    const menuBtn = getByTestId('icon-menu-button');
-    expect(menuBtn).toBeInTheDocument();
-
-    fireEvent.click(menuBtn);
-
-    expect(queryByText('Add to my circle')).toBeInTheDocument();
+    const { queryByText, store } = await renderMenuWithStore();
 
     act(() => {
       store.dispatch(setUserAccount({ userCircle: [VALID_ACCOUNT_2] }));
@@ -89,36 +91,28 @@ describe('MoreOptionMenu', () => {
     expect(queryByText('Add to my circle')).not.toBeInTheDocument();
   });
 
-  it('test menu click', async () => {
-    const store = createStore();
-    navigator.clipboard.writeText.mockResolvedValue(undefined);
-
-    const { getByTestId, queryByText } = await act(
-      async () =>
-        await act(() =>
-          render(<MoreOptionMenu subjectAddress={VALID_ACCOUNT_2} />, store),
-        ),
-    );
-
-    const menuBtn = getByTestId('icon-menu-button');
-    expect(menuBtn).toBeInTheDocument();
-
-    fireEvent.click(menuBtn);
-
-    expect(queryByText('Add to my circle')).toBeInTheDocument();
-    expect(queryByText('Copy profile link')).toBeInTheDocument();
-    expect(queryByText('Etherscan')).toBeInTheDocument();
-
+  it('test click add to clrcle menu item', async () => {
+    const { getByTestId, store } = await renderMenuWithStore();
     act(() => {
       getByTestId('add-to-circle').click();
     });
     expect(store.getState().accountProfile.addToUserModalOpen).toBe(true);
+  });
+
+  it('test click copy to profile link menu item', async () => {
+    Object.assign(navigator, {
+      clipboard: {
+        writeText,
+      },
+    });
+
+    navigator.clipboard.writeText.mockResolvedValue(undefined);
+    const { getByTestId } = await renderMenuWithStore();
 
     act(() => {
       getByTestId('copy-profile-link').click();
     });
     expect(writeText).toHaveBeenCalled();
-    getByTestId('etherscan').click();
   });
 
   it('matches the snapshot', () => {
@@ -129,12 +123,12 @@ describe('MoreOptionMenu', () => {
     expect(container).toMatchInlineSnapshot(`
       <div>
         <button
-          aria-controls="menu-list-:rk:"
+          aria-controls="menu-list-:rp:"
           aria-expanded="false"
           aria-haspopup="menu"
           class="chakra-button chakra-menu__menu-button css-1m3sc6v"
           data-testid="icon-menu-button"
-          id="menu-button-:rk:"
+          id="menu-button-:rp:"
           type="button"
         >
           <span
@@ -155,7 +149,7 @@ describe('MoreOptionMenu', () => {
           <div
             aria-orientation="vertical"
             class="chakra-menu__menu-list css-1kfu8nn"
-            id="menu-list-:rk:"
+            id="menu-list-:rp:"
             role="menu"
             style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
             tabindex="-1"
