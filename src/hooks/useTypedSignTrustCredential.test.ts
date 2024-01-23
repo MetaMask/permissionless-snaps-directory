@@ -31,7 +31,10 @@ describe('useTypedSignTrustCredetial', () => {
 
     const { submitTypedSignRequest } = result.current;
 
-    await waitFor(() => submitTypedSignRequest(VALID_ACCOUNT_2, true));
+    await waitFor(
+      async () =>
+        await waitFor(() => submitTypedSignRequest(VALID_ACCOUNT_2, true)),
+    );
 
     return { mockSignTypedData, result };
   };
@@ -93,6 +96,7 @@ describe('useTypedSignTrustCredetial', () => {
 
       expect(mockSignTypedData).toHaveBeenCalled();
       expect(result.current.signature).toBe('signature');
+      expect(result.current.isVerified).toBe(true);
     });
 
     it('check submitTypedSignRequest is called with correct arguments and verifyTypedData return false', async () => {
