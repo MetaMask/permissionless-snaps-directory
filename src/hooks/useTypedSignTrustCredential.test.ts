@@ -76,7 +76,7 @@ describe('useTypedSignTrustCredetial', () => {
     it('check submitTypedSignRequest will not be called when useAccount return undefined or empty address', async () => {
       mockUseAccount.mockReturnValue({ address: undefined });
       mockUsePublicClient.mockReturnValue({
-        verifyTypedData: jest.fn().mockResolvedValue(true),
+        verifyTypedData: jest.fn().mockResolvedValue(Promise.resolve(true)),
       });
 
       const { mockSignTypedData } = await normalSignFlow();
