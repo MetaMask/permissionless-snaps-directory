@@ -1,4 +1,11 @@
-import { Container, Divider, VStack, Box, Link } from '@chakra-ui/react';
+import {
+  Container,
+  Divider,
+  VStack,
+  Box,
+  Link,
+  Button,
+} from '@chakra-ui/react';
 import { Trans, t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
 import { graphql, Link as GatsbyLink, withPrefix } from 'gatsby';
@@ -6,11 +13,15 @@ import type { FunctionComponent } from 'react';
 import { useAccount } from 'wagmi';
 
 import banner from '../../assets/images/seo/home.png';
+import { DangerIcon } from '../../components';
 import {
   AccountProfileBanner,
   AccountProfileTabs,
   AccountInfo,
+  ReportUserModal,
 } from '../../features/account';
+import { setReportUserModalOpen } from '../../features/account/store';
+import { useDispatch } from '../../hooks';
 import { type Fields, parseAddress } from '../../utils';
 import NotFound from '../404';
 
@@ -22,6 +33,7 @@ type AccountPageProps = {
 
 const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
   const { address: connectedAddress, isConnected } = useAccount();
+  const dispatch = useDispatch();
   const params = new URLSearchParams(location.search);
   const address = parseAddress(params.get('address') as Hex);
   if (!address) {
@@ -43,6 +55,19 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
               >
                 <Trans>Edit Profile</Trans>
               </Link>
+            )}
+            {isConnected && address !== connectedAddress && (
+              <Button
+                variant="outline"
+                color="error.default"
+                borderColor="error.default"
+                height="2.5rem"
+                rightIcon={<DangerIcon />}
+                onClick={() => dispatch(setReportUserModalOpen(true))}
+              >
+                <Trans>Report</Trans>
+                <ReportUserModal subjectAddress={address}></ReportUserModal>
+              </Button>
             )}
           </Box>
           <Divider />

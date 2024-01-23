@@ -31,21 +31,6 @@ export function generateTCTypedSignPayload(
   };
 
   const types = {
-    EIP712Domain: [
-      { name: 'name', type: 'string' },
-      { name: 'version', type: 'string' },
-      { name: 'chainId', type: 'uint256' },
-    ],
-    CredentialSchema: [
-      {
-        name: 'id',
-        type: 'string',
-      },
-      {
-        name: 'type',
-        type: 'string',
-      },
-    ],
     Trustworthiness: [
       {
         name: 'scope',
@@ -70,19 +55,8 @@ export function generateTCTypedSignPayload(
         type: 'Trustworthiness[]',
       },
     ],
-    VerifiableCredential: [
-      {
-        name: '@context',
-        type: 'string[]',
-      },
-      {
-        name: 'credentialSchema',
-        type: 'CredentialSchema',
-      },
-      {
-        name: 'credentialSubject',
-        type: 'CredentialSubject',
-      },
+
+    TrustCredential: [
       {
         name: 'type',
         type: 'string[]',
@@ -91,19 +65,15 @@ export function generateTCTypedSignPayload(
         name: 'issuer',
         type: 'string',
       },
+      {
+        name: 'credentialSubject',
+        type: 'CredentialSubject',
+      },
     ],
   };
 
   const message = {
-    '@context': [
-      'https://www.w3.org/2018/credentials/v1',
-      'https://beta.api.schemas.serto.id/v1/public/account-trust-credential/2.0/ld-context.json',
-    ],
-    type: ['VerifiableCredential', 'AccountTrustCredential'],
-    credentialSchema: {
-      id: 'https://beta.api.schemas.serto.id/v1/public/vetted-reviewer/1.0/json-schema.json',
-      type: 'JsonSchemaValidator2018',
-    },
+    type: ['TrustCredential'],
     issuer: `did:pkh:eip155:${chainId}:${issueAddress}`,
     credentialSubject: {
       id: `did:pkh:eip155:${chainId}:${subjectAddress}`,
@@ -117,5 +87,5 @@ export function generateTCTypedSignPayload(
     },
   };
 
-  return { domain, message, primaryType: 'VerifiableCredential', types };
+  return { domain, message, primaryType: 'TrustCredential', types };
 }

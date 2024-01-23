@@ -25,6 +25,10 @@ msgstr ""
 msgid "{nameText} Snaps on the MetaMask Snaps Directory"
 msgstr ""
 
+#: src/features/account/components/modals/ReportUserModal.tsx
+msgid "{shortSubAddress} has been added to your report user list"
+msgstr ""
+
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "{shortSubAddress} has been added to your trust circle"
 msgstr ""
@@ -84,8 +88,6 @@ msgstr ""
 msgid "Available on desktop"
 msgstr ""
 
-#: src/components/icons/index.ts
-#: src/components/icons/index.ts
 #: src/components/icons/index.ts
 #: src/components/icons/index.ts
 msgid "Avatar"
@@ -249,6 +251,7 @@ msgid "External link"
 msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
+#: src/features/account/components/modals/ReportUserModal.tsx
 msgid "Failed to verify signature"
 msgstr ""
 
@@ -331,6 +334,7 @@ msgid "Interoperability"
 msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
+#: src/features/account/components/modals/ReportUserModal.tsx
 msgid "Invalid Signature"
 msgstr ""
 
@@ -352,6 +356,7 @@ msgid "Latest Snaps on the MetaMask Snaps Directory"
 msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
+#: src/features/account/components/modals/ReportUserModal.tsx
 msgid "Learn more"
 msgstr ""
 
@@ -424,8 +429,29 @@ msgstr ""
 msgid "Profile link copied to clipboard"
 msgstr ""
 
+#: src/components/icons/index.ts
+msgid "Question blue"
+msgstr ""
+
+#: src/components/icons/index.ts
+msgid "Question red"
+msgstr ""
+
 #: src/features/snap/components/RelatedSnaps.tsx
 msgid "Related Snaps"
+msgstr ""
+
+#: src/components/icons/index.ts
+#: src/pages/account/index.tsx
+msgid "Report"
+msgstr ""
+
+#: src/features/account/components/modals/ReportUserModal.tsx
+msgid "Report for <0>{shortSubAddress}</0> as a malicious actor"
+msgstr ""
+
+#: src/features/account/components/modals/ReportUserModal.tsx
+msgid "Report User"
 msgstr ""
 
 #: src/pages/explore.tsx
@@ -493,6 +519,10 @@ msgstr ""
 msgid "Sign to add"
 msgstr ""
 
+#: src/features/account/components/modals/ReportUserModal.tsx
+msgid "Sign to report"
+msgstr ""
+
 #: src/components/icons/index.ts
 msgid "Snap"
 msgstr ""
@@ -521,6 +551,10 @@ msgstr ""
 
 #: src/pages/404.tsx
 msgid "The page you're looking for can't be found."
+msgstr ""
+
+#: src/features/account/components/modals/ReportUserModal.tsx
+msgid "This action will flag the user as a malicious in your community."
 msgstr ""
 
 #: src/components/InstallUnsupportedDesktop.tsx
@@ -592,5 +626,6 @@ msgid "You acknowledge that any Snap that you install is a Third Party Service, 
 msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
+#: src/features/account/components/modals/ReportUserModal.tsx
 msgid "Your signature is invalid"
 msgstr ""
