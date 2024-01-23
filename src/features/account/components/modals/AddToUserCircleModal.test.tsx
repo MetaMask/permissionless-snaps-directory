@@ -1,6 +1,4 @@
 import { act, fireEvent } from '@testing-library/react';
-import { createPublicClient, http } from 'viem';
-import { WagmiConfig, createConfig, mainnet } from 'wagmi';
 
 import { AddToUserCircleModal } from './AddToUserCircleModal';
 import { createStore } from '../../../../store';
@@ -58,14 +56,6 @@ jest.mock('../../../../hooks/useTypedSignTrustCredential', () => {
   };
 });
 
-const config = createConfig({
-  autoConnect: true,
-  publicClient: createPublicClient({
-    chain: mainnet,
-    transport: http(),
-  }),
-});
-
 describe('AddToUserCircleModal', () => {
   let store: any;
   beforeEach(() => {
@@ -77,73 +67,63 @@ describe('AddToUserCircleModal', () => {
     });
   });
   it('renders AddToUserCircleModal component', () => {
-    const { getByText } = render(
-      <WagmiConfig config={config}>
-        <AddToUserCircleModal subjectAddress="passAddress" />,
-      </WagmiConfig>,
+    const { queryByText } = render(
+      <AddToUserCircleModal subjectAddress="passAddress" />,
       store,
     );
 
-    expect(getByText('Sign to add')).toBeInTheDocument();
+    expect(queryByText('Sign to add')).toBeInTheDocument();
     expect(
-      getByText(
+      queryByText(
         'Lorem ipsum dolor description of what it means to add a user to your trust circle.',
       ),
     ).toBeInTheDocument();
   });
 
   it('signature verification succeeds', async () => {
-    const { getByText } = render(
-      <WagmiConfig config={config}>
-        <AddToUserCircleModal subjectAddress="passAddress" />,
-      </WagmiConfig>,
+    const { getByText, queryByText } = render(
+      <AddToUserCircleModal subjectAddress="passAddress" />,
       store,
     );
 
     const signButton = getByText('Sign to add');
     fireEvent.click(signButton);
 
-    expect(getByText('Added to your trust circle')).toBeInTheDocument();
+    expect(queryByText('Added to your trust circle')).toBeInTheDocument();
     expect(
-      getByText('passAddress has been added to your trust circle'),
+      queryByText('passAddress has been added to your trust circle'),
     ).toBeInTheDocument();
   });
 
   it('signature verification fails for invalid user', async () => {
-    const { getByText } = render(
-      <WagmiConfig config={config}>
-        <AddToUserCircleModal subjectAddress="invalidAddress" />,
-      </WagmiConfig>,
+    const { getByText, queryByText } = render(
+      <AddToUserCircleModal subjectAddress="invalidAddress" />,
       store,
     );
 
     const signButton = getByText('Sign to add');
     fireEvent.click(signButton);
 
-    expect(getByText('Invalid Signature')).toBeInTheDocument();
-    expect(getByText('Your signature is invalid')).toBeInTheDocument();
+    expect(queryByText('Invalid Signature')).toBeInTheDocument();
+    expect(queryByText('Your signature is invalid')).toBeInTheDocument();
   });
 
   it('signature verification fails for error', async () => {
-    const { getByText } = render(
-      <WagmiConfig config={config}>
-        <AddToUserCircleModal subjectAddress="errorAddress" />,
-      </WagmiConfig>,
+    const { getByText, queryByText } = render(
+      <AddToUserCircleModal subjectAddress="errorAddress" />,
       store,
     );
 
     const signButton = getByText('Sign to add');
     fireEvent.click(signButton);
 
-    expect(getByText('Failed to verify signature')).toBeInTheDocument();
-    expect(getByText('failed message')).toBeInTheDocument();
+    expect(queryByText('Failed to verify signature')).toBeInTheDocument();
+    expect(queryByText('failed message')).toBeInTheDocument();
   });
 
   it('closes modal when close button is clicked', async () => {
     const { getByLabelText } = render(
-      <WagmiConfig config={config}>
-        <AddToUserCircleModal subjectAddress="passAddress" />,
-      </WagmiConfig>,
+      <AddToUserCircleModal subjectAddress="passAddress" />,
       store,
     );
 
