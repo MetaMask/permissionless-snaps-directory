@@ -1,5 +1,6 @@
 import { describe } from '@jest/globals';
 import { getAddress } from 'viem';
+import { useAccount } from 'wagmi';
 
 import AccountProfilePage, { Head } from '.';
 import { render, getMockSiteMetadata } from '../../utils/test-utils';
@@ -13,33 +14,49 @@ jest.mock('viem', () => ({
   getAddress: jest.fn(),
 }));
 
+jest.mock('wagmi', () => ({
+  useAccount: jest.fn(),
+}));
+
 describe('Account Profile page', () => {
   let mockGetAddress: jest.Mock;
+  let mockUseAccount: jest.Mock;
 
   beforeEach(() => {
     mockGetAddress = getAddress as jest.Mock;
+    mockUseAccount = useAccount as jest.Mock;
     mockGetAddress.mockClear();
+    mockUseAccount.mockClear();
   });
 
   it('renders', async () => {
     const address = VALID_ACCOUNT_1;
     mockGetAddress.mockReturnValue(address);
+    mockUseAccount.mockReturnValue({
+      address: null,
+      isConnected: false,
+    });
+
     const mockLocationSearchParam = {
       search: new URLSearchParams({ address }),
     };
 
-    const { queryByText } = render(
+    const { queryByText, queryByTestId } = render(
       <AccountProfilePage location={mockLocationSearchParam} />,
     );
 
     expect(
       queryByText("The page you're looking for can't be found."),
     ).not.toBeInTheDocument();
-    expect(queryByText('Edit Profile')).toBeInTheDocument();
+    expect(queryByTestId('account-info')).toBeInTheDocument();
   });
 
   it('renders not found page if parameter `address` is incorrect', async () => {
     const address = VALID_ACCOUNT_1;
+    mockUseAccount.mockReturnValue({
+      address: null,
+      isConnected: false,
+    });
     mockGetAddress.mockImplementation(() => {
       throw new Error('Incorrect address');
     });
@@ -47,13 +64,70 @@ describe('Account Profile page', () => {
       search: new URLSearchParams({ address }),
     };
 
-    const { queryByText } = render(
+    const { queryByText, queryByTestId } = render(
       <AccountProfilePage location={mockLocationSearchParam} />,
     );
 
     expect(
       queryByText("The page you're looking for can't be found."),
     ).toBeInTheDocument();
+    expect(queryByTestId('account-info')).not.toBeInTheDocument();
+  });
+
+  it('renders edit button if account connected and connected address equal to query parameter `address`', async () => {
+    const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
+    mockGetAddress.mockReturnValue(address);
+    mockUseAccount.mockReturnValue({
+      address,
+      isConnected: true,
+    });
+
+    const mockLocationSearchParam = {
+      search: new URLSearchParams({ address }),
+    };
+
+    const { queryByText } = render(
+      <AccountProfilePage location={mockLocationSearchParam} />,
+    );
+
+    expect(queryByText('Edit Profile')).toBeInTheDocument();
+  });
+
+  it('does not render edit button if account connected but connected address not equal to query parameter `address`', async () => {
+    const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
+    mockGetAddress.mockReturnValue(address);
+    mockUseAccount.mockReturnValue({
+      address: '0x6B24aE0ABbeb67058D07b891aF415f288eA57000',
+      isConnected: true,
+    });
+
+    const mockLocationSearchParam = {
+      search: new URLSearchParams({ address }),
+    };
+
+    const { queryByText } = render(
+      <AccountProfilePage location={mockLocationSearchParam} />,
+    );
+
+    expect(queryByText('Edit Profile')).not.toBeInTheDocument();
+  });
+
+  it('does not render edit button if account is not connected', async () => {
+    const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
+    mockGetAddress.mockReturnValue(address);
+    mockUseAccount.mockReturnValue({
+      address: null,
+      isConnected: false,
+    });
+
+    const mockLocationSearchParam = {
+      search: new URLSearchParams({ address }),
+    };
+
+    const { queryByText } = render(
+      <AccountProfilePage location={mockLocationSearchParam} />,
+    );
+
     expect(queryByText('Edit Profile')).not.toBeInTheDocument();
   });
 

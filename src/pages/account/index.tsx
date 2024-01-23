@@ -3,6 +3,7 @@ import { Trans, t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
 import { graphql, Link as GatsbyLink, withPrefix } from 'gatsby';
 import type { FunctionComponent } from 'react';
+import { useAccount } from 'wagmi';
 
 import banner from '../../assets/images/seo/home.png';
 import {
@@ -20,6 +21,7 @@ type AccountPageProps = {
 };
 
 const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
+  const { address: connectedAddress, isConnected } = useAccount();
   const params = new URLSearchParams(location.search);
   const address = parseAddress(params.get('address') as Hex);
   if (!address) {
@@ -27,19 +29,21 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
   }
 
   return (
-    <Box position="relative">
+    <Box position="relative" data-testid="account-info">
       <AccountProfileBanner />
       <Container maxWidth="container.xl" paddingTop="0" position="relative">
         <VStack mt="175" spacing={['10', null, '20']}>
           <AccountInfo address={address} />
           <Box position={['static', null, 'absolute']} right="5" top="100">
-            <Link
-              as={GatsbyLink}
-              variant="landing"
-              to={`/account/edit?address=${address}`}
-            >
-              <Trans>Edit Profile</Trans>
-            </Link>
+            {isConnected && address === connectedAddress && (
+              <Link
+                as={GatsbyLink}
+                variant="landing"
+                to={`/account/edit?address=${connectedAddress}`}
+              >
+                <Trans>Edit Profile</Trans>
+              </Link>
+            )}
           </Box>
           <Divider />
           <AccountProfileTabs />
