@@ -109,7 +109,8 @@ export function useTypedSignTrustCredential() {
           setIsLoading(false);
         });
     }
-  }, [address, trustCredentialTypedData, signature, client]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [signature]);
 
   return {
     isLoading,
