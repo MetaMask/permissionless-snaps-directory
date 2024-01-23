@@ -115,6 +115,15 @@ describe('MoreOptionMenu', () => {
     expect(writeText).toHaveBeenCalled();
   });
 
+  it('test click etherscan menu item', async () => {
+    jest.spyOn(window, 'open').mockImplementation();
+    const { getByTestId } = await renderMenuWithStore();
+    act(() => {
+      getByTestId('etherscan').click();
+    });
+    expect(window.open).toHaveBeenCalled();
+  });
+
   it('matches the snapshot', () => {
     const { container } = render(
       <MoreOptionMenu subjectAddress={VALID_ACCOUNT_2} />,
@@ -123,12 +132,12 @@ describe('MoreOptionMenu', () => {
     expect(container).toMatchInlineSnapshot(`
       <div>
         <button
-          aria-controls="menu-list-:rp:"
+          aria-controls="menu-list-:ru:"
           aria-expanded="false"
           aria-haspopup="menu"
           class="chakra-button chakra-menu__menu-button css-1m3sc6v"
           data-testid="icon-menu-button"
-          id="menu-button-:rp:"
+          id="menu-button-:ru:"
           type="button"
         >
           <span
@@ -149,7 +158,7 @@ describe('MoreOptionMenu', () => {
           <div
             aria-orientation="vertical"
             class="chakra-menu__menu-list css-1kfu8nn"
-            id="menu-list-:rp:"
+            id="menu-list-:ru:"
             role="menu"
             style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
             tabindex="-1"
