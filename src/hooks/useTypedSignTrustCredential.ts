@@ -84,6 +84,10 @@ export function useTypedSignTrustCredential() {
             const tcPayload = trustCredentialTypedData.message;
             tcPayload.proof = {
               type: 'EthereumEip712Signature2021',
+              domain: trustCredentialTypedData.domain,
+              types: trustCredentialTypedData.types,
+              message: trustCredentialTypedData.message,
+              primaryType: trustCredentialTypedData.primaryType,
               proofValue: signature,
             };
             setPayload(tcPayload);
