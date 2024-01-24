@@ -1,10 +1,11 @@
-import { Center, Link, Text, VStack, useToast } from '@chakra-ui/react';
+import { Center, Link, Text, VStack } from '@chakra-ui/react';
 import { Trans, t } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
 import { useEffect, useMemo } from 'react';
 
 import { AvatarBlueIcon, RequestSignModal } from '../../../../components';
 import { useDispatch, useSelector } from '../../../../hooks';
+import useToastMsg from '../../../../hooks/useToastMsg';
 import {
   SignatureErrorTypes,
   useTypedSignTrustCredential,
@@ -33,7 +34,7 @@ export const AddToUserCircleModal: FunctionComponent<
     signatureError,
   } = useTypedSignTrustCredential();
 
-  const toast = useToast({ position: 'top' });
+  const { showErrorMsg, showSuccessMsg } = useToastMsg();
 
   const shortSubAddress = useMemo(
     () => trimAddress(subjectAddress),
@@ -43,35 +44,26 @@ export const AddToUserCircleModal: FunctionComponent<
   useEffect(() => {
     if (signatureError) {
       if (signatureError.type === SignatureErrorTypes.Error) {
-        toast({
+        showErrorMsg({
           title: t`Failed to verify signature`,
           description: signatureError.message,
-          status: 'error',
-          duration: 2000,
-          isClosable: true,
         });
       } else {
-        toast({
+        showErrorMsg({
           title: t`Invalid Signature`,
           description: t`Your signature is invalid`,
-          status: 'error',
-          duration: 2000,
-          isClosable: true,
         });
       }
     }
-  }, [signatureError, toast]);
+  }, [signatureError, showErrorMsg]);
 
   useEffect(() => {
     // confirm signature has been verified
     if (isVerified) {
       console.log(`TrustCredential payload is`, payload);
-      toast({
+      showSuccessMsg({
         title: t`Added to your trust circle`,
         description: t`${shortSubAddress} has been added to your trust circle`,
-        status: 'success',
-        duration: 2000,
-        isClosable: true,
       });
       dispatch(addUserToUserCircle(subjectAddress));
       dispatch(setAddToUserModalOpen(false));
