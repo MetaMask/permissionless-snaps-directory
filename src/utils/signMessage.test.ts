@@ -15,7 +15,15 @@ const generateExpectedResult = (isAdd: boolean) => {
       chainId: inputChainId,
     },
     message: {
-      type: ['TrustCredential'],
+      '@context': [
+        'https://www.w3.org/2018/credentials/v1',
+        'https://beta.api.schemas.serto.id/v1/public/account-trust-credential/2.0/ld-context.json',
+      ],
+      type: ['VerifiableCredential', 'AccountTrustCredential'],
+      credentialSchema: {
+        id: 'https://beta.api.schemas.serto.id/v1/public/vetted-reviewer/1.0/json-schema.json',
+        type: 'JsonSchemaValidator2018',
+      },
       issuer: `did:pkh:eip155:${inputChainId}:${VALID_ACCOUNT_1}`,
       credentialSubject: {
         id: `did:pkh:eip155:${inputChainId}:${VALID_ACCOUNT_2}`,
@@ -28,30 +36,21 @@ const generateExpectedResult = (isAdd: boolean) => {
         ],
       },
     },
-    primaryType: 'TrustCredential',
+    primaryType: 'VerifiableCredential',
     types: {
-      CredentialSubject: [
+      EIP712Domain: [
+        { name: 'name', type: 'string' },
+        { name: 'version', type: 'string' },
+        { name: 'chainId', type: 'uint256' },
+      ],
+      CredentialSchema: [
         {
           name: 'id',
           type: 'string',
         },
         {
-          name: 'trustworthiness',
-          type: 'Trustworthiness[]',
-        },
-      ],
-      TrustCredential: [
-        {
           name: 'type',
-          type: 'string[]',
-        },
-        {
-          name: 'issuer',
           type: 'string',
-        },
-        {
-          name: 'credentialSubject',
-          type: 'CredentialSubject',
         },
       ],
       Trustworthiness: [
@@ -66,6 +65,42 @@ const generateExpectedResult = (isAdd: boolean) => {
         {
           name: 'reason',
           type: 'string[]',
+        },
+      ],
+      CredentialSubject: [
+        {
+          name: 'id',
+          type: 'string',
+        },
+        {
+          name: 'trustworthiness',
+          type: 'Trustworthiness[]',
+        },
+      ],
+      VerifiableCredential: [
+        {
+          name: '@context',
+          type: 'string[]',
+        },
+        {
+          name: 'credentialSchema',
+          type: 'CredentialSchema',
+        },
+        {
+          name: 'credentialSubject',
+          type: 'CredentialSubject',
+        },
+        {
+          name: 'type',
+          type: 'string[]',
+        },
+        {
+          name: 'issuer',
+          type: 'string',
+        },
+        {
+          name: 'proof',
+          type: 'Proof',
         },
       ],
     },

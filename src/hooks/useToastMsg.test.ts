@@ -108,4 +108,26 @@ describe('useToastMsg', () => {
       isClosable: true,
     });
   });
+
+  it('should call useToast with correct parameters when showLoadingMsg is called', async () => {
+    const { result } = await act(() => renderHook(() => useToastMsg()));
+    const { showLoadingMsg } = result.current;
+
+    await act(() =>
+      showLoadingMsg({
+        title: 'Loading',
+        description: 'Some loading',
+        duration: 3000,
+        isClosable: true,
+      }),
+    );
+
+    expect(mockToast).toHaveBeenCalledWith({
+      title: 'Loading',
+      description: 'Some loading',
+      status: 'loading',
+      duration: 3000,
+      isClosable: true,
+    });
+  });
 });
