@@ -29,6 +29,14 @@ msgstr ""
 msgid "©{0} MetaMask. All rights reserved."
 msgstr ""
 
+#: src/features/account/AccountTEEndosement.tsx
+msgid "Ability to develop MetaMask Snaps"
+msgstr ""
+
+#: src/features/account/AccountTEEndosement.tsx
+msgid "Ability to develop secure applications"
+msgstr ""
+
 #: src/components/FooterLinks.tsx
 msgid "About"
 msgstr ""
@@ -206,6 +214,14 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Enable light mode"
+msgstr ""
+
+#: src/features/account/components/TEEndosementButton.tsx
+msgid "Endose"
+msgstr ""
+
+#: src/features/account/components/TEEndosementButton.tsx
+msgid "Endosed"
 msgstr ""
 
 #: src/features/account/MoreOptionMenu.tsx
@@ -462,11 +478,20 @@ msgid "Share"
 msgstr ""
 
 #: src/components/icons/index.ts
+#: src/features/account/components/modals/TEEndosementModal.tsx
 msgid "Sign"
 msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Snap"
+msgstr ""
+
+#: src/features/account/AccountTEEndosement.tsx
+msgid "Software Development"
+msgstr ""
+
+#: src/features/account/AccountTEEndosement.tsx
+msgid "Software Security"
 msgstr ""
 
 #: src/features/filter/Filter.tsx
@@ -509,6 +534,10 @@ msgstr ""
 
 #: src/features/account/AccountProfileTabs.tsx
 msgid "Trusted Circle"
+msgstr ""
+
+#: src/features/account/components/modals/TEEndosementModal.tsx
+msgid "Trusted technical abilities"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -561,4 +590,8 @@ msgstr ""
 
 #: src/components/FooterTerms.tsx
 msgid "You acknowledge that any Snap that you install is a Third Party Service, unless otherwise identified, as defined in the <0>Consensys Terms of Use</0>. Your use of Third Party Services is governed by separate terms and conditions set forth by the Third Party Service provider. Consensys does not recommend the use of any Snap by any particular person for any particular reason. You access, rely upon or use the Third Party Service at your own risk. Consensys disclaims all responsibility and liability for any losses on account of your use of Third Party Services. Any information you share with Third Party Services will be collected directly by those Third Party Services in accordance with their privacy policies. Please refer to their privacy policies for more information. Consensys has no access to information you share with Third Party Services."
+msgstr ""
+
+#: src/features/account/components/modals/TEEndosementModal.tsx
+msgid "Your level of confidence in <0>{trustEntity}</0> skill set"
 msgstr ""
