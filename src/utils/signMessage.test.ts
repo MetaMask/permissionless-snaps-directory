@@ -98,10 +98,6 @@ const generateExpectedResult = (isAdd: boolean) => {
           name: 'issuer',
           type: 'string',
         },
-        {
-          name: 'proof',
-          type: 'Proof',
-        },
       ],
     },
   };
