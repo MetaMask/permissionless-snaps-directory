@@ -1,1 +1,1 @@
-export * from './TEEndosementModal';
+export * from './TEEndorsementModal';

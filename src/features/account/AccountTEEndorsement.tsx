@@ -3,16 +3,16 @@ import type { Hex } from '@metamask/utils';
 import { useState, type FunctionComponent, useMemo } from 'react';
 import { useEnsName } from 'wagmi';
 
-import { TEEndosementModal, TEEndosementButton } from './components';
+import { TEEndorsementModal, TEEndorsementButton } from './components';
 import { trimAddress } from '../../utils';
 
-type AccountTEEndosementProps = {
+type AccountTEEndorsementProps = {
   address: Hex;
   connectedAddress: Hex;
 };
 
-export const AccountTEEndosement: FunctionComponent<
-  AccountTEEndosementProps
+export const AccountTEEndorsement: FunctionComponent<
+  AccountTEEndorsementProps
 > = ({ address }) => {
   const { data } = useEnsName({
     address,
@@ -43,9 +43,12 @@ export const AccountTEEndosement: FunctionComponent<
 
   return (
     <>
-      <TEEndosementButton onClick={() => setShowModal(true)} endosed={false} />
+      <TEEndorsementButton
+        onClick={() => setShowModal(true)}
+        endorsed={false}
+      />
       {showModal && (
-        <TEEndosementModal
+        <TEEndorsementModal
           trustEntity={data ?? trimedAddress}
           visability={showModal}
           onClose={() => setShowModal(false)}

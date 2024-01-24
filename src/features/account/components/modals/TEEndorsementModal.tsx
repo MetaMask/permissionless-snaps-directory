@@ -4,21 +4,21 @@ import { useState, type FunctionComponent } from 'react';
 
 import { AvatarReportBlueIcon, RequestSignModal } from '../../../../components';
 
-export type TEEndosementModalProps = {
+export type TEEndorsementModalProps = {
   trustEntity: string;
-  options: TEEndosementOption[];
+  options: TEEndorsementOption[];
   onSign: (arg: string[]) => Promise<void>;
   onClose: () => void;
   visability: boolean;
 };
 
-export type TEEndosementOption = {
+export type TEEndorsementOption = {
   label: string;
   value: string;
   description?: string;
 };
 
-export const TEEndosementModal: FunctionComponent<TEEndosementModalProps> = ({
+export const TEEndorsementModal: FunctionComponent<TEEndorsementModalProps> = ({
   trustEntity,
   options,
   onSign,
@@ -72,7 +72,7 @@ export const TEEndosementModal: FunctionComponent<TEEndosementModalProps> = ({
               skill set
             </Trans>
           </Text>
-          {options.map((option: TEEndosementOption, index: number) => (
+          {options.map((option: TEEndorsementOption, index: number) => (
             <Box
               background="background.default"
               padding="1rem"

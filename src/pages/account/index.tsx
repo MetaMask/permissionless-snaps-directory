@@ -17,7 +17,7 @@ import {
   AccountProfileBanner,
   AccountProfileTabs,
   AccountInfo,
-  AccountTEEndosement,
+  AccountTEEndorsement,
 } from '../../features/account';
 import { type Fields, parseAddress } from '../../utils';
 import NotFound from '../404';
@@ -47,7 +47,7 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
           <Box position={['static', null, 'absolute']} right="5" top="90">
             <HStack>
               {isConnected && !isMyAccount && (
-                <AccountTEEndosement
+                <AccountTEEndorsement
                   address={address}
                   connectedAddress={connectedAddress as Hex}
                 />

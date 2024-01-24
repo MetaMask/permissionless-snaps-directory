@@ -96,7 +96,7 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).toBeInTheDocument();
-    expect(queryByText('Endose')).not.toBeInTheDocument();
+    expect(queryByText('Endorse')).not.toBeInTheDocument();
   });
 
   it('does not render edit button if connected address not equal to query parameter `address`', async () => {
@@ -116,7 +116,7 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).not.toBeInTheDocument();
-    expect(queryByText('Endose')).toBeInTheDocument();
+    expect(queryByText('Endorse')).toBeInTheDocument();
   });
 
   it('does not render edit button if account is not connected', async () => {
@@ -136,7 +136,7 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).not.toBeInTheDocument();
-    expect(queryByText('Endose')).not.toBeInTheDocument();
+    expect(queryByText('Endorse')).not.toBeInTheDocument();
   });
 
   describe('Head', () => {

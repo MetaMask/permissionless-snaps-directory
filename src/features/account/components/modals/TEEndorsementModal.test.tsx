@@ -1,9 +1,9 @@
 import { act } from '@testing-library/react';
 
-import { TEEndosementModal } from './TEEndosementModal';
+import { TEEndorsementModal } from './TEEndorsementModal';
 import { render } from '../../../../utils/test-utils';
 
-describe('TEEndosementModal', () => {
+describe('TEEndorsementModal', () => {
   const options = [
     {
       label: 'label 1',
@@ -22,7 +22,7 @@ describe('TEEndosementModal', () => {
     const onClose = jest.fn();
 
     const { queryByText } = render(
-      <TEEndosementModal
+      <TEEndorsementModal
         trustEntity="mock.ens.name"
         options={options}
         onClose={onClose}
@@ -48,7 +48,7 @@ describe('TEEndosementModal', () => {
     }));
 
     const { queryByText } = render(
-      <TEEndosementModal
+      <TEEndorsementModal
         trustEntity="mock.ens.name"
         options={optionsWithoutDescription}
         onClose={onClose}
@@ -69,7 +69,7 @@ describe('TEEndosementModal', () => {
     const onClose = jest.fn();
 
     const { getByText } = render(
-      <TEEndosementModal
+      <TEEndorsementModal
         trustEntity="mock.ens.name"
         options={options}
         onClose={onClose}

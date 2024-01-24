@@ -3,5 +3,5 @@ export * from './reviews/ReviewsTabPanel';
 export * from './trusted-circle/TrustedCircleTabPanel';
 export * from './snaps/MySnapsTabPanel';
 export * from './AccountInfo';
-export * from './TEEndosementButton';
+export * from './TEEndorsementButton';
 export * from './modals';

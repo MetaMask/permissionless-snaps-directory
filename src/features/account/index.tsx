@@ -1,4 +1,4 @@
 export * from './components';
 export * from './AccountProfileBanner';
 export * from './AccountProfileTabs';
-export * from './AccountTEEndosement';
+export * from './AccountTEEndorsement';

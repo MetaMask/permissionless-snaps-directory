@@ -1,7 +1,7 @@
 import { act } from '@testing-library/react';
 import { useEnsName } from 'wagmi';
 
-import { AccountTEEndosement } from './AccountTEEndosement';
+import { AccountTEEndorsement } from './AccountTEEndorsement';
 import { render } from '../../utils/test-utils';
 
 jest.mock('wagmi', () => ({
@@ -11,7 +11,7 @@ jest.mock('wagmi', () => ({
 const VALID_ACCOUNT_1 = '0x123';
 const VALID_ACCOUNT_2 = '0x123';
 
-describe('AccountTEEndosement', () => {
+describe('AccountTEEndorsement', () => {
   let mockUseEnsName: jest.Mock;
 
   beforeEach(() => {
@@ -26,7 +26,7 @@ describe('AccountTEEndosement', () => {
     }));
 
     const { queryByText, getByText } = render(
-      <AccountTEEndosement
+      <AccountTEEndorsement
         address={VALID_ACCOUNT_1}
         connectedAddress={VALID_ACCOUNT_2}
       />,
@@ -34,11 +34,11 @@ describe('AccountTEEndosement', () => {
 
     await act(async () =>
       act(() => {
-        getByText('Endose').click();
+        getByText('Endorse').click();
       }),
     );
 
-    expect(queryByText('Endose')).toBeInTheDocument();
+    expect(queryByText('Endorse')).toBeInTheDocument();
     expect(queryByText('Software Security')).toBeInTheDocument();
     expect(queryByText('Software Development')).toBeInTheDocument();
   });
@@ -50,7 +50,7 @@ describe('AccountTEEndosement', () => {
     }));
 
     const { queryByText, getByText } = render(
-      <AccountTEEndosement
+      <AccountTEEndorsement
         address={VALID_ACCOUNT_1}
         connectedAddress={VALID_ACCOUNT_2}
       />,
@@ -58,7 +58,7 @@ describe('AccountTEEndosement', () => {
 
     await act(async () =>
       act(() => {
-        getByText('Endose').click();
+        getByText('Endorse').click();
       }),
     );
 
@@ -72,7 +72,7 @@ describe('AccountTEEndosement', () => {
     }));
 
     const { queryByText, getByText } = render(
-      <AccountTEEndosement
+      <AccountTEEndorsement
         address={VALID_ACCOUNT_1}
         connectedAddress={VALID_ACCOUNT_2}
       />,
@@ -80,7 +80,7 @@ describe('AccountTEEndosement', () => {
 
     await act(async () =>
       act(() => {
-        getByText('Endose').click();
+        getByText('Endorse').click();
       }),
     );
 
@@ -94,7 +94,7 @@ describe('AccountTEEndosement', () => {
     }));
 
     const { queryByText, getByText } = render(
-      <AccountTEEndosement
+      <AccountTEEndorsement
         address={VALID_ACCOUNT_1}
         connectedAddress={VALID_ACCOUNT_2}
       />,
@@ -102,7 +102,7 @@ describe('AccountTEEndosement', () => {
 
     await act(async () =>
       act(() => {
-        getByText('Endose').click();
+        getByText('Endorse').click();
       }),
     );
 
@@ -122,7 +122,7 @@ describe('AccountTEEndosement', () => {
     }));
 
     const { queryByText, getByLabelText, getByText } = render(
-      <AccountTEEndosement
+      <AccountTEEndorsement
         address={VALID_ACCOUNT_1}
         connectedAddress={VALID_ACCOUNT_2}
       />,
@@ -130,7 +130,7 @@ describe('AccountTEEndosement', () => {
 
     await act(async () =>
       act(() => {
-        getByText('Endose').click();
+        getByText('Endorse').click();
       }),
     );
 
