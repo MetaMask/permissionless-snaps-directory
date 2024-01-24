@@ -502,6 +502,10 @@ msgstr ""
 msgid "Source Code"
 msgstr ""
 
+#: src/components/icons/index.ts
+msgid "Star"
+msgstr ""
+
 #: src/components/Footer.tsx
 msgid "Start exploring blockchain applications in seconds. Trusted by over 30 million users worldwide."
 msgstr ""
