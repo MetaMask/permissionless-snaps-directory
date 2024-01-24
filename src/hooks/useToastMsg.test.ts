@@ -130,4 +130,104 @@ describe('useToastMsg', () => {
       isClosable: true,
     });
   });
+
+  it('should call useToast with default parameters when showErrorMsg is called', async () => {
+    const { result } = await act(() => renderHook(() => useToastMsg()));
+    const { showErrorMsg } = result.current;
+
+    await act(() =>
+      showErrorMsg({
+        title: 'Error',
+        description: 'Something went wrong',
+      }),
+    );
+
+    expect(mockToast).toHaveBeenCalledWith({
+      title: 'Error',
+      description: 'Something went wrong',
+      status: 'error',
+      duration: 200,
+      isClosable: true,
+    });
+  });
+
+  it('should call useToast with default parameters when showInfoMsg is called', async () => {
+    const { result } = await act(() => renderHook(() => useToastMsg()));
+    const { showInfoMsg } = result.current;
+
+    await act(() =>
+      showInfoMsg({
+        title: 'Info',
+        description: 'Some information',
+      }),
+    );
+
+    expect(mockToast).toHaveBeenCalledWith({
+      title: 'Info',
+      description: 'Some information',
+      status: 'info',
+      duration: 200,
+      isClosable: true,
+    });
+  });
+
+  it('should call useToast with default parameters when showSuccessMsg is called', async () => {
+    const { result } = await act(() => renderHook(() => useToastMsg()));
+    const { showSuccessMsg } = result.current;
+
+    await act(() =>
+      showSuccessMsg({
+        title: 'Success',
+        description: 'Some success',
+      }),
+    );
+
+    expect(mockToast).toHaveBeenCalledWith({
+      title: 'Success',
+      description: 'Some success',
+      status: 'success',
+      duration: 200,
+      isClosable: true,
+    });
+  });
+
+  it('should call useToast with default parameters when showWarningMsg is called', async () => {
+    const { result } = await act(() => renderHook(() => useToastMsg()));
+    const { showWarningMsg } = result.current;
+
+    await act(() =>
+      showWarningMsg({
+        title: 'Warning',
+        description: 'Some warning',
+      }),
+    );
+
+    expect(mockToast).toHaveBeenCalledWith({
+      title: 'Warning',
+      description: 'Some warning',
+      status: 'warning',
+      duration: 200,
+      isClosable: true,
+    });
+  });
+
+  it('should call useToast with default parameters when showLoadingMsg is called', async () => {
+    const { result } = await act(() => renderHook(() => useToastMsg()));
+    const { showLoadingMsg } = result.current;
+
+    await act(() =>
+      showLoadingMsg({
+        title: 'Loading',
+        description: 'Some loading',
+      }),
+    );
+
+    expect(mockToast).toHaveBeenCalledWith({
+      title: 'Loading',
+      description: 'Some loading',
+      status: 'loading',
+      duration: 200,
+      isClosable: true,
+    });
+  });
 });
