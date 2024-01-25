@@ -25,10 +25,6 @@ msgstr ""
 msgid "{nameText} Snaps on the MetaMask Snaps Directory"
 msgstr ""
 
-#: src/features/account/components/modals/ReportUserModal.tsx
-msgid "{shortSubAddress} has been added to your report user list"
-msgstr ""
-
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "{shortSubAddress} has been added to your trust circle"
 msgstr ""
@@ -255,7 +251,6 @@ msgid "External link"
 msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
-#: src/features/account/components/modals/ReportUserModal.tsx
 msgid "Failed to verify signature"
 msgstr ""
 
@@ -346,7 +341,6 @@ msgid "Interoperability"
 msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
-#: src/features/account/components/modals/ReportUserModal.tsx
 msgid "Invalid Signature"
 msgstr ""
 
@@ -367,8 +361,8 @@ msgstr ""
 msgid "Latest Snaps on the MetaMask Snaps Directory"
 msgstr ""
 
+#: src/features/account/components/modals/AccountReportModal.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
-#: src/features/account/components/modals/ReportUserModal.tsx
 msgid "Learn more"
 msgstr ""
 
@@ -466,8 +460,8 @@ msgstr ""
 msgid "Report for <0>{reportEntity}</0> as a malicious actor"
 msgstr ""
 
-#: src/features/account/components/modals/ReportUserModal.tsx
-msgid "Report User"
+#: src/features/account/components/AccountReportButton.tsx
+msgid "Reported"
 msgstr ""
 
 #: src/pages/explore.tsx
@@ -539,7 +533,7 @@ msgstr ""
 msgid "Sign to add"
 msgstr ""
 
-#: src/features/account/components/modals/ReportUserModal.tsx
+#: src/features/account/components/modals/AccountReportModal.tsx
 msgid "Sign to report"
 msgstr ""
 
@@ -646,6 +640,5 @@ msgid "You acknowledge that any Snap that you install is a Third Party Service, 
 msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
-#: src/features/account/components/modals/ReportUserModal.tsx
 msgid "Your signature is invalid"
 msgstr ""
