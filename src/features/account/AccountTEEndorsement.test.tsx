@@ -87,7 +87,7 @@ describe('AccountTEEndorsement', () => {
     expect(queryByText('mock.ens.name')).toBeInTheDocument();
   });
 
-  it('dismiss the model when sign button clicked', async () => {
+  it('dismiss the modal when sign button clicked', async () => {
     mockUseEnsName.mockImplementation(() => ({
       data: 'mock.ens.name',
       isLoading: false,
