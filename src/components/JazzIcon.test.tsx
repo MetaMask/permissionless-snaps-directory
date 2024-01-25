@@ -4,6 +4,7 @@ import React from 'react';
 
 import { JazzIcon } from './JazzIcon';
 import { render } from '../utils/test-utils';
+import { VALID_ACCOUNT_1 } from '../utils/test-utils/input';
 
 jest.mock('@metamask/jazzicon');
 
@@ -15,7 +16,7 @@ describe('JazzIcon', () => {
   });
 
   it('renders', async () => {
-    const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
+    const address = VALID_ACCOUNT_1;
     const size = 100;
     const addr = address.trim().slice(2, 10);
     const seed = parseInt(addr, 16);
@@ -35,7 +36,7 @@ describe('JazzIcon', () => {
       null as unknown as React.MutableRefObject<unknown>,
     );
 
-    const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
+    const address = VALID_ACCOUNT_1;
     const size = 100;
 
     const { queryByTestId } = renderComponent(

@@ -1,32 +1,92 @@
+import { useToast } from '@chakra-ui/react';
 import { t } from '@lingui/macro';
-import type { FunctionComponent } from 'react';
+import { useCallback, useMemo, type FunctionComponent } from 'react';
+import { useAccount, useNetwork } from 'wagmi';
 
+import { setAddToUserModalOpen } from './store';
 import {
   ExportOutlineIcon,
   IconMenu,
   MenuItemCard,
   MoreOptionIcon,
   ShareIcon,
-  UserCheckIcon,
   UserCircleAddIcon,
-  WarningFilledIcon,
 } from '../../components';
+import { useDispatch, useSelector } from '../../hooks';
+import type { ApplicationState } from '../../store';
 
-export const MoreOptionMenu: FunctionComponent = () => {
+type MoreOptionMenuProps = {
+  subjectAddress: string;
+};
+
+export const MoreOptionMenu: FunctionComponent<MoreOptionMenuProps> = ({
+  subjectAddress,
+}) => {
+  const { userAccount } = useSelector(
+    (state: ApplicationState) => state.accountProfile,
+  );
+  const dispatch = useDispatch();
+  const toast = useToast({ position: 'top' });
+  const { chain } = useNetwork();
+  const { address } = useAccount();
+
+  // Dont know why when we write following as async method, the typescript will have error complaining about the return type Promise<Void>
+  const copyToClipboard = useCallback(() => {
+    navigator.clipboard
+      .writeText(`${window.location.origin}/account/?address=${subjectAddress}`)
+      .then(() => {
+        toast({
+          title: t`Copied`,
+          description: t`Profile link copied to clipboard`,
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [toast, subjectAddress]);
+
+  const openBlockExplorer = useCallback(() => {
+    window.open(`${chain?.blockExplorers?.etherscan?.url}/address/${address}`);
+  }, [chain, address]);
+
+  const shouldShowAddModal = useMemo(() => {
+    if (address === subjectAddress) {
+      return false;
+    }
+
+    if (userAccount.userCircle.includes(subjectAddress)) {
+      return false;
+    }
+
+    return true;
+  }, [address, subjectAddress, userAccount]);
+
   return (
     <IconMenu icon={<MoreOptionIcon />}>
-      <MenuItemCard icon={<UserCircleAddIcon />} label={t`Add to my circle`} />
-      <MenuItemCard icon={<ShareIcon />} label={t`Copy profile link`} />
-      <MenuItemCard icon={<ExportOutlineIcon />} label={t`Etherscan`} />
+      {shouldShowAddModal && (
+        <MenuItemCard
+          icon={<UserCircleAddIcon />}
+          label={t`Add to my circle`}
+          testId="add-to-circle"
+          onClick={() => dispatch(setAddToUserModalOpen(true))}
+        />
+      )}
       <MenuItemCard
-        icon={<UserCheckIcon />}
-        label={t`Access abilities`}
-        textColor="blue"
+        icon={<ShareIcon />}
+        label={t`Copy profile link`}
+        testId="copy-profile-link"
+        onClick={() => {
+          copyToClipboard();
+        }}
       />
       <MenuItemCard
-        icon={<WarningFilledIcon />}
-        label={t`Report user`}
-        textColor="red"
+        icon={<ExportOutlineIcon />}
+        label={t`Etherscan`}
+        testId="etherscan"
+        onClick={() => openBlockExplorer()}
       />
     </IconMenu>
   );

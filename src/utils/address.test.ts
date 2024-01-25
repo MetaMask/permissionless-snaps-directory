@@ -1,6 +1,7 @@
 import { getAddress } from 'viem';
 
 import { parseAddress } from './address';
+import { VALID_ACCOUNT_1 } from './test-utils/input';
 
 jest.mock('viem', () => ({
   getAddress: jest.fn(),
@@ -15,14 +16,14 @@ describe('parseAddress', () => {
   });
 
   it('return address if parse address successfully', async () => {
-    const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
+    const address = VALID_ACCOUNT_1;
     mockGetAddress.mockReturnValue(address);
 
     expect(parseAddress(address)).toStrictEqual(address);
   });
 
   it('return null if parse address failed', async () => {
-    const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
+    const address = VALID_ACCOUNT_1;
     mockGetAddress.mockImplementation(() => {
       throw new Error('Incorrect address');
     });
