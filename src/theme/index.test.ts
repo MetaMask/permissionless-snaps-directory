@@ -65,6 +65,15 @@ describe('theme', () => {
                 "lineHeight": "157%",
                 "padding": "4",
               },
+              "outlinePortableError": Object {
+                "background": "transparent",
+                "border": "1.5px solid",
+                "borderColor": "error.default",
+                "borderRadius": "30px",
+                "color": "error.default",
+                "height": "40px",
+                "padding": "4",
+              },
               "primary": Object {
                 "_hover": Object {
                   "_disabled": Object {

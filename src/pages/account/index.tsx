@@ -4,7 +4,7 @@ import {
   VStack,
   Box,
   Link,
-  Button,
+  HStack,
 } from '@chakra-ui/react';
 import { Trans, t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
@@ -13,15 +13,12 @@ import type { FunctionComponent } from 'react';
 import { useAccount } from 'wagmi';
 
 import banner from '../../assets/images/seo/home.png';
-import { DangerIcon } from '../../components';
 import {
   AccountProfileBanner,
   AccountProfileTabs,
   AccountInfo,
-  ReportUserModal,
+  AccountReport,
 } from '../../features/account';
-import { setReportUserModalOpen } from '../../features/account/store';
-import { useDispatch } from '../../hooks';
 import { type Fields, parseAddress } from '../../utils';
 import NotFound from '../404';
 
@@ -33,12 +30,13 @@ type AccountPageProps = {
 
 const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
   const { address: connectedAddress, isConnected } = useAccount();
-  const dispatch = useDispatch();
   const params = new URLSearchParams(location.search);
   const address = parseAddress(params.get('address') as Hex);
   if (!address) {
     return <NotFound />;
   }
+
+  const isMyAccount = address === connectedAddress;
 
   return (
     <Box position="relative" data-testid="account-info">
@@ -46,29 +44,21 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
       <Container maxWidth="container.xl" paddingTop="0" position="relative">
         <VStack mt="175" spacing={['10', null, '20']}>
           <AccountInfo address={address} />
-          <Box position={['static', null, 'absolute']} right="5" top="100">
-            {isConnected && address === connectedAddress && (
-              <Link
-                as={GatsbyLink}
-                variant="landing"
-                to={`/account/edit?address=${connectedAddress}`}
-              >
-                <Trans>Edit Profile</Trans>
-              </Link>
-            )}
-            {isConnected && address !== connectedAddress && (
-              <Button
-                variant="outline"
-                color="error.default"
-                borderColor="error.default"
-                height="2.5rem"
-                rightIcon={<DangerIcon />}
-                onClick={() => dispatch(setReportUserModalOpen(true))}
-              >
-                <Trans>Report</Trans>
-                <ReportUserModal subjectAddress={address}></ReportUserModal>
-              </Button>
-            )}
+          <Box position={['static', null, 'absolute']} right="5" top="90">
+            <HStack>
+              {isConnected && !isMyAccount && (
+                <AccountReport address={address} />
+              )}
+              {isConnected && isMyAccount && (
+                <Link
+                  as={GatsbyLink}
+                  variant="landing"
+                  to={`/account/edit?address=${connectedAddress}`}
+                >
+                  <Trans>Edit Profile</Trans>
+                </Link>
+              )}
+            </HStack>
           </Box>
           <Divider />
           <AccountProfileTabs />
