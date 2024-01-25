@@ -7,6 +7,7 @@ export type MenuCardProps = {
   icon: JSX.Element;
   label: string;
   textColor?: 'default' | 'red' | 'blue';
+  testId?: string;
   onClick?: () => void;
 };
 
@@ -14,10 +15,11 @@ export const MenuItemCard: FunctionComponent<MenuCardProps> = ({
   icon,
   label,
   textColor = 'default',
+  testId = 'menu-item-card',
   onClick,
 }) => {
   return (
-    <MenuItem w="95%" onClick={onClick} data-testid="menu-item-card">
+    <MenuItem w="95%" onClick={onClick} data-testid={testId}>
       <Card padding="1">
         <HStack spacing="2">
           <Text variant={textColor}>{icon}</Text>

@@ -25,6 +25,10 @@ msgstr ""
 msgid "{nameText} Snaps on the MetaMask Snaps Directory"
 msgstr ""
 
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+msgid "{shortSubAddress} has been added to your trust circle"
+msgstr ""
+
 #: src/components/FooterCopyright.tsx
 msgid "©{0} MetaMask. All rights reserved."
 msgstr ""
@@ -41,12 +45,12 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: src/features/account/MoreOptionMenu.tsx
-msgid "Access abilities"
-msgstr ""
-
 #: src/pages/account/index.tsx
 msgid "Account Profile"
+msgstr ""
+
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+msgid "Add <0>{shortSubAddress}</0> to your trust circle"
 msgstr ""
 
 #: src/components/InstallSnapButton.tsx
@@ -57,6 +61,10 @@ msgstr ""
 #: src/components/icons/index.ts
 #: src/features/account/MoreOptionMenu.tsx
 msgid "Add to my circle"
+msgstr ""
+
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+msgid "Added to your trust circle"
 msgstr ""
 
 #: src/features/snaps/components/NoSnaps.tsx
@@ -143,6 +151,10 @@ msgstr ""
 
 #: src/components/PostInstallModal.tsx
 msgid "Continue to <0>{name}</0>'s website to get started with this snap."
+msgstr ""
+
+#: src/features/account/MoreOptionMenu.tsx
+msgid "Copied"
 msgstr ""
 
 #: src/features/account/MoreOptionMenu.tsx
@@ -252,6 +264,10 @@ msgstr ""
 msgid "External link"
 msgstr ""
 
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+msgid "Failed to verify signature"
+msgstr ""
+
 #: src/features/snap/components/Metadata.tsx
 msgid "FAQ"
 msgstr ""
@@ -330,6 +346,10 @@ msgstr ""
 msgid "Interoperability"
 msgstr ""
 
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+msgid "Invalid Signature"
+msgstr ""
+
 #: src/features/snap/components/Metadata.tsx
 msgid "Knowledge Base"
 msgstr ""
@@ -345,6 +365,10 @@ msgstr ""
 
 #: src/pages/latest.tsx
 msgid "Latest Snaps on the MetaMask Snaps Directory"
+msgstr ""
+
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+msgid "Learn more"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -412,12 +436,12 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
-#: src/features/snap/components/RelatedSnaps.tsx
-msgid "Related Snaps"
+#: src/features/account/MoreOptionMenu.tsx
+msgid "Profile link copied to clipboard"
 msgstr ""
 
-#: src/features/account/MoreOptionMenu.tsx
-msgid "Report user"
+#: src/features/snap/components/RelatedSnaps.tsx
+msgid "Related Snaps"
 msgstr ""
 
 #: src/pages/explore.tsx
@@ -480,6 +504,10 @@ msgstr ""
 #: src/components/icons/index.ts
 #: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Sign"
+msgstr ""
+
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+msgid "Sign to add"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -598,4 +626,7 @@ msgstr ""
 
 #: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Your level of confidence in <0>{trustEntity}</0> skill set"
+
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+msgid "Your signature is invalid"
 msgstr ""
