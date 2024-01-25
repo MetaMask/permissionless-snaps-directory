@@ -98,6 +98,7 @@ describe('AccountReport', () => {
 
     await act(async () =>
       act(() => {
+        getByText('Scamming').click();
         getByText('Sign to report').click();
       }),
     );

@@ -30,8 +30,8 @@ export const AccountReport: FunctionComponent<AccountReportProps> = ({
     t`Other`,
   ];
 
-  const onSign = async (selectedReasons: string[]) => {
-    console.log(selectedReasons);
+  const onSign = async (selected: string[]) => {
+    console.log(selected);
     setShowModal(false);
   };
 
@@ -44,7 +44,7 @@ export const AccountReport: FunctionComponent<AccountReportProps> = ({
       {showModal && (
         <AccountReportModal
           reportEntity={data ?? trimedAddress}
-          visability={showModal}
+          visibility={showModal}
           onClose={() => setShowModal(false)}
           options={options}
           onSign={onSign}

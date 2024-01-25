@@ -136,7 +136,7 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).not.toBeInTheDocument();
-    expect(queryByText('Endorse')).not.toBeInTheDocument();
+    expect(queryByText('Report')).not.toBeInTheDocument();
   });
 
   describe('Head', () => {

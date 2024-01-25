@@ -8,12 +8,12 @@ import {
   RequestSignModal,
 } from '../../../../components';
 
-type AccountReportModalProps = {
+export type AccountReportModalProps = {
   reportEntity: string;
   options: string[];
   onSign: (arg: string[]) => Promise<void>;
   onClose: () => void;
-  visability: boolean;
+  visibility: boolean;
 };
 
 export const AccountReportModal: FunctionComponent<AccountReportModalProps> = ({
@@ -21,13 +21,14 @@ export const AccountReportModal: FunctionComponent<AccountReportModalProps> = ({
   options,
   onSign,
   onClose,
-  visability,
+  visibility,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([] as string[]);
 
   const onSignButtonClick = () => {
     setIsLoading(true);
+
     onSign(selectedOptions).finally(() => {
       setIsLoading(false);
     });
@@ -35,7 +36,7 @@ export const AccountReportModal: FunctionComponent<AccountReportModalProps> = ({
 
   return (
     <RequestSignModal
-      isOpen={visability}
+      isOpen={visibility}
       isLoading={isLoading}
       mode="negative"
       headerIcon={<QuestionRedIcon />}
@@ -68,7 +69,7 @@ export const AccountReportModal: FunctionComponent<AccountReportModalProps> = ({
             options={options}
             onChange={(values) => {
               setSelectedOptions(
-                options.filter((_, index) => values[index] === true) ?? [],
+                options.filter((_, index) => values[index] === true),
               );
             }}
           />
