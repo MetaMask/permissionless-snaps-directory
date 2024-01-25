@@ -63,8 +63,8 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
     ],
   };
 
-  protected getSubjectDid(subjectAddress: string): SnapDid {
-    return `snap://${subjectAddress}`;
+  protected getSubjectDid(snapId: string): SnapDid {
+    return `snap://${snapId}`;
   }
 
   protected getCredentialSubject(

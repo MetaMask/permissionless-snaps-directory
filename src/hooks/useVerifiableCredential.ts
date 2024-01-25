@@ -1,8 +1,6 @@
-import { useToast } from '@chakra-ui/react';
-import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
 import type { SignTypedDataArgs } from '@wagmi/core';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import {
   useAccount,
   useChainId,
@@ -11,19 +9,18 @@ import {
 } from 'wagmi';
 
 import {
-  VerifiableCredentialService,
   AccountVerifiableCredential,
   SnapVerifiableCredential,
 } from '../utils';
 
-export enum SignatureErrorTypes {
+export enum VCSignErrorType {
   SignError = 'SignError',
   VerifyError = 'VerifyError',
   VerifyFailed = 'VerifyFailed',
 }
 
-export type SignatureError = {
-  type: SignatureErrorTypes;
+export type VCSignError = {
+  type: VCSignErrorType;
   message?: string;
 };
 
@@ -36,15 +33,9 @@ export function useVerifiableCredential() {
   const verifyClient = usePublicClient();
   const chainId = useChainId();
   const { address } = useAccount();
-  const toast = useToast({ position: 'top' });
   const { signTypedDataAsync } = useSignTypedData();
 
-  const [signatureError, setSignatureError] = useState<SignatureError>();
-
-  const service = useMemo(
-    () => new VerifiableCredentialService(verifyClient, signTypedDataAsync),
-    [verifyClient, signTypedDataAsync],
-  );
+  const [signError, setSignError] = useState<VCSignError>();
 
   const accountVCBuilder = useMemo(
     () => new AccountVerifiableCredential(chainId),
@@ -58,80 +49,59 @@ export function useVerifiableCredential() {
 
   const signMessage = useCallback(
     async (signArg: SignTypedDataArgs): Promise<Hex | null> => {
-      if (address) {
-        try {
-          const signature = await service.sign(signArg);
+      try {
+        if (address) {
+          const signature = await signTypedDataAsync(signArg);
 
           if (signature) {
             try {
-              const result = await service.verify(address, signArg, signature);
+              const { domain, types, primaryType, message } = signArg;
 
-              if (result) {
+              if (
+                await verifyClient.verifyTypedData({
+                  address,
+                  domain,
+                  types,
+                  primaryType,
+                  message,
+                  signature,
+                })
+              ) {
                 return signature;
               }
 
-              setSignatureError({
-                type: SignatureErrorTypes.VerifyFailed,
+              setSignError({
+                type: VCSignErrorType.VerifyFailed,
               });
             } catch (error: any) {
-              setSignatureError({
-                type: SignatureErrorTypes.VerifyError,
+              setSignError({
+                type: VCSignErrorType.VerifyError,
                 message: error.message,
               });
             }
           }
-        } catch (error: any) {
-          setSignatureError({
-            type: SignatureErrorTypes.SignError,
-            message: error.message,
-          });
         }
+      } catch (error: any) {
+        setSignError({
+          type: VCSignErrorType.SignError,
+          message: error.message,
+        });
       }
-
       return null;
     },
-    [address, service],
+    [address, verifyClient, signTypedDataAsync],
   );
 
-  useEffect(() => {
-    if (signatureError) {
-      switch (signatureError.type) {
-        case SignatureErrorTypes.VerifyFailed:
-          toast({
-            title: t`Failed to verify signature`,
-            description: t`Your signature is invalid`,
-            status: 'error',
-            duration: 2000,
-            isClosable: true,
-          });
-          break;
-        case SignatureErrorTypes.VerifyError:
-          toast({
-            title: t`Invalid Signature`,
-            description: signatureError.message,
-            status: 'error',
-            duration: 2000,
-            isClosable: true,
-          });
-          break;
-        default:
-          toast({
-            title: t`Failed to sign the signature`,
-            description: signatureError.message,
-            status: 'error',
-            duration: 2000,
-            isClosable: true,
-          });
-          break;
-      }
-    }
-  }, [signatureError, toast]);
-
+  snapVCBuilder.buildDisputedPayload(
+    address as Hex,
+    'CmWnKZgn0YwhCONy9eAp6caU/4MFPO74bXReg/IlBPw=',
+    [],
+  );
   return {
     issuerAddress: address,
     signMessage,
+    signError,
     accountVCBuilder,
     snapVCBuilder,
-    signatureError,
   };
 }

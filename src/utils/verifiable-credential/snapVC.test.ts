@@ -1,7 +1,8 @@
 import { SnapVerifiableCredential } from './snapVC';
 
 const VALID_ACCOUNT_1 = '0x1';
-const SNAP = 'xyz';
+const SNAP = 'ALj0YMDz4JNchPJfreWErQx/GOh4FMWWy1o1rCq7sQQ=';
+
 describe('SnapVerifiableCredential', () => {
   const buildSnapVerifiableCredential = () => {
     return new SnapVerifiableCredential(1);

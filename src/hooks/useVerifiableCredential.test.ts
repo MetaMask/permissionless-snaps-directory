@@ -1,4 +1,3 @@
-import { useToast } from '@chakra-ui/react';
 import { act } from 'react-dom/test-utils';
 import { getAddress } from 'viem';
 import { useAccount, usePublicClient, useSignTypedData } from 'wagmi';
@@ -21,11 +20,6 @@ jest.mock('wagmi', () => ({
   useChainId: () => 1,
 }));
 
-jest.mock('@chakra-ui/react', () => ({
-  ...jest.requireActual('@chakra-ui/react'),
-  useToast: jest.fn(),
-}));
-
 const VALID_ACCOUNT_1 = '0x1';
 const VALID_ACCOUNT_2 = '0x1';
 
@@ -35,11 +29,9 @@ describe('useVerifiableCredential', () => {
     const mockUseAccount = useAccount as jest.Mock;
     const mockUsePublicClient = usePublicClient as jest.Mock;
     const mockUseSignTypedData = useSignTypedData as jest.Mock;
-    const mockUseToast = useToast as jest.Mock;
 
     const verifyTypedDataSpy = jest.fn();
     const signTypedDataAsyncSpy = jest.fn();
-    const toastSpy = jest.fn();
 
     mockUsePublicClient.mockReturnValue({
       verifyTypedData: verifyTypedDataSpy,
@@ -49,17 +41,30 @@ describe('useVerifiableCredential', () => {
       signTypedDataAsync: signTypedDataAsyncSpy,
     });
 
-    mockUseToast.mockReturnValue(toastSpy);
-
     return {
       signTypedDataAsyncSpy,
       verifyTypedDataSpy,
-      toastSpy,
       mockGetAddress,
       mockUseAccount,
     };
   };
 
+  const runSignMessage = async () => {
+    const { result } = await act(() =>
+      renderHook(() => useVerifiableCredential()),
+    );
+
+    const vc = result.current.accountVCBuilder.buildAccountTrust(
+      VALID_ACCOUNT_1,
+      VALID_ACCOUNT_2,
+    );
+    const signResult = await act(async () => result.current.signMessage(vc));
+
+    return {
+      signResult,
+      hookState: result.current,
+    };
+  };
   it('returns correct properties', async () => {
     const { mockUseAccount } = buildMock();
     mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
@@ -76,7 +81,7 @@ describe('useVerifiableCredential', () => {
       result.current.snapVCBuilder instanceof SnapVerifiableCredential,
     ).toBe(true);
     expect(typeof result.current.signMessage === 'function').toBe(true);
-    expect(result.current.signatureError).toBeUndefined();
+    expect(result.current.signError).toBeUndefined();
   });
 
   describe('signMessage', () => {
@@ -87,15 +92,7 @@ describe('useVerifiableCredential', () => {
       signTypedDataAsyncSpy.mockResolvedValue('0xSignature');
       verifyTypedDataSpy.mockResolvedValue(true);
 
-      const { result } = await act(() =>
-        renderHook(() => useVerifiableCredential()),
-      );
-
-      const vc = result.current.accountVCBuilder.buildAccountTrust(
-        VALID_ACCOUNT_1,
-        VALID_ACCOUNT_2,
-      );
-      const signResult = await act(async () => result.current.signMessage(vc));
+      const { signResult } = await runSignMessage();
 
       expect(signTypedDataAsyncSpy).toHaveBeenCalled();
       expect(verifyTypedDataSpy).toHaveBeenCalled();
@@ -107,15 +104,7 @@ describe('useVerifiableCredential', () => {
         buildMock();
       mockUseAccount.mockReturnValue({ address: null });
 
-      const { result } = await act(() =>
-        renderHook(() => useVerifiableCredential()),
-      );
-
-      const vc = result.current.accountVCBuilder.buildAccountTrust(
-        VALID_ACCOUNT_1,
-        VALID_ACCOUNT_2,
-      );
-      const signResult = await act(async () => result.current.signMessage(vc));
+      const { signResult } = await runSignMessage();
 
       expect(signTypedDataAsyncSpy).not.toHaveBeenCalled();
       expect(verifyTypedDataSpy).not.toHaveBeenCalled();
@@ -128,120 +117,68 @@ describe('useVerifiableCredential', () => {
       mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
       signTypedDataAsyncSpy.mockResolvedValue(null);
 
-      const { result } = await act(() =>
-        renderHook(() => useVerifiableCredential()),
-      );
-
-      const vc = result.current.accountVCBuilder.buildAccountTrust(
-        VALID_ACCOUNT_1,
-        VALID_ACCOUNT_2,
-      );
-      const signResult = await act(async () => result.current.signMessage(vc));
+      const { signResult } = await runSignMessage();
 
       expect(signTypedDataAsyncSpy).toHaveBeenCalled();
       expect(verifyTypedDataSpy).not.toHaveBeenCalled();
       expect(signResult).toBeNull();
     });
 
-    it('return false if verify is fail', async () => {
+    it('return false if verify is failed', async () => {
       const { mockUseAccount, signTypedDataAsyncSpy, verifyTypedDataSpy } =
         buildMock();
       mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
       signTypedDataAsyncSpy.mockResolvedValue('0xSignature');
       verifyTypedDataSpy.mockResolvedValue(false);
 
-      const { result } = await act(() =>
-        renderHook(() => useVerifiableCredential()),
-      );
-
-      const vc = result.current.accountVCBuilder.buildAccountTrust(
-        VALID_ACCOUNT_1,
-        VALID_ACCOUNT_2,
-      );
-      const signResult = await act(async () => result.current.signMessage(vc));
+      const { signResult } = await runSignMessage();
 
       expect(signResult).toBeNull();
     });
 
-    it('display toast error when sign error', async () => {
-      const { mockUseAccount, signTypedDataAsyncSpy, toastSpy } = buildMock();
+    it('set signError to `SignError` when sign exception catch', async () => {
+      const { mockUseAccount, signTypedDataAsyncSpy } = buildMock();
       mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
       signTypedDataAsyncSpy.mockRejectedValue(new Error('sign error'));
 
-      const { result } = await act(() =>
-        renderHook(() => useVerifiableCredential()),
-      );
-
-      const vc = result.current.accountVCBuilder.buildAccountTrust(
-        VALID_ACCOUNT_1,
-        VALID_ACCOUNT_2,
-      );
-      const signResult = await act(async () => result.current.signMessage(vc));
+      const { signResult, hookState } = await runSignMessage();
 
       expect(signResult).toBeNull();
-      expect(toastSpy).toHaveBeenCalledWith(
-        expect.objectContaining({
-          description: 'sign error',
-        }),
-      );
+      expect(hookState.signError).toStrictEqual({
+        type: 'SignError',
+        message: 'sign error',
+      });
     });
 
-    it('display toast error when verify fail', async () => {
-      const {
-        mockUseAccount,
-        signTypedDataAsyncSpy,
-        verifyTypedDataSpy,
-        toastSpy,
-      } = buildMock();
+    it('set signError to `VerifyError` when verify exception catch', async () => {
+      const { mockUseAccount, signTypedDataAsyncSpy, verifyTypedDataSpy } =
+        buildMock();
       mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
       signTypedDataAsyncSpy.mockResolvedValue('0xSignature');
       verifyTypedDataSpy.mockRejectedValue(new Error('verify error'));
 
-      const { result } = await act(() =>
-        renderHook(() => useVerifiableCredential()),
-      );
-
-      const vc = result.current.accountVCBuilder.buildAccountTrust(
-        VALID_ACCOUNT_1,
-        VALID_ACCOUNT_2,
-      );
-      const signResult = await act(async () => result.current.signMessage(vc));
+      const { signResult, hookState } = await runSignMessage();
 
       expect(signResult).toBeNull();
-      expect(toastSpy).toHaveBeenCalledWith(
-        expect.objectContaining({
-          description: 'verify error',
-        }),
-      );
+      expect(hookState.signError).toStrictEqual({
+        message: 'verify error',
+        type: 'VerifyError',
+      });
     });
 
-    it('display toast error when verify false', async () => {
-      const {
-        mockUseAccount,
-        signTypedDataAsyncSpy,
-        verifyTypedDataSpy,
-        toastSpy,
-      } = buildMock();
+    it('set signError to `VerifyFailed` when verify failed', async () => {
+      const { mockUseAccount, signTypedDataAsyncSpy, verifyTypedDataSpy } =
+        buildMock();
       mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
       signTypedDataAsyncSpy.mockResolvedValue('0xSignature');
       verifyTypedDataSpy.mockResolvedValue(false);
 
-      const { result } = await act(() =>
-        renderHook(() => useVerifiableCredential()),
-      );
-
-      const vc = result.current.accountVCBuilder.buildAccountTrust(
-        VALID_ACCOUNT_1,
-        VALID_ACCOUNT_2,
-      );
-      const signResult = await act(async () => result.current.signMessage(vc));
+      const { signResult, hookState } = await runSignMessage();
 
       expect(signResult).toBeNull();
-      expect(toastSpy).toHaveBeenCalledWith(
-        expect.objectContaining({
-          description: 'Your signature is invalid',
-        }),
-      );
+      expect(hookState.signError).toStrictEqual({
+        type: 'VerifyFailed',
+      });
     });
   });
 });
