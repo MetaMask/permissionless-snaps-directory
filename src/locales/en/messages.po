@@ -626,6 +626,7 @@ msgstr ""
 
 #: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Your level of confidence in <0>{trustEntity}</0> skill set"
+msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Your signature is invalid"
