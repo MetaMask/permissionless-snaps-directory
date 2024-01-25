@@ -198,6 +198,10 @@ msgstr ""
 msgid "Discover the MetaMask Snaps Directory Account Profile page."
 msgstr ""
 
+#: src/features/account/AccountReport.tsx
+msgid "Disinformation"
+msgstr ""
+
 #: src/features/banner/components/create-snap-banner/CreateSnapBanner.tsx
 msgid "Documentation"
 msgstr ""
@@ -291,6 +295,14 @@ msgstr ""
 
 #: src/constants.ts
 msgid "Guard your wallet with transaction insights and safety tools."
+msgstr ""
+
+#: src/features/account/AccountReport.tsx
+msgid "Hacking"
+msgstr ""
+
+#: src/features/account/AccountReport.tsx
+msgid "Harassment"
 msgstr ""
 
 #: src/features/snap/components/MetadataItems.tsx
@@ -417,6 +429,10 @@ msgstr ""
 msgid "Open notifications menu"
 msgstr ""
 
+#: src/features/account/AccountReport.tsx
+msgid "Other"
+msgstr ""
+
 #: src/features/filter/constants.tsx
 msgid "Popularity"
 msgstr ""
@@ -442,12 +458,12 @@ msgid "Related Snaps"
 msgstr ""
 
 #: src/components/icons/index.ts
-#: src/pages/account/index.tsx
+#: src/features/account/components/AccountReportButton.tsx
 msgid "Report"
 msgstr ""
 
-#: src/features/account/components/modals/ReportUserModal.tsx
-msgid "Report for <0>{shortSubAddress}</0> as a malicious actor"
+#: src/features/account/components/modals/AccountReportModal.tsx
+msgid "Report for <0>{reportEntity}</0> as a malicious actor"
 msgstr ""
 
 #: src/features/account/components/modals/ReportUserModal.tsx
@@ -465,6 +481,10 @@ msgstr ""
 
 #: src/features/account/AccountProfileTabs.tsx
 msgid "Reviews"
+msgstr ""
+
+#: src/features/account/AccountReport.tsx
+msgid "Scamming"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -553,7 +573,7 @@ msgstr ""
 msgid "The page you're looking for can't be found."
 msgstr ""
 
-#: src/features/account/components/modals/ReportUserModal.tsx
+#: src/features/account/components/modals/AccountReportModal.tsx
 msgid "This action will flag the user as a malicious in your community."
 msgstr ""
 
