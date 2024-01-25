@@ -92,11 +92,6 @@ export function useVerifiableCredential() {
     [address, verifyClient, signTypedDataAsync],
   );
 
-  snapVCBuilder.buildDisputedPayload(
-    address as Hex,
-    'CmWnKZgn0YwhCONy9eAp6caU/4MFPO74bXReg/IlBPw=',
-    [],
-  );
   return {
     issuerAddress: address,
     signMessage,
