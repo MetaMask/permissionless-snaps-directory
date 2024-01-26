@@ -3,7 +3,7 @@ import {
   INVALID_ADDRESS,
   VALID_ACCOUNT_1,
   VALID_ACCOUNT_2,
-} from './test-utils/input';
+} from './test-utils';
 
 const inputChainId = 1;
 

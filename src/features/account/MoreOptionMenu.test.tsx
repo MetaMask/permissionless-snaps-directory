@@ -6,7 +6,10 @@ import { MoreOptionMenu } from './MoreOptionMenu';
 import { setUserAccount } from './store';
 import { createStore } from '../../store';
 import { render } from '../../utils/test-utils';
-import { VALID_ACCOUNT_1, VALID_ACCOUNT_2 } from '../../utils/test-utils/input';
+import {
+  VALID_ACCOUNT_1,
+  VALID_ACCOUNT_2,
+} from '../../utils/test-utils/constants';
 
 jest.mock('wagmi', () => ({
   useAccount: jest.fn(),

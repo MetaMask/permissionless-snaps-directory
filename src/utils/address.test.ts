@@ -1,7 +1,7 @@
 import { getAddress } from 'viem';
 
 import { parseAddress } from './address';
-import { VALID_ACCOUNT_1 } from './test-utils/input';
+import { VALID_ACCOUNT_1 } from './test-utils';
 
 jest.mock('viem', () => ({
   getAddress: jest.fn(),
