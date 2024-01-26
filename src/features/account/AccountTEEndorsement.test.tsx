@@ -196,8 +196,8 @@ describe('AccountTEEndorsement', () => {
       expect(signMessageSpy).toHaveBeenCalled();
       expect(getSignedAssertionSpy).toHaveBeenCalled();
       expect(buildTechnicalExpertiseTrustSpy).toHaveBeenCalledWith(
-        VALID_ACCOUNT_1,
         VALID_ACCOUNT_2,
+        VALID_ACCOUNT_1,
         [
           {
             scope: TrustworthinessScope.SoftwareDevelopment,
@@ -268,8 +268,8 @@ describe('AccountTEEndorsement', () => {
       expect(signMessageSpy).toHaveBeenCalled();
       expect(getSignedAssertionSpy).toHaveBeenCalled();
       expect(buildTechnicalExpertiseTrustSpy).toHaveBeenCalledWith(
-        VALID_ACCOUNT_1,
         VALID_ACCOUNT_2,
+        VALID_ACCOUNT_1,
         [
           {
             scope: TrustworthinessScope.SoftwareDevelopment,
