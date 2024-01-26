@@ -13,6 +13,14 @@ jest.mock('../../features/account/components/AccountInfo', () => ({
   AccountInfo: () => <div />,
 }));
 
+jest.mock('../../features/account/AccountTEEndorsement', () => ({
+  AccountTEEndorsement: () => <div />,
+}));
+
+jest.mock('../../features/account/AccountReport', () => ({
+  AccountReport: () => <div />,
+}));
+
 jest.mock('viem', () => ({
   getAddress: jest.fn(),
 }));
@@ -100,7 +108,6 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).toBeInTheDocument();
-    expect(queryByText('Endorse')).not.toBeInTheDocument();
   });
 
   it('does not render edit button if connected address not equal to query parameter `address`', async () => {
@@ -120,8 +127,6 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).not.toBeInTheDocument();
-    expect(queryByText('Report')).toBeInTheDocument();
-    expect(queryByText('Endorse')).toBeInTheDocument();
   });
 
   it('does not render edit button if account is not connected', async () => {
@@ -141,8 +146,6 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).not.toBeInTheDocument();
-    expect(queryByText('Report')).not.toBeInTheDocument();
-    expect(queryByText('Endorse')).not.toBeInTheDocument();
   });
 
   describe('Head', () => {
