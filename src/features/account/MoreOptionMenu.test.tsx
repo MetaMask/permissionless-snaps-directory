@@ -9,7 +9,7 @@ import { render } from '../../utils/test-utils';
 import {
   VALID_ACCOUNT_1,
   VALID_ACCOUNT_2,
-} from '../../utils/test-utils/constants';
+} from '../../utils/test-utils';
 
 jest.mock('wagmi', () => ({
   useAccount: jest.fn(),
