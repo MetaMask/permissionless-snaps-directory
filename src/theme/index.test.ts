@@ -65,6 +65,14 @@ describe('theme', () => {
                 "lineHeight": "157%",
                 "padding": "4",
               },
+              "outlinePortable": Object {
+                "background": "transparent",
+                "border": "1.5px solid",
+                "borderColor": "info.default",
+                "borderRadius": "30px",
+                "color": "info.default",
+                "padding": "4",
+              },
               "primary": Object {
                 "_hover": Object {
                   "_disabled": Object {
@@ -79,6 +87,18 @@ describe('theme', () => {
                 "fontWeight": "500",
                 "height": "48px",
                 "lineHeight": "157%",
+                "padding": "4",
+              },
+              "primaryPortable": Object {
+                "_hover": Object {
+                  "_disabled": Object {
+                    "background": "info.default",
+                  },
+                },
+                "background": "info.default",
+                "borderColor": "info.default",
+                "borderRadius": "30px",
+                "color": "white",
                 "padding": "4",
               },
               "small": Object {

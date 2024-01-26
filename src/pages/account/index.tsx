@@ -1,4 +1,11 @@
-import { Container, Divider, VStack, Box, Link } from '@chakra-ui/react';
+import {
+  Container,
+  Divider,
+  VStack,
+  Box,
+  Link,
+  HStack,
+} from '@chakra-ui/react';
 import { Trans, t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
 import { graphql, Link as GatsbyLink, withPrefix } from 'gatsby';
@@ -10,6 +17,7 @@ import {
   AccountProfileBanner,
   AccountProfileTabs,
   AccountInfo,
+  AccountTEEndorsement,
 } from '../../features/account';
 import { type Fields, parseAddress } from '../../utils';
 import NotFound from '../404';
@@ -28,22 +36,32 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
     return <NotFound />;
   }
 
+  const isMyAccount = address === connectedAddress;
+
   return (
     <Box position="relative" data-testid="account-info">
       <AccountProfileBanner />
       <Container maxWidth="container.xl" paddingTop="0" position="relative">
         <VStack mt="175" spacing={['10', null, '20']}>
           <AccountInfo address={address} />
-          <Box position={['static', null, 'absolute']} right="5" top="100">
-            {isConnected && address === connectedAddress && (
-              <Link
-                as={GatsbyLink}
-                variant="landing"
-                to={`/account/edit?address=${connectedAddress}`}
-              >
-                <Trans>Edit Profile</Trans>
-              </Link>
-            )}
+          <Box position={['static', null, 'absolute']} right="5" top="90">
+            <HStack>
+              {isConnected && !isMyAccount && (
+                <AccountTEEndorsement
+                  address={address}
+                  connectedAddress={connectedAddress as Hex}
+                />
+              )}
+              {isConnected && isMyAccount && (
+                <Link
+                  as={GatsbyLink}
+                  variant="landing"
+                  to={`/account/edit?address=${connectedAddress}`}
+                >
+                  <Trans>Edit Profile</Trans>
+                </Link>
+              )}
+            </HStack>
           </Box>
           <Divider />
           <AccountProfileTabs />

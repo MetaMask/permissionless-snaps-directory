@@ -16,6 +16,12 @@ jest.mock('viem', () => ({
 
 jest.mock('wagmi', () => ({
   useAccount: jest.fn(),
+  useEnsName: () => ({
+    data: {
+      name: 'test.eth',
+    },
+    loading: false,
+  }),
 }));
 
 describe('Account Profile page', () => {
@@ -74,7 +80,7 @@ describe('Account Profile page', () => {
     expect(queryByTestId('account-info')).not.toBeInTheDocument();
   });
 
-  it('renders edit button if account connected and connected address equal to query parameter `address`', async () => {
+  it('renders edit button if the connected address is equal to query parameter `address`', async () => {
     const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
     mockGetAddress.mockReturnValue(address);
     mockUseAccount.mockReturnValue({
@@ -91,9 +97,10 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).toBeInTheDocument();
+    expect(queryByText('Endorse')).not.toBeInTheDocument();
   });
 
-  it('does not render edit button if account connected but connected address not equal to query parameter `address`', async () => {
+  it('does not render edit button if connected address not equal to query parameter `address`', async () => {
     const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
     mockGetAddress.mockReturnValue(address);
     mockUseAccount.mockReturnValue({
@@ -110,6 +117,7 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).not.toBeInTheDocument();
+    expect(queryByText('Endorse')).toBeInTheDocument();
   });
 
   it('does not render edit button if account is not connected', async () => {
@@ -129,6 +137,7 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).not.toBeInTheDocument();
+    expect(queryByText('Endorse')).not.toBeInTheDocument();
   });
 
   describe('Head', () => {

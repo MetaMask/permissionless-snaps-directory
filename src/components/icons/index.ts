@@ -28,6 +28,7 @@ import BaseSearchIcon from './search.svg';
 import BaseShareIcon from './share.svg';
 import BaseSignIcon from './sign.svg';
 import BaseSnapIcon from './snap.svg';
+import BaseStarFilledIcon from './star-filled.svg';
 import BaseTransactionInsightsIcon from './transaction-insights.svg';
 import BaseUserCheckIcon from './user-check.svg';
 import BaseUserCircleAddFillIcon from './user-cirlce-add-filled.svg';
@@ -126,6 +127,8 @@ export const ShareIcon = wrapIcon(BaseShareIcon, defineMessage`Share`);
 export const SnapIcon = wrapIcon(BaseSnapIcon, defineMessage`Snap`);
 
 export const SignIcon = wrapIcon(BaseSignIcon, defineMessage`Sign`);
+
+export const StarFilledIcon = wrapIcon(BaseStarFilledIcon, defineMessage`Star`);
 
 export const TransactionInsightsIcon = wrapIcon(
   BaseTransactionInsightsIcon,
