@@ -3,12 +3,11 @@ import { defineMessage } from '@lingui/macro';
 import BaseAuditorIcon from './auditor.svg';
 import BaseAvatarBlueIcon from './avatar-blue.svg';
 import BaseAvatarRedIcon from './avatar-red.svg';
-import BaseAvatarReportBlueIcon from './avatar-report-blue.svg';
-import BaseAvatarReportRedIcon from './avatar-report-red.svg';
 import BaseBackIcon from './back.svg';
 import BaseCheckThinIcon from './check-thin.svg';
 import BaseCheckIcon from './check.svg';
 import BaseCloseIcon from './close.svg';
+import BaseDangerIcon from './danger.svg';
 import BaseDarkModeIcon from './dark-mode.svg';
 import BaseDeveloperIcon from './developer.svg';
 import BaseDotIcon from './dot.svg';
@@ -23,6 +22,8 @@ import BaseLiveIcon from './live.svg';
 import BaseMetaMaskIcon from './metamask.svg';
 import BaseMoreVerticalOutlineIcon from './more-vertical-outline.svg';
 import BaseNotificationsIcon from './notifications.svg';
+import BaseQuestionBlueIcon from './question-blue.svg';
+import BaseQuestionRedIcon from './question-red.svg';
 import BaseReviewerIcon from './reviewer.svg';
 import BaseSearchIcon from './search.svg';
 import BaseShareIcon from './share.svg';
@@ -43,14 +44,14 @@ export const AvatarBlueIcon = wrapIcon(
 
 export const AvatarRedIcon = wrapIcon(BaseAvatarRedIcon, defineMessage`Avatar`);
 
-export const AvatarReportBlueIcon = wrapIcon(
-  BaseAvatarReportBlueIcon,
-  defineMessage`Avatar`,
+export const QuestionBlueIcon = wrapIcon(
+  BaseQuestionBlueIcon,
+  defineMessage`Question blue`,
 );
 
-export const AvatarReportRedIcon = wrapIcon(
-  BaseAvatarReportRedIcon,
-  defineMessage`Avatar`,
+export const QuestionRedIcon = wrapIcon(
+  BaseQuestionRedIcon,
+  defineMessage`Question red`,
 );
 
 export const BackIcon = wrapIcon(BaseBackIcon, defineMessage`Back`);
@@ -60,6 +61,8 @@ export const CloseIcon = wrapIcon(BaseCloseIcon, defineMessage`Close`);
 export const CheckIcon = wrapIcon(BaseCheckIcon, defineMessage`Check`);
 
 export const CheckThinIcon = wrapIcon(BaseCheckThinIcon, defineMessage`Check`);
+
+export const DangerIcon = wrapIcon(BaseDangerIcon, defineMessage`Report`);
 
 export const DarkModeIcon = wrapIcon(
   BaseDarkModeIcon,

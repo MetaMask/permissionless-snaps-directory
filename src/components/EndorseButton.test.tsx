@@ -1,12 +1,12 @@
-import { TEEndorsementButton } from './TEEndorsementButton';
-import { render } from '../../../utils/test-utils';
+import { EndorseButton } from './EndorseButton';
+import { render } from '../utils/test-utils';
 
-describe('TEEndorsementButton', () => {
+describe('EndorseButton', () => {
   it('renders `Endorse` when `endorsed` is false', () => {
     const onClickSpy = jest.fn();
 
     const { queryByText } = render(
-      <TEEndorsementButton endorsed={false} onClick={onClickSpy} />,
+      <EndorseButton endorsed={false} onClick={onClickSpy} />,
     );
 
     expect(queryByText('Endorse')).toBeInTheDocument();
@@ -16,7 +16,7 @@ describe('TEEndorsementButton', () => {
     const onClickSpy = jest.fn();
 
     const { queryByText } = render(
-      <TEEndorsementButton endorsed={true} onClick={onClickSpy} />,
+      <EndorseButton endorsed={true} onClick={onClickSpy} />,
     );
 
     expect(queryByText('Endorsed')).toBeInTheDocument();

@@ -120,6 +120,7 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).not.toBeInTheDocument();
+    expect(queryByText('Report')).toBeInTheDocument();
     expect(queryByText('Endorse')).toBeInTheDocument();
   });
 
@@ -140,6 +141,7 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).not.toBeInTheDocument();
+    expect(queryByText('Report')).not.toBeInTheDocument();
     expect(queryByText('Endorse')).not.toBeInTheDocument();
   });
 
