@@ -180,5 +180,29 @@ describe('useVerifiableCredential', () => {
         type: 'VerifyFailed',
       });
     });
+
+    it('return null when user rejected to sign the message', async () => {
+      const { mockUseAccount, signTypedDataAsyncSpy } = buildMock();
+
+      class MockMetaMaskRejectedError extends Error {
+        code: number;
+
+        constructor(message: string) {
+          super(message);
+          this.code = 4001;
+          this.name = 'MetaMaskRejectedError';
+        }
+      }
+
+      mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
+      signTypedDataAsyncSpy.mockRejectedValue(
+        new MockMetaMaskRejectedError('rejected'),
+      );
+
+      const { signResult, hookState } = await runSignMessage();
+
+      expect(signResult).toBeNull();
+      expect(hookState.signError).toBeUndefined();
+    });
   });
 });

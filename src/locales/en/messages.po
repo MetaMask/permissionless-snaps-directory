@@ -264,6 +264,12 @@ msgstr ""
 msgid "External link"
 msgstr ""
 
+#: src/features/account/AccountTEEndorsement.tsx
+#: src/features/account/AccountTEEndorsement.tsx
+msgid "Failed to sign the message"
+msgstr ""
+
+#: src/features/account/AccountTEEndorsement.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Failed to verify signature"
 msgstr ""
@@ -346,6 +352,7 @@ msgstr ""
 msgid "Interoperability"
 msgstr ""
 
+#: src/features/account/AccountTEEndorsement.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Invalid Signature"
 msgstr ""
@@ -522,6 +529,10 @@ msgstr ""
 msgid "Software Security"
 msgstr ""
 
+#: src/features/account/AccountTEEndorsement.tsx
+msgid "Some test descript Your endorsement has been done"
+msgstr ""
+
 #: src/features/filter/Filter.tsx
 msgid "Sort"
 msgstr ""
@@ -540,6 +551,10 @@ msgstr ""
 
 #: src/constants.ts
 msgid "Stay in the know with notifications and chat directly in MetaMask."
+msgstr ""
+
+#: src/features/account/AccountTEEndorsement.tsx
+msgid "Success"
 msgstr ""
 
 #: src/components/FooterLinks.tsx
@@ -570,6 +585,10 @@ msgstr ""
 
 #: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Trusted technical abilities"
+msgstr ""
+
+#: src/features/account/AccountTEEndorsement.tsx
+msgid "Unknown error"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -628,6 +647,7 @@ msgstr ""
 msgid "Your level of confidence in <0>{trustEntity}</0> skill set"
 msgstr ""
 
+#: src/features/account/AccountTEEndorsement.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Your signature is invalid"
 msgstr ""

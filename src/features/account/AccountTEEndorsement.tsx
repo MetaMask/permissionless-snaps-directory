@@ -1,10 +1,19 @@
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
-import { useState, type FunctionComponent, useMemo } from 'react';
+import { useState, type FunctionComponent, useMemo, useEffect } from 'react';
 import { useEnsName } from 'wagmi';
 
 import { TEEndorsementModal, TEEndorsementButton } from './components';
-import { trimAddress } from '../../utils';
+import useToastMsg from '../../hooks/useToastMsg';
+import {
+  useVerifiableCredential,
+  VCSignErrorType,
+} from '../../hooks/useVerifiableCredential';
+import {
+  TrustworthinessScope,
+  type Trustworthiness,
+  trimAddress,
+} from '../../utils';
 
 type AccountTEEndorsementProps = {
   address: Hex;
@@ -13,33 +22,93 @@ type AccountTEEndorsementProps = {
 
 export const AccountTEEndorsement: FunctionComponent<
   AccountTEEndorsementProps
-> = ({ address }) => {
+> = ({ address, connectedAddress }) => {
   const { data } = useEnsName({
     address,
   });
+
+  const { showErrorMsg, showSuccessMsg } = useToastMsg();
+
+  const { signMessage, signError, accountVCBuilder } =
+    useVerifiableCredential();
 
   const trimedAddress = useMemo(() => trimAddress(address), [address]);
 
   const [showModal, setShowModal] = useState(false);
 
-  // TODO: hardcode options for now, change to dynamic if needed
   const options = [
     {
       label: t`Software Development`,
       description: t`Ability to develop MetaMask Snaps`,
-      value: 'Software Development',
+      value: TrustworthinessScope.SoftwareDevelopment,
     },
     {
       label: t`Software Security`,
       description: t`Ability to develop secure applications`,
-      value: 'Software Security',
+      value: TrustworthinessScope.SoftwareSecurity,
     },
   ];
 
-  const onSign = async (selected: string[]) => {
-    console.log(selected);
-    setShowModal(false);
+  const fillOptions = (selected: string[]): Trustworthiness[] => {
+    const selectedOptions = new Set<string>(selected);
+
+    return options.map((option) => ({
+      scope: option.value,
+      level: selectedOptions.has(option.value) ? 1 : 0,
+    }));
   };
+
+  const onSign = async (selected: string[]) => {
+    const VC = accountVCBuilder.buildTechnicalExpertiseTrust(
+      connectedAddress,
+      address,
+      fillOptions(selected),
+    );
+
+    const signature = await signMessage(VC);
+
+    if (signature) {
+      const assertion = accountVCBuilder.getSignedAssertion(VC, signature);
+      console.log('assertion', assertion);
+
+      showSuccessMsg({
+        title: t`Success`,
+        description: t`Your endorsement has been done`,
+      });
+
+      // save db (assertion)
+
+      setShowModal(false);
+    }
+  };
+
+  useEffect(() => {
+    if (signError) {
+      if (signError.type === VCSignErrorType.SignError) {
+        showErrorMsg({
+          title: t`Failed to sign the message`,
+          // TODO change to human readable error message
+          description: signError?.message as string,
+        });
+      } else if (signError.type === VCSignErrorType.VerifyError) {
+        showErrorMsg({
+          title: t`Failed to verify signature`,
+          description: t`Your signature is invalid`,
+        });
+      } else if (signError.type === VCSignErrorType.VerifyFailed) {
+        showErrorMsg({
+          title: t`Invalid Signature`,
+          // TODO change to human readable error message
+          description: signError?.message as string,
+        });
+      } else {
+        showErrorMsg({
+          title: t`Failed to sign the message`,
+          description: t`Unknown error`,
+        });
+      }
+    }
+  }, [signError, showErrorMsg]);
 
   return (
     <>

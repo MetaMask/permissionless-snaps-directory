@@ -82,10 +82,12 @@ export function useVerifiableCredential() {
           }
         }
       } catch (error: any) {
-        setSignError({
-          type: VCSignErrorType.SignError,
-          message: error.message,
-        });
+        if (error?.code !== 4001) {
+          setSignError({
+            type: VCSignErrorType.SignError,
+            message: error.message,
+          });
+        }
       }
       return null;
     },
