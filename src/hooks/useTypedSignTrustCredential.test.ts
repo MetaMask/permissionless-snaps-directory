@@ -2,8 +2,11 @@ import { act, waitFor } from '@testing-library/react';
 import { useAccount, usePublicClient, useSignTypedData } from 'wagmi';
 
 import { useTypedSignTrustCredential } from './useTypedSignTrustCredential';
-import { renderHook } from '../utils/test-utils';
-import { VALID_ACCOUNT_1, VALID_ACCOUNT_2 } from '../utils/test-utils/input';
+import {
+  renderHook,
+  VALID_ACCOUNT_1,
+  VALID_ACCOUNT_2,
+} from '../utils/test-utils';
 
 jest.mock('wagmi', () => ({
   useAccount: jest.fn(),

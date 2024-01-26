@@ -1,5 +1,5 @@
 import { trimText, trimAddress, trimTextByHeadTail } from './string';
-import { VALID_ACCOUNT_1 } from './test-utils/input';
+import { VALID_ACCOUNT_1 } from './test-utils';
 
 describe('trimText', () => {
   it('trim text with default length `100` when parameter length is not provided', async () => {

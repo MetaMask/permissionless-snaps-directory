@@ -3,8 +3,7 @@ import { useAccount, useEnsName } from 'wagmi';
 
 import { AccountInfo } from './AccountInfo';
 import { createStore } from '../../../store';
-import { render } from '../../../utils/test-utils';
-import { VALID_ACCOUNT_1 } from '../../../utils/test-utils/input';
+import { render, VALID_ACCOUNT_1 } from '../../../utils/test-utils';
 
 jest.mock('../../../hooks/useTypedSignTrustCredential', () => ({
   useTypedSignTrustCredential: () => ({

@@ -14,7 +14,7 @@ const useToastMsg = (params?: ToastProps) => {
   const showErrorMsg = ({
     title,
     description,
-    duration = 200,
+    duration = 2000,
     isClosable = true,
   }: MessageParams) =>
     toast({
@@ -28,7 +28,7 @@ const useToastMsg = (params?: ToastProps) => {
   const showInfoMsg = ({
     title,
     description,
-    duration = 200,
+    duration = 2000,
     isClosable = true,
   }: MessageParams) =>
     toast({
@@ -42,7 +42,7 @@ const useToastMsg = (params?: ToastProps) => {
   const showSuccessMsg = ({
     title,
     description,
-    duration = 200,
+    duration = 2000,
     isClosable = true,
   }: MessageParams) =>
     toast({
@@ -56,7 +56,7 @@ const useToastMsg = (params?: ToastProps) => {
   const showWarningMsg = ({
     title,
     description,
-    duration = 200,
+    duration = 2000,
     isClosable = true,
   }: MessageParams) =>
     toast({
@@ -70,7 +70,7 @@ const useToastMsg = (params?: ToastProps) => {
   const showLoadingMsg = ({
     title,
     description,
-    duration = 200,
+    duration = 2000,
     isClosable = true,
   }: MessageParams) =>
     toast({

@@ -49,6 +49,19 @@ export const Button = defineStyleConfig({
       },
     }),
 
+    primaryPortable: defineStyle({
+      borderRadius: '30px',
+      background: 'info.default',
+      color: 'white',
+      borderColor: 'info.default',
+      padding: '4',
+      _hover: {
+        _disabled: {
+          background: 'info.default',
+        },
+      },
+    }),
+
     outline: defineStyle({
       height: '48px',
       borderRadius: '30px',
@@ -63,12 +76,20 @@ export const Button = defineStyleConfig({
     }),
 
     outlinePortableError: defineStyle({
-      height: '40px',
       borderRadius: '30px',
       background: 'transparent',
       color: 'error.default',
       border: '1.5px solid',
       borderColor: 'error.default',
+      padding: '4',
+    }),
+
+    outlinePortable: defineStyle({
+      borderRadius: '30px',
+      background: 'transparent',
+      color: 'info.default',
+      border: '1.5px solid',
+      borderColor: 'info.default',
       padding: '4',
     }),
 
