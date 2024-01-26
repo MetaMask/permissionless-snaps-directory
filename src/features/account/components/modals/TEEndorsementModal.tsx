@@ -9,7 +9,7 @@ export type TEEndorsementModalProps = {
   options: TEEndorsementOption[];
   onSign: (arg: string[]) => Promise<void>;
   onClose: () => void;
-  visability: boolean;
+  visibility: boolean;
 };
 
 export type TEEndorsementOption = {
@@ -23,7 +23,7 @@ export const TEEndorsementModal: FunctionComponent<TEEndorsementModalProps> = ({
   options,
   onSign,
   onClose,
-  visability,
+  visibility,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [checkedItems, setCheckedItems] = useState(options.map(() => false));
@@ -50,7 +50,7 @@ export const TEEndorsementModal: FunctionComponent<TEEndorsementModalProps> = ({
 
   return (
     <RequestSignModal
-      isOpen={visability}
+      isOpen={visibility}
       isLoading={isLoading}
       mode="positive"
       headerIcon={<AvatarReportBlueIcon />}

@@ -27,7 +27,7 @@ describe('TEEndorsementModal', () => {
         options={options}
         onClose={onClose}
         onSign={onSign}
-        visability={true}
+        visibility={true}
       />,
     );
 
@@ -53,7 +53,7 @@ describe('TEEndorsementModal', () => {
         options={optionsWithoutDescription}
         onClose={onClose}
         onSign={onSign}
-        visability={true}
+        visibility={true}
       />,
     );
 
@@ -74,7 +74,7 @@ describe('TEEndorsementModal', () => {
         options={options}
         onClose={onClose}
         onSign={onSign}
-        visability={true}
+        visibility={true}
       />,
     );
 

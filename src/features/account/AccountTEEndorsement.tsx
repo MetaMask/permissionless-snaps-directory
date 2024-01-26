@@ -50,7 +50,7 @@ export const AccountTEEndorsement: FunctionComponent<
       {showModal && (
         <TEEndorsementModal
           trustEntity={data ?? trimedAddress}
-          visability={showModal}
+          visibility={showModal}
           onClose={() => setShowModal(false)}
           options={options}
           onSign={onSign}
