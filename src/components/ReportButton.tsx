@@ -2,21 +2,22 @@ import { Button } from '@chakra-ui/react';
 import { Trans } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
 
-import { DangerIcon } from '../../../components';
+import { DangerIcon } from '.';
 
-export type AccountReportButtonProps = {
+export type ReportButtonProps = {
   onClick: () => void;
   reported: boolean;
 };
 
-export const AccountReportButton: FunctionComponent<
-  AccountReportButtonProps
-> = ({ onClick, reported }) => (
+export const ReportButton: FunctionComponent<ReportButtonProps> = ({
+  onClick,
+  reported,
+}) => (
   <Button
-    variant="outlinePortableError"
+    leftIcon={<DangerIcon fill={reported ? '#FFFFFF' : ''} />}
+    variant={reported ? 'primaryPortableError' : 'outlinePortableError'}
     isDisabled={reported}
     size="sm"
-    rightIcon={<DangerIcon />}
     onClick={onClick}
   >
     {reported ? <Trans>Reported</Trans> : <Trans>Report</Trans>}

@@ -42,7 +42,6 @@ export const AccountReportModal: FunctionComponent<AccountReportModalProps> = ({
       headerIcon={<QuestionRedIcon />}
       buttonText={t`Sign to report`}
       onClose={onClose}
-      buttonDisabled={selectedOptions.length === 0}
       onSignButtonClick={onSignButtonClick}
     >
       <Center>

@@ -1,12 +1,12 @@
-import { AccountReportButton } from './AccountReportButton';
-import { render } from '../../../utils/test-utils';
+import { ReportButton } from './ReportButton';
+import { render } from '../utils/test-utils';
 
-describe('AccountReportButton', () => {
+describe('ReportButton', () => {
   it('renders `Report` when `reported` is false', () => {
     const onClickSpy = jest.fn();
 
     const { queryByText } = render(
-      <AccountReportButton reported={false} onClick={onClickSpy} />,
+      <ReportButton reported={false} onClick={onClickSpy} />,
     );
 
     expect(queryByText('Report')).toBeInTheDocument();
@@ -16,7 +16,7 @@ describe('AccountReportButton', () => {
     const onClickSpy = jest.fn();
 
     const { queryByText } = render(
-      <AccountReportButton reported={true} onClick={onClickSpy} />,
+      <ReportButton reported={true} onClick={onClickSpy} />,
     );
 
     expect(queryByText('Reported')).toBeInTheDocument();

@@ -90,6 +90,18 @@ describe('theme', () => {
                 "lineHeight": "157%",
                 "padding": "4",
               },
+              "primaryPortableError": Object {
+                "_hover": Object {
+                  "_disabled": Object {
+                    "background": "error.default",
+                  },
+                },
+                "background": "error.default",
+                "borderColor": "error.default",
+                "borderRadius": "30px",
+                "color": "white",
+                "padding": "4",
+              },
               "small": Object {
                 ".chakra-button__icon": Object {
                   "marginLeft": "1",

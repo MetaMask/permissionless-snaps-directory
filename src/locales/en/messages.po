@@ -452,7 +452,7 @@ msgid "Related Snaps"
 msgstr ""
 
 #: src/components/icons/index.ts
-#: src/features/account/components/AccountReportButton.tsx
+#: src/components/ReportButton.tsx
 msgid "Report"
 msgstr ""
 
@@ -460,7 +460,7 @@ msgstr ""
 msgid "Report for <0>{reportEntity}</0> as a malicious actor"
 msgstr ""
 
-#: src/features/account/components/AccountReportButton.tsx
+#: src/components/ReportButton.tsx
 msgid "Reported"
 msgstr ""
 

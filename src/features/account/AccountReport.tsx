@@ -3,7 +3,8 @@ import type { Hex } from '@metamask/utils';
 import { useState, type FunctionComponent, useMemo } from 'react';
 import { useEnsName } from 'wagmi';
 
-import { AccountReportButton, AccountReportModal } from './components';
+import { AccountReportModal } from './components';
+import { ReportButton } from '../../components';
 import { trimAddress } from '../../utils';
 
 type AccountReportProps = {
@@ -37,10 +38,7 @@ export const AccountReport: FunctionComponent<AccountReportProps> = ({
 
   return (
     <>
-      <AccountReportButton
-        onClick={() => setShowModal(true)}
-        reported={false}
-      />
+      <ReportButton onClick={() => setShowModal(true)} reported={false} />
       {showModal && (
         <AccountReportModal
           reportEntity={data ?? trimedAddress}

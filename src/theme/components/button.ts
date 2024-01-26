@@ -36,6 +36,19 @@ export const Button = defineStyleConfig({
       },
     }),
 
+    primaryPortableError: defineStyle({
+      borderRadius: '30px',
+      background: 'error.default',
+      color: 'white',
+      borderColor: 'error.default',
+      padding: '4',
+      _hover: {
+        _disabled: {
+          background: 'error.default',
+        },
+      },
+    }),
+
     outline: defineStyle({
       height: '48px',
       borderRadius: '30px',
