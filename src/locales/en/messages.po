@@ -230,11 +230,11 @@ msgstr ""
 msgid "Enable light mode"
 msgstr ""
 
-#: src/features/account/components/TEEndorsementButton.tsx
+#: src/components/EndorseButton.tsx
 msgid "Endorse"
 msgstr ""
 
-#: src/features/account/components/TEEndorsementButton.tsx
+#: src/components/EndorseButton.tsx
 msgid "Endorsed"
 msgstr ""
 

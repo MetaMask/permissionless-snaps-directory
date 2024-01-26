@@ -4,6 +4,7 @@ export * from './Banner';
 export * from './Card';
 export * from './CheckboxWithSlider';
 export * from './Container';
+export * from './EndorseButton';
 export * from './ExternalLink';
 export * from './Fox';
 export * from './Header';
