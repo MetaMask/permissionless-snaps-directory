@@ -146,7 +146,7 @@ describe('useToastMsg', () => {
       title: 'Error',
       description: 'Something went wrong',
       status: 'error',
-      duration: 200,
+      duration: 2000,
       isClosable: true,
     });
   });
@@ -166,7 +166,7 @@ describe('useToastMsg', () => {
       title: 'Info',
       description: 'Some information',
       status: 'info',
-      duration: 200,
+      duration: 2000,
       isClosable: true,
     });
   });
@@ -186,7 +186,7 @@ describe('useToastMsg', () => {
       title: 'Success',
       description: 'Some success',
       status: 'success',
-      duration: 200,
+      duration: 2000,
       isClosable: true,
     });
   });
@@ -206,7 +206,7 @@ describe('useToastMsg', () => {
       title: 'Warning',
       description: 'Some warning',
       status: 'warning',
-      duration: 200,
+      duration: 2000,
       isClosable: true,
     });
   });
@@ -226,7 +226,7 @@ describe('useToastMsg', () => {
       title: 'Loading',
       description: 'Some loading',
       status: 'loading',
-      duration: 200,
+      duration: 2000,
       isClosable: true,
     });
   });
