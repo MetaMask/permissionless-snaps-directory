@@ -94,8 +94,6 @@ msgstr ""
 
 #: src/components/icons/index.ts
 #: src/components/icons/index.ts
-#: src/components/icons/index.ts
-#: src/components/icons/index.ts
 msgid "Avatar"
 msgstr ""
 
@@ -204,6 +202,10 @@ msgstr ""
 msgid "Discover the MetaMask Snaps Directory Account Profile page."
 msgstr ""
 
+#: src/features/account/AccountReport.tsx
+msgid "Disinformation"
+msgstr ""
+
 #: src/features/banner/components/create-snap-banner/CreateSnapBanner.tsx
 msgid "Documentation"
 msgstr ""
@@ -228,11 +230,11 @@ msgstr ""
 msgid "Enable light mode"
 msgstr ""
 
-#: src/features/account/components/TEEndorsementButton.tsx
+#: src/components/EndorseButton.tsx
 msgid "Endorse"
 msgstr ""
 
-#: src/features/account/components/TEEndorsementButton.tsx
+#: src/components/EndorseButton.tsx
 msgid "Endorsed"
 msgstr ""
 
@@ -312,6 +314,14 @@ msgstr ""
 msgid "Guard your wallet with transaction insights and safety tools."
 msgstr ""
 
+#: src/features/account/AccountReport.tsx
+msgid "Hacking"
+msgstr ""
+
+#: src/features/account/AccountReport.tsx
+msgid "Harassment"
+msgstr ""
+
 #: src/features/snap/components/MetadataItems.tsx
 msgid "Identifier"
 msgstr ""
@@ -374,6 +384,7 @@ msgstr ""
 msgid "Latest Snaps on the MetaMask Snaps Directory"
 msgstr ""
 
+#: src/features/account/components/modals/AccountReportModal.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Learn more"
 msgstr ""
@@ -435,6 +446,10 @@ msgstr ""
 msgid "Open notifications menu"
 msgstr ""
 
+#: src/features/account/AccountReport.tsx
+msgid "Other"
+msgstr ""
+
 #: src/features/filter/constants.tsx
 msgid "Popularity"
 msgstr ""
@@ -447,8 +462,29 @@ msgstr ""
 msgid "Profile link copied to clipboard"
 msgstr ""
 
+#: src/components/icons/index.ts
+msgid "Question blue"
+msgstr ""
+
+#: src/components/icons/index.ts
+msgid "Question red"
+msgstr ""
+
 #: src/features/snap/components/RelatedSnaps.tsx
 msgid "Related Snaps"
+msgstr ""
+
+#: src/components/icons/index.ts
+#: src/components/ReportButton.tsx
+msgid "Report"
+msgstr ""
+
+#: src/features/account/components/modals/AccountReportModal.tsx
+msgid "Report for <0>{reportEntity}</0> as a malicious actor"
+msgstr ""
+
+#: src/components/ReportButton.tsx
+msgid "Reported"
 msgstr ""
 
 #: src/pages/explore.tsx
@@ -462,6 +498,10 @@ msgstr ""
 
 #: src/features/account/AccountProfileTabs.tsx
 msgid "Reviews"
+msgstr ""
+
+#: src/features/account/AccountReport.tsx
+msgid "Scamming"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -517,6 +557,10 @@ msgstr ""
 msgid "Sign to add"
 msgstr ""
 
+#: src/features/account/components/modals/AccountReportModal.tsx
+msgid "Sign to report"
+msgstr ""
+
 #: src/components/icons/index.ts
 msgid "Snap"
 msgstr ""
@@ -561,6 +605,10 @@ msgstr ""
 
 #: src/pages/404.tsx
 msgid "The page you're looking for can't be found."
+msgstr ""
+
+#: src/features/account/components/modals/AccountReportModal.tsx
+msgid "This action will flag the user as a malicious in your community."
 msgstr ""
 
 #: src/components/InstallUnsupportedDesktop.tsx

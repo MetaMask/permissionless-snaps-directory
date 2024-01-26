@@ -2,16 +2,17 @@ import { Button } from '@chakra-ui/react';
 import { Trans } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
 
-import { UserCheckIcon, StarFilledIcon } from '../../../components';
+import { UserCheckIcon, StarFilledIcon } from '.';
 
-export type TEEndorsementButtonProps = {
+export type EndorseButtonProps = {
   onClick: () => void;
   endorsed: boolean;
 };
 
-export const TEEndorsementButton: FunctionComponent<
-  TEEndorsementButtonProps
-> = ({ onClick, endorsed }) => (
+export const EndorseButton: FunctionComponent<EndorseButtonProps> = ({
+  onClick,
+  endorsed,
+}) => (
   <Button
     leftIcon={endorsed ? <UserCheckIcon fill="#ffffff" /> : <StarFilledIcon />}
     variant={endorsed ? 'primaryPortable' : 'outlinePortable'}

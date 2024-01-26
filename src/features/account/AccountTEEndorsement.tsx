@@ -3,7 +3,8 @@ import type { Hex } from '@metamask/utils';
 import { useState, type FunctionComponent, useMemo, useEffect } from 'react';
 import { useEnsName } from 'wagmi';
 
-import { TEEndorsementModal, TEEndorsementButton } from './components';
+import { TEEndorsementModal } from './components';
+import { EndorseButton } from '../../components';
 import useToastMsg from '../../hooks/useToastMsg';
 import {
   useVerifiableCredential,
@@ -112,10 +113,7 @@ export const AccountTEEndorsement: FunctionComponent<
 
   return (
     <>
-      <TEEndorsementButton
-        onClick={() => setShowModal(true)}
-        endorsed={false}
-      />
+      <EndorseButton onClick={() => setShowModal(true)} endorsed={false} />
       {showModal && (
         <TEEndorsementModal
           trustEntity={data ?? trimedAddress}
