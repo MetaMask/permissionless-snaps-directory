@@ -1,7 +1,5 @@
 import { SnapVerifiableCredential } from './snapVC';
-
-const VALID_ACCOUNT_1 = '0x1';
-const SNAP = 'ALj0YMDz4JNchPJfreWErQx/GOh4FMWWy1o1rCq7sQQ=';
+import { VALID_ACCOUNT_1, SNAP_SHASUM_1 } from '../test-utils';
 
 describe('SnapVerifiableCredential', () => {
   const buildSnapVerifiableCredential = () => {
@@ -68,7 +66,7 @@ describe('SnapVerifiableCredential', () => {
     it('builds a valid verifiable credential', () => {
       const vc = buildSnapVerifiableCredential();
       expect(
-        vc.buildEndosedPayload(VALID_ACCOUNT_1, SNAP, ['reason']),
+        vc.buildEndosedPayload(VALID_ACCOUNT_1, SNAP_SHASUM_1, ['reason']),
       ).toStrictEqual({
         domain,
         message: {
@@ -76,7 +74,7 @@ describe('SnapVerifiableCredential', () => {
           type: ['VerifiableCredential', 'StatusCredential'],
           issuer: `did:pkh:eip155:1:${VALID_ACCOUNT_1}`,
           credentialSubject: {
-            id: `snap://${SNAP}`,
+            id: `snap://${SNAP_SHASUM_1}`,
             currentStatus: 'Endorsed',
             statusReason: {
               type: 'Endorse',
@@ -94,7 +92,7 @@ describe('SnapVerifiableCredential', () => {
     it('builds a valid verifiable credential', () => {
       const vc = buildSnapVerifiableCredential();
       expect(
-        vc.buildDisputedPayload(VALID_ACCOUNT_1, SNAP, ['reason']),
+        vc.buildDisputedPayload(VALID_ACCOUNT_1, SNAP_SHASUM_1, ['reason']),
       ).toStrictEqual({
         domain,
         message: {
@@ -102,7 +100,7 @@ describe('SnapVerifiableCredential', () => {
           type: ['VerifiableCredential', 'StatusCredential'],
           issuer: `did:pkh:eip155:1:${VALID_ACCOUNT_1}`,
           credentialSubject: {
-            id: `snap://${SNAP}`,
+            id: `snap://${SNAP_SHASUM_1}`,
             currentStatus: 'Disputed',
             statusReason: {
               type: 'Dispute',

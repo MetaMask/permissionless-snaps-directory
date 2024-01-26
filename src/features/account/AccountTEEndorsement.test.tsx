@@ -2,14 +2,16 @@ import { act } from '@testing-library/react';
 import { useEnsName } from 'wagmi';
 
 import { AccountTEEndorsement } from './AccountTEEndorsement';
-import { render } from '../../utils/test-utils';
+import { trimAddress } from '../../utils';
+import {
+  render,
+  VALID_ACCOUNT_1,
+  VALID_ACCOUNT_2,
+} from '../../utils/test-utils';
 
 jest.mock('wagmi', () => ({
   useEnsName: jest.fn(),
 }));
-
-const VALID_ACCOUNT_1 = '0x123';
-const VALID_ACCOUNT_2 = '0x123';
 
 describe('AccountTEEndorsement', () => {
   let mockUseEnsName: jest.Mock;
@@ -62,7 +64,7 @@ describe('AccountTEEndorsement', () => {
       }),
     );
 
-    expect(queryByText(VALID_ACCOUNT_1)).toBeInTheDocument();
+    expect(queryByText(trimAddress(VALID_ACCOUNT_1))).toBeInTheDocument();
   });
 
   it('assign ens name to `trustEntity` when `useEnsName` is return a name', async () => {
