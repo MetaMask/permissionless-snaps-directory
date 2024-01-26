@@ -5,8 +5,8 @@ import { useAccount } from 'wagmi';
 import { MoreOptionMenu } from './MoreOptionMenu';
 import { setUserAccount } from './store';
 import { createStore } from '../../store';
-import { render } from '../../utils/test-utils';
 import {
+  render,
   VALID_ACCOUNT_1,
   VALID_ACCOUNT_2,
 } from '../../utils/test-utils';
