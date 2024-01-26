@@ -8,8 +8,12 @@ import {
   useVerifiableCredential,
   VCSignErrorType,
 } from '../../hooks/useVerifiableCredential';
-import { TrustworthinessScope } from '../../utils';
-import { render } from '../../utils/test-utils';
+import { TrustworthinessScope, trimAddress } from '../../utils';
+import {
+  render,
+  VALID_ACCOUNT_1,
+  VALID_ACCOUNT_2,
+} from '../../utils/test-utils';
 
 jest.mock('wagmi', () => ({
   useEnsName: jest.fn(),
@@ -24,9 +28,6 @@ jest.mock('../../hooks/useVerifiableCredential', () => ({
   ...jest.requireActual('../../hooks/useVerifiableCredential'),
   useVerifiableCredential: jest.fn(),
 }));
-
-const VALID_ACCOUNT_1 = '0x123';
-const VALID_ACCOUNT_2 = '0x123';
 
 describe('AccountTEEndorsement', () => {
   const buildToastSpy = () => {
@@ -130,7 +131,7 @@ describe('AccountTEEndorsement', () => {
       }),
     );
 
-    expect(queryByText(VALID_ACCOUNT_1)).toBeInTheDocument();
+    expect(queryByText(trimAddress(VALID_ACCOUNT_1))).toBeInTheDocument();
   });
 
   it('assign ens name to `trustEntity` when `useEnsName` is return a name', async () => {

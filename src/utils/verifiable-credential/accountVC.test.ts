@@ -1,8 +1,7 @@
 import { AccountVerifiableCredential } from './accountVC';
 import { TrustworthinessScope } from './types';
+import { VALID_ACCOUNT_1, VALID_ACCOUNT_2 } from '../test-utils';
 
-const VALID_ACCOUNT_1 = '0x1';
-const VALID_ACCOUNT_2 = '0x2';
 describe('AccountVerifiableCredential', () => {
   const buildAccountVerifiableCredential = () => {
     return new AccountVerifiableCredential(1);

@@ -3,8 +3,7 @@ import { render as renderComponent } from '@testing-library/react';
 import React from 'react';
 
 import { JazzIcon } from './JazzIcon';
-import { render } from '../utils/test-utils';
-import { VALID_ACCOUNT_1 } from '../utils/test-utils/input';
+import { render, VALID_ACCOUNT_1 } from '../utils/test-utils';
 
 jest.mock('@metamask/jazzicon');
 
