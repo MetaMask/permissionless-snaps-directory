@@ -79,17 +79,8 @@ describe('AccountTEEndorsement', () => {
       />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('Endorse').click();
-      }),
-    );
-
-    await act(async () =>
-      act(() => {
-        getByText('Sign').click();
-      }),
-    );
+    await act(async () => getByText('Endorse').click());
+    await act(async () => getByText('Sign').click());
   };
 
   it('renders', async () => {
@@ -103,11 +94,7 @@ describe('AccountTEEndorsement', () => {
       />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('Endorse').click();
-      }),
-    );
+    await act(async () => getByText('Endorse').click());
 
     expect(queryByText('Endorse')).toBeInTheDocument();
     expect(queryByText('Software Security')).toBeInTheDocument();
@@ -125,11 +112,7 @@ describe('AccountTEEndorsement', () => {
       />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('Endorse').click();
-      }),
-    );
+    await act(async () => getByText('Endorse').click());
 
     expect(queryByText(trimAddress(VALID_ACCOUNT_1))).toBeInTheDocument();
   });
@@ -145,11 +128,7 @@ describe('AccountTEEndorsement', () => {
       />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('Endorse').click();
-      }),
-    );
+    await act(async () => getByText('Endorse').click());
 
     expect(queryByText('mock.ens.name')).toBeInTheDocument();
   });
@@ -166,15 +145,8 @@ describe('AccountTEEndorsement', () => {
       />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('Endorse').click();
-      }),
-    );
-
-    await act(async () => {
-      getByLabelText('Close').click();
-    });
+    await act(async () => getByText('Endorse').click());
+    await act(async () => getByLabelText('Close').click());
 
     expect(queryByText('mock.ens.name')).not.toBeInTheDocument();
   });
@@ -247,23 +219,9 @@ describe('AccountTEEndorsement', () => {
         />,
       );
 
-      await act(async () =>
-        act(() => {
-          getByText('Endorse').click();
-        }),
-      );
-
-      await act(async () =>
-        act(() => {
-          getByText('Software Development').click();
-        }),
-      );
-
-      await act(async () =>
-        act(() => {
-          getByText('Sign').click();
-        }),
-      );
+      await act(async () => getByText('Endorse').click());
+      await act(async () => getByText('Software Development').click());
+      await act(async () => getByText('Sign').click());
 
       expect(signMessageSpy).toHaveBeenCalled();
       expect(getSignedAssertionSpy).toHaveBeenCalled();
@@ -293,13 +251,11 @@ describe('AccountTEEndorsement', () => {
         message: 'sign error',
       });
 
-      await act(async () =>
-        render(
-          <AccountTEEndorsement
-            address={VALID_ACCOUNT_1}
-            connectedAddress={VALID_ACCOUNT_2}
-          />,
-        ),
+      render(
+        <AccountTEEndorsement
+          address={VALID_ACCOUNT_1}
+          connectedAddress={VALID_ACCOUNT_2}
+        />,
       );
 
       expect(toastSpy).toHaveBeenCalledWith(
@@ -315,13 +271,11 @@ describe('AccountTEEndorsement', () => {
       const { toastSpy } = buildToastSpy();
       buildUseVerifiableCredentialMock({ type: VCSignErrorType.VerifyError });
 
-      await act(async () =>
-        render(
-          <AccountTEEndorsement
-            address={VALID_ACCOUNT_1}
-            connectedAddress={VALID_ACCOUNT_2}
-          />,
-        ),
+      render(
+        <AccountTEEndorsement
+          address={VALID_ACCOUNT_1}
+          connectedAddress={VALID_ACCOUNT_2}
+        />,
       );
 
       expect(toastSpy).toHaveBeenCalledWith(
@@ -340,13 +294,11 @@ describe('AccountTEEndorsement', () => {
         message: 'invalid signature',
       });
 
-      await act(async () =>
-        render(
-          <AccountTEEndorsement
-            address={VALID_ACCOUNT_1}
-            connectedAddress={VALID_ACCOUNT_2}
-          />,
-        ),
+      render(
+        <AccountTEEndorsement
+          address={VALID_ACCOUNT_1}
+          connectedAddress={VALID_ACCOUNT_2}
+        />,
       );
 
       expect(toastSpy).toHaveBeenCalledWith(
@@ -363,13 +315,11 @@ describe('AccountTEEndorsement', () => {
       // @ts-expect-error - Invalid error.
       buildUseVerifiableCredentialMock({ type: 'unknown' });
 
-      await act(async () =>
-        render(
-          <AccountTEEndorsement
-            address={VALID_ACCOUNT_1}
-            connectedAddress={VALID_ACCOUNT_2}
-          />,
-        ),
+      render(
+        <AccountTEEndorsement
+          address={VALID_ACCOUNT_1}
+          connectedAddress={VALID_ACCOUNT_2}
+        />,
       );
 
       expect(toastSpy).toHaveBeenCalledWith(
