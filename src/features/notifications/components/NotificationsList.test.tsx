@@ -43,16 +43,13 @@ describe('NotificationsList', () => {
       },
     });
 
-    const { queryByText } = await act(
-      async () =>
-        await act(() =>
-          render(
-            <Menu>
-              <NotificationsList />
-            </Menu>,
-            store,
-          ),
-        ),
+    const { queryByText } = await act(async () =>
+      render(
+        <Menu>
+          <NotificationsList />
+        </Menu>,
+        store,
+      ),
     );
 
     expect(queryByText('No notifications')).not.toBeInTheDocument();

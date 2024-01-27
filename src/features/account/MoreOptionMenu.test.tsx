@@ -27,11 +27,8 @@ describe('MoreOptionMenu', () => {
   const renderMenuWithStore = async () => {
     const store = createStore();
 
-    const { getByTestId, queryByText } = await act(
-      async () =>
-        await act(() =>
-          render(<MoreOptionMenu subjectAddress={VALID_ACCOUNT_2} />, store),
-        ),
+    const { getByTestId, queryByText } = await act(async () =>
+      render(<MoreOptionMenu subjectAddress={VALID_ACCOUNT_2} />, store),
     );
 
     const menuBtn = getByTestId('icon-menu-button');

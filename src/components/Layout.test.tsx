@@ -12,15 +12,12 @@ describe('Layout', () => {
       fusejs: {},
     });
 
-    const { queryByText } = await act(
-      async () =>
-        await act(() =>
-          render(
-            <Layout>
-              <Text>Foo</Text>
-            </Layout>,
-          ),
-        ),
+    const { queryByText } = await act(async () =>
+      render(
+        <Layout>
+          <Text>Foo</Text>
+        </Layout>,
+      ),
     );
 
     expect(queryByText('Foo')).toBeInTheDocument();

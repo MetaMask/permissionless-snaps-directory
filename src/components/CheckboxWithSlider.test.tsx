@@ -1,4 +1,4 @@
-import { act, fireEvent } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 
 import {
   CheckboxWithSlider,
@@ -29,11 +29,8 @@ const defaultProps: CheckboxWithSliderProps = {
 
 describe('CheckboxWithSlider', () => {
   it('renders CheckboxWithSlider component', async () => {
-    const { queryByText, queryByTestId } = await act(
-      async () =>
-        await act(() =>
-          render(<CheckboxWithSlider {...defaultProps}></CheckboxWithSlider>),
-        ),
+    const { queryByText, queryByTestId } = render(
+      <CheckboxWithSlider {...defaultProps}></CheckboxWithSlider>,
     );
 
     expect(queryByText('Test Checkbox')).toBeInTheDocument();

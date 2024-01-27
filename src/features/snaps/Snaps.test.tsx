@@ -14,18 +14,15 @@ describe('Snaps', () => {
   it('renders the no Snaps screen when there are no snaps', async () => {
     // Double `act`, because otherwise we get a warning about an update
     // happening outside of an `act()` call.
-    const { queryByTestId } = await act(
-      async () =>
-        await act(() =>
-          render(
-            <Snaps />,
-            createStore({
-              snaps: {
-                snaps: [],
-              },
-            }),
-          ),
-        ),
+    const { queryByTestId } = await act(async () =>
+      render(
+        <Snaps />,
+        createStore({
+          snaps: {
+            snaps: [],
+          },
+        }),
+      ),
     );
 
     expect(queryByTestId('no-snaps')).toBeInTheDocument();
@@ -34,21 +31,18 @@ describe('Snaps', () => {
   it('renders the Snaps', async () => {
     // Double `act`, because otherwise we get a warning about an update
     // happening outside of an `act()` call.
-    const { queryByText } = await act(
-      async () =>
-        await act(() =>
-          render(
-            <Snaps />,
-            createStore({
-              snaps: {
-                snaps: [
-                  getMockSnap({ id: 'foo', name: 'Foo Snap' }).snap,
-                  getMockSnap({ id: 'bar', name: 'Bar Snap' }).snap,
-                ],
-              },
-            }),
-          ),
-        ),
+    const { queryByText } = await act(async () =>
+      render(
+        <Snaps />,
+        createStore({
+          snaps: {
+            snaps: [
+              getMockSnap({ id: 'foo', name: 'Foo Snap' }).snap,
+              getMockSnap({ id: 'bar', name: 'Bar Snap' }).snap,
+            ],
+          },
+        }),
+      ),
     );
 
     expect(queryByText('Foo Snap')).toBeInTheDocument();
