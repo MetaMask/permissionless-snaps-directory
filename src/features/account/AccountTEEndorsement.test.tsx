@@ -114,7 +114,7 @@ describe('AccountTEEndorsement', () => {
     expect(queryByText('Software Development')).toBeInTheDocument();
   });
 
-  it('assign trimed address to `trustEntity` when `useEnsName` is not ready or return null', async () => {
+  it('assigns trimed address to `trustEntity` when `useEnsName` is not ready or return null', async () => {
     buildEnsNameMock();
     buildUseVerifiableCredentialMock();
 
@@ -134,7 +134,7 @@ describe('AccountTEEndorsement', () => {
     expect(queryByText(trimAddress(VALID_ACCOUNT_1))).toBeInTheDocument();
   });
 
-  it('assign ens name to `trustEntity` when `useEnsName` is return a name', async () => {
+  it('assigns ens name to `trustEntity` when `useEnsName` returns a name', async () => {
     buildEnsNameMock('mock.ens.name');
     buildUseVerifiableCredentialMock();
 
@@ -179,8 +179,8 @@ describe('AccountTEEndorsement', () => {
     expect(queryByText('mock.ens.name')).not.toBeInTheDocument();
   });
 
-  describe('when trigger onSign', () => {
-    it('calls `getSignedAssertion` when `signMessage` return signature', async () => {
+  describe('when onSign is triggered', () => {
+    it('calls `getSignedAssertion` when `signMessage` returns signature', async () => {
       buildEnsNameMock('mock.ens.name');
       buildToastSpy();
       const {
@@ -211,7 +211,7 @@ describe('AccountTEEndorsement', () => {
       );
     });
 
-    it('does not calls `getSignedAssertion` when `signMessage` return null', async () => {
+    it('does not calls `getSignedAssertion` when `signMessage` returns null', async () => {
       buildEnsNameMock('mock.ens.name');
       buildToastSpy();
       const {
@@ -229,7 +229,7 @@ describe('AccountTEEndorsement', () => {
       expect(getSignedAssertionSpy).not.toHaveBeenCalled();
     });
 
-    it('merge selected `ExpertiseTrust` and default `ExpertiseTrust`', async () => {
+    it('merges selected `ExpertiseTrust` and default `ExpertiseTrust`', async () => {
       buildEnsNameMock('mock.ens.name');
       buildToastSpy();
       const {
@@ -285,7 +285,7 @@ describe('AccountTEEndorsement', () => {
   });
 
   describe('with signError', () => {
-    it('show `Failed to sign the message` toast message when signError is `SignError`', async () => {
+    it('shows `Failed to sign the message` toast message when signError is of type `SignError`', async () => {
       buildEnsNameMock('mock.ens.name');
       const { toastSpy } = buildToastSpy();
       buildUseVerifiableCredentialMock({
@@ -310,7 +310,7 @@ describe('AccountTEEndorsement', () => {
       );
     });
 
-    it('show `Failed to verify signature` toast message when signError is `VerifyError`', async () => {
+    it('shows `Failed to verify signature` toast message when signError is of type `VerifyError`', async () => {
       buildEnsNameMock('mock.ens.name');
       const { toastSpy } = buildToastSpy();
       buildUseVerifiableCredentialMock({ type: VCSignErrorType.VerifyError });
@@ -332,7 +332,7 @@ describe('AccountTEEndorsement', () => {
       );
     });
 
-    it('show `Invalid Signature` toast message when signError is `SignError`', async () => {
+    it('shows `Invalid Signature` toast message when signError is of type `SignError`', async () => {
       buildEnsNameMock('mock.ens.name');
       const { toastSpy } = buildToastSpy();
       buildUseVerifiableCredentialMock({
@@ -357,7 +357,7 @@ describe('AccountTEEndorsement', () => {
       );
     });
 
-    it('show `Failed to sign the message` toast message when signError is unknown', async () => {
+    it('shows `Failed to sign the message` toast message when signError is unknown', async () => {
       buildEnsNameMock('mock.ens.name');
       const { toastSpy } = buildToastSpy();
       // @ts-expect-error - Invalid error.
