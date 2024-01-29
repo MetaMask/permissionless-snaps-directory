@@ -5,13 +5,12 @@ import { AccountInfo } from './AccountInfo';
 import { createStore } from '../../../store';
 import { render, VALID_ACCOUNT_1 } from '../../../utils/test-utils';
 
-jest.mock('../../../hooks/useTypedSignTrustCredential', () => ({
-  useTypedSignTrustCredential: () => ({
-    submitTypedSignRequest: jest.fn(),
-    isLoading: false,
-    isVerified: false,
-    payload: {},
-    signatureError: null,
+jest.mock('../../../hooks/useVerifiableCredential', () => ({
+  ...jest.requireActual('../../../hooks/useVerifiableCredential'),
+  useVerifiableCredential: () => ({
+    issuerAddress: 'issuerAddress',
+    signMessage: jest.fn(),
+    signError: null,
   }),
 }));
 
