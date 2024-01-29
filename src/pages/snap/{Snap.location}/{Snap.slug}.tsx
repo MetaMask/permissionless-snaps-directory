@@ -2,6 +2,7 @@ import { Box, Container, Divider, Flex, Text } from '@chakra-ui/react';
 import { Trans } from '@lingui/macro';
 import { graphql } from 'gatsby';
 import { type FunctionComponent } from 'react';
+import { useAccount } from 'wagmi';
 
 import { InstallSnapButton, SnapWebsiteButton } from '../../../components';
 import { type RegistrySnapCategory } from '../../../constants';
@@ -51,6 +52,7 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
 
   const { data: installedSnaps } = useGetInstalledSnapsQuery();
   const isInstalled = Boolean(installedSnaps?.[snapId]);
+  const { isConnected } = useAccount();
 
   return (
     <Box position="relative">
@@ -77,7 +79,7 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
         >
           <Authorship name={name} icon={icon} snapId={snapId} />
           <Flex alignItems="center" gap="4" width={['100%', null, 'auto']}>
-            <SnapReport snapName={name} />
+            {isConnected && <SnapReport snapName={name} />}
             {!onboard && (
               <InstallSnapButton
                 snapId={snapId}

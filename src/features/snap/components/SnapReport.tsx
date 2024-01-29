@@ -11,17 +11,18 @@ export const SnapReport: FunctionComponent<SnapReportProps> = ({
   snapName,
 }) => {
   const [showModal, setShowModal] = useState(false);
+  const [reported, setReported] = useState(false);
 
-  const onSign = async (selected: string[]) => {
-    console.log(selected);
+  const onSign = async () => {
     setShowModal(false);
+    setReported(true);
   };
 
   return (
     <>
       <ReportButton
         onClick={() => setShowModal(true)}
-        reported={false}
+        reported={reported}
         size="lg"
       />
       {showModal && (

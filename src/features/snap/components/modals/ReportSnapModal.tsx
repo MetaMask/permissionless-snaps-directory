@@ -6,13 +6,14 @@ import { QuestionRedIcon, RequestSignModal } from '../../../../components';
 
 export type ReportSnapModalProps = {
   snapName: string;
-  onSign: (arg: string[]) => Promise<void>;
+  onSign: () => Promise<void>;
   onClose: () => void;
   isOpen: boolean;
 };
 
 export const ReportSnapModal: FunctionComponent<ReportSnapModalProps> = ({
   snapName,
+  onSign,
   onClose,
   isOpen,
 }) => {
@@ -20,6 +21,10 @@ export const ReportSnapModal: FunctionComponent<ReportSnapModalProps> = ({
 
   const onSignButtonClick = () => {
     setIsLoading(true);
+
+    onSign().finally(() => {
+      setIsLoading(false);
+    });
   };
 
   return (
