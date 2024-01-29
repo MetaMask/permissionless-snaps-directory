@@ -1,16 +1,20 @@
 import { Box, Container, Divider, Flex, Text } from '@chakra-ui/react';
 import { Trans } from '@lingui/macro';
 import { graphql } from 'gatsby';
-import type { FunctionComponent } from 'react';
+import { type FunctionComponent } from 'react';
 
-import { InstallSnapButton, SnapWebsiteButton } from '../../../components';
+import {
+  InstallSnapButton,
+  ReportButton,
+  SnapWebsiteButton,
+} from '../../../components';
 import { type RegistrySnapCategory } from '../../../constants';
 import {
-  Description,
-  useGetInstalledSnapsQuery,
   Authorship,
-  RelatedSnaps,
+  Description,
   Metadata,
+  RelatedSnaps,
+  useGetInstalledSnapsQuery,
 } from '../../../features';
 import { NotificationAcknowledger } from '../../../features/notifications/components';
 import type { Fields } from '../../../utils';
@@ -50,6 +54,7 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
 
   const { data: installedSnaps } = useGetInstalledSnapsQuery();
   const isInstalled = Boolean(installedSnaps?.[snapId]);
+  // const { reportModalOpen, setReportModalOpen } = useState(false);
 
   return (
     <Box position="relative">
@@ -76,6 +81,13 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
         >
           <Authorship name={name} icon={icon} snapId={snapId} />
           <Flex alignItems="center" gap="4" width={['100%', null, 'auto']}>
+            <ReportButton
+              onClick={() => {
+                console.log('Report button clicked');
+              }}
+              reported={false}
+              size="lg"
+            />
             {!onboard && (
               <InstallSnapButton
                 snapId={snapId}
