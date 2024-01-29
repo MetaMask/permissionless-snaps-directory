@@ -46,7 +46,7 @@ describe('ConnectKitButton.Custom', () => {
 
     const button = getByText('Connect');
 
-    await act(async () => act(() => button.click()));
+    await act(async () => button.click());
 
     expect(showModelSpy).toHaveBeenCalledTimes(1);
     expect(navigate).toHaveBeenCalledTimes(0);
@@ -59,7 +59,7 @@ describe('ConnectKitButton.Custom', () => {
 
     const button = getByText('mock.ens.name');
 
-    await act(async () => act(() => button.click()));
+    await act(async () => button.click());
 
     expect(showModelSpy).toHaveBeenCalledTimes(0);
     expect(navigate).toHaveBeenCalledTimes(1);

@@ -71,7 +71,7 @@ describe('Explore page', () => {
 
     const button = getByText('See All');
 
-    await act(async () => act(() => button.click()));
+    await act(async () => button.click());
 
     expect(queryByText('Foo Snap')).toBeInTheDocument();
     expect(queryByText('Bar Snap')).toBeInTheDocument();

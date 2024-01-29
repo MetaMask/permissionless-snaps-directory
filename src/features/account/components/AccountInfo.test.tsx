@@ -5,13 +5,12 @@ import { AccountInfo } from './AccountInfo';
 import { createStore } from '../../../store';
 import { render, VALID_ACCOUNT_1 } from '../../../utils/test-utils';
 
-jest.mock('../../../hooks/useTypedSignTrustCredential', () => ({
-  useTypedSignTrustCredential: () => ({
-    submitTypedSignRequest: jest.fn(),
-    isLoading: false,
-    isVerified: false,
-    payload: {},
-    signatureError: null,
+jest.mock('../../../hooks/useVerifiableCredential', () => ({
+  ...jest.requireActual('../../../hooks/useVerifiableCredential'),
+  useVerifiableCredential: () => ({
+    issuerAddress: 'issuerAddress',
+    signMessage: jest.fn(),
+    signError: null,
   }),
 }));
 
@@ -47,11 +46,8 @@ describe('AccountInfo', () => {
       isConnected: true,
     }));
 
-    const { queryByTestId, queryByText } = await act(
-      async () =>
-        await act(() =>
-          render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
-        ),
+    const { queryByTestId, queryByText } = await act(async () =>
+      render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
     );
 
     expect(queryByTestId('account-info-loading')).not.toBeInTheDocument();
@@ -70,11 +66,8 @@ describe('AccountInfo', () => {
       isConnected: true,
     }));
 
-    const { queryByTestId } = await act(
-      async () =>
-        await act(() =>
-          render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
-        ),
+    const { queryByTestId } = await act(async () =>
+      render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
     );
 
     expect(queryByTestId('account-info-loading')).toBeInTheDocument();
@@ -90,11 +83,8 @@ describe('AccountInfo', () => {
       isConnected: true,
     }));
 
-    const { queryByText } = await act(
-      async () =>
-        await act(() =>
-          render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
-        ),
+    const { queryByText } = await act(async () =>
+      render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
     );
     expect(queryByText('0x6B24a...57Cc7')).toBeInTheDocument();
   });
@@ -109,11 +99,8 @@ describe('AccountInfo', () => {
       isConnected: false,
     }));
 
-    const { queryByTestId } = await act(
-      async () =>
-        await act(() =>
-          render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
-        ),
+    const { queryByTestId } = await act(async () =>
+      render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
     );
 
     expect(queryByTestId('icon-menu-button')).not.toBeInTheDocument();

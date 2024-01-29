@@ -149,7 +149,6 @@ describe('AccountReport', () => {
     );
 
     await act(async () => getByText('Report').click());
-
     await act(async () => getByLabelText('Close').click());
 
     expect(queryByText('mock.ens.name')).not.toBeInTheDocument();
