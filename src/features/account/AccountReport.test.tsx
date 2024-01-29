@@ -61,7 +61,7 @@ describe('AccountReport', () => {
     expect(queryByText(VALID_ACCOUNT_1)).toBeInTheDocument();
   });
 
-  it('assign ens name to `reportEntity` when `useEnsName` is return a name', async () => {
+  it('assign ens name to `reportEntity` when `useEnsName` returns a name', async () => {
     mockUseEnsName.mockImplementation(() => ({
       data: 'mock.ens.name',
       isLoading: false,

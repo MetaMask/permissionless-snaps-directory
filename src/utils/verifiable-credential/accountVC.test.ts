@@ -154,8 +154,14 @@ describe('AccountVerifiableCredential', () => {
       const vc = buildAccountVerifiableCredential();
       expect(
         vc.buildTechnicalExpertiseTrust(VALID_ACCOUNT_1, VALID_ACCOUNT_2, [
-          TrustworthinessScope.SoftwareDevelopment,
-          TrustworthinessScope.SoftwareSecurity,
+          {
+            scope: TrustworthinessScope.SoftwareDevelopment,
+            level: 1,
+          },
+          {
+            scope: TrustworthinessScope.SoftwareSecurity,
+            level: 1,
+          },
         ]),
       ).toStrictEqual({
         domain,

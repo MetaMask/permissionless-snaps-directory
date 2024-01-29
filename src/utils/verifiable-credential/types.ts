@@ -1,5 +1,3 @@
-import type { Hex } from '@metamask/utils';
-
 export enum TrustworthinessScope {
   Honesty = 'Honesty',
   SoftwareSecurity = 'Software security',
@@ -22,7 +20,7 @@ export enum TrustCredentialType {
   StatusCredential = 'StatusCredential',
 }
 
-export type PKHDid = `did:pkh:${Hex}`;
+export type PKHDid = `did:pkh:eip155:${string}`;
 
 export type SnapDid = `snap://${string}`;
 

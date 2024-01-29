@@ -125,16 +125,17 @@ export class AccountVerifiableCredential extends BaseVerifiableCredential {
   buildTechnicalExpertiseTrust(
     issuerAddress: Hex,
     subjectAddress: Hex,
-    scopes: TrustworthinessScope[],
+    trustworthiness: Trustworthiness[],
   ) {
-    const trustworthiness = scopes.map((scope) => ({
-      scope,
-      level: 1,
+    const trustworthinessItems = trustworthiness.map((item) => ({
+      scope: item.scope,
+      level: item.level,
       reason: [],
     }));
+
     return this.buildSignPayload(
       issuerAddress,
-      this.getCredentialSubject(subjectAddress, trustworthiness),
+      this.getCredentialSubject(subjectAddress, trustworthinessItems),
     );
   }
 }
