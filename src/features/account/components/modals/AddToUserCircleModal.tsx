@@ -1,15 +1,17 @@
 import { Center, Link, Text, VStack } from '@chakra-ui/react';
 import { Trans, t } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { isAddress } from 'viem';
 
 import { AvatarBlueIcon, RequestSignModal } from '../../../../components';
-import { useDispatch, useSelector } from '../../../../hooks';
-import useToastMsg from '../../../../hooks/useToastMsg';
 import {
-  SignatureErrorTypes,
-  useTypedSignTrustCredential,
-} from '../../../../hooks/useTypedSignTrustCredential';
+  VCSignErrorType,
+  useDispatch,
+  useSelector,
+  useVerifiableCredential,
+} from '../../../../hooks';
+import useToastMsg from '../../../../hooks/useToastMsg';
 import type { ApplicationState } from '../../../../store';
 import { trimAddress } from '../../../../utils';
 import { addUserToUserCircle, setAddToUserModalOpen } from '../../store';
@@ -26,50 +28,70 @@ export const AddToUserCircleModal: FunctionComponent<
   );
   const dispatch = useDispatch();
 
-  const {
-    isLoading,
-    isVerified,
-    payload,
-    submitTypedSignRequest,
-    signatureError,
-  } = useTypedSignTrustCredential();
+  const [isLoading, setIsLoading] = useState(false);
+  const { issuerAddress, signMessage, signError, accountVCBuilder } =
+    useVerifiableCredential();
 
-  const { showErrorMsg, showSuccessMsg } = useToastMsg();
+  const { showSuccessMsg, showErrorMsg } = useToastMsg();
 
   const shortSubAddress = useMemo(
     () => trimAddress(subjectAddress),
     [subjectAddress],
   );
 
-  useEffect(() => {
-    if (signatureError) {
-      if (signatureError.type === SignatureErrorTypes.Error) {
-        showErrorMsg({
-          title: t`Failed to verify signature`,
-          description: signatureError.message,
-        });
-      } else {
-        showErrorMsg({
-          title: t`Invalid Signature`,
-          description: t`Your signature is invalid`,
-        });
-      }
+  const onSignButtonClick = useCallback(() => {
+    if (!issuerAddress) {
+      return;
     }
-  }, [signatureError, showErrorMsg]);
+    if (!isAddress(subjectAddress)) {
+      return;
+    }
+    setIsLoading(true);
+
+    const VC = accountVCBuilder.buildAccountTrust(
+      issuerAddress,
+      subjectAddress,
+    );
+
+    signMessage(VC)
+      .then((signature) => {
+        if (signature) {
+          const assertion = accountVCBuilder.getSignedAssertion(VC, signature);
+          console.log('assertion', assertion);
+
+          showSuccessMsg({
+            title: t`Added to your trust circle`,
+            description: t`${shortSubAddress} has been added to your trust circle`,
+          });
+
+          dispatch(addUserToUserCircle(subjectAddress));
+          dispatch(setAddToUserModalOpen(false));
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [issuerAddress, subjectAddress]);
 
   useEffect(() => {
-    // confirm signature has been verified
-    if (isVerified) {
-      console.log(`TrustCredential payload is`, payload);
-      showSuccessMsg({
-        title: t`Added to your trust circle`,
-        description: t`${shortSubAddress} has been added to your trust circle`,
+    if (signError?.type === VCSignErrorType.SignError) {
+      showErrorMsg({
+        title: t`Error`,
+        description: t`The signature could not be created`,
       });
-      dispatch(addUserToUserCircle(subjectAddress));
-      dispatch(setAddToUserModalOpen(false));
+    } else if (signError?.type === VCSignErrorType.VerifyFailed) {
+      showErrorMsg({
+        title: t`Error`,
+        description: t`The signature verification failed`,
+      });
+    } else if (signError?.type === VCSignErrorType.VerifyError) {
+      showErrorMsg({
+        title: t`Error`,
+        description: t`The signature verification error`,
+      });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isVerified]);
+  }, [signError, showErrorMsg]);
 
   return (
     <RequestSignModal
@@ -79,9 +101,7 @@ export const AddToUserCircleModal: FunctionComponent<
       headerIcon={<AvatarBlueIcon />}
       buttonText={t`Sign to add`}
       isLoading={isLoading}
-      onSignButtonClick={() => {
-        submitTypedSignRequest(subjectAddress, true);
-      }}
+      onSignButtonClick={onSignButtonClick}
     >
       <Center>
         <VStack textAlign="center">
