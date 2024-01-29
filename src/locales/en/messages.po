@@ -332,6 +332,10 @@ msgstr ""
 msgid "Identifier"
 msgstr ""
 
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+msgid "Info"
+msgstr ""
+
 #: src/components/InstallUnsupportedDesktop.tsx
 msgid "Install MetaMask"
 msgstr ""
@@ -698,7 +702,6 @@ msgid "View"
 msgstr ""
 
 #: src/components/icons/index.ts
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Warning"
 msgstr ""
 
