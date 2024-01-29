@@ -79,17 +79,8 @@ describe('AccountReport', () => {
       />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('Report').click();
-      }),
-    );
-
-    await act(async () =>
-      act(() => {
-        getByText('Sign to report').click();
-      }),
-    );
+    await act(async () => getByText('Report').click());
+    await act(async () => getByText('Sign to report').click());
   };
 
   it('renders', async () => {
@@ -103,11 +94,7 @@ describe('AccountReport', () => {
       />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('Report').click();
-      }),
-    );
+    await act(async () => getByText('Report').click());
 
     expect(queryByText('Report')).toBeInTheDocument();
     expect(queryByText('Scamming')).toBeInTheDocument();
@@ -128,11 +115,7 @@ describe('AccountReport', () => {
       />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('Report').click();
-      }),
-    );
+    await act(async () => getByText('Report').click());
 
     expect(queryByText(trimAddress(VALID_ACCOUNT_1))).toBeInTheDocument();
   });
@@ -148,11 +131,7 @@ describe('AccountReport', () => {
       />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('Report').click();
-      }),
-    );
+    await act(async () => getByText('Report').click());
 
     expect(queryByText('mock.ens.name')).toBeInTheDocument();
   });
@@ -169,15 +148,9 @@ describe('AccountReport', () => {
       />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('Report').click();
-      }),
-    );
+    await act(async () => getByText('Report').click());
 
-    await act(async () => {
-      getByLabelText('Close').click();
-    });
+    await act(async () => getByLabelText('Close').click());
 
     expect(queryByText('mock.ens.name')).not.toBeInTheDocument();
   });
@@ -223,24 +196,14 @@ describe('AccountReport', () => {
         />,
       );
 
-      await act(async () =>
-        act(() => {
-          getByText('Report').click();
-        }),
-      );
+      await act(async () => getByText('Report').click());
 
-      await act(async () =>
-        act(() => {
-          getByText('Scamming').click();
-          getByText('Other').click();
-        }),
-      );
+      await act(async () => {
+        getByText('Scamming').click();
+        getByText('Other').click();
+      });
 
-      await act(async () =>
-        act(() => {
-          getByText('Sign to report').click();
-        }),
-      );
+      await act(async () => getByText('Sign to report').click());
 
       expect(signMessageSpy).toHaveBeenCalled();
       expect(getSignedAssertionSpy).toHaveBeenCalled();
