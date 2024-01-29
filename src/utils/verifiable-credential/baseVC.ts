@@ -115,7 +115,7 @@ export abstract class BaseVerifiableCredential {
     const createDate = new Date().toISOString();
     const verifiableCredential =
       this.verifiableCredentialType.VerifiableCredential.slice();
-    verifiableCredential?.push({
+    verifiableCredential.push({
       name: 'proof',
       type: 'Proof',
     });
