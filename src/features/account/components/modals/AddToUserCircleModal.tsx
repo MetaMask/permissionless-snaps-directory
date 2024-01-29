@@ -63,6 +63,7 @@ export const AddToUserCircleModal: FunctionComponent<
             title: t`Added to your trust circle`,
             description: t`${shortSubAddress} has been added to your trust circle`,
           });
+      setIsLoading(false);
           dispatch(addUserToUserCircle(subjectAddress));
           dispatch(setAddToUserModalOpen(false));
         } else {
