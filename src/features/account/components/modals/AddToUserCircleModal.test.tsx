@@ -114,7 +114,7 @@ describe('AddToUserCircleModal', () => {
     ).toBeInTheDocument();
   });
 
-  it('show `The signature is empty` error when sign message return null signature', async () => {
+  it('show `The signature is empty, user deny signing` warning when sign message return null signature', async () => {
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: VALID_ACCOUNT_1,
       signMessage: jest.fn().mockReturnValue(Promise.resolve(null)),
@@ -135,8 +135,10 @@ describe('AddToUserCircleModal', () => {
       fireEvent.click(signButton);
     });
 
-    expect(queryByText('Error')).toBeInTheDocument();
-    expect(queryByText('The signature is empty')).toBeInTheDocument();
+    expect(queryByText('Warning')).toBeInTheDocument();
+    expect(
+      queryByText('The signature is empty, user deny signing'),
+    ).toBeInTheDocument();
   });
 
   it('show `Unknown error` error when sign message throw exeception', async () => {
@@ -220,6 +222,31 @@ describe('AddToUserCircleModal', () => {
     expect(
       queryByText('The signature could not be created'),
     ).toBeInTheDocument();
+  });
+
+  it('show `The signature verification error` when verification error detected', async () => {
+    mockUseVerifiableCredential.mockReturnValue({
+      issuerAddress: VALID_ACCOUNT_1,
+      signMessage: jest.fn().mockReturnValue(Promise.resolve(null)),
+      accountVCBuilder: {
+        buildAccountTrust: jest.fn().mockReturnValue('VC'),
+        getSignedAssertion: jest.fn().mockReturnValue('assertion'),
+      },
+      signError: {
+        type: VCSignErrorType.VerifyError,
+      },
+    });
+
+    const { getByText, queryByText } = render(
+      <AddToUserCircleModal subjectAddress="errorAddress" />,
+      store,
+    );
+
+    const signButton = getByText('Sign to add');
+    fireEvent.click(signButton);
+
+    expect(queryByText('Error')).toBeInTheDocument();
+    expect(queryByText('The signature verification error')).toBeInTheDocument();
   });
 
   it('closes modal when close button is clicked', async () => {

@@ -32,7 +32,7 @@ export const AddToUserCircleModal: FunctionComponent<
   const { issuerAddress, signMessage, signError, accountVCBuilder } =
     useVerifiableCredential();
 
-  const { showSuccessMsg, showErrorMsg } = useToastMsg();
+  const { showSuccessMsg, showErrorMsg, showWarningMsg } = useToastMsg();
 
   const shortSubAddress = useMemo(
     () => trimAddress(subjectAddress),
@@ -63,15 +63,17 @@ export const AddToUserCircleModal: FunctionComponent<
             title: t`Added to your trust circle`,
             description: t`${shortSubAddress} has been added to your trust circle`,
           });
-      setIsLoading(false);
+
           dispatch(addUserToUserCircle(subjectAddress));
           dispatch(setAddToUserModalOpen(false));
         } else {
-          showErrorMsg({
-            title: t`Error`,
-            description: t`The signature is empty`,
+          showWarningMsg({
+            title: t`Warning`,
+            description: t`The signature is empty, user deny signing`,
           });
         }
+
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error(error);
@@ -79,6 +81,7 @@ export const AddToUserCircleModal: FunctionComponent<
           title: t`Error`,
           description: t`Unknown error`,
         });
+        setIsLoading(false);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [issuerAddress, subjectAddress]);
@@ -94,6 +97,12 @@ export const AddToUserCircleModal: FunctionComponent<
       showErrorMsg({
         title: t`Error`,
         description: t`The signature verification failed`,
+      });
+      setIsLoading(false);
+    } else if (signError?.type === VCSignErrorType.VerifyError) {
+      showErrorMsg({
+        title: t`Error`,
+        description: t`The signature verification error`,
       });
       setIsLoading(false);
     }
