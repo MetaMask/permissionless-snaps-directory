@@ -19,6 +19,11 @@ jest.mock('../../../hooks/useTypedSignTrustCredential', () => ({
 jest.mock('wagmi', () => ({
   useEnsName: jest.fn(),
   useAccount: jest.fn(),
+  usePublicClient: jest.fn(),
+  useChainId: jest.fn(),
+  useSignTypedData: () => ({
+    signTypedDataAsync: jest.fn(),
+  }),
   useNetwork: () => ({
     data: {
       chainId: 1,
