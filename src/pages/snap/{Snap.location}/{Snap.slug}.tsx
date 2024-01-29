@@ -3,11 +3,7 @@ import { Trans } from '@lingui/macro';
 import { graphql } from 'gatsby';
 import { type FunctionComponent } from 'react';
 
-import {
-  InstallSnapButton,
-  ReportButton,
-  SnapWebsiteButton,
-} from '../../../components';
+import { InstallSnapButton, SnapWebsiteButton } from '../../../components';
 import { type RegistrySnapCategory } from '../../../constants';
 import {
   Authorship,
@@ -17,6 +13,7 @@ import {
   useGetInstalledSnapsQuery,
 } from '../../../features';
 import { NotificationAcknowledger } from '../../../features/notifications/components';
+import { SnapReport } from '../../../features/snap/components/SnapReport';
 import type { Fields } from '../../../utils';
 
 type SnapPageProps = {
@@ -54,7 +51,6 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
 
   const { data: installedSnaps } = useGetInstalledSnapsQuery();
   const isInstalled = Boolean(installedSnaps?.[snapId]);
-  // const { reportModalOpen, setReportModalOpen } = useState(false);
 
   return (
     <Box position="relative">
@@ -81,13 +77,7 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
         >
           <Authorship name={name} icon={icon} snapId={snapId} />
           <Flex alignItems="center" gap="4" width={['100%', null, 'auto']}>
-            <ReportButton
-              onClick={() => {
-                console.log('Report button clicked');
-              }}
-              reported={false}
-              size="lg"
-            />
+            <SnapReport snapName={name} />
             {!onboard && (
               <InstallSnapButton
                 snapId={snapId}
