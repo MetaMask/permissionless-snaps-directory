@@ -3,8 +3,11 @@ import { getAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
 import AccountProfilePage, { Head } from '.';
-import { render, getMockSiteMetadata } from '../../utils/test-utils';
-import { VALID_ACCOUNT_1 } from '../../utils/test-utils/input';
+import {
+  render,
+  getMockSiteMetadata,
+  VALID_ACCOUNT_1,
+} from '../../utils/test-utils';
 
 jest.mock('../../features/account/components/AccountInfo', () => ({
   AccountInfo: () => <div />,
@@ -117,6 +120,7 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).not.toBeInTheDocument();
+    expect(queryByText('Report')).toBeInTheDocument();
     expect(queryByText('Endorse')).toBeInTheDocument();
   });
 
@@ -137,6 +141,7 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).not.toBeInTheDocument();
+    expect(queryByText('Report')).not.toBeInTheDocument();
     expect(queryByText('Endorse')).not.toBeInTheDocument();
   });
 

@@ -7,7 +7,11 @@ import {
   AccountVerifiableCredential,
   SnapVerifiableCredential,
 } from '../utils';
-import { renderHook } from '../utils/test-utils';
+import {
+  renderHook,
+  VALID_ACCOUNT_1,
+  VALID_ACCOUNT_2,
+} from '../utils/test-utils';
 
 jest.mock('viem', () => ({
   getAddress: jest.fn(),
@@ -19,9 +23,6 @@ jest.mock('wagmi', () => ({
   useSignTypedData: jest.fn(),
   useChainId: () => 1,
 }));
-
-const VALID_ACCOUNT_1 = '0x1';
-const VALID_ACCOUNT_2 = '0x1';
 
 describe('useVerifiableCredential', () => {
   const buildMock = () => {

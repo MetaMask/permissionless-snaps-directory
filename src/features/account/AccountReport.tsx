@@ -3,18 +3,17 @@ import type { Hex } from '@metamask/utils';
 import { useState, type FunctionComponent, useMemo } from 'react';
 import { useEnsName } from 'wagmi';
 
-import { TEEndorsementModal } from './components';
-import { EndorseButton } from '../../components';
+import { AccountReportModal } from './components';
+import { ReportButton } from '../../components';
 import { trimAddress } from '../../utils';
 
-type AccountTEEndorsementProps = {
+type AccountReportProps = {
   address: Hex;
-  connectedAddress: Hex;
 };
 
-export const AccountTEEndorsement: FunctionComponent<
-  AccountTEEndorsementProps
-> = ({ address }) => {
+export const AccountReport: FunctionComponent<AccountReportProps> = ({
+  address,
+}) => {
   const { data } = useEnsName({
     address,
   });
@@ -25,16 +24,11 @@ export const AccountTEEndorsement: FunctionComponent<
 
   // TODO: hardcode options for now, change to dynamic if needed
   const options = [
-    {
-      label: t`Software Development`,
-      description: t`Ability to develop MetaMask Snaps`,
-      value: 'Software Development',
-    },
-    {
-      label: t`Software Security`,
-      description: t`Ability to develop secure applications`,
-      value: 'Software Security',
-    },
+    t`Scamming`,
+    t`Hacking`,
+    t`Harassment`,
+    t`Disinformation`,
+    t`Other`,
   ];
 
   const onSign = async (selected: string[]) => {
@@ -44,10 +38,10 @@ export const AccountTEEndorsement: FunctionComponent<
 
   return (
     <>
-      <EndorseButton onClick={() => setShowModal(true)} endorsed={false} />
+      <ReportButton onClick={() => setShowModal(true)} reported={false} />
       {showModal && (
-        <TEEndorsementModal
-          trustEntity={data ?? trimedAddress}
+        <AccountReportModal
+          reportEntity={data ?? trimedAddress}
           visibility={showModal}
           onClose={() => setShowModal(false)}
           options={options}

@@ -2,7 +2,7 @@ import { Center, Heading, Text, VStack, Checkbox, Box } from '@chakra-ui/react';
 import { Trans, t } from '@lingui/macro';
 import { useState, type FunctionComponent } from 'react';
 
-import { AvatarReportBlueIcon, RequestSignModal } from '../../../../components';
+import { AvatarBlueIcon, RequestSignModal } from '../../../../components';
 
 export type TEEndorsementModalProps = {
   trustEntity: string;
@@ -53,7 +53,7 @@ export const TEEndorsementModal: FunctionComponent<TEEndorsementModalProps> = ({
       isOpen={visibility}
       isLoading={isLoading}
       mode="positive"
-      headerIcon={<AvatarReportBlueIcon />}
+      headerIcon={<AvatarBlueIcon />}
       buttonText={t`Sign`}
       onClose={onClose}
       onSignButtonClick={onSignButtonClick}

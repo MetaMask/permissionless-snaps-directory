@@ -36,6 +36,19 @@ export const Button = defineStyleConfig({
       },
     }),
 
+    primaryPortableError: defineStyle({
+      borderRadius: '30px',
+      background: 'error.default',
+      color: 'white',
+      borderColor: 'error.default',
+      padding: '4',
+      _hover: {
+        _disabled: {
+          background: 'error.default',
+        },
+      },
+    }),
+
     primaryPortable: defineStyle({
       borderRadius: '30px',
       background: 'info.default',
@@ -59,6 +72,15 @@ export const Button = defineStyleConfig({
       color: 'info.default',
       border: '1.5px solid',
       borderColor: 'info.default',
+      padding: '4',
+    }),
+
+    outlinePortableError: defineStyle({
+      borderRadius: '30px',
+      background: 'transparent',
+      color: 'error.default',
+      border: '1.5px solid',
+      borderColor: 'error.default',
       padding: '4',
     }),
 

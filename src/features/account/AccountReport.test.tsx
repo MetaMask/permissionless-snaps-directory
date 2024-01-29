@@ -1,19 +1,16 @@
 import { act } from '@testing-library/react';
 import { useEnsName } from 'wagmi';
 
-import { AccountTEEndorsement } from './AccountTEEndorsement';
-import { trimAddress } from '../../utils';
-import {
-  render,
-  VALID_ACCOUNT_1,
-  VALID_ACCOUNT_2,
-} from '../../utils/test-utils';
+import { AccountReport } from './AccountReport';
+import { render } from '../../utils/test-utils';
 
 jest.mock('wagmi', () => ({
   useEnsName: jest.fn(),
 }));
 
-describe('AccountTEEndorsement', () => {
+const VALID_ACCOUNT_1 = '0x123';
+
+describe('AccountReport', () => {
   let mockUseEnsName: jest.Mock;
 
   beforeEach(() => {
@@ -28,61 +25,55 @@ describe('AccountTEEndorsement', () => {
     }));
 
     const { queryByText, getByText } = render(
-      <AccountTEEndorsement
-        address={VALID_ACCOUNT_1}
-        connectedAddress={VALID_ACCOUNT_2}
-      />,
+      <AccountReport address={VALID_ACCOUNT_1} />,
     );
 
     await act(async () =>
       act(() => {
-        getByText('Endorse').click();
+        getByText('Report').click();
       }),
     );
 
-    expect(queryByText('Endorse')).toBeInTheDocument();
-    expect(queryByText('Software Security')).toBeInTheDocument();
-    expect(queryByText('Software Development')).toBeInTheDocument();
+    expect(queryByText('Report')).toBeInTheDocument();
+    expect(queryByText('Scamming')).toBeInTheDocument();
+    expect(queryByText('Hacking')).toBeInTheDocument();
+    expect(queryByText('Harassment')).toBeInTheDocument();
+    expect(queryByText('Disinformation')).toBeInTheDocument();
+    expect(queryByText('Other')).toBeInTheDocument();
   });
 
-  it('assign trimed address to `trustEntity` when `useEnsName` is not ready or return null', async () => {
+  it('assign trimed address to `reportEntity` when `useEnsName` is not ready or return null', async () => {
     mockUseEnsName.mockImplementation(() => ({
       data: null,
       isLoading: true,
     }));
 
     const { queryByText, getByText } = render(
-      <AccountTEEndorsement
-        address={VALID_ACCOUNT_1}
-        connectedAddress={VALID_ACCOUNT_2}
-      />,
+      <AccountReport address={VALID_ACCOUNT_1} />,
     );
 
     await act(async () =>
       act(() => {
-        getByText('Endorse').click();
+        getByText('Report').click();
       }),
     );
 
-    expect(queryByText(trimAddress(VALID_ACCOUNT_1))).toBeInTheDocument();
+    expect(queryByText(VALID_ACCOUNT_1)).toBeInTheDocument();
   });
 
-  it('assign ens name to `trustEntity` when `useEnsName` is return a name', async () => {
+  it('assign ens name to `reportEntity` when `useEnsName` is return a name', async () => {
     mockUseEnsName.mockImplementation(() => ({
       data: 'mock.ens.name',
       isLoading: false,
     }));
 
     const { queryByText, getByText } = render(
-      <AccountTEEndorsement
-        address={VALID_ACCOUNT_1}
-        connectedAddress={VALID_ACCOUNT_2}
-      />,
+      <AccountReport address={VALID_ACCOUNT_1} />,
     );
 
     await act(async () =>
       act(() => {
-        getByText('Endorse').click();
+        getByText('Report').click();
       }),
     );
 
@@ -96,21 +87,19 @@ describe('AccountTEEndorsement', () => {
     }));
 
     const { queryByText, getByText } = render(
-      <AccountTEEndorsement
-        address={VALID_ACCOUNT_1}
-        connectedAddress={VALID_ACCOUNT_2}
-      />,
+      <AccountReport address={VALID_ACCOUNT_1} />,
     );
 
     await act(async () =>
       act(() => {
-        getByText('Endorse').click();
+        getByText('Report').click();
       }),
     );
 
     await act(async () =>
       act(() => {
-        getByText('Sign').click();
+        getByText('Scamming').click();
+        getByText('Sign to report').click();
       }),
     );
 
@@ -124,15 +113,12 @@ describe('AccountTEEndorsement', () => {
     }));
 
     const { queryByText, getByLabelText, getByText } = render(
-      <AccountTEEndorsement
-        address={VALID_ACCOUNT_1}
-        connectedAddress={VALID_ACCOUNT_2}
-      />,
+      <AccountReport address={VALID_ACCOUNT_1} />,
     );
 
     await act(async () =>
       act(() => {
-        getByText('Endorse').click();
+        getByText('Report').click();
       }),
     );
 

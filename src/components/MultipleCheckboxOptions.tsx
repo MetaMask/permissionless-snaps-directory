@@ -28,7 +28,9 @@ export const MultipleCheckboxOptions: FunctionComponent<
     <Box
       background="background.default"
       padding="1rem"
+      margin={'1.5'}
       borderRadius="1rem"
+      width={'100%'}
       {...props}
     >
       <VStack alignItems="flex-start">
