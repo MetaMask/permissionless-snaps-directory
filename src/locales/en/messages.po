@@ -266,6 +266,12 @@ msgstr ""
 msgid "External link"
 msgstr ""
 
+#: src/features/account/AccountTEEndorsement.tsx
+#: src/features/account/AccountTEEndorsement.tsx
+msgid "Failed to sign the message"
+msgstr ""
+
+#: src/features/account/AccountTEEndorsement.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Failed to verify signature"
 msgstr ""
@@ -356,6 +362,7 @@ msgstr ""
 msgid "Interoperability"
 msgstr ""
 
+#: src/features/account/AccountTEEndorsement.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Invalid Signature"
 msgstr ""
@@ -586,6 +593,10 @@ msgstr ""
 msgid "Stay in the know with notifications and chat directly in MetaMask."
 msgstr ""
 
+#: src/features/account/AccountTEEndorsement.tsx
+msgid "Success"
+msgstr ""
+
 #: src/components/FooterLinks.tsx
 #: src/features/banner/components/faq-banner/FaqBanner.tsx
 #: src/features/snap/components/Metadata.tsx
@@ -618,6 +629,10 @@ msgstr ""
 
 #: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Trusted technical abilities"
+msgstr ""
+
+#: src/features/account/AccountTEEndorsement.tsx
+msgid "Unknown error"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -672,10 +687,15 @@ msgstr ""
 msgid "You acknowledge that any Snap that you install is a Third Party Service, unless otherwise identified, as defined in the <0>Consensys Terms of Use</0>. Your use of Third Party Services is governed by separate terms and conditions set forth by the Third Party Service provider. Consensys does not recommend the use of any Snap by any particular person for any particular reason. You access, rely upon or use the Third Party Service at your own risk. Consensys disclaims all responsibility and liability for any losses on account of your use of Third Party Services. Any information you share with Third Party Services will be collected directly by those Third Party Services in accordance with their privacy policies. Please refer to their privacy policies for more information. Consensys has no access to information you share with Third Party Services."
 msgstr ""
 
+#: src/features/account/AccountTEEndorsement.tsx
+msgid "Your endorsement has been done"
+msgstr ""
+
 #: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Your level of confidence in <0>{trustEntity}</0> skill set"
 msgstr ""
 
+#: src/features/account/AccountTEEndorsement.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Your signature is invalid"
 msgstr ""
