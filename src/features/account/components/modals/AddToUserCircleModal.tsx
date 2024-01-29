@@ -32,7 +32,7 @@ export const AddToUserCircleModal: FunctionComponent<
   const { issuerAddress, signMessage, signError, accountVCBuilder } =
     useVerifiableCredential();
 
-  const { showSuccessMsg, showErrorMsg, showInfoMsg } = useToastMsg();
+  const { showSuccessMsg, showErrorMsg } = useToastMsg();
 
   const shortSubAddress = useMemo(
     () => trimAddress(subjectAddress),
@@ -66,11 +66,6 @@ export const AddToUserCircleModal: FunctionComponent<
 
           dispatch(addUserToUserCircle(subjectAddress));
           dispatch(setAddToUserModalOpen(false));
-        } else {
-          showInfoMsg({
-            title: t`Info`,
-            description: t`The signature is empty, user deny signing`,
-          });
         }
 
         setIsLoading(false);
