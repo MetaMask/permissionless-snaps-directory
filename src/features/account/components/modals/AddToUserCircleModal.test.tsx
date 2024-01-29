@@ -114,6 +114,33 @@ describe('AddToUserCircleModal', () => {
     ).toBeInTheDocument();
   });
 
+  it('show do nothing when sign message return null signature', async () => {
+    const mockSignMessage = jest.fn();
+    mockSignMessage.mockReturnValue(Promise.resolve(null));
+    mockUseVerifiableCredential.mockReturnValue({
+      issuerAddress: VALID_ACCOUNT_1,
+      signMessage: mockSignMessage,
+      accountVCBuilder: {
+        buildAccountTrust: jest.fn().mockReturnValue('VC'),
+        getSignedAssertion: jest.fn().mockReturnValue('assertion'),
+      },
+      signError: null,
+    });
+
+    const { getByText, queryByText } = render(
+      <AddToUserCircleModal subjectAddress={VALID_ACCOUNT_2} />,
+      store,
+    );
+
+    const signButton = getByText('Sign to add');
+    await act(async () => {
+      fireEvent.click(signButton);
+    });
+
+    expect(mockSignMessage).toHaveBeenCalled();
+    expect(queryByText('Added to your trust circle')).not.toBeInTheDocument();
+  });
+
   it('show `The signature verification failed` when verify failed error detected', async () => {
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: VALID_ACCOUNT_1,
