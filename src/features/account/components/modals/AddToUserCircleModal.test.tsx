@@ -4,11 +4,11 @@ import { AddToUserCircleModal } from './AddToUserCircleModal';
 import { VCSignErrorType, useVerifiableCredential } from '../../../../hooks';
 import { createStore } from '../../../../store';
 import { trimAddress } from '../../../../utils';
-import { render } from '../../../../utils/test-utils';
 import {
+  render,
   VALID_ACCOUNT_1,
   VALID_ACCOUNT_2,
-} from '../../../../utils/test-utils/input';
+} from '../../../../utils/test-utils';
 
 jest.mock('../../../../hooks/useVerifiableCredential', () => ({
   ...jest.requireActual('../../../../hooks/useVerifiableCredential'),
