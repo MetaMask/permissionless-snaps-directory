@@ -40,7 +40,10 @@ export const AddToUserCircleModal: FunctionComponent<
   );
 
   const onSignButtonClick = useCallback(() => {
-    if (!issuerAddress || isAddress(subjectAddress)) {
+    if (!issuerAddress) {
+      return;
+    }
+    if (!isAddress(subjectAddress)) {
       return;
     }
     setIsLoading(true);
