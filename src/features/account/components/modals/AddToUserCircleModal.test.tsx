@@ -1,62 +1,23 @@
 import { act, fireEvent } from '@testing-library/react';
 
 import { AddToUserCircleModal } from './AddToUserCircleModal';
+import { VCSignErrorType, useVerifiableCredential } from '../../../../hooks';
 import { createStore } from '../../../../store';
-import { render } from '../../../../utils/test-utils';
+import { trimAddress } from '../../../../utils';
+import {
+  render,
+  VALID_ACCOUNT_1,
+  VALID_ACCOUNT_2,
+} from '../../../../utils/test-utils';
 
-jest.mock('../../../../hooks/useTypedSignTrustCredential', () => {
-  const React = jest.requireActual('react');
-  const originalModule = jest.requireActual(
-    '../../../../hooks/useTypedSignTrustCredential',
-  );
-
-  return {
-    ...originalModule,
-    useTypedSignTrustCredential: () => {
-      const [isVerified, setIsVerified] = React.useState(false);
-      const [signatureError, setSignatureError] = React.useState();
-
-      const submitTypedSignRequest = async (
-        subjectAddress: string,
-        isAdd: boolean,
-      ) => {
-        switch (subjectAddress) {
-          case 'passAddress':
-            if (isAdd) {
-              setIsVerified(true);
-            }
-            break;
-          case 'invalidAddress':
-            setIsVerified(false);
-            setSignatureError({
-              type: 'invalid',
-              message: 'failed message',
-            });
-            break;
-          case 'errorAddress':
-            setIsVerified(false);
-            setSignatureError({
-              type: 'error',
-              message: 'failed message',
-            });
-            break;
-          default:
-            break;
-        }
-      };
-
-      return {
-        submitTypedSignRequest,
-        isLoading: false,
-        isVerified,
-        payload: {},
-        signatureError,
-      };
-    },
-  };
-});
+jest.mock('../../../../hooks/useVerifiableCredential', () => ({
+  ...jest.requireActual('../../../../hooks/useVerifiableCredential'),
+  useVerifiableCredential: jest.fn(),
+}));
 
 describe('AddToUserCircleModal', () => {
+  let mockUseVerifiableCredential: jest.Mock;
+
   let store: any;
   beforeEach(() => {
     store = createStore({
@@ -65,10 +26,20 @@ describe('AddToUserCircleModal', () => {
         userAccount: { userCircle: [] },
       },
     });
+
+    mockUseVerifiableCredential = useVerifiableCredential as jest.Mock;
+    mockUseVerifiableCredential.mockClear();
   });
+
   it('renders AddToUserCircleModal component', () => {
+    mockUseVerifiableCredential.mockReturnValue({
+      issuerAddress: VALID_ACCOUNT_1,
+      signMessage: jest.fn(),
+      signError: null,
+    });
+
     const { queryByText } = render(
-      <AddToUserCircleModal subjectAddress="passAddress" />,
+      <AddToUserCircleModal subjectAddress={VALID_ACCOUNT_2} />,
       store,
     );
 
@@ -80,35 +51,138 @@ describe('AddToUserCircleModal', () => {
     ).toBeInTheDocument();
   });
 
-  it('signature verification succeeds', async () => {
-    const { getByText, queryByText } = render(
-      <AddToUserCircleModal subjectAddress="passAddress" />,
+  it('sign button will do nothing if issuer address is not available', () => {
+    const mockSignMessage = jest.fn();
+    mockUseVerifiableCredential.mockReturnValue({
+      issuerAddress: null,
+      signMessage: mockSignMessage,
+      signError: null,
+    });
+    const { getByText } = render(
+      <AddToUserCircleModal subjectAddress={VALID_ACCOUNT_2} />,
       store,
     );
 
     const signButton = getByText('Sign to add');
     fireEvent.click(signButton);
 
+    expect(mockSignMessage).not.toHaveBeenCalled();
+  });
+
+  it('sign button will do nothing if subject address is not available', () => {
+    const mockSignMessage = jest.fn();
+    mockUseVerifiableCredential.mockReturnValue({
+      issuerAddress: VALID_ACCOUNT_1,
+      signMessage: mockSignMessage,
+      signError: null,
+    });
+    const { getByText } = render(
+      <AddToUserCircleModal subjectAddress="adfad" />,
+      store,
+    );
+
+    const signButton = getByText('Sign to add');
+    fireEvent.click(signButton);
+
+    expect(mockSignMessage).not.toHaveBeenCalled();
+  });
+
+  it('show `Added to your trust circle` success message when sign message return valid signature', async () => {
+    mockUseVerifiableCredential.mockReturnValue({
+      issuerAddress: VALID_ACCOUNT_1,
+      signMessage: jest.fn().mockReturnValue(Promise.resolve('signature')),
+      accountVCBuilder: {
+        buildAccountTrust: jest.fn().mockReturnValue('VC'),
+        getSignedAssertion: jest.fn().mockReturnValue('assertion'),
+      },
+      signError: null,
+    });
+    const shortSubAddress = trimAddress(VALID_ACCOUNT_2);
+    const { getByText, queryByText } = render(
+      <AddToUserCircleModal subjectAddress={VALID_ACCOUNT_2} />,
+      store,
+    );
+
+    const signButton = getByText('Sign to add');
+    await act(async () => {
+      fireEvent.click(signButton);
+    });
+
     expect(queryByText('Added to your trust circle')).toBeInTheDocument();
     expect(
-      queryByText('passAddress has been added to your trust circle'),
+      queryByText(`${shortSubAddress} has been added to your trust circle`),
     ).toBeInTheDocument();
   });
 
-  it('signature verification fails for invalid user', async () => {
+  it('show do nothing when sign message return null signature', async () => {
+    const mockSignMessage = jest.fn();
+    mockSignMessage.mockReturnValue(Promise.resolve(null));
+    mockUseVerifiableCredential.mockReturnValue({
+      issuerAddress: VALID_ACCOUNT_1,
+      signMessage: mockSignMessage,
+      accountVCBuilder: {
+        buildAccountTrust: jest.fn().mockReturnValue('VC'),
+        getSignedAssertion: jest.fn().mockReturnValue('assertion'),
+      },
+      signError: null,
+    });
+
+    const { getByText, queryByText } = render(
+      <AddToUserCircleModal subjectAddress={VALID_ACCOUNT_2} />,
+      store,
+    );
+
+    const signButton = getByText('Sign to add');
+    await act(async () => {
+      fireEvent.click(signButton);
+    });
+
+    expect(mockSignMessage).toHaveBeenCalled();
+    expect(queryByText('Added to your trust circle')).not.toBeInTheDocument();
+  });
+
+  it('show `The signature verification failed` when verify failed error detected', async () => {
+    mockUseVerifiableCredential.mockReturnValue({
+      issuerAddress: VALID_ACCOUNT_1,
+      signMessage: jest.fn().mockReturnValue(Promise.resolve(null)),
+      accountVCBuilder: {
+        buildAccountTrust: jest.fn().mockReturnValue('VC'),
+        getSignedAssertion: jest.fn().mockReturnValue('assertion'),
+      },
+      signError: {
+        type: VCSignErrorType.VerifyFailed,
+      },
+    });
+
     const { getByText, queryByText } = render(
       <AddToUserCircleModal subjectAddress="invalidAddress" />,
       store,
     );
 
     const signButton = getByText('Sign to add');
-    fireEvent.click(signButton);
+    act(() => {
+      fireEvent.click(signButton);
+    });
 
-    expect(queryByText('Invalid Signature')).toBeInTheDocument();
-    expect(queryByText('Your signature is invalid')).toBeInTheDocument();
+    expect(queryByText('Error')).toBeInTheDocument();
+    expect(
+      queryByText('The signature verification failed'),
+    ).toBeInTheDocument();
   });
 
-  it('signature verification fails for error', async () => {
+  it('show `The signature could not be created` error when sign error detected', async () => {
+    mockUseVerifiableCredential.mockReturnValue({
+      issuerAddress: VALID_ACCOUNT_1,
+      signMessage: jest.fn().mockReturnValue(Promise.resolve(null)),
+      accountVCBuilder: {
+        buildAccountTrust: jest.fn().mockReturnValue('VC'),
+        getSignedAssertion: jest.fn().mockReturnValue('assertion'),
+      },
+      signError: {
+        type: VCSignErrorType.SignError,
+      },
+    });
+
     const { getByText, queryByText } = render(
       <AddToUserCircleModal subjectAddress="errorAddress" />,
       store,
@@ -117,13 +191,47 @@ describe('AddToUserCircleModal', () => {
     const signButton = getByText('Sign to add');
     fireEvent.click(signButton);
 
-    expect(queryByText('Failed to verify signature')).toBeInTheDocument();
-    expect(queryByText('failed message')).toBeInTheDocument();
+    expect(queryByText('Error')).toBeInTheDocument();
+    expect(
+      queryByText('The signature could not be created'),
+    ).toBeInTheDocument();
+  });
+
+  it('show `The signature verification error` when verification error detected', async () => {
+    mockUseVerifiableCredential.mockReturnValue({
+      issuerAddress: VALID_ACCOUNT_1,
+      signMessage: jest.fn().mockReturnValue(Promise.resolve(null)),
+      accountVCBuilder: {
+        buildAccountTrust: jest.fn().mockReturnValue('VC'),
+        getSignedAssertion: jest.fn().mockReturnValue('assertion'),
+      },
+      signError: {
+        type: VCSignErrorType.VerifyError,
+      },
+    });
+
+    const { getByText, queryByText } = render(
+      <AddToUserCircleModal subjectAddress="errorAddress" />,
+      store,
+    );
+
+    const signButton = getByText('Sign to add');
+    fireEvent.click(signButton);
+
+    expect(queryByText('Error')).toBeInTheDocument();
+    expect(queryByText('The signature verification error')).toBeInTheDocument();
   });
 
   it('closes modal when close button is clicked', async () => {
+    const mockSignMessage = jest.fn();
+    mockUseVerifiableCredential.mockReturnValue({
+      issuerAddress: VALID_ACCOUNT_1,
+      signMessage: mockSignMessage,
+      signError: null,
+    });
+
     const { getByLabelText } = render(
-      <AddToUserCircleModal subjectAddress="passAddress" />,
+      <AddToUserCircleModal subjectAddress={VALID_ACCOUNT_2} />,
       store,
     );
 
