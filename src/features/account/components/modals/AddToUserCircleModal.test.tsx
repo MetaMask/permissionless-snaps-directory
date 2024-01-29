@@ -33,13 +33,13 @@ describe('AddToUserCircleModal', () => {
 
   it('renders AddToUserCircleModal component', () => {
     mockUseVerifiableCredential.mockReturnValue({
-      issuerAddress: 'passAddress',
+      issuerAddress: VALID_ACCOUNT_1,
       signMessage: jest.fn(),
       signError: null,
     });
 
     const { queryByText } = render(
-      <AddToUserCircleModal subjectAddress="passAddress" />,
+      <AddToUserCircleModal subjectAddress={VALID_ACCOUNT_2} />,
       store,
     );
 
@@ -225,13 +225,13 @@ describe('AddToUserCircleModal', () => {
   it('closes modal when close button is clicked', async () => {
     const mockSignMessage = jest.fn();
     mockUseVerifiableCredential.mockReturnValue({
-      issuerAddress: null,
+      issuerAddress: VALID_ACCOUNT_1,
       signMessage: mockSignMessage,
       signError: null,
     });
 
     const { getByLabelText } = render(
-      <AddToUserCircleModal subjectAddress="passAddress" />,
+      <AddToUserCircleModal subjectAddress={VALID_ACCOUNT_2} />,
       store,
     );
 
