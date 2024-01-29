@@ -95,7 +95,7 @@ describe('MenuItemCard', () => {
                   class="chakra-stack css-1uodvt1"
                 >
                   <div
-                    class="chakra-text css-0"
+                    class="css-0"
                   >
                     <span>
                       Icon
