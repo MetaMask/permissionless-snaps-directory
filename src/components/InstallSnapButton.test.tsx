@@ -71,7 +71,7 @@ describe('InstallSnapButton', () => {
     );
 
     const button = getByText('Add to MetaMask');
-    await act(async () => act(() => button.click()));
+    await act(async () => button.click());
 
     // eslint-disable-next-line @typescript-eslint/unbound-method, no-restricted-globals
     expect(window.ethereum.request).toHaveBeenCalledWith({
@@ -103,7 +103,7 @@ describe('InstallSnapButton', () => {
     );
 
     const button = getByText('Add to MetaMask');
-    await act(async () => act(() => button.click()));
+    await act(async () => button.click());
 
     // eslint-disable-next-line @typescript-eslint/unbound-method, no-restricted-globals
     expect(window.ethereum.request).toHaveBeenCalledWith({

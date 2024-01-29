@@ -40,12 +40,10 @@ describe('AccountReportModal', () => {
       />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('label 1').click();
-        getByText('Sign to report').click();
-      }),
-    );
+    await act(async () => {
+      getByText('label 1').click();
+      getByText('Sign to report').click();
+    });
 
     expect(onSign).toHaveBeenCalledWith(['label 1']);
   });

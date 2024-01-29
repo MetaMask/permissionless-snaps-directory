@@ -47,11 +47,8 @@ describe('AccountInfo', () => {
       isConnected: true,
     }));
 
-    const { queryByTestId, queryByText } = await act(
-      async () =>
-        await act(() =>
-          render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
-        ),
+    const { queryByTestId, queryByText } = await act(async () =>
+      render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
     );
 
     expect(queryByTestId('account-info-loading')).not.toBeInTheDocument();
@@ -70,11 +67,8 @@ describe('AccountInfo', () => {
       isConnected: true,
     }));
 
-    const { queryByTestId } = await act(
-      async () =>
-        await act(() =>
-          render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
-        ),
+    const { queryByTestId } = await act(async () =>
+      render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
     );
 
     expect(queryByTestId('account-info-loading')).toBeInTheDocument();
@@ -90,11 +84,8 @@ describe('AccountInfo', () => {
       isConnected: true,
     }));
 
-    const { queryByText } = await act(
-      async () =>
-        await act(() =>
-          render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
-        ),
+    const { queryByText } = await act(async () =>
+      render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
     );
     expect(queryByText('0x6B24a...57Cc7')).toBeInTheDocument();
   });
@@ -109,11 +100,8 @@ describe('AccountInfo', () => {
       isConnected: false,
     }));
 
-    const { queryByTestId } = await act(
-      async () =>
-        await act(() =>
-          render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
-        ),
+    const { queryByTestId } = await act(async () =>
+      render(<AccountInfo address={VALID_ACCOUNT_1} />, store),
     );
 
     expect(queryByTestId('icon-menu-button')).not.toBeInTheDocument();

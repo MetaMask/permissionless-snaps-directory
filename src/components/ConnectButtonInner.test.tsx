@@ -11,7 +11,7 @@ describe('ConnectButtonInner', () => {
     );
 
     const button = getByText('Connect');
-    await act(async () => act(() => button.click()));
+    await act(async () => button.click());
 
     expect(btnClick).toHaveBeenCalledTimes(1);
   });
