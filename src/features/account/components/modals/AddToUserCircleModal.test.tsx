@@ -135,7 +135,7 @@ describe('AddToUserCircleModal', () => {
       fireEvent.click(signButton);
     });
 
-    expect(queryByText('Warning')).toBeInTheDocument();
+    expect(queryByText('Info')).toBeInTheDocument();
     expect(
       queryByText('The signature is empty, user deny signing'),
     ).toBeInTheDocument();
