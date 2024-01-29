@@ -617,7 +617,11 @@ msgid "The signature could not be created"
 msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
-msgid "The signature is empty"
+msgid "The signature is empty, user deny signing"
+msgstr ""
+
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+msgid "The signature verification error"
 msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
@@ -694,6 +698,7 @@ msgid "View"
 msgstr ""
 
 #: src/components/icons/index.ts
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Warning"
 msgstr ""
 
