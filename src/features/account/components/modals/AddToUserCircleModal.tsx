@@ -67,8 +67,6 @@ export const AddToUserCircleModal: FunctionComponent<
           dispatch(addUserToUserCircle(subjectAddress));
           dispatch(setAddToUserModalOpen(false));
         }
-
-        setIsLoading(false);
       })
       .finally(() => {
         setIsLoading(false);
