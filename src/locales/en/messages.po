@@ -331,10 +331,6 @@ msgstr ""
 msgid "Identifier"
 msgstr ""
 
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
-msgid "Info"
-msgstr ""
-
 #: src/components/InstallUnsupportedDesktop.tsx
 msgid "Install MetaMask"
 msgstr ""
@@ -617,10 +613,6 @@ msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "The signature could not be created"
-msgstr ""
-
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
-msgid "The signature is empty, user deny signing"
 msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
