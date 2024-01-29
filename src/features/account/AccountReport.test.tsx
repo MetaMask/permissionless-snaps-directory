@@ -28,11 +28,7 @@ describe('AccountReport', () => {
       <AccountReport address={VALID_ACCOUNT_1} />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('Report').click();
-      }),
-    );
+    await act(async () => getByText('Report').click());
 
     expect(queryByText('Report')).toBeInTheDocument();
     expect(queryByText('Scamming')).toBeInTheDocument();
@@ -52,11 +48,7 @@ describe('AccountReport', () => {
       <AccountReport address={VALID_ACCOUNT_1} />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('Report').click();
-      }),
-    );
+    await act(async () => getByText('Report').click());
 
     expect(queryByText(VALID_ACCOUNT_1)).toBeInTheDocument();
   });
@@ -71,11 +63,7 @@ describe('AccountReport', () => {
       <AccountReport address={VALID_ACCOUNT_1} />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('Report').click();
-      }),
-    );
+    await act(async () => getByText('Report').click());
 
     expect(queryByText('mock.ens.name')).toBeInTheDocument();
   });
@@ -90,18 +78,11 @@ describe('AccountReport', () => {
       <AccountReport address={VALID_ACCOUNT_1} />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('Report').click();
-      }),
-    );
-
-    await act(async () =>
-      act(() => {
-        getByText('Scamming').click();
-        getByText('Sign to report').click();
-      }),
-    );
+    await act(async () => getByText('Report').click());
+    await act(async () => {
+      getByText('Scamming').click();
+      getByText('Sign to report').click();
+    });
 
     expect(queryByText('mock.ens.name')).not.toBeInTheDocument();
   });
@@ -116,15 +97,8 @@ describe('AccountReport', () => {
       <AccountReport address={VALID_ACCOUNT_1} />,
     );
 
-    await act(async () =>
-      act(() => {
-        getByText('Report').click();
-      }),
-    );
-
-    await act(async () => {
-      getByLabelText('Close').click();
-    });
+    await act(async () => getByText('Report').click());
+    await act(async () => getByLabelText('Close').click());
 
     expect(queryByText('mock.ens.name')).not.toBeInTheDocument();
   });
