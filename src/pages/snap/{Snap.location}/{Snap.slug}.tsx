@@ -14,7 +14,7 @@ import {
   useGetInstalledSnapsQuery,
 } from '../../../features';
 import { NotificationAcknowledger } from '../../../features/notifications/components';
-import { SnapReport } from '../../../features/snap/components/SnapReport';
+import { SnapReport } from '../../../features/snap/components/ReportSnap';
 import type { Fields } from '../../../utils';
 
 type SnapPageProps = {

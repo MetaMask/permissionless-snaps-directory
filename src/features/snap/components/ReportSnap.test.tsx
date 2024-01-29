@@ -1,6 +1,6 @@
 import { act } from '@testing-library/react';
 
-import { SnapReport } from './SnapReport';
+import { SnapReport } from './ReportSnap';
 import { render } from '../../../utils/test-utils';
 
 describe('AccountReport', () => {

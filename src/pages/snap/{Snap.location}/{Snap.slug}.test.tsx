@@ -23,6 +23,7 @@ describe('Snap page', () => {
 
   it('renders', async () => {
     mockUseAccount.mockReturnValue({ isConnected: true });
+
     const { queryAllByText } = await act(() =>
       render(<SnapPage data={getMockSnap({ name: 'Foo Snap' })} />),
     );
@@ -32,6 +33,7 @@ describe('Snap page', () => {
 
   it('render the report button if the user is connected', async () => {
     mockUseAccount.mockReturnValue({ isConnected: true });
+
     const { queryByText } = await act(() =>
       render(<SnapPage data={getMockSnap({ name: 'Foo Snap' })} />),
     );
@@ -41,6 +43,7 @@ describe('Snap page', () => {
 
   it('does not render the report button if the user is not connected', async () => {
     mockUseAccount.mockReturnValue({ isConnected: false });
+
     const { queryByText } = await act(() =>
       render(<SnapPage data={getMockSnap({ name: 'Foo Snap' })} />),
     );
@@ -50,6 +53,7 @@ describe('Snap page', () => {
 
   it('does not render the installation button if `onboard` is enabled', async () => {
     mockUseAccount.mockReturnValue({ isConnected: true });
+
     const { queryByText } = await act(() =>
       render(
         <SnapPage data={getMockSnap({ name: 'Foo Snap', onboard: true })} />,
@@ -61,6 +65,7 @@ describe('Snap page', () => {
 
   it('does not render the support section if the Snap has no support links', async () => {
     mockUseAccount.mockReturnValue({ isConnected: true });
+
     const { queryByText } = await act(() =>
       render(
         <SnapPage data={getMockSnap({ name: 'Foo Snap', support: {} })} />,
