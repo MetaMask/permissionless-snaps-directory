@@ -238,6 +238,12 @@ msgstr ""
 msgid "Endorsed"
 msgstr ""
 
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+msgid "Error"
+msgstr ""
+
 #: src/features/account/MoreOptionMenu.tsx
 msgid "Etherscan"
 msgstr ""
@@ -272,7 +278,6 @@ msgid "Failed to sign the message"
 msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Failed to verify signature"
 msgstr ""
 
@@ -363,7 +368,6 @@ msgid "Interoperability"
 msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Invalid Signature"
 msgstr ""
 
@@ -607,6 +611,18 @@ msgstr ""
 msgid "The page you're looking for can't be found."
 msgstr ""
 
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+msgid "The signature could not be created"
+msgstr ""
+
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+msgid "The signature verification error"
+msgstr ""
+
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+msgid "The signature verification failed"
+msgstr ""
+
 #: src/features/account/components/modals/AccountReportModal.tsx
 msgid "This action will flag the user as a malicious in your community."
 msgstr ""
@@ -696,6 +712,5 @@ msgid "Your level of confidence in <0>{trustEntity}</0> skill set"
 msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Your signature is invalid"
 msgstr ""
