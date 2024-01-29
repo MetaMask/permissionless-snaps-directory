@@ -13,6 +13,14 @@ jest.mock('../../features/account/components/AccountInfo', () => ({
   AccountInfo: () => <div />,
 }));
 
+jest.mock('../../hooks/useVerifiableCredential', () => ({
+  useVerifiableCredential: () => ({
+    signMessage: jest.fn(),
+    signError: null,
+    accountVCBuilder: jest.fn(),
+  }),
+}));
+
 jest.mock('viem', () => ({
   getAddress: jest.fn(),
 }));
@@ -25,6 +33,11 @@ jest.mock('wagmi', () => ({
     },
     loading: false,
   }),
+}));
+
+jest.mock('@chakra-ui/react', () => ({
+  ...jest.requireActual('@chakra-ui/react'),
+  useToast: jest.fn(),
 }));
 
 describe('Account Profile page', () => {
@@ -100,6 +113,7 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).toBeInTheDocument();
+    expect(queryByText('Report')).not.toBeInTheDocument();
     expect(queryByText('Endorse')).not.toBeInTheDocument();
   });
 
