@@ -1,3 +1,5 @@
+import type { TypedDataDomain } from 'viem';
+
 export enum TrustworthinessScope {
   Honesty = 'Honesty',
   SoftwareSecurity = 'Software security',
@@ -55,10 +57,34 @@ export type CredentialSubject =
 export type Assertion = {
   type: TrustCredentialType[];
   issuer: Did;
+  issuanceDate: string;
   credentialSubject: CredentialSubject;
   '@context': string[];
 };
 
+export type TypedDataTypes = Record<
+  string,
+  {
+    name: string;
+    type: string;
+  }[]
+>;
+
+export type Eip712 = {
+  domain: TypedDataDomain;
+  primaryType: TrustCredentialType;
+  types: TypedDataTypes;
+};
+
+export type Eip712Proof = {
+  created: string;
+  proofValue: string;
+  proofPurpose: string;
+  type: string;
+  verificationMethod: string;
+  eip712: Eip712;
+};
+
 export type SignedAssertion = Assertion & {
-  proof: any;
+  proof: Eip712Proof;
 };

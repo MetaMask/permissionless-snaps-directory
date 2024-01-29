@@ -11,14 +11,9 @@ import {
 } from './types';
 
 export class SnapVerifiableCredential extends BaseVerifiableCredential {
-  primaryType: TrustCredentialType = TrustCredentialType.StatusCredential;
+  credentialType: TrustCredentialType = TrustCredentialType.StatusCredential;
 
   credentialSubjectTypes = {
-    EIP712Domain: [
-      { name: 'name', type: 'string' },
-      { name: 'version', type: 'string' },
-      { name: 'chainId', type: 'uint256' },
-    ],
     StatusReason: [
       {
         name: 'type',
@@ -41,24 +36,6 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
       {
         name: 'statusReason',
         type: 'StatusReason',
-      },
-    ],
-    StatusCredential: [
-      {
-        name: '@context',
-        type: 'string[]',
-      },
-      {
-        name: 'type',
-        type: 'string[]',
-      },
-      {
-        name: 'issuer',
-        type: 'string',
-      },
-      {
-        name: 'credentialSubject',
-        type: 'CredentialSubject',
       },
     ],
   };
