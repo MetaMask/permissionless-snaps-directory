@@ -241,7 +241,6 @@ msgstr ""
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Error"
 msgstr ""
 
@@ -657,7 +656,6 @@ msgid "Trusted technical abilities"
 msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Unknown error"
 msgstr ""
 

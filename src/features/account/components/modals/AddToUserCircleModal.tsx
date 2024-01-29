@@ -75,12 +75,7 @@ export const AddToUserCircleModal: FunctionComponent<
 
         setIsLoading(false);
       })
-      .catch((error) => {
-        console.error(error);
-        showErrorMsg({
-          title: t`Error`,
-          description: t`Unknown error`,
-        });
+      .finally(() => {
         setIsLoading(false);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -92,19 +87,16 @@ export const AddToUserCircleModal: FunctionComponent<
         title: t`Error`,
         description: t`The signature could not be created`,
       });
-      setIsLoading(false);
     } else if (signError?.type === VCSignErrorType.VerifyFailed) {
       showErrorMsg({
         title: t`Error`,
         description: t`The signature verification failed`,
       });
-      setIsLoading(false);
     } else if (signError?.type === VCSignErrorType.VerifyError) {
       showErrorMsg({
         title: t`Error`,
         description: t`The signature verification error`,
       });
-      setIsLoading(false);
     }
   }, [signError, showErrorMsg]);
 

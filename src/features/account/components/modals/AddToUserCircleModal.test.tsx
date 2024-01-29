@@ -141,33 +141,6 @@ describe('AddToUserCircleModal', () => {
     ).toBeInTheDocument();
   });
 
-  it('show `Unknown error` error when sign message throw exeception', async () => {
-    mockUseVerifiableCredential.mockReturnValue({
-      issuerAddress: VALID_ACCOUNT_1,
-      signMessage: jest
-        .fn()
-        .mockReturnValue(Promise.reject(new Error('error'))),
-      accountVCBuilder: {
-        buildAccountTrust: jest.fn().mockReturnValue('VC'),
-        getSignedAssertion: jest.fn().mockReturnValue('assertion'),
-      },
-      signError: null,
-    });
-
-    const { getByText, queryByText } = render(
-      <AddToUserCircleModal subjectAddress={VALID_ACCOUNT_2} />,
-      store,
-    );
-
-    const signButton = getByText('Sign to add');
-    await act(async () => {
-      fireEvent.click(signButton);
-    });
-
-    expect(queryByText('Error')).toBeInTheDocument();
-    expect(queryByText('Unknown error')).toBeInTheDocument();
-  });
-
   it('show `The signature verification failed` when verify failed error detected', async () => {
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: VALID_ACCOUNT_1,
