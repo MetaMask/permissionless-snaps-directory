@@ -386,6 +386,7 @@ msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
+#: src/features/snap/components/modals/ReportSnapModal.tsx
 msgid "Learn more"
 msgstr ""
 
@@ -483,6 +484,10 @@ msgstr ""
 msgid "Report for <0>{reportEntity}</0> as a malicious actor"
 msgstr ""
 
+#: src/features/snap/components/modals/ReportSnapModal.tsx
+msgid "Report for <0>{snapName}</0> as a malicious snap"
+msgstr ""
+
 #: src/components/ReportButton.tsx
 msgid "Reported"
 msgstr ""
@@ -558,6 +563,7 @@ msgid "Sign to add"
 msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
+#: src/features/snap/components/modals/ReportSnapModal.tsx
 msgid "Sign to report"
 msgstr ""
 
@@ -605,6 +611,10 @@ msgstr ""
 
 #: src/pages/404.tsx
 msgid "The page you're looking for can't be found."
+msgstr ""
+
+#: src/features/snap/components/modals/ReportSnapModal.tsx
+msgid "This action will flag the snap as a malicious in your community."
 msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
