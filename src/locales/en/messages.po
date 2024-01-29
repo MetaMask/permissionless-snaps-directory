@@ -595,10 +595,6 @@ msgstr ""
 msgid "The page you're looking for can't be found."
 msgstr ""
 
-#: src/features/account/components/modals/AccountReportModal.tsx
-msgid "This action will flag the user as a malicious in your community."
-msgstr ""
-
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "The signature could not be created"
 msgstr ""
@@ -609,6 +605,10 @@ msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "The signature verification failed"
+msgstr ""
+
+#: src/features/account/components/modals/AccountReportModal.tsx
+msgid "This action will flag the user as a malicious in your community."
 msgstr ""
 
 #: src/components/InstallUnsupportedDesktop.tsx
