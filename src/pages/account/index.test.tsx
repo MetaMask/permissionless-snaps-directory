@@ -134,6 +134,8 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).not.toBeInTheDocument();
+    expect(queryByText('Report')).toBeInTheDocument();
+    expect(queryByText('Endorse')).toBeInTheDocument();
   });
 
   it('does not render edit button if account is not connected', async () => {
@@ -153,6 +155,8 @@ describe('Account Profile page', () => {
     );
 
     expect(queryByText('Edit Profile')).not.toBeInTheDocument();
+    expect(queryByText('Report')).not.toBeInTheDocument();
+    expect(queryByText('Endorse')).not.toBeInTheDocument();
   });
 
   describe('Head', () => {
