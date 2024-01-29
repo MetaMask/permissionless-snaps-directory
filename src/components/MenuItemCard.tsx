@@ -22,7 +22,9 @@ export const MenuItemCard: FunctionComponent<MenuCardProps> = ({
     <MenuItem w="95%" onClick={onClick} data-testid={testId}>
       <Card padding="1">
         <HStack spacing="2">
-          <Text variant={textColor}>{icon}</Text>
+          <Text variant={textColor} as="div">
+            {icon}
+          </Text>
           <Text variant={textColor}>{label}</Text>
         </HStack>
       </Card>
