@@ -21,7 +21,7 @@ describe('AccountReportModal', () => {
     expect(queryByText('snap1')).toBeInTheDocument();
   });
 
-  it("calls `onSign` with selected item's value when clicking on sign button", async () => {
+  it('calls `onSign` when clicking on sign button', async () => {
     const onSign = jest.fn().mockResolvedValue(true);
     const onClose = jest.fn();
 
