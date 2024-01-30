@@ -283,17 +283,10 @@ msgstr ""
 msgid "Failed to sign the message"
 msgstr ""
 
-#: src/hooks/useSignErrorHandler.ts
-msgid "Failed to sign the msssage"
-msgstr ""
-
 #: src/features/account/AccountTEEndorsement.tsx
 #: src/hooks/useSignErrorHandler.ts
-msgid "Failed to verify signature"
-msgstr ""
-
 #: src/hooks/useSignErrorHandler.ts
-msgid "Failed tyo verify signature"
+msgid "Failed to verify signature"
 msgstr ""
 
 #: src/features/snap/components/Metadata.tsx
@@ -683,6 +676,7 @@ msgstr ""
 msgid "Unknown error"
 msgstr ""
 
+#: src/hooks/useSignErrorHandler.ts
 #: src/hooks/useSignErrorHandler.ts
 msgid "Unknown Error"
 msgstr ""

@@ -44,9 +44,9 @@ export const SnapReport: FunctionComponent<SnapReportProps> = ({
           title: t`Success`,
           description: t`${snapName} has been reported.`,
         });
+        setReported(true);
       }
       setShowModal(false);
-      setReported(true);
     }
   };
 

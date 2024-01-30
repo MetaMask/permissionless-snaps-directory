@@ -9,6 +9,15 @@ import {
   getMockSnap,
 } from '../../../utils/test-utils';
 
+jest.mock('../../../hooks/useVerifiableCredential', () => ({
+  ...jest.requireActual('../../../hooks/useVerifiableCredential'),
+  useVerifiableCredential: () => ({
+    issuerAddress: 'issuerAddress',
+    signMessage: jest.fn(),
+    signError: null,
+  }),
+}));
+
 jest.mock('wagmi', () => ({
   useAccount: jest.fn(),
 }));
