@@ -245,6 +245,7 @@ msgstr ""
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
+#: src/features/account/MoreOptionMenu.tsx
 msgid "Error"
 msgstr ""
 
@@ -274,6 +275,10 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "External link"
+msgstr ""
+
+#: src/features/account/MoreOptionMenu.tsx
+msgid "Failed to copy profile link to clipboard"
 msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
