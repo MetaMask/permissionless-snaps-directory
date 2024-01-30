@@ -241,9 +241,6 @@ msgstr ""
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
-msgid "Error"
-msgstr ""
-
 #: src/features/account/MoreOptionMenu.tsx
 msgid "Error"
 msgstr ""
