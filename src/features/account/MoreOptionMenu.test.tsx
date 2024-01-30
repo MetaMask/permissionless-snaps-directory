@@ -22,7 +22,6 @@ jest.mock('wagmi', () => ({
 
 describe('MoreOptionMenu', () => {
   let mockUseAccount: jest.Mock;
-  const writeText = jest.fn();
 
   const renderMenuWithStore = async () => {
     const store = createStore();
@@ -100,6 +99,7 @@ describe('MoreOptionMenu', () => {
   });
 
   it('test click copy to profile link menu item', async () => {
+    const writeText = jest.fn();
     Object.assign(navigator, {
       clipboard: {
         writeText,
@@ -109,10 +109,34 @@ describe('MoreOptionMenu', () => {
     navigator.clipboard.writeText.mockResolvedValue(undefined);
     const { getByTestId } = await renderMenuWithStore();
 
-    act(() => {
-      getByTestId('copy-profile-link').click();
-    });
+    await act(async () =>
+      act(() => {
+        getByTestId('copy-profile-link').click();
+      }),
+    );
     expect(writeText).toHaveBeenCalled();
+  });
+
+  it('test click copy to profile link menu item throw error', async () => {
+    const writeText = jest.fn();
+    Object.assign(navigator, {
+      clipboard: {
+        writeText,
+      },
+    });
+
+    navigator.clipboard.writeText.mockRejectedValue(undefined);
+    const { getByTestId, queryByText } = await renderMenuWithStore();
+
+    await act(async () =>
+      act(() => {
+        getByTestId('copy-profile-link').click();
+      }),
+    );
+    expect(writeText).toHaveBeenCalled();
+    expect(
+      queryByText('Failed to copy profile link to clipboard'),
+    ).toBeInTheDocument();
   });
 
   it('test click etherscan menu item', async () => {
@@ -132,12 +156,12 @@ describe('MoreOptionMenu', () => {
     expect(container).toMatchInlineSnapshot(`
       <div>
         <button
-          aria-controls="menu-list-:ru:"
+          aria-controls="menu-list-:r17:"
           aria-expanded="false"
           aria-haspopup="menu"
           class="chakra-button chakra-menu__menu-button css-1m3sc6v"
           data-testid="icon-menu-button"
-          id="menu-button-:ru:"
+          id="menu-button-:r17:"
           type="button"
         >
           <span
@@ -158,7 +182,7 @@ describe('MoreOptionMenu', () => {
           <div
             aria-orientation="vertical"
             class="chakra-menu__menu-list css-1kfu8nn"
-            id="menu-list-:ru:"
+            id="menu-list-:r17:"
             role="menu"
             style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0);"
             tabindex="-1"
