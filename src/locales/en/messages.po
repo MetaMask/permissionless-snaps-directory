@@ -277,11 +277,14 @@ msgstr ""
 msgid "Failed to copy profile link to clipboard"
 msgstr ""
 
+#: src/features/account/AccountReport.tsx
+#: src/features/account/AccountReport.tsx
 #: src/features/account/AccountTEEndorsement.tsx
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "Failed to sign the message"
 msgstr ""
 
+#: src/features/account/AccountReport.tsx
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "Failed to verify signature"
 msgstr ""
@@ -332,6 +335,10 @@ msgstr ""
 msgid "Harassment"
 msgstr ""
 
+#: src/features/account/AccountReport.tsx
+msgid "has been reported"
+msgstr ""
+
 #: src/features/snap/components/MetadataItems.tsx
 msgid "Identifier"
 msgstr ""
@@ -372,6 +379,7 @@ msgstr ""
 msgid "Interoperability"
 msgstr ""
 
+#: src/features/account/AccountReport.tsx
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "Invalid Signature"
 msgstr ""
@@ -608,6 +616,7 @@ msgstr ""
 msgid "Stay in the know with notifications and chat directly in MetaMask."
 msgstr ""
 
+#: src/features/account/AccountReport.tsx
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "Success"
 msgstr ""
@@ -662,6 +671,7 @@ msgstr ""
 msgid "Trusted technical abilities"
 msgstr ""
 
+#: src/features/account/AccountReport.tsx
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "Unknown error"
 msgstr ""
@@ -726,6 +736,7 @@ msgstr ""
 msgid "Your level of confidence in <0>{trustEntity}</0> skill set"
 msgstr ""
 
+#: src/features/account/AccountReport.tsx
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "Your signature is invalid"
 msgstr ""
