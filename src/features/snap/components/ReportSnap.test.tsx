@@ -71,6 +71,8 @@ describe('ReportSnap', () => {
     await act(async () => getByText('Report').click());
 
     expect(queryByText('Sign to report')).toBeInTheDocument();
+
+    await act(async () => getByText('Sign to report').click());
     expect(mockSignMessage).not.toHaveBeenCalled();
   });
 
@@ -80,6 +82,10 @@ describe('ReportSnap', () => {
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: 'issuerAddress',
       signMessage: mockSignMessage,
+      snapVCBuilder: {
+        buildDisputedPayload: jest.fn().mockReturnValue('VC'),
+        getSignedAssertion: jest.fn().mockReturnValue('assertion'),
+      },
       signError: null,
     });
 
@@ -92,7 +98,8 @@ describe('ReportSnap', () => {
     await act(async () => getByText('Report').click());
 
     expect(queryByText('Sign to report')).toBeInTheDocument();
-    expect(mockSignMessage).not.toHaveBeenCalled();
+    await act(async () => getByText('Sign to report').click());
+    expect(mockSignMessage).toHaveBeenCalled();
 
     expect(queryByText('Report')).toBeInTheDocument();
     expect(queryByText('Reported')).not.toBeInTheDocument();
