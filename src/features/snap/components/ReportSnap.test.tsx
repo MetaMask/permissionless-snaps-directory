@@ -5,13 +5,17 @@ import { render } from '../../../utils/test-utils';
 
 describe('AccountReport', () => {
   it('renders', async () => {
-    const { queryByText } = render(<SnapReport snapName="Snap1" />);
+    const { queryByText } = render(
+      <SnapReport snapName="Snap1" snapId="Snap1ID" />,
+    );
 
     expect(queryByText('Report')).toBeInTheDocument();
   });
 
   it('should show modal when click report button', async () => {
-    const { queryByText, getByText } = render(<SnapReport snapName="Snap1" />);
+    const { queryByText, getByText } = render(
+      <SnapReport snapName="Snap1" snapId="Snap1ID" />,
+    );
 
     await act(async () => getByText('Report').click());
 
@@ -20,7 +24,7 @@ describe('AccountReport', () => {
 
   it('should close modal when click close button', async () => {
     const { queryByText, getByText, getByLabelText } = render(
-      <SnapReport snapName="Snap1" />,
+      <SnapReport snapName="Snap1" snapId="Snap1ID" />,
     );
 
     await act(async () => getByText('Report').click());
@@ -33,7 +37,9 @@ describe('AccountReport', () => {
   });
 
   it('should display `reported` when report success', async () => {
-    const { queryByText, getByText } = render(<SnapReport snapName="Snap1" />);
+    const { queryByText, getByText } = render(
+      <SnapReport snapName="Snap1" snapId="Snap1ID" />,
+    );
 
     await act(async () => getByText('Report').click());
     await act(async () => getByText('Sign to report').click());

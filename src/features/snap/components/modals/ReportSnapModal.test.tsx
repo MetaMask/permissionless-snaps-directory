@@ -10,6 +10,7 @@ describe('AccountReportModal', () => {
 
     const { queryByText } = render(
       <ReportSnapModal
+        snapId="snap1ID"
         snapName="snap1"
         onClose={onClose}
         onSign={onSign}
@@ -27,6 +28,7 @@ describe('AccountReportModal', () => {
 
     const { getByText } = render(
       <ReportSnapModal
+        snapId="snap1ID"
         snapName="snap1"
         onClose={onClose}
         onSign={onSign}
