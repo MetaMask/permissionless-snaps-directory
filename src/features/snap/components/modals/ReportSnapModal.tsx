@@ -2,27 +2,34 @@ import { Center, Link, Text, VStack } from '@chakra-ui/react';
 import { Trans, t } from '@lingui/macro';
 import { useState, type FunctionComponent } from 'react';
 
-import { QuestionRedIcon, RequestSignModal } from '../../../../components';
+import {
+  MultipleCheckboxOptions,
+  QuestionRedIcon,
+  RequestSignModal,
+} from '../../../../components';
 
 export type ReportSnapModalProps = {
   snapName: string;
-  onSign: () => Promise<void>;
+  options: string[];
+  onSign: (arg: string[]) => Promise<void>;
   onClose: () => void;
   isOpen: boolean;
 };
 
 export const ReportSnapModal: FunctionComponent<ReportSnapModalProps> = ({
   snapName,
+  options,
   onSign,
   onClose,
   isOpen,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState([] as string[]);
 
   const onSignButtonClick = () => {
     setIsLoading(true);
 
-    onSign().finally(() => {
+    onSign(selectedOptions).finally(() => {
       setIsLoading(false);
     });
   };
@@ -57,6 +64,14 @@ export const ReportSnapModal: FunctionComponent<ReportSnapModalProps> = ({
               <Trans>Learn more</Trans>
             </Link>
           </Text>
+          <MultipleCheckboxOptions
+            options={options}
+            onChange={(values) => {
+              setSelectedOptions(
+                options.filter((_, index) => values[index] === true),
+              );
+            }}
+          />
         </VStack>
       </Center>
     </RequestSignModal>

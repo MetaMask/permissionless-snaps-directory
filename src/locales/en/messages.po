@@ -29,6 +29,10 @@ msgstr ""
 msgid "{shortSubAddress} has been added to your trust circle"
 msgstr ""
 
+#: src/features/snap/components/ReportSnap.tsx
+msgid "{snapName} has been reported."
+msgstr ""
+
 #: src/components/FooterCopyright.tsx
 msgid "©{0} MetaMask. All rights reserved."
 msgstr ""
@@ -281,11 +285,15 @@ msgstr ""
 #: src/features/account/AccountReport.tsx
 #: src/features/account/AccountTEEndorsement.tsx
 #: src/features/account/AccountTEEndorsement.tsx
+#: src/hooks/useSignErrorHandler.ts
+#: src/hooks/useSignErrorHandler.ts
 msgid "Failed to sign the message"
 msgstr ""
 
 #: src/features/account/AccountReport.tsx
 #: src/features/account/AccountTEEndorsement.tsx
+#: src/hooks/useSignErrorHandler.ts
+#: src/hooks/useSignErrorHandler.ts
 msgid "Failed to verify signature"
 msgstr ""
 
@@ -381,6 +389,8 @@ msgstr ""
 
 #: src/features/account/AccountReport.tsx
 #: src/features/account/AccountTEEndorsement.tsx
+#: src/hooks/useSignErrorHandler.ts
+#: src/hooks/useSignErrorHandler.ts
 msgid "Invalid Signature"
 msgstr ""
 
@@ -522,6 +532,10 @@ msgstr ""
 msgid "Reviews"
 msgstr ""
 
+#: src/features/snap/components/ReportSnap.tsx
+msgid "Scam"
+msgstr ""
+
 #: src/features/account/AccountReport.tsx
 msgid "Scamming"
 msgstr ""
@@ -618,6 +632,7 @@ msgstr ""
 
 #: src/features/account/AccountReport.tsx
 #: src/features/account/AccountTEEndorsement.tsx
+#: src/features/snap/components/ReportSnap.tsx
 msgid "Success"
 msgstr ""
 
@@ -676,6 +691,11 @@ msgstr ""
 msgid "Unknown error"
 msgstr ""
 
+#: src/hooks/useSignErrorHandler.ts
+#: src/hooks/useSignErrorHandler.ts
+msgid "Unknown Error"
+msgstr ""
+
 #: src/components/icons/index.ts
 msgid "Unread notification"
 msgstr ""
@@ -714,6 +734,10 @@ msgstr ""
 
 #: src/features/snaps/components/SnapCard.tsx
 msgid "View"
+msgstr ""
+
+#: src/features/snap/components/ReportSnap.tsx
+msgid "Vulnerable"
 msgstr ""
 
 #: src/components/icons/index.ts

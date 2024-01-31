@@ -7,7 +7,17 @@ import {
   render,
   getMockSiteMetadata,
   getMockSnap,
+  VALID_ACCOUNT_1,
 } from '../../../utils/test-utils';
+
+jest.mock('../../../hooks/useVerifiableCredential', () => ({
+  ...jest.requireActual('../../../hooks/useVerifiableCredential'),
+  useVerifiableCredential: () => ({
+    issuerAddress: 'issuerAddress',
+    signMessage: jest.fn(),
+    signError: null,
+  }),
+}));
 
 jest.mock('wagmi', () => ({
   useAccount: jest.fn(),
@@ -22,7 +32,10 @@ describe('Snap page', () => {
   });
 
   it('renders', async () => {
-    mockUseAccount.mockReturnValue({ isConnected: true });
+    mockUseAccount.mockReturnValue({
+      isConnected: true,
+      address: VALID_ACCOUNT_1,
+    });
 
     const { queryAllByText } = await act(() =>
       render(<SnapPage data={getMockSnap({ name: 'Foo Snap' })} />),
@@ -31,8 +44,11 @@ describe('Snap page', () => {
     expect(queryAllByText('Foo Snap')).toHaveLength(2);
   });
 
-  it('render the report button if the user is connected', async () => {
-    mockUseAccount.mockReturnValue({ isConnected: true });
+  it('renders the report button if the user is connected', async () => {
+    mockUseAccount.mockReturnValue({
+      isConnected: true,
+      address: VALID_ACCOUNT_1,
+    });
 
     const { queryByText } = await act(() =>
       render(<SnapPage data={getMockSnap({ name: 'Foo Snap' })} />),
@@ -42,7 +58,7 @@ describe('Snap page', () => {
   });
 
   it('does not render the report button if the user is not connected', async () => {
-    mockUseAccount.mockReturnValue({ isConnected: false });
+    mockUseAccount.mockReturnValue({ isConnected: false, address: undefined });
 
     const { queryByText } = await act(() =>
       render(<SnapPage data={getMockSnap({ name: 'Foo Snap' })} />),
@@ -52,7 +68,10 @@ describe('Snap page', () => {
   });
 
   it('does not render the installation button if `onboard` is enabled', async () => {
-    mockUseAccount.mockReturnValue({ isConnected: true });
+    mockUseAccount.mockReturnValue({
+      isConnected: true,
+      address: VALID_ACCOUNT_1,
+    });
 
     const { queryByText } = await act(() =>
       render(
@@ -64,7 +83,10 @@ describe('Snap page', () => {
   });
 
   it('does not render the support section if the Snap has no support links', async () => {
-    mockUseAccount.mockReturnValue({ isConnected: true });
+    mockUseAccount.mockReturnValue({
+      isConnected: true,
+      address: VALID_ACCOUNT_1,
+    });
 
     const { queryByText } = await act(() =>
       render(
