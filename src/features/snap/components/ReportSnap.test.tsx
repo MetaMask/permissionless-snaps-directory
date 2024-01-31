@@ -53,7 +53,7 @@ describe('ReportSnap', () => {
     expect(queryByText('Sign to report')).toBeInTheDocument();
   });
 
-  it('does nothing during signing when signature is null', async () => {
+  it('does not sign when signature is null', async () => {
     const mockSignMessage = jest.fn();
 
     mockUseVerifiableCredential.mockReturnValue({
