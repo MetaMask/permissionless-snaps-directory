@@ -189,7 +189,7 @@ describe('useSignErrorHandler', () => {
     });
   });
 
-  it('not shows error message when signError is undefined', () => {
+  it('does not show error message when signError is undefined', () => {
     renderHook(() => useSignErrorHandler(undefined));
 
     expect(showErrorMsgMock).not.toHaveBeenCalled();
