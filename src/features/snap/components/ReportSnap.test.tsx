@@ -1,7 +1,7 @@
 import { act } from '@testing-library/react';
 import { useAccount } from 'wagmi';
 
-import { SnapReport } from './ReportSnap';
+import { ReportSnap } from './ReportSnap';
 import { useVerifiableCredential } from '../../../hooks';
 import { VALID_ACCOUNT_1, render } from '../../../utils/test-utils';
 
@@ -33,13 +33,13 @@ describe('ReportSnap', () => {
       signError: null,
     });
     const { queryByText } = render(
-      <SnapReport snapName="Snap1" snapId="Snap1ID" />,
+      <ReportSnap snapName="Snap1" snapId="Snap1ID" />,
     );
 
     expect(queryByText('Report')).toBeInTheDocument();
   });
 
-  it('should show modal when click report button', async () => {
+  it('shows modal when click report button', async () => {
     mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: 'issuerAddress',
@@ -47,7 +47,7 @@ describe('ReportSnap', () => {
       signError: null,
     });
     const { queryByText, getByText } = render(
-      <SnapReport snapName="Snap1" snapId="Snap1ID" />,
+      <ReportSnap snapName="Snap1" snapId="Snap1ID" />,
     );
 
     await act(async () => getByText('Report').click());
@@ -55,7 +55,7 @@ describe('ReportSnap', () => {
     expect(queryByText('Sign to report')).toBeInTheDocument();
   });
 
-  it('sign should do nothing if account is not connected', async () => {
+  it('sign does nothing if account is not connected', async () => {
     const mockSignMessage = jest.fn();
     mockUseAccount.mockReturnValue({ address: undefined });
     mockUseVerifiableCredential.mockReturnValue({
@@ -65,7 +65,7 @@ describe('ReportSnap', () => {
     });
 
     const { queryByText, getByText } = render(
-      <SnapReport snapName="Snap1" snapId="Snap1ID" />,
+      <ReportSnap snapName="Snap1" snapId="Snap1ID" />,
     );
 
     await act(async () => getByText('Report').click());
@@ -76,7 +76,7 @@ describe('ReportSnap', () => {
     expect(mockSignMessage).not.toHaveBeenCalled();
   });
 
-  it('sign should do nothing when signature is null', async () => {
+  it('sign does nothing when signature is null', async () => {
     const mockSignMessage = jest.fn();
     mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
     mockUseVerifiableCredential.mockReturnValue({
@@ -92,7 +92,7 @@ describe('ReportSnap', () => {
     mockSignMessage.mockReturnValue(null);
 
     const { queryByText, getByText } = render(
-      <SnapReport snapName="Snap1" snapId="Snap1ID" />,
+      <ReportSnap snapName="Snap1" snapId="Snap1ID" />,
     );
 
     await act(async () => getByText('Report').click());
@@ -105,7 +105,7 @@ describe('ReportSnap', () => {
     expect(queryByText('Reported')).not.toBeInTheDocument();
   });
 
-  it('should close modal when click close button', async () => {
+  it('close modal when click close button', async () => {
     mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: 'issuerAddress',
@@ -113,7 +113,7 @@ describe('ReportSnap', () => {
       signError: null,
     });
     const { queryByText, getByText, getByLabelText } = render(
-      <SnapReport snapName="Snap1" snapId="Snap1ID" />,
+      <ReportSnap snapName="Snap1" snapId="Snap1ID" />,
     );
 
     await act(async () => getByText('Report').click());
@@ -125,7 +125,7 @@ describe('ReportSnap', () => {
     expect(queryByText('Sign to report')).not.toBeInTheDocument();
   });
 
-  it('should display `Success` toast and button label changed to `reported` when report success', async () => {
+  it('display `Success` toast when report success', async () => {
     mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: 'issuerAddress',
@@ -137,16 +137,12 @@ describe('ReportSnap', () => {
       signError: null,
     });
     const { queryByText, getByText } = render(
-      <SnapReport snapName="Snap1" snapId="Snap1ID" />,
+      <ReportSnap snapName="Snap1" snapId="Snap1ID" />,
     );
 
     await act(async () => getByText('Report').click());
     await act(async () => getByText('Sign to report').click());
 
     expect(queryByText('Success')).toBeInTheDocument();
-
-    expect(queryByText('Report')).not.toBeInTheDocument();
-    expect(queryByText('Reported')).toBeInTheDocument();
-    expect(queryByText('Reported')).toBeDisabled();
   });
 });

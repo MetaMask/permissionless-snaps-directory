@@ -8,18 +8,16 @@ import { useVerifiableCredential } from '../../../hooks';
 import { useSignErrorHandler } from '../../../hooks/useSignErrorHandler';
 import useToastMsg from '../../../hooks/useToastMsg';
 
-type SnapReportProps = {
+type ReportSnapProps = {
   snapId: string;
   snapName: string;
 };
 
-export const SnapReport: FunctionComponent<SnapReportProps> = ({
+export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
   snapId,
   snapName,
 }) => {
   const [showModal, setShowModal] = useState(false);
-  // TODO  need to changed in future when we store the reported snaps in redux store.
-  const [reported, setReported] = useState(false);
 
   const { address } = useAccount();
   const { showSuccessMsg } = useToastMsg();
@@ -44,7 +42,6 @@ export const SnapReport: FunctionComponent<SnapReportProps> = ({
           title: t`Success`,
           description: t`${snapName} has been reported.`,
         });
-        setReported(true);
       }
       setShowModal(false);
     }
@@ -54,7 +51,7 @@ export const SnapReport: FunctionComponent<SnapReportProps> = ({
     <>
       <ReportButton
         onClick={() => setShowModal(true)}
-        reported={reported}
+        reported={false}
         size="lg"
       />
       {showModal && (
