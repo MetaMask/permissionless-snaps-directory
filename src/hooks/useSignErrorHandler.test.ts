@@ -23,7 +23,7 @@ describe('useSignErrorHandler', () => {
     });
   });
 
-  it('should show error message when signError override messages is defined', async () => {
+  it('shows error message when signError override messages is defined', async () => {
     const signError: VCSignError = {
       type: VCSignErrorType.SignError,
     };
@@ -44,7 +44,7 @@ describe('useSignErrorHandler', () => {
     });
   });
 
-  it('should show error message when VerifyError override messages is defined', async () => {
+  it('shows error message when VerifyError override messages is defined', async () => {
     const signError: VCSignError = {
       type: VCSignErrorType.VerifyError,
     };
@@ -64,7 +64,8 @@ describe('useSignErrorHandler', () => {
       description: 'Custom Sign Error Description',
     });
   });
-  it('should show error message when VerifyFailed override messages is defined', async () => {
+
+  it('shows error message when VerifyFailed override messages is defined', async () => {
     const signError: VCSignError = {
       type: VCSignErrorType.VerifyFailed,
     };
@@ -85,7 +86,7 @@ describe('useSignErrorHandler', () => {
     });
   });
 
-  it('should show default error message when errorMessages is not provided and SignError detected with error message content', async () => {
+  it('shows default error message when errorMessages is not provided and SignError detected with error message content', async () => {
     const signError: VCSignError = {
       type: VCSignErrorType.SignError,
       message: 'Sign error message',
@@ -99,7 +100,7 @@ describe('useSignErrorHandler', () => {
     });
   });
 
-  it('should show default error message when errorMessages is not provided and SignError detected without error message content', async () => {
+  it('shows default error message when errorMessages is not provided and SignError detected without error message content', async () => {
     const signError: VCSignError = {
       type: VCSignErrorType.SignError,
     };
@@ -112,7 +113,7 @@ describe('useSignErrorHandler', () => {
     });
   });
 
-  it('should show default error message when errorMessages is not provided and VerifyError detected with error message content', async () => {
+  it('shows default error message when errorMessages is not provided and VerifyError detected with error message content', async () => {
     const signError: VCSignError = {
       type: VCSignErrorType.VerifyError,
       message: 'Verify error message',
@@ -126,7 +127,7 @@ describe('useSignErrorHandler', () => {
     });
   });
 
-  it('should show default error message when errorMessages is not provided and VerifyError detected without error message content', async () => {
+  it('shows default error message when errorMessages is not provided and VerifyError detected without error message content', async () => {
     const signError: VCSignError = {
       type: VCSignErrorType.VerifyError,
     };
@@ -139,7 +140,7 @@ describe('useSignErrorHandler', () => {
     });
   });
 
-  it('should show default error message when errorMessages is not provided and VerifyFailed detected with error message content', async () => {
+  it('shows default error message when errorMessages is not provided and VerifyFailed detected with error message content', async () => {
     const signError: VCSignError = {
       type: VCSignErrorType.VerifyFailed,
       message: 'Verify failed message',
@@ -153,7 +154,7 @@ describe('useSignErrorHandler', () => {
     });
   });
 
-  it('should show default error message when errorMessages is not provided and VerifyFailed detected without error message content', async () => {
+  it('shows default error message when errorMessages is not provided and VerifyFailed detected without error message content', async () => {
     const signError: VCSignError = {
       type: VCSignErrorType.VerifyFailed,
     };
@@ -166,7 +167,7 @@ describe('useSignErrorHandler', () => {
     });
   });
 
-  it('should show default error message when errorMessages does not have a matching type', async () => {
+  it('shows default error message when errorMessages does not have a matching type', async () => {
     const signError = {
       type: 'UnknownError',
       message: 'Unknown error occurred',
@@ -188,7 +189,7 @@ describe('useSignErrorHandler', () => {
     });
   });
 
-  it('should not show error message when signError is undefined', () => {
+  it('not shows error message when signError is undefined', () => {
     renderHook(() => useSignErrorHandler(undefined));
 
     expect(showErrorMsgMock).not.toHaveBeenCalled();
