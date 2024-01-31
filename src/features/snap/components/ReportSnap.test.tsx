@@ -1,5 +1,4 @@
 import { act } from '@testing-library/react';
-import { useAccount } from 'wagmi';
 
 import { ReportSnap } from './ReportSnap';
 import { useVerifiableCredential } from '../../../hooks';
@@ -10,44 +9,43 @@ jest.mock('../../../hooks/useVerifiableCredential', () => ({
   useVerifiableCredential: jest.fn(),
 }));
 
-jest.mock('wagmi', () => ({
-  useAccount: jest.fn(),
-}));
-
 describe('ReportSnap', () => {
-  let mockUseAccount: jest.Mock;
   let mockUseVerifiableCredential: jest.Mock;
 
   beforeEach(() => {
-    mockUseAccount = useAccount as jest.Mock;
-    mockUseAccount.mockClear();
     mockUseVerifiableCredential = useVerifiableCredential as jest.Mock;
     mockUseVerifiableCredential.mockClear();
   });
 
   it('renders', async () => {
-    mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: 'issuerAddress',
       signMessage: jest.fn(),
       signError: null,
     });
     const { queryByText } = render(
-      <ReportSnap snapName="Snap1" snapId="Snap1ID" />,
+      <ReportSnap
+        snapName="Snap1"
+        snapId="Snap1ID"
+        address={VALID_ACCOUNT_1}
+      />,
     );
 
     expect(queryByText('Report')).toBeInTheDocument();
   });
 
   it('shows modal when click report button', async () => {
-    mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: 'issuerAddress',
       signMessage: jest.fn(),
       signError: null,
     });
     const { queryByText, getByText } = render(
-      <ReportSnap snapName="Snap1" snapId="Snap1ID" />,
+      <ReportSnap
+        snapName="Snap1"
+        snapId="Snap1ID"
+        address={VALID_ACCOUNT_1}
+      />,
     );
 
     await act(async () => getByText('Report').click());
@@ -57,7 +55,7 @@ describe('ReportSnap', () => {
 
   it('sign does nothing if account is not connected', async () => {
     const mockSignMessage = jest.fn();
-    mockUseAccount.mockReturnValue({ address: undefined });
+
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: 'issuerAddress',
       signMessage: mockSignMessage,
@@ -65,7 +63,7 @@ describe('ReportSnap', () => {
     });
 
     const { queryByText, getByText } = render(
-      <ReportSnap snapName="Snap1" snapId="Snap1ID" />,
+      <ReportSnap snapName="Snap1" snapId="Snap1ID" address={undefined} />,
     );
 
     await act(async () => getByText('Report').click());
@@ -78,7 +76,7 @@ describe('ReportSnap', () => {
 
   it('sign does nothing when signature is null', async () => {
     const mockSignMessage = jest.fn();
-    mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
+
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: 'issuerAddress',
       signMessage: mockSignMessage,
@@ -92,7 +90,11 @@ describe('ReportSnap', () => {
     mockSignMessage.mockReturnValue(null);
 
     const { queryByText, getByText } = render(
-      <ReportSnap snapName="Snap1" snapId="Snap1ID" />,
+      <ReportSnap
+        snapName="Snap1"
+        snapId="Snap1ID"
+        address={VALID_ACCOUNT_1}
+      />,
     );
 
     await act(async () => getByText('Report').click());
@@ -106,14 +108,17 @@ describe('ReportSnap', () => {
   });
 
   it('close modal when click close button', async () => {
-    mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: 'issuerAddress',
       signMessage: jest.fn(),
       signError: null,
     });
     const { queryByText, getByText, getByLabelText } = render(
-      <ReportSnap snapName="Snap1" snapId="Snap1ID" />,
+      <ReportSnap
+        snapName="Snap1"
+        snapId="Snap1ID"
+        address={VALID_ACCOUNT_1}
+      />,
     );
 
     await act(async () => getByText('Report').click());
@@ -126,7 +131,6 @@ describe('ReportSnap', () => {
   });
 
   it('display `Success` toast when report success', async () => {
-    mockUseAccount.mockReturnValue({ address: VALID_ACCOUNT_1 });
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: 'issuerAddress',
       signMessage: jest.fn().mockReturnValue(Promise.resolve('signature')),
@@ -136,8 +140,13 @@ describe('ReportSnap', () => {
       },
       signError: null,
     });
+
     const { queryByText, getByText } = render(
-      <ReportSnap snapName="Snap1" snapId="Snap1ID" />,
+      <ReportSnap
+        snapName="Snap1"
+        snapId="Snap1ID"
+        address={VALID_ACCOUNT_1}
+      />,
     );
 
     await act(async () => getByText('Report').click());

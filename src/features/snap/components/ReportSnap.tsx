@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro';
 import { useState, type FunctionComponent } from 'react';
-import { useAccount } from 'wagmi';
 
 import { ReportSnapModal } from './modals/ReportSnapModal';
 import { ReportButton } from '../../../components';
@@ -9,17 +8,18 @@ import { useSignErrorHandler } from '../../../hooks/useSignErrorHandler';
 import useToastMsg from '../../../hooks/useToastMsg';
 
 type ReportSnapProps = {
+  address: `0x${string}` | undefined;
   snapId: string;
   snapName: string;
 };
 
 export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
+  address,
   snapId,
   snapName,
 }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const { address } = useAccount();
   const { showSuccessMsg } = useToastMsg();
 
   const { signMessage, signError, snapVCBuilder } = useVerifiableCredential();
