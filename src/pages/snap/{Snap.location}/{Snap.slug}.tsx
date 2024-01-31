@@ -79,7 +79,7 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
         >
           <Authorship name={name} icon={icon} snapId={snapId} />
           <Flex alignItems="center" gap="4" width={['100%', null, 'auto']}>
-            {isConnected && (
+            {isConnected && address && (
               <ReportSnap snapName={name} snapId={snapId} address={address} />
             )}
             {!onboard && (

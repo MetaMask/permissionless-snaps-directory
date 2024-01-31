@@ -44,7 +44,7 @@ describe('Snap page', () => {
     expect(queryAllByText('Foo Snap')).toHaveLength(2);
   });
 
-  it('render the report button if the user is connected', async () => {
+  it('renders the report button if the user is connected', async () => {
     mockUseAccount.mockReturnValue({
       isConnected: true,
       address: VALID_ACCOUNT_1,

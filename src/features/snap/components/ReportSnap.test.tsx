@@ -53,28 +53,7 @@ describe('ReportSnap', () => {
     expect(queryByText('Sign to report')).toBeInTheDocument();
   });
 
-  it('sign does nothing if account is not connected', async () => {
-    const mockSignMessage = jest.fn();
-
-    mockUseVerifiableCredential.mockReturnValue({
-      issuerAddress: 'issuerAddress',
-      signMessage: mockSignMessage,
-      signError: null,
-    });
-
-    const { queryByText, getByText } = render(
-      <ReportSnap snapName="Snap1" snapId="Snap1ID" address={undefined} />,
-    );
-
-    await act(async () => getByText('Report').click());
-
-    expect(queryByText('Sign to report')).toBeInTheDocument();
-
-    await act(async () => getByText('Sign to report').click());
-    expect(mockSignMessage).not.toHaveBeenCalled();
-  });
-
-  it('sign does nothing when signature is null', async () => {
+  it('does nothing during signing when signature is null', async () => {
     const mockSignMessage = jest.fn();
 
     mockUseVerifiableCredential.mockReturnValue({
@@ -107,7 +86,7 @@ describe('ReportSnap', () => {
     expect(queryByText('Reported')).not.toBeInTheDocument();
   });
 
-  it('close modal when click close button', async () => {
+  it('closes modal when click close button', async () => {
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: 'issuerAddress',
       signMessage: jest.fn(),
@@ -130,7 +109,7 @@ describe('ReportSnap', () => {
     expect(queryByText('Sign to report')).not.toBeInTheDocument();
   });
 
-  it('display `Success` toast when report success', async () => {
+  it('displays `Success` toast when report success', async () => {
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: 'issuerAddress',
       signMessage: jest.fn().mockReturnValue(Promise.resolve('signature')),
