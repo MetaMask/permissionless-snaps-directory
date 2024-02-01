@@ -16,7 +16,7 @@ type ReportSnapProps = {
 
 export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
   address,
-  versionChecksum,
+  snapChecksum,
   snapName,
 }) => {
   const [showModal, setShowModal] = useState(false);
