@@ -242,9 +242,6 @@ msgstr ""
 msgid "Endorsed"
 msgstr ""
 
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
 #: src/features/account/MoreOptionMenu.tsx
 msgid "Error"
 msgstr ""
@@ -281,17 +278,11 @@ msgstr ""
 msgid "Failed to copy profile link to clipboard"
 msgstr ""
 
-#: src/features/account/AccountReport.tsx
-#: src/features/account/AccountReport.tsx
-#: src/features/account/AccountTEEndorsement.tsx
-#: src/features/account/AccountTEEndorsement.tsx
 #: src/hooks/useSignErrorHandler.ts
 #: src/hooks/useSignErrorHandler.ts
 msgid "Failed to sign the message"
 msgstr ""
 
-#: src/features/account/AccountReport.tsx
-#: src/features/account/AccountTEEndorsement.tsx
 #: src/hooks/useSignErrorHandler.ts
 #: src/hooks/useSignErrorHandler.ts
 msgid "Failed to verify signature"
@@ -387,8 +378,6 @@ msgstr ""
 msgid "Interoperability"
 msgstr ""
 
-#: src/features/account/AccountReport.tsx
-#: src/features/account/AccountTEEndorsement.tsx
 #: src/hooks/useSignErrorHandler.ts
 #: src/hooks/useSignErrorHandler.ts
 msgid "Invalid Signature"
@@ -646,18 +635,6 @@ msgstr ""
 msgid "The page you're looking for can't be found."
 msgstr ""
 
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
-msgid "The signature could not be created"
-msgstr ""
-
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
-msgid "The signature verification error"
-msgstr ""
-
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
-msgid "The signature verification failed"
-msgstr ""
-
 #: src/features/snap/components/modals/ReportSnapModal.tsx
 msgid "This action will flag the snap as a malicious in your community."
 msgstr ""
@@ -684,11 +661,6 @@ msgstr ""
 
 #: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Trusted technical abilities"
-msgstr ""
-
-#: src/features/account/AccountReport.tsx
-#: src/features/account/AccountTEEndorsement.tsx
-msgid "Unknown error"
 msgstr ""
 
 #: src/hooks/useSignErrorHandler.ts
@@ -758,9 +730,4 @@ msgstr ""
 
 #: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Your level of confidence in <0>{trustEntity}</0> skill set"
-msgstr ""
-
-#: src/features/account/AccountReport.tsx
-#: src/features/account/AccountTEEndorsement.tsx
-msgid "Your signature is invalid"
 msgstr ""

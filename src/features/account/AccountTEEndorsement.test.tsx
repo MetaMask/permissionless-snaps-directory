@@ -4,11 +4,8 @@ import { useEnsName } from 'wagmi';
 
 import { AccountTEEndorsement } from './AccountTEEndorsement';
 import type { VCSignError } from '../../hooks/useVerifiableCredential';
-import {
-  useVerifiableCredential,
-  VCSignErrorType,
-} from '../../hooks/useVerifiableCredential';
-import { TrustworthinessScope, trimAddress } from '../../utils';
+import { useVerifiableCredential } from '../../hooks/useVerifiableCredential';
+import { trimAddress, TrustworthinessScope } from '../../utils';
 import {
   render,
   VALID_ACCOUNT_1,
@@ -238,95 +235,6 @@ describe('AccountTEEndorsement', () => {
             level: 0,
           },
         ],
-      );
-    });
-  });
-
-  describe('with signError', () => {
-    it('shows `Failed to sign the message` toast message when signError is of type `SignError`', async () => {
-      buildEnsNameMock('mock.ens.name');
-      const { toastSpy } = buildToastSpy();
-      buildUseVerifiableCredentialMock({
-        type: VCSignErrorType.SignError,
-        message: 'sign error',
-      });
-
-      render(
-        <AccountTEEndorsement
-          address={VALID_ACCOUNT_1}
-          connectedAddress={VALID_ACCOUNT_2}
-        />,
-      );
-
-      expect(toastSpy).toHaveBeenCalledWith(
-        expect.objectContaining({
-          title: 'Failed to sign the message',
-          description: 'sign error',
-        }),
-      );
-    });
-
-    it('shows `Failed to verify signature` toast message when signError is of type `VerifyError`', async () => {
-      buildEnsNameMock('mock.ens.name');
-      const { toastSpy } = buildToastSpy();
-      buildUseVerifiableCredentialMock({ type: VCSignErrorType.VerifyError });
-
-      render(
-        <AccountTEEndorsement
-          address={VALID_ACCOUNT_1}
-          connectedAddress={VALID_ACCOUNT_2}
-        />,
-      );
-
-      expect(toastSpy).toHaveBeenCalledWith(
-        expect.objectContaining({
-          title: 'Failed to verify signature',
-          description: 'Your signature is invalid',
-        }),
-      );
-    });
-
-    it('shows `Invalid Signature` toast message when signError is of type `SignError`', async () => {
-      buildEnsNameMock('mock.ens.name');
-      const { toastSpy } = buildToastSpy();
-      buildUseVerifiableCredentialMock({
-        type: VCSignErrorType.VerifyFailed,
-        message: 'invalid signature',
-      });
-
-      render(
-        <AccountTEEndorsement
-          address={VALID_ACCOUNT_1}
-          connectedAddress={VALID_ACCOUNT_2}
-        />,
-      );
-
-      expect(toastSpy).toHaveBeenCalledWith(
-        expect.objectContaining({
-          title: 'Invalid Signature',
-          description: 'invalid signature',
-        }),
-      );
-    });
-
-    it('shows `Failed to sign the message` toast message when signError is unknown', async () => {
-      buildEnsNameMock('mock.ens.name');
-      const { toastSpy } = buildToastSpy();
-      // @ts-expect-error - Invalid error.
-      buildUseVerifiableCredentialMock({ type: 'unknown' });
-
-      render(
-        <AccountTEEndorsement
-          address={VALID_ACCOUNT_1}
-          connectedAddress={VALID_ACCOUNT_2}
-        />,
-      );
-
-      expect(toastSpy).toHaveBeenCalledWith(
-        expect.objectContaining({
-          title: 'Failed to sign the message',
-          description: 'Unknown error',
-        }),
       );
     });
   });
