@@ -64,7 +64,6 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
   };
 
   protected getSubjectDid(versionChecksum: string): SnapDid {
-    // TODO how to check verify the checksum is shasum?? they only will be same if they all use SHA algorithm
     return `snap://${versionChecksum}`;
   }
 
