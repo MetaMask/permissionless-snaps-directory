@@ -1,6 +1,6 @@
 import { act } from '@testing-library/react';
 
-import { ReportSnap } from './ReportSnap';
+import { EndorseSnap } from './EndorseSnap';
 import { useVerifiableCredential } from '../../../hooks';
 import { VALID_ACCOUNT_1, render } from '../../../utils/test-utils';
 
@@ -9,7 +9,7 @@ jest.mock('../../../hooks/useVerifiableCredential', () => ({
   useVerifiableCredential: jest.fn(),
 }));
 
-describe('ReportSnap', () => {
+describe('EndorseSnap', () => {
   let mockUseVerifiableCredential: jest.Mock;
 
   beforeEach(() => {
@@ -24,33 +24,33 @@ describe('ReportSnap', () => {
       signError: null,
     });
     const { queryByText } = render(
-      <ReportSnap
+      <EndorseSnap
         snapName="Snap1"
         snapId="Snap1ID"
         address={VALID_ACCOUNT_1}
       />,
     );
 
-    expect(queryByText('Report')).toBeInTheDocument();
+    expect(queryByText('Endorse')).toBeInTheDocument();
   });
 
-  it('shows modal when report button is clicked', async () => {
+  it('shows modal when endorse button is clicked', async () => {
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: 'issuerAddress',
       signMessage: jest.fn(),
       signError: null,
     });
     const { queryByText, getByText } = render(
-      <ReportSnap
+      <EndorseSnap
         snapName="Snap1"
         snapId="Snap1ID"
         address={VALID_ACCOUNT_1}
       />,
     );
 
-    await act(async () => getByText('Report').click());
+    await act(async () => getByText('Endorse').click());
 
-    expect(queryByText('Sign to report')).toBeInTheDocument();
+    expect(queryByText('Sign to endorse')).toBeInTheDocument();
   });
 
   it('does not sign when signature is null', async () => {
@@ -60,7 +60,7 @@ describe('ReportSnap', () => {
       issuerAddress: 'issuerAddress',
       signMessage: mockSignMessage,
       snapVCBuilder: {
-        buildDisputedPayload: jest.fn().mockReturnValue('VC'),
+        buildEndorsedPayload: jest.fn().mockReturnValue('VC'),
         getSignedAssertion: jest.fn().mockReturnValue('assertion'),
       },
       signError: null,
@@ -69,21 +69,21 @@ describe('ReportSnap', () => {
     mockSignMessage.mockReturnValue(null);
 
     const { queryByText, getByText } = render(
-      <ReportSnap
+      <EndorseSnap
         snapName="Snap1"
         snapId="Snap1ID"
         address={VALID_ACCOUNT_1}
       />,
     );
 
-    await act(async () => getByText('Report').click());
+    await act(async () => getByText('Endorse').click());
 
-    expect(queryByText('Sign to report')).toBeInTheDocument();
-    await act(async () => getByText('Sign to report').click());
+    expect(queryByText('Sign to endorse')).toBeInTheDocument();
+    await act(async () => getByText('Sign to endorse').click());
     expect(mockSignMessage).toHaveBeenCalled();
 
-    expect(queryByText('Report')).toBeInTheDocument();
-    expect(queryByText('Reported')).not.toBeInTheDocument();
+    expect(queryByText('Endorse')).toBeInTheDocument();
+    expect(queryByText('Endorsed')).not.toBeInTheDocument();
   });
 
   it('closes modal when close button is clicked', async () => {
@@ -93,43 +93,43 @@ describe('ReportSnap', () => {
       signError: null,
     });
     const { queryByText, getByText, getByLabelText } = render(
-      <ReportSnap
+      <EndorseSnap
         snapName="Snap1"
         snapId="Snap1ID"
         address={VALID_ACCOUNT_1}
       />,
     );
 
-    await act(async () => getByText('Report').click());
+    await act(async () => getByText('Endorse').click());
 
-    expect(queryByText('Sign to report')).toBeInTheDocument();
+    expect(queryByText('Sign to endorse')).toBeInTheDocument();
 
     await act(async () => getByLabelText('Close').click());
 
-    expect(queryByText('Sign to report')).not.toBeInTheDocument();
+    expect(queryByText('Sign to endorse')).not.toBeInTheDocument();
   });
 
-  it('displays `Success` toast when reporting is successful', async () => {
+  it('displays `Success` toast when endorsement is successful', async () => {
     mockUseVerifiableCredential.mockReturnValue({
       issuerAddress: 'issuerAddress',
       signMessage: jest.fn().mockReturnValue(Promise.resolve('signature')),
       snapVCBuilder: {
-        buildDisputedPayload: jest.fn().mockReturnValue('VC'),
+        buildEndorsedPayload: jest.fn().mockReturnValue('VC'),
         getSignedAssertion: jest.fn().mockReturnValue('assertion'),
       },
       signError: null,
     });
 
     const { queryByText, getByText } = render(
-      <ReportSnap
+      <EndorseSnap
         snapName="Snap1"
         snapId="Snap1ID"
         address={VALID_ACCOUNT_1}
       />,
     );
 
-    await act(async () => getByText('Report').click());
-    await act(async () => getByText('Sign to report').click());
+    await act(async () => getByText('Endorse').click());
+    await act(async () => getByText('Sign to endorse').click());
 
     expect(queryByText('Success')).toBeInTheDocument();
   });

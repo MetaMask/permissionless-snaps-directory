@@ -79,7 +79,11 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
     };
   }
 
-  buildEndosedPayload(issuerAddress: Hex, subjectId: string, reason: string[]) {
+  buildEndorsedPayload(
+    issuerAddress: Hex,
+    subjectId: string,
+    reason: string[],
+  ) {
     const statusReason = {
       type: SnapStatusReasonType.Endorse,
       value: reason,

@@ -29,6 +29,10 @@ msgstr ""
 msgid "{shortSubAddress} has been added to your trust circle"
 msgstr ""
 
+#: src/features/snap/components/EndorseSnap.tsx
+msgid "{snapName} has been endorsed."
+msgstr ""
+
 #: src/features/snap/components/ReportSnap.tsx
 msgid "{snapName} has been reported."
 msgstr ""
@@ -238,6 +242,10 @@ msgstr ""
 msgid "Endorse"
 msgstr ""
 
+#: src/features/snap/components/modals/EndorseSnapModal.tsx
+msgid "Endorse <0>{snapName}</0>"
+msgstr ""
+
 #: src/components/EndorseButton.tsx
 msgid "Endorsed"
 msgstr ""
@@ -311,6 +319,10 @@ msgstr ""
 
 #: src/pages/404.tsx
 msgid "Go home"
+msgstr ""
+
+#: src/features/snap/components/EndorseSnap.tsx
+msgid "Good user experience"
 msgstr ""
 
 #: src/components/InstallUnsupportedDesktopUpdate.tsx
@@ -402,6 +414,7 @@ msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
+#: src/features/snap/components/modals/EndorseSnapModal.tsx
 #: src/features/snap/components/modals/ReportSnapModal.tsx
 msgid "Learn more"
 msgstr ""
@@ -569,6 +582,10 @@ msgstr ""
 msgid "See Latest"
 msgstr ""
 
+#: src/features/snap/components/EndorseSnap.tsx
+msgid "Seems secure"
+msgstr ""
+
 #: src/components/icons/index.ts
 msgid "Share"
 msgstr ""
@@ -580,6 +597,10 @@ msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Sign to add"
+msgstr ""
+
+#: src/features/snap/components/modals/EndorseSnapModal.tsx
+msgid "Sign to endorse"
 msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
@@ -621,6 +642,7 @@ msgstr ""
 
 #: src/features/account/AccountReport.tsx
 #: src/features/account/AccountTEEndorsement.tsx
+#: src/features/snap/components/EndorseSnap.tsx
 #: src/features/snap/components/ReportSnap.tsx
 msgid "Success"
 msgstr ""
@@ -633,6 +655,10 @@ msgstr ""
 
 #: src/pages/404.tsx
 msgid "The page you're looking for can't be found."
+msgstr ""
+
+#: src/features/snap/components/modals/EndorseSnapModal.tsx
+msgid "This action will endorse the snap as secure in your community."
 msgstr ""
 
 #: src/features/snap/components/modals/ReportSnapModal.tsx
@@ -690,6 +716,10 @@ msgstr ""
 
 #: src/constants.ts
 msgid "Use MetaMask Beyond Ethereum"
+msgstr ""
+
+#: src/features/snap/components/EndorseSnap.tsx
+msgid "Useful"
 msgstr ""
 
 #: src/components/icons/index.ts
