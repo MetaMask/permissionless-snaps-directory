@@ -3,6 +3,7 @@ import { describe, it, expect, beforeEach } from '@jest/globals';
 import type { VerifiedSnap } from './snaps';
 import {
   getLatestSnapVersion,
+  getLatestSnapVersionChecksum,
   getMetaMaskProvider,
   getSnapsProvider,
   hasSnapsSupport,
@@ -293,5 +294,37 @@ describe('getLatestSnapVersion', () => {
     expect(() => getLatestSnapVersion(snap)).toThrow(
       'No latest version found for Snap: foo-snap.',
     );
+  });
+
+  it('returns latest version checksum', () => {
+    const snap: VerifiedSnap = {
+      versions: {
+        // @ts-expect-error - Technically not a valid version.
+        '1.0.0': {
+          checksum: 'foo',
+        },
+        '2.0.0': {
+          checksum: 'bar',
+        },
+      },
+    };
+
+    expect(getLatestSnapVersionChecksum(snap, '2.0.0')).toBe('bar');
+  });
+
+  it('returns empty string if version does not exist', () => {
+    const snap: VerifiedSnap = {
+      versions: {
+        // @ts-expect-error - Technically not a valid version.
+        '1.0.0': {
+          checksum: 'foo',
+        },
+        '2.0.0': {
+          checksum: 'bar',
+        },
+      },
+    };
+
+    expect(getLatestSnapVersionChecksum(snap, '3.0.0')).toBe('');
   });
 });

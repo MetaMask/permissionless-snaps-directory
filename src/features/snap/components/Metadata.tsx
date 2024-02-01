@@ -18,6 +18,7 @@ export type MetadataProps = {
     | 'snapId'
     | 'description'
     | 'latestVersion'
+    | 'latestChecksum'
     | 'website'
     | 'onboard'
     | 'category'

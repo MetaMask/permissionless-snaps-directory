@@ -141,3 +141,22 @@ export function getLatestSnapVersion(snap: VerifiedSnap) {
 
   return latest;
 }
+
+/**
+ * Get checksum of the latest version of the given Snap.
+ *
+ * @param snap - The Snap to get the latest version for.
+ * @param latestVersion - The latest version of the Snap.
+ * @returns The checksum value of latest version of the Snap.
+ */
+export function getLatestSnapVersionChecksum(
+  snap: VerifiedSnap,
+  latestVersion: string,
+) {
+  const { versions } = snap;
+
+  if (!versions[latestVersion]) {
+    return '';
+  }
+  return versions[latestVersion].checksum;
+}

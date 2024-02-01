@@ -26,6 +26,7 @@ type SnapPageProps = {
       | 'snapId'
       | 'description'
       | 'latestVersion'
+      | 'latestChecksum'
       | 'website'
       | 'onboard'
       | 'category'
@@ -47,6 +48,7 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
     onboard,
     description,
     latestVersion,
+    latestChecksum,
     category,
   } = data.snap;
 
@@ -80,7 +82,11 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
           <Authorship name={name} icon={icon} snapId={snapId} />
           <Flex alignItems="center" gap="4" width={['100%', null, 'auto']}>
             {isConnected && address && (
-              <ReportSnap snapName={name} snapId={snapId} address={address} />
+              <ReportSnap
+                snapName={name}
+                snapId={latestChecksum}
+                address={address}
+              />
             )}
             {!onboard && (
               <InstallSnapButton
@@ -187,6 +193,7 @@ export const query = graphql`
         trusted
       }
       latestVersion
+      latestChecksum
       website
       onboard
       category
