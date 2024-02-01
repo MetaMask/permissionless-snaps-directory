@@ -2,7 +2,11 @@ import { act } from '@testing-library/react';
 
 import { ReportSnap } from './ReportSnap';
 import { useVerifiableCredential } from '../../../hooks';
-import { VALID_ACCOUNT_1, render } from '../../../utils/test-utils';
+import {
+  SNAP_SHASUM_1,
+  VALID_ACCOUNT_1,
+  render,
+} from '../../../utils/test-utils';
 
 jest.mock('../../../hooks/useVerifiableCredential', () => ({
   ...jest.requireActual('../../../hooks/useVerifiableCredential'),
@@ -26,7 +30,7 @@ describe('ReportSnap', () => {
     const { queryByText } = render(
       <ReportSnap
         snapName="Snap1"
-        versionChecksum="mockv1checksum"
+        versionChecksum={SNAP_SHASUM_1}
         address={VALID_ACCOUNT_1}
       />,
     );
@@ -43,7 +47,7 @@ describe('ReportSnap', () => {
     const { queryByText, getByText } = render(
       <ReportSnap
         snapName="Snap1"
-        versionChecksum="mockv1checksum"
+        versionChecksum={SNAP_SHASUM_1}
         address={VALID_ACCOUNT_1}
       />,
     );
@@ -71,7 +75,7 @@ describe('ReportSnap', () => {
     const { queryByText, getByText } = render(
       <ReportSnap
         snapName="Snap1"
-        versionChecksum="mockv1checksum"
+        versionChecksum={SNAP_SHASUM_1}
         address={VALID_ACCOUNT_1}
       />,
     );
@@ -95,7 +99,7 @@ describe('ReportSnap', () => {
     const { queryByText, getByText, getByLabelText } = render(
       <ReportSnap
         snapName="Snap1"
-        versionChecksum="mockv1checksum"
+        versionChecksum={SNAP_SHASUM_1}
         address={VALID_ACCOUNT_1}
       />,
     );
@@ -123,7 +127,7 @@ describe('ReportSnap', () => {
     const { queryByText, getByText } = render(
       <ReportSnap
         snapName="Snap1"
-        versionChecksum="mockv1checksum"
+        versionChecksum={SNAP_SHASUM_1}
         address={VALID_ACCOUNT_1}
       />,
     );

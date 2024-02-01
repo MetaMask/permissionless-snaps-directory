@@ -1,3 +1,4 @@
+import { SNAP_SHASUM_1 } from './constants';
 import { RegistrySnapCategory } from '../../constants';
 import type { Fields } from '../snaps';
 
@@ -127,7 +128,7 @@ export function getMockSnap({
   },
   summary = 'Summary',
   latestVersion = '1.0.0',
-  latestChecksum = 'foo',
+  latestChecksum = SNAP_SHASUM_1,
   website = 'https://example.com',
   onboard = false,
   category = RegistrySnapCategory.TransactionInsights,
