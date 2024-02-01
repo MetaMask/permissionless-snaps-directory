@@ -16,11 +16,14 @@ import type { GatsbyNode, NodeInput } from 'gatsby';
 import { createFileNodeFromBuffer } from 'gatsby-source-filesystem';
 import type { RequestInfo, RequestInit } from 'node-fetch';
 import fetch from 'node-fetch';
-import { fetchBuilder, FileSystemCache } from 'node-fetch-cache';
+import { FileSystemCache, fetchBuilder } from 'node-fetch-cache';
 import path from 'path';
 
 import type { Fields } from './src/utils';
-import { getLatestSnapVersion } from './src/utils';
+import {
+  getLatestSnapVersion,
+  getLatestSnapVersionChecksum,
+} from './src/utils';
 import {
   generateCategoryImage,
   generateInstalledImage,
@@ -44,6 +47,7 @@ type SnapNode = NodeInput & {
   slug: string;
   latestVersion: string;
   icon?: string | undefined;
+  latestChecksum: string;
 };
 
 // eslint-disable-next-line no-restricted-globals
@@ -162,6 +166,8 @@ export const sourceNodes: GatsbyNode[`sourceNodes`] = async ({
 
   for (const snap of verifiedSnaps) {
     const latestVersion = getLatestSnapVersion(snap);
+    const latestChecksum = getLatestSnapVersionChecksum(snap, latestVersion);
+
     const location = detectSnapLocation(snap.id, {
       versionRange: latestVersion as any,
       fetch: customFetch as any,
@@ -222,6 +228,7 @@ export const sourceNodes: GatsbyNode[`sourceNodes`] = async ({
       icon,
       downloads,
       lastUpdated,
+      latestChecksum,
     };
 
     const node: SnapNode = {

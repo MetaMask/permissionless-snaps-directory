@@ -21,6 +21,7 @@ export type Snap = Fields<
   | 'latestVersion'
   | 'downloads'
   | 'lastUpdated'
+  | 'latestChecksum'
 >;
 
 export type SnapsState = {
