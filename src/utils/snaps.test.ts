@@ -3,12 +3,17 @@ import { describe, it, expect, beforeEach } from '@jest/globals';
 import type { VerifiedSnap } from './snaps';
 import {
   getLatestSnapVersion,
+  getLatestSnapVersionChecksum,
   getMetaMaskProvider,
   getSnapsProvider,
   hasSnapsSupport,
   isMetaMaskProvider,
 } from './snaps';
-import { getRequestMethodMock } from './test-utils';
+import {
+  SNAP_SHASUM_1,
+  SNAP_SHASUM_2,
+  getRequestMethodMock,
+} from './test-utils';
 
 describe('hasSnapsSupport', () => {
   it('returns `true` if the provider supports Snaps', async () => {
@@ -292,6 +297,41 @@ describe('getLatestSnapVersion', () => {
 
     expect(() => getLatestSnapVersion(snap)).toThrow(
       'No latest version found for Snap: foo-snap.',
+    );
+  });
+
+  it('returns latest version checksum', () => {
+    const snap: VerifiedSnap = {
+      versions: {
+        // @ts-expect-error - Technically not a valid version.
+        '1.0.0': {
+          checksum: SNAP_SHASUM_1,
+        },
+        '2.0.0': {
+          checksum: SNAP_SHASUM_2,
+        },
+      },
+    };
+
+    expect(getLatestSnapVersionChecksum(snap, '2.0.0')).toBe(SNAP_SHASUM_2);
+  });
+
+  it('throws error if version does not exist', () => {
+    const snap: VerifiedSnap = {
+      id: 'foo-snap',
+      versions: {
+        // @ts-expect-error - Technically not a valid version.
+        '1.0.0': {
+          checksum: SNAP_SHASUM_1,
+        },
+        '2.0.0': {
+          checksum: SNAP_SHASUM_2,
+        },
+      },
+    };
+
+    expect(() => getLatestSnapVersionChecksum(snap, '3.0.0')).toThrow(
+      'Snap:foo-snap version data does not exist for the version 3.0.0',
     );
   });
 });

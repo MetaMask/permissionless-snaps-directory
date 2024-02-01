@@ -141,3 +141,25 @@ export function getLatestSnapVersion(snap: VerifiedSnap) {
 
   return latest;
 }
+
+/**
+ * Get checksum of the latest version of the given Snap.
+ *
+ * @param snap - The Snap to get the latest version for.
+ * @param latestVersion - The latest version of the Snap.
+ * @returns The checksum value of latest version of the Snap.
+ * @throws If the latest version doesn't exist in the Snap.
+ */
+export function getLatestSnapVersionChecksum(
+  snap: VerifiedSnap,
+  latestVersion: string,
+) {
+  const { versions } = snap;
+
+  if (!versions[latestVersion]) {
+    throw new Error(
+      `Snap:${snap.id} version data does not exist for the version ${latestVersion}`,
+    );
+  }
+  return versions[latestVersion].checksum;
+}

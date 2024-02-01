@@ -1,3 +1,4 @@
+import { SNAP_SHASUM_1 } from './constants';
 import { RegistrySnapCategory } from '../../constants';
 import type { Fields } from '../snaps';
 
@@ -53,6 +54,7 @@ export type MockSnap = Fields<
   | 'description'
   | 'summary'
   | 'latestVersion'
+  | 'latestChecksum'
   | 'website'
   | 'onboard'
   | 'category'
@@ -74,6 +76,7 @@ export type GetMockSnapArgs = {
   description?: Fields<Queries.SnapDescription, 'description' | 'trusted'>;
   summary?: string;
   latestVersion?: string;
+  latestChecksum?: string;
   website?: string;
   onboard?: boolean;
   category?: RegistrySnapCategory | undefined;
@@ -111,6 +114,7 @@ export type GetMockSnapArgs = {
  * @param args.gatsbyPath - The Gatsby path.
  * @param args.downloads - The number of downloads.
  * @param args.lastUpdated - A unix timestamp of the last update to the snap.
+ * @param args.latestChecksum - The checksum value of latest version of the Snap.
  * @returns The mock snap data.
  */
 export function getMockSnap({
@@ -124,6 +128,7 @@ export function getMockSnap({
   },
   summary = 'Summary',
   latestVersion = '1.0.0',
+  latestChecksum = SNAP_SHASUM_1,
   website = 'https://example.com',
   onboard = false,
   category = RegistrySnapCategory.TransactionInsights,
@@ -159,6 +164,7 @@ export function getMockSnap({
       description,
       summary,
       latestVersion,
+      latestChecksum,
       website,
       onboard,
       category,

@@ -32,6 +32,7 @@ export const SnapsProvider: FunctionComponent<SnapsProviderProps> = ({
           summary
           icon
           latestVersion
+          latestChecksum
           category
           gatsbyPath(filePath: "/snap/{Snap.location}/{Snap.slug}")
           downloads
