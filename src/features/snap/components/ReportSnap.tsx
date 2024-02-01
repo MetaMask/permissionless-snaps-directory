@@ -10,13 +10,13 @@ import useToastMsg from '../../../hooks/useToastMsg';
 
 type ReportSnapProps = {
   address: Hex;
-  snapId: string;
+  versionChecksum: string;
   snapName: string;
 };
 
 export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
   address,
-  snapId,
+  versionChecksum,
   snapName,
 }) => {
   const [showModal, setShowModal] = useState(false);
@@ -32,7 +32,11 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
   const options = [t`Scam`, t`Vulnerable`];
 
   const onSign = async (selected: string[]) => {
-    const VC = snapVCBuilder.buildDisputedPayload(address, snapId, selected);
+    const VC = snapVCBuilder.buildDisputedPayload(
+      address,
+      versionChecksum,
+      selected,
+    );
 
     const signature = await signMessage(VC);
     if (signature) {

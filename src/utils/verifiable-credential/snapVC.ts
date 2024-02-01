@@ -63,23 +63,28 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
     ],
   };
 
-  protected getSubjectDid(snapId: string): SnapDid {
-    return `snap://${snapId}`;
+  protected getSubjectDid(versionChecksum: string): SnapDid {
+    // TODO how to check verify the checksum is shasum?? they only will be same if they all use SHA algorithm
+    return `snap://${versionChecksum}`;
   }
 
   protected getCredentialSubject(
-    subjectId: string,
+    versionChecksum: string,
     status: SnapCurrentStatus,
     statusReason: StatusReason,
   ): SnapCredentialSubject {
     return {
-      id: this.getSubjectDid(subjectId),
+      id: this.getSubjectDid(versionChecksum),
       currentStatus: status,
       statusReason,
     };
   }
 
-  buildEndosedPayload(issuerAddress: Hex, subjectId: string, reason: string[]) {
+  buildEndosedPayload(
+    issuerAddress: Hex,
+    versionChecksum: string,
+    reason: string[],
+  ) {
     const statusReason = {
       type: SnapStatusReasonType.Endorse,
       value: reason,
@@ -87,7 +92,7 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
     return this.buildSignPayload(
       issuerAddress,
       this.getCredentialSubject(
-        subjectId,
+        versionChecksum,
         SnapCurrentStatus.Endorsed,
         statusReason,
       ),
@@ -96,7 +101,7 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
 
   buildDisputedPayload(
     issuerAddress: Hex,
-    subjectId: string,
+    versionChecksum: string,
     reason: string[],
   ) {
     const statusReason = {
@@ -106,7 +111,7 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
     return this.buildSignPayload(
       issuerAddress,
       this.getCredentialSubject(
-        subjectId,
+        versionChecksum,
         SnapCurrentStatus.Disputed,
         statusReason,
       ),

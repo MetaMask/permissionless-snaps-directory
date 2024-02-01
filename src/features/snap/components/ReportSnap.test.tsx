@@ -26,7 +26,7 @@ describe('ReportSnap', () => {
     const { queryByText } = render(
       <ReportSnap
         snapName="Snap1"
-        snapId="Snap1ID"
+        versionChecksum="mockv1checksum"
         address={VALID_ACCOUNT_1}
       />,
     );
@@ -43,7 +43,7 @@ describe('ReportSnap', () => {
     const { queryByText, getByText } = render(
       <ReportSnap
         snapName="Snap1"
-        snapId="Snap1ID"
+        versionChecksum="mockv1checksum"
         address={VALID_ACCOUNT_1}
       />,
     );
@@ -71,7 +71,7 @@ describe('ReportSnap', () => {
     const { queryByText, getByText } = render(
       <ReportSnap
         snapName="Snap1"
-        snapId="Snap1ID"
+        versionChecksum="mockv1checksum"
         address={VALID_ACCOUNT_1}
       />,
     );
@@ -95,7 +95,7 @@ describe('ReportSnap', () => {
     const { queryByText, getByText, getByLabelText } = render(
       <ReportSnap
         snapName="Snap1"
-        snapId="Snap1ID"
+        versionChecksum="mockv1checksum"
         address={VALID_ACCOUNT_1}
       />,
     );
@@ -123,7 +123,7 @@ describe('ReportSnap', () => {
     const { queryByText, getByText } = render(
       <ReportSnap
         snapName="Snap1"
-        snapId="Snap1ID"
+        versionChecksum="mockv1checksum"
         address={VALID_ACCOUNT_1}
       />,
     );

@@ -84,7 +84,7 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
             {isConnected && address && (
               <ReportSnap
                 snapName={name}
-                snapId={latestChecksum}
+                versionChecksum={latestChecksum}
                 address={address}
               />
             )}
