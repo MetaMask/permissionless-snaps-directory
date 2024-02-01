@@ -316,8 +316,9 @@ describe('getLatestSnapVersion', () => {
     expect(getLatestSnapVersionChecksum(snap, '2.0.0')).toBe(SNAP_SHASUM_2);
   });
 
-  it('returns empty string if version does not exist', () => {
+  it('throws error if version does not exist', () => {
     const snap: VerifiedSnap = {
+      id: 'foo-snap',
       versions: {
         // @ts-expect-error - Technically not a valid version.
         '1.0.0': {
@@ -329,6 +330,8 @@ describe('getLatestSnapVersion', () => {
       },
     };
 
-    expect(getLatestSnapVersionChecksum(snap, '3.0.0')).toBe('');
+    expect(() => getLatestSnapVersionChecksum(snap, '3.0.0')).toThrow(
+      'Snap:foo-snap version data does not exist for the version 3.0.0',
+    );
   });
 });
