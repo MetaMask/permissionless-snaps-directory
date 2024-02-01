@@ -1,19 +1,17 @@
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
-import { useState, type FunctionComponent, useMemo, useEffect } from 'react';
+import { useMemo, useState, type FunctionComponent } from 'react';
 import { useEnsName } from 'wagmi';
 
 import { TEEndorsementModal } from './components';
 import { EndorseButton } from '../../components';
+import { useSignErrorHandler } from '../../hooks/useSignErrorHandler';
 import useToastMsg from '../../hooks/useToastMsg';
+import { useVerifiableCredential } from '../../hooks/useVerifiableCredential';
 import {
-  useVerifiableCredential,
-  VCSignErrorType,
-} from '../../hooks/useVerifiableCredential';
-import {
+  trimAddress,
   TrustworthinessScope,
   type Trustworthiness,
-  trimAddress,
 } from '../../utils';
 
 type AccountTEEndorsementProps = {
@@ -28,10 +26,12 @@ export const AccountTEEndorsement: FunctionComponent<
     address,
   });
 
-  const { showErrorMsg, showSuccessMsg } = useToastMsg();
+  const { showSuccessMsg } = useToastMsg();
 
   const { signMessage, signError, accountVCBuilder } =
     useVerifiableCredential();
+
+  useSignErrorHandler(signError);
 
   const trimedAddress = useMemo(() => trimAddress(address), [address]);
 
@@ -82,34 +82,6 @@ export const AccountTEEndorsement: FunctionComponent<
       setShowModal(false);
     }
   };
-
-  useEffect(() => {
-    if (signError) {
-      if (signError.type === VCSignErrorType.SignError) {
-        showErrorMsg({
-          title: t`Failed to sign the message`,
-          // TODO change to human readable error message
-          description: signError?.message as string,
-        });
-      } else if (signError.type === VCSignErrorType.VerifyError) {
-        showErrorMsg({
-          title: t`Failed to verify signature`,
-          description: t`Your signature is invalid`,
-        });
-      } else if (signError.type === VCSignErrorType.VerifyFailed) {
-        showErrorMsg({
-          title: t`Invalid Signature`,
-          // TODO change to human readable error message
-          description: signError?.message as string,
-        });
-      } else {
-        showErrorMsg({
-          title: t`Failed to sign the message`,
-          description: t`Unknown error`,
-        });
-      }
-    }
-  }, [signError, showErrorMsg]);
 
   return (
     <>

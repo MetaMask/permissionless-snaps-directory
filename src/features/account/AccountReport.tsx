@@ -1,11 +1,12 @@
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
-import { useState, type FunctionComponent, useMemo, useEffect } from 'react';
+import { useMemo, useState, type FunctionComponent } from 'react';
 import { useEnsName } from 'wagmi';
 
 import { AccountReportModal } from './components';
 import { ReportButton } from '../../components';
-import { VCSignErrorType, useVerifiableCredential } from '../../hooks';
+import { useVerifiableCredential } from '../../hooks';
+import { useSignErrorHandler } from '../../hooks/useSignErrorHandler';
 import useToastMsg from '../../hooks/useToastMsg';
 import { trimAddress } from '../../utils';
 
@@ -22,10 +23,12 @@ export const AccountReport: FunctionComponent<AccountReportProps> = ({
     address,
   });
 
-  const { showErrorMsg, showSuccessMsg } = useToastMsg();
+  const { showSuccessMsg } = useToastMsg();
 
   const { signMessage, signError, accountVCBuilder } =
     useVerifiableCredential();
+
+  useSignErrorHandler(signError);
 
   const trimedAddress = useMemo(() => trimAddress(address), [address]);
 
@@ -66,34 +69,6 @@ export const AccountReport: FunctionComponent<AccountReportProps> = ({
       setShowModal(false);
     }
   };
-
-  useEffect(() => {
-    if (signError) {
-      if (signError.type === VCSignErrorType.SignError) {
-        showErrorMsg({
-          title: t`Failed to sign the message`,
-          // TODO change to human readable error message
-          description: signError?.message as string,
-        });
-      } else if (signError.type === VCSignErrorType.VerifyError) {
-        showErrorMsg({
-          title: t`Failed to verify signature`,
-          description: t`Your signature is invalid`,
-        });
-      } else if (signError.type === VCSignErrorType.VerifyFailed) {
-        showErrorMsg({
-          title: t`Invalid Signature`,
-          // TODO change to human readable error message
-          description: signError?.message as string,
-        });
-      } else {
-        showErrorMsg({
-          title: t`Failed to sign the message`,
-          description: t`Unknown error`,
-        });
-      }
-    }
-  }, [signError, showErrorMsg]);
 
   return (
     <>

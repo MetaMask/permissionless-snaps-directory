@@ -1,16 +1,16 @@
 import { Center, Link, Text, VStack } from '@chakra-ui/react';
 import { Trans, t } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { isAddress } from 'viem';
 
 import { AvatarBlueIcon, RequestSignModal } from '../../../../components';
 import {
-  VCSignErrorType,
   useDispatch,
   useSelector,
   useVerifiableCredential,
 } from '../../../../hooks';
+import { useSignErrorHandler } from '../../../../hooks/useSignErrorHandler';
 import useToastMsg from '../../../../hooks/useToastMsg';
 import type { ApplicationState } from '../../../../store';
 import { trimAddress } from '../../../../utils';
@@ -32,7 +32,9 @@ export const AddToUserCircleModal: FunctionComponent<
   const { issuerAddress, signMessage, signError, accountVCBuilder } =
     useVerifiableCredential();
 
-  const { showSuccessMsg, showErrorMsg } = useToastMsg();
+  useSignErrorHandler(signError);
+
+  const { showSuccessMsg } = useToastMsg();
 
   const shortSubAddress = useMemo(
     () => trimAddress(subjectAddress),
@@ -73,25 +75,6 @@ export const AddToUserCircleModal: FunctionComponent<
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [issuerAddress, subjectAddress]);
-
-  useEffect(() => {
-    if (signError?.type === VCSignErrorType.SignError) {
-      showErrorMsg({
-        title: t`Error`,
-        description: t`The signature could not be created`,
-      });
-    } else if (signError?.type === VCSignErrorType.VerifyFailed) {
-      showErrorMsg({
-        title: t`Error`,
-        description: t`The signature verification failed`,
-      });
-    } else if (signError?.type === VCSignErrorType.VerifyError) {
-      showErrorMsg({
-        title: t`Error`,
-        description: t`The signature verification error`,
-      });
-    }
-  }, [signError, showErrorMsg]);
 
   return (
     <RequestSignModal
