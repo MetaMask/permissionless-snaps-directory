@@ -63,17 +63,17 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
     ],
   };
 
-  protected getSubjectDid(versionChecksum: string): SnapDid {
-    return `snap://${versionChecksum}`;
+  protected getSubjectDid(snapChecksum: string): SnapDid {
+    return `snap://${snapChecksum}`;
   }
 
   protected getCredentialSubject(
-    versionChecksum: string,
+    snapChecksum: string,
     status: SnapCurrentStatus,
     statusReason: StatusReason,
   ): SnapCredentialSubject {
     return {
-      id: this.getSubjectDid(versionChecksum),
+      id: this.getSubjectDid(snapChecksum),
       currentStatus: status,
       statusReason,
     };
@@ -81,7 +81,7 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
 
   buildEndosedPayload(
     issuerAddress: Hex,
-    versionChecksum: string,
+    snapChecksum: string,
     reason: string[],
   ) {
     const statusReason = {
@@ -91,7 +91,7 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
     return this.buildSignPayload(
       issuerAddress,
       this.getCredentialSubject(
-        versionChecksum,
+        snapChecksum,
         SnapCurrentStatus.Endorsed,
         statusReason,
       ),
@@ -100,7 +100,7 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
 
   buildDisputedPayload(
     issuerAddress: Hex,
-    versionChecksum: string,
+    snapChecksum: string,
     reason: string[],
   ) {
     const statusReason = {
@@ -110,7 +110,7 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
     return this.buildSignPayload(
       issuerAddress,
       this.getCredentialSubject(
-        versionChecksum,
+        snapChecksum,
         SnapCurrentStatus.Disputed,
         statusReason,
       ),

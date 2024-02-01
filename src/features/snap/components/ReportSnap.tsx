@@ -10,7 +10,7 @@ import useToastMsg from '../../../hooks/useToastMsg';
 
 type ReportSnapProps = {
   address: Hex;
-  versionChecksum: string;
+  snapChecksum: string;
   snapName: string;
 };
 
@@ -34,7 +34,7 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
   const onSign = async (selected: string[]) => {
     const VC = snapVCBuilder.buildDisputedPayload(
       address,
-      versionChecksum,
+      snapChecksum,
       selected,
     );
 
