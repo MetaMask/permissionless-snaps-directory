@@ -14,6 +14,7 @@ import {
   useGetInstalledSnapsQuery,
 } from '../../../features';
 import { NotificationAcknowledger } from '../../../features/notifications/components';
+import { EndorseSnap } from '../../../features/snap/components/EndorseSnap';
 import { ReportSnap } from '../../../features/snap/components/ReportSnap';
 import type { Fields } from '../../../utils';
 
@@ -87,6 +88,9 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
                 snapChecksum={latestChecksum}
                 address={address}
               />
+            )}
+            {isConnected && address && (
+              <EndorseSnap snapName={name} snapId={snapId} address={address} />
             )}
             {!onboard && (
               <InstallSnapButton

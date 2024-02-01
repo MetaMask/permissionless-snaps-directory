@@ -1,16 +1,16 @@
 import { act } from '@testing-library/react';
 
-import { ReportSnapModal } from './ReportSnapModal';
+import { EndorseSnapModal } from './EndorseSnapModal';
 import { render } from '../../../../utils/test-utils';
 
-describe('ReportSnapModal', () => {
+describe('EndorseSnapModal', () => {
   const options = ['option1', 'option2'];
   it('renders', () => {
     const onSign = jest.fn().mockResolvedValue(true);
     const onClose = jest.fn();
 
     const { queryByText } = render(
-      <ReportSnapModal
+      <EndorseSnapModal
         options={options}
         snapName="snap1"
         onClose={onClose}
@@ -19,7 +19,12 @@ describe('ReportSnapModal', () => {
       />,
     );
 
-    expect(queryByText('Sign to report')).toBeInTheDocument();
+    expect(
+      queryByText(
+        'This action will endorse the snap as secure in your community.',
+      ),
+    ).toBeInTheDocument();
+    expect(queryByText('Sign to endorse')).toBeInTheDocument();
     expect(queryByText('snap1')).toBeInTheDocument();
     expect(queryByText('option1')).toBeInTheDocument();
     expect(queryByText('option2')).toBeInTheDocument();
@@ -30,7 +35,7 @@ describe('ReportSnapModal', () => {
     const onClose = jest.fn();
 
     const { getByLabelText } = render(
-      <ReportSnapModal
+      <EndorseSnapModal
         options={options}
         snapName="snap1"
         onClose={onClose}
@@ -55,7 +60,7 @@ describe('ReportSnapModal', () => {
     const onClose = jest.fn();
 
     const { getByText } = render(
-      <ReportSnapModal
+      <EndorseSnapModal
         options={options}
         snapName="snap1"
         onClose={onClose}
@@ -65,7 +70,7 @@ describe('ReportSnapModal', () => {
     );
 
     await act(async () => {
-      getByText('Sign to report').click();
+      getByText('Sign to endorse').click();
     });
 
     expect(onSign).toHaveBeenCalled();

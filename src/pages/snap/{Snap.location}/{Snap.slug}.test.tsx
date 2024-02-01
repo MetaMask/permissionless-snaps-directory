@@ -67,6 +67,29 @@ describe('Snap page', () => {
     expect(queryByText('Report')).not.toBeInTheDocument();
   });
 
+  it('renders the endorse button if the user is connected', async () => {
+    mockUseAccount.mockReturnValue({
+      isConnected: true,
+      address: VALID_ACCOUNT_1,
+    });
+
+    const { queryByText } = await act(() =>
+      render(<SnapPage data={getMockSnap({ name: 'Foo Snap' })} />),
+    );
+
+    expect(queryByText('Endorse')).toBeInTheDocument();
+  });
+
+  it('does not render the endorse button if the user is not connected', async () => {
+    mockUseAccount.mockReturnValue({ isConnected: false, address: undefined });
+
+    const { queryByText } = await act(() =>
+      render(<SnapPage data={getMockSnap({ name: 'Foo Snap' })} />),
+    );
+
+    expect(queryByText('Endorse')).not.toBeInTheDocument();
+  });
+
   it('does not render the installation button if `onboard` is enabled', async () => {
     mockUseAccount.mockReturnValue({
       isConnected: true,

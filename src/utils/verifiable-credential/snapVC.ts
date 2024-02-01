@@ -79,7 +79,7 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
     };
   }
 
-  buildEndosedPayload(
+  buildEndorsedPayload(
     issuerAddress: Hex,
     snapChecksum: string,
     reason: string[],
