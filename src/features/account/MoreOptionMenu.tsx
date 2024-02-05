@@ -1,4 +1,3 @@
-import { useToast } from '@chakra-ui/react';
 import { t } from '@lingui/macro';
 import { useCallback, useMemo, type FunctionComponent } from 'react';
 import { useAccount, useNetwork } from 'wagmi';
@@ -13,6 +12,7 @@ import {
   UserCircleAddIcon,
 } from '../../components';
 import { useDispatch, useSelector } from '../../hooks';
+import useToastMsg from '../../hooks/useToastMsg';
 import type { ApplicationState } from '../../store';
 
 type MoreOptionMenuProps = {
@@ -26,27 +26,28 @@ export const MoreOptionMenu: FunctionComponent<MoreOptionMenuProps> = ({
     (state: ApplicationState) => state.accountProfile,
   );
   const dispatch = useDispatch();
-  const toast = useToast({ position: 'top' });
+
   const { chain } = useNetwork();
   const { address } = useAccount();
+  const { showSuccessMsg, showErrorMsg } = useToastMsg();
 
   // Dont know why when we write following as async method, the typescript will have error complaining about the return type Promise<Void>
   const copyToClipboard = useCallback(() => {
     navigator.clipboard
       .writeText(`${window.location.origin}/account/?address=${subjectAddress}`)
       .then(() => {
-        toast({
+        showSuccessMsg({
           title: t`Copied`,
           description: t`Profile link copied to clipboard`,
-          status: 'success',
-          duration: 2000,
-          isClosable: true,
         });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+        showErrorMsg({
+          title: t`Error`,
+          description: t`Failed to copy profile link to clipboard`,
+        });
       });
-  }, [toast, subjectAddress]);
+  }, [subjectAddress, showErrorMsg, showSuccessMsg]);
 
   const openBlockExplorer = useCallback(() => {
     window.open(`${chain?.blockExplorers?.etherscan?.url}/address/${address}`);

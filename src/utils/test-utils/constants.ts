@@ -4,3 +4,4 @@ export const VALID_ACCOUNT_2 = '0x7B17936E2a44C1fFef392d13e490fc8426d3329e';
 export const INVALID_ADDRESS = '0x123123123';
 
 export const SNAP_SHASUM_1 = 'ALj0YMDz4JNchPJfreWErQx/GOh4FMWWy1o1rCq7sQQ=';
+export const SNAP_SHASUM_2 = 'CaO1hCMftzS8NR608xuMe/kjXG7k+YtG6eq1Q6jAx7Q=';

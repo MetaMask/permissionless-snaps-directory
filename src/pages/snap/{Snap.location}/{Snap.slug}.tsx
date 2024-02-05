@@ -1,18 +1,21 @@
 import { Box, Container, Divider, Flex, Text } from '@chakra-ui/react';
 import { Trans } from '@lingui/macro';
 import { graphql } from 'gatsby';
-import type { FunctionComponent } from 'react';
+import { type FunctionComponent } from 'react';
+import { useAccount } from 'wagmi';
 
 import { InstallSnapButton, SnapWebsiteButton } from '../../../components';
 import { type RegistrySnapCategory } from '../../../constants';
 import {
-  Description,
-  useGetInstalledSnapsQuery,
   Authorship,
-  RelatedSnaps,
+  Description,
   Metadata,
+  RelatedSnaps,
+  useGetInstalledSnapsQuery,
 } from '../../../features';
 import { NotificationAcknowledger } from '../../../features/notifications/components';
+import { EndorseSnap } from '../../../features/snap/components/EndorseSnap';
+import { ReportSnap } from '../../../features/snap/components/ReportSnap';
 import type { Fields } from '../../../utils';
 
 type SnapPageProps = {
@@ -24,6 +27,7 @@ type SnapPageProps = {
       | 'snapId'
       | 'description'
       | 'latestVersion'
+      | 'latestChecksum'
       | 'website'
       | 'onboard'
       | 'category'
@@ -45,11 +49,13 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
     onboard,
     description,
     latestVersion,
+    latestChecksum,
     category,
   } = data.snap;
 
   const { data: installedSnaps } = useGetInstalledSnapsQuery();
   const isInstalled = Boolean(installedSnaps?.[snapId]);
+  const { address, isConnected } = useAccount();
 
   return (
     <Box position="relative">
@@ -76,6 +82,16 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
         >
           <Authorship name={name} icon={icon} snapId={snapId} />
           <Flex alignItems="center" gap="4" width={['100%', null, 'auto']}>
+            {isConnected && address && (
+              <ReportSnap
+                snapName={name}
+                snapChecksum={latestChecksum}
+                address={address}
+              />
+            )}
+            {isConnected && address && (
+              <EndorseSnap snapName={name} snapId={snapId} address={address} />
+            )}
             {!onboard && (
               <InstallSnapButton
                 snapId={snapId}
@@ -181,6 +197,7 @@ export const query = graphql`
         trusted
       }
       latestVersion
+      latestChecksum
       website
       onboard
       category

@@ -70,7 +70,7 @@ describe('SnapVerifiableCredential', () => {
     it('builds a valid verifiable credential', () => {
       const vc = buildSnapVerifiableCredential();
       expect(
-        vc.buildEndosedPayload(VALID_ACCOUNT_1, SNAP_SHASUM_1, ['reason']),
+        vc.buildEndorsedPayload(VALID_ACCOUNT_1, SNAP_SHASUM_1, ['reason']),
       ).toStrictEqual({
         domain: typedDataDomain,
         message: {

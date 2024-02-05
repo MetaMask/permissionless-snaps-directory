@@ -1,31 +1,94 @@
+import { useToast } from '@chakra-ui/react';
 import { act } from '@testing-library/react';
 import { useEnsName } from 'wagmi';
 
 import { AccountReport } from './AccountReport';
-import { render } from '../../utils/test-utils';
+import type { VCSignError } from '../../hooks/useVerifiableCredential';
+import { useVerifiableCredential } from '../../hooks/useVerifiableCredential';
+import { trimAddress } from '../../utils';
+import {
+  render,
+  VALID_ACCOUNT_1,
+  VALID_ACCOUNT_2,
+} from '../../utils/test-utils';
 
 jest.mock('wagmi', () => ({
   useEnsName: jest.fn(),
 }));
 
-const VALID_ACCOUNT_1 = '0x123';
+jest.mock('@chakra-ui/react', () => ({
+  ...jest.requireActual('@chakra-ui/react'),
+  useToast: jest.fn(),
+}));
+
+jest.mock('../../hooks/useVerifiableCredential', () => ({
+  ...jest.requireActual('../../hooks/useVerifiableCredential'),
+  useVerifiableCredential: jest.fn(),
+}));
 
 describe('AccountReport', () => {
-  let mockUseEnsName: jest.Mock;
+  const buildToastSpy = () => {
+    const mockUseToast = useToast as jest.Mock;
+    const toastSpy = jest.fn();
+    mockUseToast.mockReturnValue(toastSpy);
+    return {
+      toastSpy,
+    };
+  };
 
-  beforeEach(() => {
-    mockUseEnsName = useEnsName as jest.Mock;
-    mockUseEnsName.mockClear();
-  });
+  const buildEnsNameMock = (name?: string, isLoading = false) => {
+    const mockUseEnsName = useEnsName as jest.Mock;
+    mockUseEnsName.mockImplementation(() => ({
+      data: name,
+      isLoading,
+    }));
+  };
+
+  const buildUseVerifiableCredentialMock = (signError?: VCSignError) => {
+    const useVerifiableCredentialMock = useVerifiableCredential as jest.Mock;
+
+    const signMessageSpy = jest.fn();
+    const buildReportAccountTrustSpy = jest.fn();
+    const getSignedAssertionSpy = jest.fn();
+
+    useVerifiableCredentialMock.mockReturnValue({
+      signMessage: signMessageSpy,
+      accountVCBuilder: {
+        buildReportAccountTrust: buildReportAccountTrustSpy,
+        getSignedAssertion: getSignedAssertionSpy,
+      },
+      signError,
+      issuerAddress: VALID_ACCOUNT_1,
+    });
+
+    return {
+      signMessageSpy,
+      getSignedAssertionSpy,
+      buildReportAccountTrustSpy,
+    };
+  };
+
+  const runOnSign = async () => {
+    const { getByText } = render(
+      <AccountReport
+        address={VALID_ACCOUNT_1}
+        connectedAddress={VALID_ACCOUNT_2}
+      />,
+    );
+
+    await act(async () => getByText('Report').click());
+    await act(async () => getByText('Sign to report').click());
+  };
 
   it('renders', async () => {
-    mockUseEnsName.mockImplementation(() => ({
-      data: 'name',
-      isLoading: false,
-    }));
+    buildEnsNameMock('ens.mock.name');
+    buildUseVerifiableCredentialMock();
 
     const { queryByText, getByText } = render(
-      <AccountReport address={VALID_ACCOUNT_1} />,
+      <AccountReport
+        address={VALID_ACCOUNT_1}
+        connectedAddress={VALID_ACCOUNT_2}
+      />,
     );
 
     await act(async () => getByText('Report').click());
@@ -38,29 +101,31 @@ describe('AccountReport', () => {
     expect(queryByText('Other')).toBeInTheDocument();
   });
 
-  it('assign trimed address to `reportEntity` when `useEnsName` is not ready or return null', async () => {
-    mockUseEnsName.mockImplementation(() => ({
-      data: null,
-      isLoading: true,
-    }));
+  it('assigns trimmed address to `reportEntity` when `useEnsName` is not ready or returns null', async () => {
+    buildEnsNameMock();
+    buildUseVerifiableCredentialMock();
 
     const { queryByText, getByText } = render(
-      <AccountReport address={VALID_ACCOUNT_1} />,
+      <AccountReport
+        address={VALID_ACCOUNT_1}
+        connectedAddress={VALID_ACCOUNT_2}
+      />,
     );
 
     await act(async () => getByText('Report').click());
 
-    expect(queryByText(VALID_ACCOUNT_1)).toBeInTheDocument();
+    expect(queryByText(trimAddress(VALID_ACCOUNT_1))).toBeInTheDocument();
   });
 
-  it('assign ens name to `reportEntity` when `useEnsName` returns a name', async () => {
-    mockUseEnsName.mockImplementation(() => ({
-      data: 'mock.ens.name',
-      isLoading: false,
-    }));
+  it('assigns ens name to `reportEntity` when `useEnsName` returns a name', async () => {
+    buildEnsNameMock('mock.ens.name');
+    buildUseVerifiableCredentialMock();
 
     const { queryByText, getByText } = render(
-      <AccountReport address={VALID_ACCOUNT_1} />,
+      <AccountReport
+        address={VALID_ACCOUNT_1}
+        connectedAddress={VALID_ACCOUNT_2}
+      />,
     );
 
     await act(async () => getByText('Report').click());
@@ -68,38 +133,99 @@ describe('AccountReport', () => {
     expect(queryByText('mock.ens.name')).toBeInTheDocument();
   });
 
-  it('dismiss the modal when sign button clicked', async () => {
-    mockUseEnsName.mockImplementation(() => ({
-      data: 'mock.ens.name',
-      isLoading: false,
-    }));
-
-    const { queryByText, getByText } = render(
-      <AccountReport address={VALID_ACCOUNT_1} />,
-    );
-
-    await act(async () => getByText('Report').click());
-    await act(async () => {
-      getByText('Scamming').click();
-      getByText('Sign to report').click();
-    });
-
-    expect(queryByText('mock.ens.name')).not.toBeInTheDocument();
-  });
-
   it('closes modal when close button is clicked', async () => {
-    mockUseEnsName.mockImplementation(() => ({
-      data: 'mock.ens.name',
-      isLoading: false,
-    }));
+    buildEnsNameMock('mock.ens.name');
+    buildToastSpy();
+    buildUseVerifiableCredentialMock();
 
     const { queryByText, getByLabelText, getByText } = render(
-      <AccountReport address={VALID_ACCOUNT_1} />,
+      <AccountReport
+        address={VALID_ACCOUNT_1}
+        connectedAddress={VALID_ACCOUNT_2}
+      />,
     );
 
     await act(async () => getByText('Report').click());
     await act(async () => getByLabelText('Close').click());
 
     expect(queryByText('mock.ens.name')).not.toBeInTheDocument();
+  });
+
+  describe('when onSign is triggered', () => {
+    it('calls `getSignedAssertion` when `signMessage` returns signature', async () => {
+      buildEnsNameMock('mock.ens.name');
+      buildToastSpy();
+      const {
+        signMessageSpy,
+        getSignedAssertionSpy,
+        buildReportAccountTrustSpy,
+      } = buildUseVerifiableCredentialMock(undefined);
+
+      signMessageSpy.mockResolvedValue('0xSignature');
+
+      await runOnSign();
+
+      expect(signMessageSpy).toHaveBeenCalled();
+      expect(getSignedAssertionSpy).toHaveBeenCalled();
+      expect(buildReportAccountTrustSpy).toHaveBeenCalledWith(
+        VALID_ACCOUNT_2,
+        VALID_ACCOUNT_1,
+        [],
+      );
+    });
+
+    it('calls `getSignedAssertion` with selected reasons when `signMessage` returns signature', async () => {
+      buildEnsNameMock('mock.ens.name');
+      buildToastSpy();
+      const {
+        signMessageSpy,
+        getSignedAssertionSpy,
+        buildReportAccountTrustSpy,
+      } = buildUseVerifiableCredentialMock(undefined);
+
+      signMessageSpy.mockResolvedValue('0xSignature');
+
+      const { getByText } = render(
+        <AccountReport
+          address={VALID_ACCOUNT_1}
+          connectedAddress={VALID_ACCOUNT_2}
+        />,
+      );
+
+      await act(async () => getByText('Report').click());
+
+      await act(async () => {
+        getByText('Scamming').click();
+        getByText('Other').click();
+      });
+
+      await act(async () => getByText('Sign to report').click());
+
+      expect(signMessageSpy).toHaveBeenCalled();
+      expect(getSignedAssertionSpy).toHaveBeenCalled();
+      expect(buildReportAccountTrustSpy).toHaveBeenCalledWith(
+        VALID_ACCOUNT_2,
+        VALID_ACCOUNT_1,
+        ['Scamming', 'Other'],
+      );
+    });
+
+    it('does not call `getSignedAssertion` when `signMessage` returns null', async () => {
+      buildEnsNameMock('mock.ens.name');
+      buildToastSpy();
+      const {
+        signMessageSpy,
+        getSignedAssertionSpy,
+        buildReportAccountTrustSpy,
+      } = buildUseVerifiableCredentialMock(undefined);
+
+      signMessageSpy.mockResolvedValue(null);
+
+      await runOnSign();
+
+      expect(signMessageSpy).toHaveBeenCalled();
+      expect(buildReportAccountTrustSpy).toHaveBeenCalled();
+      expect(getSignedAssertionSpy).not.toHaveBeenCalled();
+    });
   });
 });

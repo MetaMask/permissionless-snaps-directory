@@ -49,7 +49,10 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
             <HStack>
               {isConnected && !isMyAccount && (
                 <>
-                  <AccountReport address={address} />
+                  <AccountReport
+                    address={address}
+                    connectedAddress={connectedAddress as Hex}
+                  />
                   <AccountTEEndorsement
                     address={address}
                     connectedAddress={connectedAddress as Hex}

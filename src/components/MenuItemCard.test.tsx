@@ -94,13 +94,13 @@ describe('MenuItemCard', () => {
                 <div
                   class="chakra-stack css-1uodvt1"
                 >
-                  <p
-                    class="chakra-text css-0"
+                  <div
+                    class="css-0"
                   >
                     <span>
                       Icon
                     </span>
-                  </p>
+                  </div>
                   <p
                     class="chakra-text css-0"
                   >

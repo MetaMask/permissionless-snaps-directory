@@ -29,6 +29,14 @@ msgstr ""
 msgid "{shortSubAddress} has been added to your trust circle"
 msgstr ""
 
+#: src/features/snap/components/EndorseSnap.tsx
+msgid "{snapName} has been endorsed."
+msgstr ""
+
+#: src/features/snap/components/ReportSnap.tsx
+msgid "{snapName} has been reported."
+msgstr ""
+
 #: src/components/FooterCopyright.tsx
 msgid "©{0} MetaMask. All rights reserved."
 msgstr ""
@@ -234,8 +242,16 @@ msgstr ""
 msgid "Endorse"
 msgstr ""
 
+#: src/features/snap/components/modals/EndorseSnapModal.tsx
+msgid "Endorse <0>{snapName}</0>"
+msgstr ""
+
 #: src/components/EndorseButton.tsx
 msgid "Endorsed"
+msgstr ""
+
+#: src/features/account/MoreOptionMenu.tsx
+msgid "Error"
 msgstr ""
 
 #: src/features/account/MoreOptionMenu.tsx
@@ -266,13 +282,17 @@ msgstr ""
 msgid "External link"
 msgstr ""
 
-#: src/features/account/AccountTEEndorsement.tsx
-#: src/features/account/AccountTEEndorsement.tsx
+#: src/features/account/MoreOptionMenu.tsx
+msgid "Failed to copy profile link to clipboard"
+msgstr ""
+
+#: src/hooks/useSignErrorHandler.ts
+#: src/hooks/useSignErrorHandler.ts
 msgid "Failed to sign the message"
 msgstr ""
 
-#: src/features/account/AccountTEEndorsement.tsx
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
+#: src/hooks/useSignErrorHandler.ts
+#: src/hooks/useSignErrorHandler.ts
 msgid "Failed to verify signature"
 msgstr ""
 
@@ -301,6 +321,10 @@ msgstr ""
 msgid "Go home"
 msgstr ""
 
+#: src/features/snap/components/EndorseSnap.tsx
+msgid "Good user experience"
+msgstr ""
+
 #: src/components/InstallUnsupportedDesktopUpdate.tsx
 #: src/components/InstallUnsupportedMobile.tsx
 msgid "Got it"
@@ -320,6 +344,10 @@ msgstr ""
 
 #: src/features/account/AccountReport.tsx
 msgid "Harassment"
+msgstr ""
+
+#: src/features/account/AccountReport.tsx
+msgid "has been reported"
 msgstr ""
 
 #: src/features/snap/components/MetadataItems.tsx
@@ -362,8 +390,8 @@ msgstr ""
 msgid "Interoperability"
 msgstr ""
 
-#: src/features/account/AccountTEEndorsement.tsx
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
+#: src/hooks/useSignErrorHandler.ts
+#: src/hooks/useSignErrorHandler.ts
 msgid "Invalid Signature"
 msgstr ""
 
@@ -386,6 +414,8 @@ msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
+#: src/features/snap/components/modals/EndorseSnapModal.tsx
+#: src/features/snap/components/modals/ReportSnapModal.tsx
 msgid "Learn more"
 msgstr ""
 
@@ -483,6 +513,10 @@ msgstr ""
 msgid "Report for <0>{reportEntity}</0> as a malicious actor"
 msgstr ""
 
+#: src/features/snap/components/modals/ReportSnapModal.tsx
+msgid "Report for <0>{snapName}</0> as a malicious snap"
+msgstr ""
+
 #: src/components/ReportButton.tsx
 msgid "Reported"
 msgstr ""
@@ -498,6 +532,10 @@ msgstr ""
 
 #: src/features/account/AccountProfileTabs.tsx
 msgid "Reviews"
+msgstr ""
+
+#: src/features/snap/components/ReportSnap.tsx
+msgid "Scam"
 msgstr ""
 
 #: src/features/account/AccountReport.tsx
@@ -544,6 +582,10 @@ msgstr ""
 msgid "See Latest"
 msgstr ""
 
+#: src/features/snap/components/EndorseSnap.tsx
+msgid "Seems secure"
+msgstr ""
+
 #: src/components/icons/index.ts
 msgid "Share"
 msgstr ""
@@ -557,7 +599,12 @@ msgstr ""
 msgid "Sign to add"
 msgstr ""
 
+#: src/features/snap/components/modals/EndorseSnapModal.tsx
+msgid "Sign to endorse"
+msgstr ""
+
 #: src/features/account/components/modals/AccountReportModal.tsx
+#: src/features/snap/components/modals/ReportSnapModal.tsx
 msgid "Sign to report"
 msgstr ""
 
@@ -593,7 +640,10 @@ msgstr ""
 msgid "Stay in the know with notifications and chat directly in MetaMask."
 msgstr ""
 
+#: src/features/account/AccountReport.tsx
 #: src/features/account/AccountTEEndorsement.tsx
+#: src/features/snap/components/EndorseSnap.tsx
+#: src/features/snap/components/ReportSnap.tsx
 msgid "Success"
 msgstr ""
 
@@ -605,6 +655,14 @@ msgstr ""
 
 #: src/pages/404.tsx
 msgid "The page you're looking for can't be found."
+msgstr ""
+
+#: src/features/snap/components/modals/EndorseSnapModal.tsx
+msgid "This action will endorse the snap as secure in your community."
+msgstr ""
+
+#: src/features/snap/components/modals/ReportSnapModal.tsx
+msgid "This action will flag the snap as a malicious in your community."
 msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
@@ -631,8 +689,9 @@ msgstr ""
 msgid "Trusted technical abilities"
 msgstr ""
 
-#: src/features/account/AccountTEEndorsement.tsx
-msgid "Unknown error"
+#: src/hooks/useSignErrorHandler.ts
+#: src/hooks/useSignErrorHandler.ts
+msgid "Unknown Error"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -659,6 +718,10 @@ msgstr ""
 msgid "Use MetaMask Beyond Ethereum"
 msgstr ""
 
+#: src/features/snap/components/EndorseSnap.tsx
+msgid "Useful"
+msgstr ""
+
 #: src/components/icons/index.ts
 msgid "User check"
 msgstr ""
@@ -673,6 +736,10 @@ msgstr ""
 
 #: src/features/snaps/components/SnapCard.tsx
 msgid "View"
+msgstr ""
+
+#: src/features/snap/components/ReportSnap.tsx
+msgid "Vulnerable"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -693,9 +760,4 @@ msgstr ""
 
 #: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Your level of confidence in <0>{trustEntity}</0> skill set"
-msgstr ""
-
-#: src/features/account/AccountTEEndorsement.tsx
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
-msgid "Your signature is invalid"
 msgstr ""
