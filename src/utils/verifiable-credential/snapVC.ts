@@ -11,7 +11,7 @@ import {
 } from './types';
 
 export class SnapVerifiableCredential extends BaseVerifiableCredential {
-  credentialType: TrustCredentialType = TrustCredentialType.StatusCredential;
+  credentialType: TrustCredentialType = TrustCredentialType.ReviewCredential;
 
   credentialSubjectTypes = {
     StatusReason: [

@@ -75,7 +75,7 @@ describe('SnapVerifiableCredential', () => {
         domain: typedDataDomain,
         message: {
           '@context': ['https://www.w3.org/2018/credentials/v2'],
-          type: ['VerifiableCredential', 'StatusCredential'],
+          type: ['VerifiableCredential', 'ReviewCredential'],
           issuer: `did:pkh:eip155:1:${VALID_ACCOUNT_1}`,
           issuanceDate: expect.any(String),
           credentialSubject: {
@@ -102,7 +102,7 @@ describe('SnapVerifiableCredential', () => {
         domain: typedDataDomain,
         message: {
           '@context': ['https://www.w3.org/2018/credentials/v2'],
-          type: ['VerifiableCredential', 'StatusCredential'],
+          type: ['VerifiableCredential', 'ReviewCredential'],
           issuer: `did:pkh:eip155:1:${VALID_ACCOUNT_1}`,
           issuanceDate: expect.any(String),
           credentialSubject: {

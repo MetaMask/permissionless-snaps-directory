@@ -19,7 +19,7 @@ export enum SnapStatusReasonType {
 export enum TrustCredentialType {
   TrustCredential = 'TrustCredential',
   VerifiableCredential = 'VerifiableCredential',
-  StatusCredential = 'StatusCredential',
+  ReviewCredential = 'ReviewCredential',
 }
 
 export type PKHDid = `did:pkh:eip155:${string}`;
