@@ -57,4 +57,4 @@ jobs:
     if: github.event_name == 'push'
     uses: ./.github/workflows/publish-staging-site.yml
     with:
-      destination_dir: main
+      destination_dir: dev
