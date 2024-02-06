@@ -1,78 +1,83 @@
 import { SnapVerifiableCredential } from './snapVC';
 import { VALID_ACCOUNT_1, SNAP_SHASUM_1 } from '../test-utils';
 
+const typedDataStruct = {
+  EIP712Domain: [
+    { name: 'name', type: 'string' },
+    { name: 'version', type: 'string' },
+    { name: 'chainId', type: 'uint256' },
+  ],
+  StatusReason: [
+    {
+      name: 'type',
+      type: 'string',
+    },
+    {
+      name: 'value',
+      type: 'string[]',
+    },
+  ],
+  CredentialSubject: [
+    {
+      name: 'id',
+      type: 'string',
+    },
+    {
+      name: 'currentStatus',
+      type: 'string',
+    },
+    {
+      name: 'statusReason',
+      type: 'StatusReason',
+    },
+  ],
+  VerifiableCredential: [
+    {
+      name: '@context',
+      type: 'string[]',
+    },
+    {
+      name: 'type',
+      type: 'string[]',
+    },
+    {
+      name: 'issuer',
+      type: 'string',
+    },
+    {
+      name: 'credentialSubject',
+      type: 'CredentialSubject',
+    },
+    {
+      name: 'issuanceDate',
+      type: 'string',
+    },
+  ],
+};
+
+const typedDataDomain = {
+  name: 'VerifiableCredential',
+  version: '1',
+  chainId: 1,
+};
+
 describe('SnapVerifiableCredential', () => {
   const buildSnapVerifiableCredential = () => {
     return new SnapVerifiableCredential(1);
   };
 
-  const types = {
-    EIP712Domain: [
-      { name: 'name', type: 'string' },
-      { name: 'version', type: 'string' },
-      { name: 'chainId', type: 'uint256' },
-    ],
-    StatusReason: [
-      {
-        name: 'type',
-        type: 'string',
-      },
-      {
-        name: 'value',
-        type: 'string[]',
-      },
-    ],
-    CredentialSubject: [
-      {
-        name: 'id',
-        type: 'string',
-      },
-      {
-        name: 'currentStatus',
-        type: 'string',
-      },
-      {
-        name: 'statusReason',
-        type: 'StatusReason',
-      },
-    ],
-    StatusCredential: [
-      {
-        name: '@context',
-        type: 'string[]',
-      },
-      {
-        name: 'type',
-        type: 'string[]',
-      },
-      {
-        name: 'issuer',
-        type: 'string',
-      },
-      {
-        name: 'credentialSubject',
-        type: 'CredentialSubject',
-      },
-    ],
-  };
-
-  const domain = {
-    name: 'EIP712TrustCredential',
-    version: '1',
-    chainId: 1,
-  };
-
-  describe('buildEndorsedPayload', () => {
+  describe('buildEndosedPayload', () => {
     it('builds a valid verifiable credential', () => {
       const vc = buildSnapVerifiableCredential();
       expect(
         vc.buildEndorsedPayload(VALID_ACCOUNT_1, SNAP_SHASUM_1, ['reason']),
       ).toStrictEqual({
-        domain,
+        domain: typedDataDomain,
         message: {
           '@context': ['https://www.w3.org/2018/credentials/v2'],
-          type: ['VerifiableCredential', 'StatusCredential'],
+          type: ['VerifiableCredential', 'ReviewCredential'],
           issuer: `did:pkh:eip155:1:${VALID_ACCOUNT_1}`,
+          issuanceDate: expect.any(String),
           credentialSubject: {
             id: `snap://${SNAP_SHASUM_1}`,
             currentStatus: 'Endorsed',
@@ -82,8 +87,8 @@ describe('SnapVerifiableCredential', () => {
             },
           },
         },
-        types,
-        primaryType: 'StatusCredential',
+        types: typedDataStruct,
+        primaryType: 'VerifiableCredential',
       });
     });
   });
@@ -94,11 +99,12 @@ describe('SnapVerifiableCredential', () => {
       expect(
         vc.buildDisputedPayload(VALID_ACCOUNT_1, SNAP_SHASUM_1, ['reason']),
       ).toStrictEqual({
-        domain,
+        domain: typedDataDomain,
         message: {
           '@context': ['https://www.w3.org/2018/credentials/v2'],
-          type: ['VerifiableCredential', 'StatusCredential'],
+          type: ['VerifiableCredential', 'ReviewCredential'],
           issuer: `did:pkh:eip155:1:${VALID_ACCOUNT_1}`,
+          issuanceDate: expect.any(String),
           credentialSubject: {
             id: `snap://${SNAP_SHASUM_1}`,
             currentStatus: 'Disputed',
@@ -108,8 +114,8 @@ describe('SnapVerifiableCredential', () => {
             },
           },
         },
-        types,
-        primaryType: 'StatusCredential',
+        types: typedDataStruct,
+        primaryType: 'VerifiableCredential',
       });
     });
   });

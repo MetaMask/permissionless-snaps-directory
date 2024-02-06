@@ -1,5 +1,6 @@
 import type { Hex } from '@metamask/utils';
 import type { SignTypedDataArgs } from '@wagmi/core';
+import type { TypedDataDomain } from 'viem';
 
 import {
   TrustCredentialType,
@@ -7,14 +8,59 @@ import {
   type CredentialSubject,
   type Assertion,
   type SignedAssertion,
+  type TypedDataTypes,
 } from './types';
 
 export abstract class BaseVerifiableCredential {
   chainId: number;
 
-  abstract primaryType: TrustCredentialType;
+  primaryType = TrustCredentialType.VerifiableCredential;
 
-  abstract credentialSubjectTypes: Record<string, any>;
+  eip712DomainType = {
+    EIP712Domain: [
+      { name: 'name', type: 'string' },
+      { name: 'version', type: 'string' },
+      { name: 'chainId', type: 'uint256' },
+    ],
+  };
+
+  verifiableCredentialType = {
+    VerifiableCredential: [
+      {
+        name: '@context',
+        type: 'string[]',
+      },
+      {
+        name: 'type',
+        type: 'string[]',
+      },
+      {
+        name: 'issuer',
+        type: 'string',
+      },
+      {
+        name: 'credentialSubject',
+        type: 'CredentialSubject',
+      },
+      {
+        name: 'issuanceDate',
+        type: 'string',
+      },
+    ],
+  };
+
+  proofTypes = {
+    Proof: [
+      { name: 'created', type: 'string' },
+      { name: 'proofPurpose', type: 'string' },
+      { name: 'type', type: 'string' },
+      { name: 'verificationMethod', type: 'string' },
+    ],
+  };
+
+  abstract credentialType: TrustCredentialType;
+
+  abstract credentialSubjectTypes: TypedDataTypes;
 
   constructor(chainId: number) {
     this.chainId = chainId;
@@ -28,17 +74,19 @@ export abstract class BaseVerifiableCredential {
     issuer: PKHDid,
     credentialSubject: CredentialSubject,
   ): Assertion {
+    const issuanceDate = new Date().toISOString();
     return {
       '@context': ['https://www.w3.org/2018/credentials/v2'],
-      type: [TrustCredentialType.VerifiableCredential, this.primaryType],
+      type: [this.primaryType, this.credentialType],
+      issuanceDate,
       issuer,
       credentialSubject,
     };
   }
 
-  protected getEIP712TrustCredentialDomain = () => {
+  protected getCredentialDomain = (): TypedDataDomain => {
     return {
-      name: 'EIP712TrustCredential',
+      name: this.primaryType,
       version: '1',
       chainId: this.chainId,
     };
@@ -49,44 +97,46 @@ export abstract class BaseVerifiableCredential {
     credentialSubject: CredentialSubject,
   ): SignTypedDataArgs {
     return {
-      domain: this.getEIP712TrustCredentialDomain(),
+      domain: this.getCredentialDomain(),
       message: this.getMessagePayload(
         this.getIssuerDid(address),
         credentialSubject,
       ),
-      types: this.credentialSubjectTypes,
+      types: {
+        ...this.eip712DomainType,
+        ...this.verifiableCredentialType,
+        ...this.credentialSubjectTypes,
+      },
       primaryType: this.primaryType,
     };
   }
 
-  protected getEIP712Proof(signArg: SignTypedDataArgs, signature: Hex) {
+  protected getSignedEIP712Proof(signArg: SignTypedDataArgs, signature: Hex) {
+    const createDate = new Date().toISOString();
+    const verifiableCredential =
+      this.verifiableCredentialType.VerifiableCredential.slice();
+    verifiableCredential.push({
+      name: 'proof',
+      type: 'Proof',
+    });
+
     return {
       type: 'EthereumEip712Signature2021',
       proofValue: signature,
       proofPurpose: 'assertionMethod',
+      verificationMethod: `${
+        (signArg.message as Assertion).issuer
+      }#blockchainAccountId`,
+      created: createDate,
       eip712: {
-        domain: signArg.domain,
-        types: signArg.types,
-        message: signArg.message,
-        primaryType: signArg.primaryType,
-        Proof: [
-          {
-            name: 'created',
-            type: 'string',
-          },
-          {
-            name: 'proofPurpose',
-            type: 'string',
-          },
-          {
-            name: 'type',
-            type: 'string',
-          },
-          {
-            name: 'verificationMethod',
-            type: 'string',
-          },
-        ],
+        domain: this.getCredentialDomain(),
+        types: {
+          ...this.eip712DomainType,
+          VerifiableCredential: verifiableCredential,
+          ...this.credentialSubjectTypes,
+          Proof: this.proofTypes.Proof,
+        },
+        primaryType: this.primaryType,
       },
     };
   }
@@ -97,7 +147,7 @@ export abstract class BaseVerifiableCredential {
   ): SignedAssertion {
     return {
       ...(signArg.message as Assertion),
-      proof: this.getEIP712Proof(signArg, signature),
+      proof: this.getSignedEIP712Proof(signArg, signature),
     };
   }
 }

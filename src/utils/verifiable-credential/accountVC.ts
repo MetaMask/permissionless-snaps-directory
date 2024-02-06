@@ -11,11 +11,6 @@ import {
 
 export class AccountVerifiableCredential extends BaseVerifiableCredential {
   credentialSubjectTypes = {
-    EIP712Domain: [
-      { name: 'name', type: 'string' },
-      { name: 'version', type: 'string' },
-      { name: 'chainId', type: 'uint256' },
-    ],
     Trustworthiness: [
       {
         name: 'scope',
@@ -40,27 +35,9 @@ export class AccountVerifiableCredential extends BaseVerifiableCredential {
         type: 'Trustworthiness[]',
       },
     ],
-    TrustCredential: [
-      {
-        name: '@context',
-        type: 'string[]',
-      },
-      {
-        name: 'type',
-        type: 'string[]',
-      },
-      {
-        name: 'issuer',
-        type: 'string',
-      },
-      {
-        name: 'credentialSubject',
-        type: 'CredentialSubject',
-      },
-    ],
   };
 
-  primaryType = TrustCredentialType.TrustCredential;
+  credentialType = TrustCredentialType.TrustCredential;
 
   protected getSubjectDid(subjectAddress: Hex): PKHDid {
     return `did:pkh:eip155:${this.chainId}:${subjectAddress}`;
