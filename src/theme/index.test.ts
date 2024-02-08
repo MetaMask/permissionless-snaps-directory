@@ -384,6 +384,17 @@ describe('theme', () => {
                   "textTransform": "none",
                 },
               },
+              "warning": Object {
+                "container": Object {
+                  "background": "warning.muted",
+                  "borderRadius": "1.25rem",
+                  "color": "warning.default",
+                  "gap": "2",
+                  "paddingX": "4",
+                  "paddingY": "2",
+                  "textTransform": "none",
+                },
+              },
             },
           },
           "Text": Object {
@@ -528,6 +539,16 @@ describe('theme', () => {
               },
               "muted": Object {
                 "default": "#24272A1A",
+              },
+            },
+            "warning": Object {
+              "default": Object {
+                "_dark": "#C2540A",
+                "default": "#C2540A",
+              },
+              "muted": Object {
+                "_dark": "#C2540A15",
+                "default": "#C2540A1A",
               },
             },
           },

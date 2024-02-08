@@ -83,6 +83,16 @@ export const semanticTokens: SemanticTokens = {
         _dark: '#D738471A',
       },
     },
+    warning: {
+      default: {
+        default: '#C2540A',
+        _dark: '#C2540A',
+      },
+      muted: {
+        default: '#C2540A1A',
+        _dark: '#C2540A15',
+      },
+    },
     default: {
       default: {
         default: '#F2F4F6',

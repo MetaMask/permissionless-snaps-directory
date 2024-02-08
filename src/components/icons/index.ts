@@ -4,6 +4,7 @@ import BaseAuditorIcon from './auditor.svg';
 import BaseAvatarBlueIcon from './avatar-blue.svg';
 import BaseAvatarRedIcon from './avatar-red.svg';
 import BaseBackIcon from './back.svg';
+import BaseCheckFilledShadowIcon from './check-filled-shadow.svg';
 import BaseCheckThinIcon from './check-thin.svg';
 import BaseCheckIcon from './check.svg';
 import BaseCloseIcon from './close.svg';
@@ -27,12 +28,15 @@ import BaseQuestionRedIcon from './question-red.svg';
 import BaseReviewerIcon from './reviewer.svg';
 import BaseSearchIcon from './search.svg';
 import BaseShareIcon from './share.svg';
+import BaseSignHexagonIcon from './sign-hexagon.svg';
 import BaseSignIcon from './sign.svg';
 import BaseSnapIcon from './snap.svg';
+import BaseStarFilledShadowIcon from './star-filled-shadow.svg';
 import BaseStarFilledIcon from './star-filled.svg';
 import BaseTransactionInsightsIcon from './transaction-insights.svg';
 import BaseUserCheckIcon from './user-check.svg';
 import BaseUserCircleAddFillIcon from './user-cirlce-add-filled.svg';
+import BaseWarningFilledShadowIcon from './warning-filled-shadow.svg';
 import BaseWarningFilledIcon from './warning-filled.svg';
 
 export const AuditorIcon = wrapIcon(BaseAuditorIcon, defineMessage`Auditor`);
@@ -57,6 +61,11 @@ export const QuestionRedIcon = wrapIcon(
 export const BackIcon = wrapIcon(BaseBackIcon, defineMessage`Back`);
 
 export const CloseIcon = wrapIcon(BaseCloseIcon, defineMessage`Close`);
+
+export const CheckFilledShadowIcon = wrapIcon(
+  BaseCheckFilledShadowIcon,
+  defineMessage`Check`,
+);
 
 export const CheckIcon = wrapIcon(BaseCheckIcon, defineMessage`Check`);
 
@@ -129,9 +138,18 @@ export const SearchIcon = wrapIcon(BaseSearchIcon, defineMessage`Search`);
 export const ShareIcon = wrapIcon(BaseShareIcon, defineMessage`Share`);
 export const SnapIcon = wrapIcon(BaseSnapIcon, defineMessage`Snap`);
 
+export const SignHexagonIcon = wrapIcon(
+  BaseSignHexagonIcon,
+  defineMessage`Sign`,
+);
 export const SignIcon = wrapIcon(BaseSignIcon, defineMessage`Sign`);
 
 export const StarFilledIcon = wrapIcon(BaseStarFilledIcon, defineMessage`Star`);
+
+export const StarFilledShadowIcon = wrapIcon(
+  BaseStarFilledShadowIcon,
+  defineMessage`Star`,
+);
 
 export const TransactionInsightsIcon = wrapIcon(
   BaseTransactionInsightsIcon,
@@ -150,6 +168,11 @@ export const UserCircleAddIcon = wrapIcon(
 
 export const WarningFilledIcon = wrapIcon(
   BaseWarningFilledIcon,
+  defineMessage`Warning`,
+);
+
+export const WarningFilledShadowIcon = wrapIcon(
+  BaseWarningFilledShadowIcon,
   defineMessage`Warning`,
 );
 

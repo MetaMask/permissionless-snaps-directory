@@ -13,8 +13,32 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
+msgid "{0}"
+msgstr ""
+
+#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
+msgid "{0} by Community"
+msgstr ""
+
+#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
+#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
+#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
+msgid "{0} endorsements"
+msgstr ""
+
+#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
+#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
+#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
+msgid "{0} reports"
+msgstr ""
+
 #: src/components/RequestSignModal.tsx
 msgid "{buttonText}"
+msgstr ""
+
+#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
+msgid "{linkLabel}"
 msgstr ""
 
 #: src/components/PostInstallModal.tsx
@@ -39,6 +63,10 @@ msgstr ""
 
 #: src/components/FooterCopyright.tsx
 msgid "©{0} MetaMask. All rights reserved."
+msgstr ""
+
+#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
+msgid "<0>{snapName}</0> {suffixText}"
 msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
@@ -127,6 +155,7 @@ msgstr ""
 
 #: src/components/icons/index.ts
 #: src/components/icons/index.ts
+#: src/components/icons/index.ts
 msgid "Check"
 msgstr ""
 
@@ -137,6 +166,10 @@ msgstr ""
 #: src/components/icons/index.ts
 #: src/constants.ts
 msgid "Communication"
+msgstr ""
+
+#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
+msgid "Community Sentiment"
 msgstr ""
 
 #: src/components/ConnectButtonInner.tsx
@@ -165,6 +198,10 @@ msgstr ""
 
 #: src/features/account/MoreOptionMenu.tsx
 msgid "Copy profile link"
+msgstr ""
+
+#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
+msgid "could not be evaluated by your community and might be unsecure"
 msgstr ""
 
 #: src/features/banner/components/create-snap-banner/CreateSnapBanner.tsx
@@ -250,6 +287,11 @@ msgstr ""
 msgid "Endorsed"
 msgstr ""
 
+#: src/features/snap/components/community-sentiment/utils.test.ts
+#: src/features/snap/components/community-sentiment/utils.ts
+msgid "error"
+msgstr ""
+
 #: src/features/account/MoreOptionMenu.tsx
 msgid "Error"
 msgstr ""
@@ -317,6 +359,10 @@ msgstr ""
 msgid "Get in touch"
 msgstr ""
 
+#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
+msgid "GitHub"
+msgstr ""
+
 #: src/pages/404.tsx
 msgid "Go home"
 msgstr ""
@@ -344,6 +390,14 @@ msgstr ""
 
 #: src/features/account/AccountReport.tsx
 msgid "Harassment"
+msgstr ""
+
+#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
+msgid "has been evaluated as unsecure by your community"
+msgstr ""
+
+#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
+msgid "has been evaluated as unsecured by your community"
 msgstr ""
 
 #: src/features/account/AccountReport.tsx
@@ -393,6 +447,10 @@ msgstr ""
 #: src/hooks/useSignErrorHandler.ts
 #: src/hooks/useSignErrorHandler.ts
 msgid "Invalid Signature"
+msgstr ""
+
+#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
+msgid "is currently under review by your community and may be insecure"
 msgstr ""
 
 #: src/features/snap/components/Metadata.tsx
@@ -591,6 +649,7 @@ msgid "Share"
 msgstr ""
 
 #: src/components/icons/index.ts
+#: src/components/icons/index.ts
 #: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Sign"
 msgstr ""
@@ -628,6 +687,11 @@ msgstr ""
 msgid "Source Code"
 msgstr ""
 
+#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
+msgid "SOURCE CODE"
+msgstr ""
+
+#: src/components/icons/index.ts
 #: src/components/icons/index.ts
 msgid "Star"
 msgstr ""
@@ -638,6 +702,13 @@ msgstr ""
 
 #: src/constants.ts
 msgid "Stay in the know with notifications and chat directly in MetaMask."
+msgstr ""
+
+#: src/features/snap/components/community-sentiment/utils.test.ts
+#: src/features/snap/components/community-sentiment/utils.test.ts
+#: src/features/snap/components/community-sentiment/utils.ts
+#: src/features/snap/components/community-sentiment/utils.ts
+msgid "success"
 msgstr ""
 
 #: src/features/account/AccountReport.tsx
@@ -742,6 +813,14 @@ msgstr ""
 msgid "Vulnerable"
 msgstr ""
 
+#: src/features/snap/components/community-sentiment/utils.test.ts
+#: src/features/snap/components/community-sentiment/utils.test.ts
+#: src/features/snap/components/community-sentiment/utils.ts
+#: src/features/snap/components/community-sentiment/utils.ts
+msgid "warning"
+msgstr ""
+
+#: src/components/icons/index.ts
 #: src/components/icons/index.ts
 msgid "Warning"
 msgstr ""
