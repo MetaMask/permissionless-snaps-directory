@@ -5,7 +5,7 @@ import { useState, type FunctionComponent } from 'react';
 import {
   MultipleCheckboxOptions,
   RequestSignModal,
-  StarFilledIcon,
+  StarFilledShadowIcon,
 } from '../../../../components';
 
 export type EndorseSnapModalProps = {
@@ -39,7 +39,7 @@ export const EndorseSnapModal: FunctionComponent<EndorseSnapModalProps> = ({
       isOpen={isOpen}
       isLoading={isLoading}
       mode="positive"
-      headerIcon={<StarFilledIcon />}
+      headerIcon={<StarFilledShadowIcon />}
       buttonText={t`Sign to endorse`}
       onClose={onClose}
       onSignButtonClick={onSignButtonClick}

@@ -385,6 +385,17 @@ describe('theme', () => {
                   "textTransform": "none",
                 },
               },
+              "warning": Object {
+                "container": Object {
+                  "background": "warning.muted",
+                  "borderRadius": "1.25rem",
+                  "color": "warning.default",
+                  "gap": "2",
+                  "paddingX": "4",
+                  "paddingY": "2",
+                  "textTransform": "none",
+                },
+              },
             },
           },
           "Text": Object {
