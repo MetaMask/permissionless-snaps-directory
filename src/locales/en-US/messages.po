@@ -13,28 +13,13 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
-msgid "{0}"
-msgstr ""
-
-#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
-msgid "{0} by Community"
-msgstr ""
-
-#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
-#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
-#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
-msgid "{0} endorsements"
-msgstr ""
-
-#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
-#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
-#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
-msgid "{0} reports"
-msgstr ""
-
 #: src/components/RequestSignModal.tsx
 msgid "{buttonText}"
+msgstr ""
+
+#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
+#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
+msgid "{endorsementsCount} endorsements"
 msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
@@ -47,6 +32,20 @@ msgstr ""
 
 #: src/pages/{Category.name}/index.tsx
 msgid "{nameText} Snaps on the MetaMask Snaps Directory"
+msgstr ""
+
+#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
+#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
+#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
+msgid "{reportsCount} reports"
+msgstr ""
+
+#: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
+msgid "{sentimentType}"
+msgstr ""
+
+#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
+msgid "{sentimentType} by Community"
 msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
@@ -448,12 +447,15 @@ msgstr ""
 msgid "Endorsed"
 msgstr ""
 
-#: src/features/snap/components/community-sentiment/utils.test.ts
 #: src/features/snap/components/community-sentiment/utils.ts
 msgid "error"
 msgstr ""
 
 #: src/features/account/MoreOptionMenu.tsx
+#: src/features/snap/components/EndorseSnap.tsx
+#: src/features/snap/components/EndorseSnap.tsx
+#: src/features/snap/components/ReportSnap.tsx
+#: src/features/snap/components/ReportSnap.tsx
 msgid "Error"
 msgstr ""
 
@@ -499,6 +501,16 @@ msgstr ""
 
 #: src/features/account/MoreOptionMenu.tsx
 msgid "Failed to copy profile link to clipboard"
+msgstr ""
+
+#: src/features/snap/components/EndorseSnap.tsx
+#: src/features/snap/components/EndorseSnap.tsx
+msgid "Failed to create endorsement for {snapName}."
+msgstr ""
+
+#: src/features/snap/components/ReportSnap.tsx
+#: src/features/snap/components/ReportSnap.tsx
+msgid "Failed to create report for {snapName}."
 msgstr ""
 
 #: src/hooks/useSignErrorHandler.ts
@@ -1001,8 +1013,6 @@ msgstr ""
 msgid "Store and manage its data on your device"
 msgstr ""
 
-#: src/features/snap/components/community-sentiment/utils.test.ts
-#: src/features/snap/components/community-sentiment/utils.test.ts
 #: src/features/snap/components/community-sentiment/utils.ts
 #: src/features/snap/components/community-sentiment/utils.ts
 msgid "success"
@@ -1142,8 +1152,6 @@ msgstr ""
 msgid "Vulnerable"
 msgstr ""
 
-#: src/features/snap/components/community-sentiment/utils.test.ts
-#: src/features/snap/components/community-sentiment/utils.test.ts
 #: src/features/snap/components/community-sentiment/utils.ts
 #: src/features/snap/components/community-sentiment/utils.ts
 msgid "warning"

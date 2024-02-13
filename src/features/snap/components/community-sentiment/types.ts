@@ -3,11 +3,5 @@ export enum SentimentType {
   Secured = 'Secured',
   InReview = 'In Review',
   Unsecured = 'Unsecured',
-  UserFriendly = 'User friendly',
+  Unknown = 'Unknown',
 }
-
-export type SentimentData = {
-  type: SentimentType;
-  endorsements: number;
-  reports: number;
-};

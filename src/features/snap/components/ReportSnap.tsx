@@ -4,9 +4,13 @@ import { useState, type FunctionComponent } from 'react';
 
 import { ReportSnapModal } from './modals/ReportSnapModal';
 import { ReportButton } from '../../../components';
-import { useVerifiableCredential } from '../../../hooks';
+import { useDispatch, useVerifiableCredential } from '../../../hooks';
 import { useSignErrorHandler } from '../../../hooks/useSignErrorHandler';
 import useToastMsg from '../../../hooks/useToastMsg';
+import {
+  createSnapAssertion,
+  fetchSnapAssertionsForSnapId,
+} from '../assertions/api';
 
 type ReportSnapProps = {
   address: Hex;
@@ -21,7 +25,9 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
 
-  const { showSuccessMsg } = useToastMsg();
+  const dispatch = useDispatch();
+
+  const { showSuccessMsg, showErrorMsg } = useToastMsg();
 
   const { signMessage, signError, snapVCBuilder } = useVerifiableCredential();
 
@@ -41,11 +47,29 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
     const signature = await signMessage(VC);
     if (signature) {
       const assertion = snapVCBuilder.getSignedAssertion(VC, signature);
-      console.log('Snap Report assertion', assertion);
-      showSuccessMsg({
-        title: t`Success`,
-        description: t`${snapName} has been reported.`,
-      });
+      dispatch(createSnapAssertion(assertion))
+        .then(async (action) => {
+          if (action.type.endsWith('fulfilled')) {
+            dispatch(fetchSnapAssertionsForSnapId(snapChecksum)).catch(
+              (error) => console.log(error),
+            );
+            showSuccessMsg({
+              title: t`Success`,
+              description: t`${snapName} has been reported.`,
+            });
+          } else {
+            showErrorMsg({
+              title: t`Error`,
+              description: t`Failed to create report for ${snapName}.`,
+            });
+          }
+        })
+        .catch(() => {
+          showErrorMsg({
+            title: t`Error`,
+            description: t`Failed to create report for ${snapName}.`,
+          });
+        });
     }
     setShowModal(false);
   };

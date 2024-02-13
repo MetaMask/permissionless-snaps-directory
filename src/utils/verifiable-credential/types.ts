@@ -13,7 +13,7 @@ export enum SnapCurrentStatus {
 
 export enum SnapStatusReasonType {
   Endorse = 'Endorse',
-  Dispute = 'Dispute',
+  Malicious = 'Malicious',
 }
 
 export enum TrustCredentialType {

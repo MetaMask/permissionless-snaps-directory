@@ -1,14 +1,18 @@
 import { Flex, Link, useDisclosure } from '@chakra-ui/react';
 import { t, Trans } from '@lingui/macro';
-import type { FunctionComponent } from 'react';
+import { useEffect, type FunctionComponent } from 'react';
 
 import { Category } from './Category';
+import { CommunitySentiment } from './community-sentiment';
 import { Data } from './Data';
 import { MetadataItems } from './MetadataItems';
 import { MetadataModal } from './MetadataModal';
 import { ExternalLink } from '../../../components';
 import type { RegistrySnapCategory } from '../../../constants';
+import { useDispatch } from '../../../hooks';
 import { type Fields, getLinkText } from '../../../utils';
+import { fetchSnapAssertionsForSnapId } from '../assertions/api';
+import { fetchTrustScoreForSnapId } from '../trust-score/api';
 
 export type MetadataProps = {
   snap: Fields<
@@ -36,6 +40,16 @@ export type MetadataProps = {
 
 export const Metadata: FunctionComponent<MetadataProps> = ({ snap }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchSnapAssertionsForSnapId(snap.latestChecksum)).catch((error) =>
+      console.log(error),
+    );
+    dispatch(fetchTrustScoreForSnapId(snap.latestChecksum)).catch((error) =>
+      console.log(error),
+    );
+  }, [dispatch, snap.latestChecksum]);
+
   const { category, support } = snap;
 
   return (
@@ -53,7 +67,7 @@ export const Metadata: FunctionComponent<MetadataProps> = ({ snap }) => {
         )}
 
         <MetadataItems snap={snap} />
-
+        {<CommunitySentiment snap={snap} />}
         {(support?.contact || support?.faq || support?.knowledgeBase) && (
           <Data
             label={t`Support`}

@@ -81,7 +81,7 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
     reason: string[],
   ) {
     const statusReason = {
-      type: SnapStatusReasonType.Dispute,
+      type: SnapStatusReasonType.Malicious,
       value: reason,
     };
     return this.buildSignPayload(

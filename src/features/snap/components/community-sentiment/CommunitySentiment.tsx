@@ -10,66 +10,72 @@ import { Trans, t } from '@lingui/macro';
 import { type FunctionComponent } from 'react';
 
 import { CommunitySentimentModal } from './CommunitySentimentModal';
-import { type SentimentData, SentimentType } from './types';
-import { getColorForSentiment } from './utils';
+import { SentimentType } from './types';
+import { getColorForSentiment, getSentimentTypeFromResult } from './utils';
 import { SignHexagonIcon } from '../../../../components';
+import { useSelector } from '../../../../hooks';
+import { type Fields } from '../../../../utils';
+import { getSnapAssertionDetailsForSnapId } from '../../assertions/store';
+import { getSnapTrustScoreForSnapId } from '../../trust-score/store';
 import { Data } from '../Data';
 
 export type CommunitySentimentProps = {
-  snapName: string;
-  sentiment: SentimentData;
-};
-
-const renderLinkLabel = (sentiment: SentimentData, onClick: () => void) => {
-  if (sentiment.type === SentimentType.InsufficientReview) {
-    return null;
-  }
-  let linkLabel;
-  switch (sentiment.type) {
-    case SentimentType.Secured:
-      linkLabel = t`${sentiment.endorsements} endorsements`;
-      break;
-    case SentimentType.InReview:
-      linkLabel = t`${sentiment.reports} reports`;
-      break;
-    case SentimentType.Unsecured:
-      linkLabel = t`${sentiment.reports} reports`;
-      break;
-    default:
-      linkLabel = t`${sentiment.endorsements} endorsements`;
-      break;
-  }
-  return (
-    <Link onClick={onClick}>
-      <Trans>{linkLabel}</Trans>
-    </Link>
-  );
+  snap: Fields<Queries.Snap, 'name' | 'latestChecksum'>;
 };
 
 export const CommunitySentiment: FunctionComponent<CommunitySentimentProps> = ({
-  snapName,
-  sentiment,
+  snap,
 }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const { result } = useSelector(
+    getSnapTrustScoreForSnapId(snap.latestChecksum),
+  );
+  const sentimentType: SentimentType = getSentimentTypeFromResult(result);
+  const { endorsementsCount, reportsCount } = useSelector(
+    getSnapAssertionDetailsForSnapId(snap.latestChecksum),
+  );
+
+  const renderLinkLabel = (onClick: () => void) => {
+    if (sentimentType === SentimentType.InsufficientReview) {
+      return null;
+    }
+    let linkLabel;
+    switch (sentimentType) {
+      case SentimentType.Secured:
+        linkLabel = t`${endorsementsCount} endorsements`;
+        break;
+      case SentimentType.InReview:
+        linkLabel = t`${reportsCount} reports`;
+        break;
+      default:
+        linkLabel = t`${reportsCount} reports`;
+        break;
+    }
+    return (
+      <Link onClick={onClick}>
+        <Trans>{linkLabel}</Trans>
+      </Link>
+    );
+  };
+
   const render = () => {
     return (
       <VStack>
         <HStack alignSelf={'flex-start'}>
           <Tag
             textTransform="none"
-            variant={getColorForSentiment(sentiment.type)}
+            variant={getColorForSentiment(sentimentType)}
             onClick={onOpen}
           >
             <SignHexagonIcon margin={-1} fill="currentColor"></SignHexagonIcon>
             <TagLabel>
-              <Trans>{sentiment.type}</Trans>
+              <Trans>{sentimentType}</Trans>
             </TagLabel>
           </Tag>
-          {renderLinkLabel(sentiment, onOpen)}
+          {renderLinkLabel(onOpen)}
         </HStack>
         <CommunitySentimentModal
-          snapName={snapName}
-          sentiment={sentiment}
+          snap={snap}
           isOpen={isOpen}
           onClose={onClose}
         />
@@ -78,8 +84,10 @@ export const CommunitySentiment: FunctionComponent<CommunitySentimentProps> = ({
   };
 
   return (
-    <>
-      <Data label={t`Community Sentiment`} value={render()} />
-    </>
+    sentimentType !== SentimentType.Unknown && (
+      <>
+        <Data label={t`Community Sentiment`} value={render()} />
+      </>
+    )
   );
 };

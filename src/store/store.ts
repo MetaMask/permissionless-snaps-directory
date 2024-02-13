@@ -6,6 +6,8 @@ import type { CombinedState, PreloadedState } from 'redux';
 import { accountProfileSlice } from '../features/account/store';
 import { filterSlice } from '../features/filter/store';
 import { notificationsSlice } from '../features/notifications/store';
+import { snapAssertionsSlice } from '../features/snap/assertions/store';
+import { snapTrustScoresSlice } from '../features/snap/trust-score/store';
 import { snapsApi } from '../features/snaps/api';
 import { snapsSlice } from '../features/snaps/store';
 
@@ -15,6 +17,8 @@ const reducer = combineReducers({
   notifications: notificationsSlice.reducer,
   snaps: snapsSlice.reducer,
   snapsApi: snapsApi.reducer,
+  snapAssertions: snapAssertionsSlice.reducer,
+  snapTrustScores: snapTrustScoresSlice.reducer,
 });
 
 /**

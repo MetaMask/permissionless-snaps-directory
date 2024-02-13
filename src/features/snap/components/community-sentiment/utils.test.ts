@@ -1,20 +1,29 @@
-import { t } from '@lingui/macro';
-
 import { SentimentType } from './types';
-import { getColorForSentiment } from './utils';
+import { getColorForSentiment, getSentimentTypeFromResult } from './utils';
 
 describe('getColorForSentiment', () => {
-  it.each([
-    [SentimentType.InsufficientReview, t`warning`],
-    [SentimentType.Secured, t`success`],
-    [SentimentType.InReview, t`warning`],
-    [SentimentType.Unsecured, t`error`],
-    [SentimentType.UserFriendly, t`success`],
-  ])(
-    'should return the correct color for sentiment type %s',
-    (type, expectedColor) => {
-      const result = getColorForSentiment(type);
-      expect(result).toBe(expectedColor);
-    },
-  );
+  it.each`
+    type                                | expectedColor
+    ${SentimentType.InsufficientReview} | ${'warning'}
+    ${SentimentType.Secured}            | ${'success'}
+    ${SentimentType.InReview}           | ${'warning'}
+    ${SentimentType.Unsecured}          | ${'error'}
+    ${123}                              | ${'success'}
+  `('returns $expectedColor color for $type', ({ type, expectedColor }) => {
+    expect(getColorForSentiment(type)).toBe(expectedColor);
+  });
+});
+
+describe('getSentimentTypeFromResult', () => {
+  it.each`
+    result | expectedType
+    ${0}   | ${SentimentType.InsufficientReview}
+    ${1}   | ${SentimentType.Secured}
+    ${2}   | ${SentimentType.InReview}
+    ${3}   | ${SentimentType.Unsecured}
+    ${4}   | ${SentimentType.Unknown}
+    ${-1}  | ${SentimentType.Unknown}
+  `('returns $expectedType for result $result', ({ result, expectedType }) => {
+    expect(getSentimentTypeFromResult(result)).toBe(expectedType);
+  });
 });
