@@ -67,6 +67,11 @@ describe('Metadata', () => {
   });
 
   it('renders the key recovery link', () => {
+    const mockDispatch = jest.fn().mockImplementation(() => ({
+      catch: jest.fn(),
+    }));
+    mockUseDispatch.mockReturnValue(mockDispatch);
+
     const { snap } = getMockSnap();
     const { queryByText } = render(<Metadata snap={snap} />);
 
