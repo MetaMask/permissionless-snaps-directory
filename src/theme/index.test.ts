@@ -176,6 +176,7 @@ describe('theme', () => {
             "baseStyle": Object {
               "color": "text.default",
               "fontWeight": "500",
+              "lineHeight": "1.5",
             },
           },
           "Link": Object {
@@ -228,7 +229,7 @@ describe('theme', () => {
                 "background": "background.default",
                 "border": "none",
                 "borderRadius": "lg",
-                "boxShadow": "lg",
+                "boxShadow": "md",
                 "padding": "1",
               },
             },
@@ -408,6 +409,18 @@ describe('theme', () => {
               },
             },
           },
+          "Tooltip": Object {
+            "baseStyle": Object {
+              "background": "background.default",
+              "border": "1px solid",
+              "borderColor": "border.muted",
+              "borderRadius": "md",
+              "color": "text.default",
+              "fontWeight": "normal",
+              "paddingX": 4,
+              "paddingY": 2,
+            },
+          },
         },
         "config": Object {
           "initialColorMode": "system",
@@ -499,7 +512,7 @@ describe('theme', () => {
               },
               "muted": Object {
                 "_dark": "#1098FC26",
-                "default": "#0376C91A",
+                "default": "#037DD61A",
               },
             },
             "primary": Object {
@@ -530,10 +543,23 @@ describe('theme', () => {
                 "default": "#24272A1A",
               },
             },
+            "warning": Object {
+              "default": Object {
+                "_dark": "#FFD33D",
+                "default": "#BF5208",
+              },
+              "muted": Object {
+                "_dark": "#FFD33D26",
+                "default": "#BF520819",
+              },
+            },
           },
           "shadows": Object {
             "lg": "0px 2px 40px 0px #0000001A",
-            "md": "0px 2px 16px 0px #0000001A",
+            "md": Object {
+              "_dark": "0px 2px 16px 0px #00000040",
+              "default": "0px 4px 16px 0px #00000066",
+            },
             "xl": "0px 4px 16px 0px #0000001A",
           },
         },
@@ -541,6 +567,7 @@ describe('theme', () => {
           "global": Object {
             "body": Object {
               "background": "background.default",
+              "color": "text.default",
               "overflowY": "scroll",
             },
           },

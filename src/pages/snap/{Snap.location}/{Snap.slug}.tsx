@@ -1,19 +1,26 @@
-import { Box, Container, Divider, Flex, Text } from '@chakra-ui/react';
-import { Trans } from '@lingui/macro';
+import {
+  Box,
+  Container,
+  Divider,
+  Flex,
+  Stack,
+  StackDivider,
+} from '@chakra-ui/react';
 import { graphql } from 'gatsby';
 import { type FunctionComponent } from 'react';
 import { useAccount } from 'wagmi';
 
 import { InstallSnapButton, SnapWebsiteButton } from '../../../components';
-import { type RegistrySnapCategory } from '../../../constants';
+import { RegistrySnapCategory } from '../../../constants';
 import {
   Authorship,
-  Description,
   Metadata,
+  NotificationAcknowledger,
+  Permissions,
+  Description,
   RelatedSnaps,
   useGetInstalledSnapsQuery,
 } from '../../../features';
-import { NotificationAcknowledger } from '../../../features/notifications/components';
 import { EndorseSnap } from '../../../features/snap/components/EndorseSnap';
 import { ReportSnap } from '../../../features/snap/components/ReportSnap';
 import type { Fields } from '../../../utils';
@@ -33,9 +40,14 @@ type SnapPageProps = {
       | 'category'
       | 'author'
       | 'sourceCode'
+      | 'additionalSourceCode'
       | 'audits'
       | 'banner'
       | 'support'
+      | 'permissions'
+      | 'privateCode'
+      | 'privacyPolicy'
+      | 'termsOfUse'
     >;
   };
 };
@@ -51,6 +63,7 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
     latestVersion,
     latestChecksum,
     category,
+    permissions,
   } = data.snap;
 
   const { data: installedSnaps } = useGetInstalledSnapsQuery();
@@ -107,35 +120,24 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
           </Flex>
         </Flex>
 
-        <Divider marginY="6" />
+        <Divider marginY="8" />
         <Metadata snap={data.snap} />
+        <Divider marginTop="8" marginBottom="12" />
 
-        <Text
-          color="text.alternative"
-          textTransform="uppercase"
-          fontWeight="medium"
-          fontSize="sm"
-        >
-          <Trans>
-            Description by{' '}
-            <Text
-              as="span"
-              color="text.default"
-              textTransform="uppercase"
-              fontWeight="medium"
-              fontSize="sm"
-            >
-              {name}
-            </Text>
-          </Trans>
-        </Text>
-        <Description
-          description={description}
+        <Stack
+          direction={['column', null, null, 'row']}
+          divider={<StackDivider />}
           marginTop="2"
-          whiteSpace="pre-wrap"
-        />
+          marginBottom="12"
+          spacing="8"
+        >
+          <Description name={name} description={description} />
+          <Permissions snap={data.snap} permissions={permissions} />
+        </Stack>
 
-        {category && (
+        {/* TODO: Enable account management category when there are more Snaps
+            in the registry. */}
+        {category && category !== RegistrySnapCategory.AccountManagement && (
           <>
             <Divider my="12" />
             <RelatedSnaps
@@ -206,6 +208,10 @@ export const query = graphql`
         website
       }
       sourceCode
+      additionalSourceCode {
+        name
+        url
+      }
       audits {
         auditor
         report
@@ -217,7 +223,12 @@ export const query = graphql`
         contact
         faq
         knowledgeBase
+        keyRecovery
       }
+      permissions
+      privateCode
+      privacyPolicy
+      termsOfUse
     }
 
     site {

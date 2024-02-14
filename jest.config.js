@@ -93,8 +93,9 @@ module.exports = {
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
-    '^.+\\.svg$': '<rootDir>/src/__mocks__/svg.tsx',
+    '^.+\\.svg(\\?raw)?$': '<rootDir>/src/__mocks__/svg.tsx',
     '^.+\\.(png|css)': '<rootDir>/src/__mocks__/file.ts',
+    '^connectkit$': '<rootDir>/node_modules/connectkit/build/index.es.js',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -199,7 +200,7 @@ module.exports = {
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: [
-    `node_modules/(?!(@wagmi|wagmi|isows|uint8arrays|multiformats|viem)/)`,
+    `node_modules/(?!(connectkit|@wagmi|wagmi|isows|uint8arrays|multiformats|viem)/)`,
   ],
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,
