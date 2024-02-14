@@ -18,6 +18,7 @@ export * from './MultipleCheckboxOptions';
 export * from './PostInstallModal';
 export * from './ReportButton';
 export * from './RequestSignModal';
+export * from './SimpleModal';
 export * from './SnapAvatar';
 export * from './SnapsProvider';
 export * from './SnapWebsiteButton';

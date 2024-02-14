@@ -2,6 +2,11 @@ name: Publish staging site
 
 on:
   workflow_call:
+    secrets:
+      GATSBY_INDEXER_API_BASE_URL:
+        required: true
+      GATSBY_INDEXER_API_KEY:
+        required: true
 
 jobs:
   publish-pull-request:
@@ -10,6 +15,9 @@ jobs:
     uses: ./.github/workflows/publish-staging-site.yml
     with:
       destination_dir: pr/${{ github.event.pull_request.number }}
+    secrets:
+      GATSBY_INDEXER_API_BASE_URL: ${{ secrets.GATSBY_INDEXER_API_BASE_URL }}
+      GATSBY_INDEXER_API_KEY: ${{ secrets.GATSBY_INDEXER_API_KEY }}
 
   comment-on-pull-request:
     name: Comment on pull request with link to site
@@ -58,3 +66,6 @@ jobs:
     uses: ./.github/workflows/publish-staging-site.yml
     with:
       destination_dir: dev
+    secrets:
+      GATSBY_INDEXER_API_BASE_URL: ${{ secrets.GATSBY_INDEXER_API_BASE_URL }}
+      GATSBY_INDEXER_API_KEY: ${{ secrets.GATSBY_INDEXER_API_KEY }}

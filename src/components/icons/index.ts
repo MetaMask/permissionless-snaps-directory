@@ -6,6 +6,7 @@ import BaseAuditorIcon from './auditor.svg';
 import BaseAvatarBlueIcon from './avatar-blue.svg';
 import BaseAvatarRedIcon from './avatar-red.svg';
 import BaseBackIcon from './back.svg';
+import BaseCheckFilledShadowIcon from './check-filled-shadow.svg';
 import BaseCheckThinIcon from './check-thin.svg';
 import BaseCheckIcon from './check.svg';
 import BaseClockIcon from './clock.svg';
@@ -45,15 +46,18 @@ import BaseSearchIcon from './search.svg';
 import BaseSecurityKeyIcon from './security-key.svg';
 import BaseSecuritySearchIcon from './security-search.svg';
 import BaseShareIcon from './share.svg';
+import BaseSignHexagonIcon from './sign-hexagon.svg';
 import BaseSignIcon from './sign.svg';
 import BaseSnapIcon from './snap.svg';
 import BaseSpeedometerIcon from './speedometer.svg';
+import BaseStarFilledShadowIcon from './star-filled-shadow.svg';
 import BaseStarFilledIcon from './star-filled.svg';
 import BaseTagIcon from './tag.svg';
 import BaseTimerIcon from './timer.svg';
 import BaseTransactionInsightsIcon from './transaction-insights.svg';
 import BaseUserCheckIcon from './user-check.svg';
 import BaseUserCircleAddFillIcon from './user-cirlce-add-filled.svg';
+import BaseWarningFilledShadowIcon from './warning-filled-shadow.svg';
 import BaseWarningFilledIcon from './warning-filled.svg';
 import BaseWarningIcon from './warning.svg';
 import BaseWifiIcon from './wifi.svg';
@@ -86,6 +90,11 @@ export const BackIcon = wrapIcon(BaseBackIcon, defineMessage`Back`);
 export const ClockIcon = wrapIcon(BaseClockIcon, defineMessage`Clock`);
 
 export const CloseIcon = wrapIcon(BaseCloseIcon, defineMessage`Close`);
+
+export const CheckFilledShadowIcon = wrapIcon(
+  BaseCheckFilledShadowIcon,
+  defineMessage`Check`,
+);
 
 export const CheckIcon = wrapIcon(BaseCheckIcon, defineMessage`Check`);
 
@@ -204,6 +213,11 @@ export const ShareIcon = wrapIcon(BaseShareIcon, defineMessage`Share`);
 
 export const SnapIcon = wrapIcon(BaseSnapIcon, defineMessage`Snap`);
 
+export const SignHexagonIcon = wrapIcon(
+  BaseSignHexagonIcon,
+  defineMessage`Sign`,
+);
+
 export const SpeedometerIcon = wrapIcon(
   BaseSpeedometerIcon,
   defineMessage`Speedometer`,
@@ -212,6 +226,11 @@ export const SpeedometerIcon = wrapIcon(
 export const SignIcon = wrapIcon(BaseSignIcon, defineMessage`Sign`);
 
 export const StarFilledIcon = wrapIcon(BaseStarFilledIcon, defineMessage`Star`);
+
+export const StarFilledShadowIcon = wrapIcon(
+  BaseStarFilledShadowIcon,
+  defineMessage`Star`,
+);
 
 export const TagIcon = wrapIcon(BaseTagIcon, defineMessage`Tag`);
 
@@ -234,6 +253,11 @@ export const UserCircleAddIcon = wrapIcon(
 
 export const WarningFilledIcon = wrapIcon(
   BaseWarningFilledIcon,
+  defineMessage`Warning`,
+);
+
+export const WarningFilledShadowIcon = wrapIcon(
+  BaseWarningFilledShadowIcon,
   defineMessage`Warning`,
 );
 

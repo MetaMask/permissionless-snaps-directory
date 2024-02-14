@@ -1,17 +1,9 @@
-import {
-  Button,
-  Center,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalOverlay,
-  type ModalProps,
-} from '@chakra-ui/react';
+import { Button, type ModalProps } from '@chakra-ui/react';
 import { Trans } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
 
 import { SignIcon } from './icons';
+import { SimpleModal } from './SimpleModal';
 
 export type RequestSignModalProps = ModalProps & {
   mode: 'positive' | 'negative';
@@ -51,37 +43,26 @@ export const RequestSignModal: FunctionComponent<RequestSignModalProps> = ({
 }) => {
   return (
     <>
-      <Modal
-        variant="minimal"
-        size="sm"
+      <SimpleModal
         isOpen={isOpen}
         onClose={onClose}
-        closeOnOverlayClick={false}
+        headerIcon={headerIcon}
         {...props}
       >
-        <ModalOverlay />
-        <ModalContent bg="background.alternative">
-          <ModalCloseButton />
-          <ModalBody>
-            <Center flexDirection="column" rowGap="1.5rem">
-              {headerIcon}
-              {children}
-              <Button
-                variant="primary"
-                bg={mode === 'positive' ? 'info.default' : 'error.default'}
-                fontSize="sm"
-                leftIcon={<SignIcon width="1rem" fill="currentColor" />}
-                width="100%"
-                isLoading={isLoading}
-                isDisabled={buttonDisabled}
-                onClick={() => onSignButtonClick()}
-              >
-                <Trans>{buttonText}</Trans>
-              </Button>
-            </Center>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+        {children}
+        <Button
+          variant="primary"
+          bg={mode === 'positive' ? 'info.default' : 'error.default'}
+          fontSize="sm"
+          leftIcon={<SignIcon width="1rem" fill="currentColor" />}
+          width="100%"
+          isLoading={isLoading}
+          isDisabled={buttonDisabled}
+          onClick={() => onSignButtonClick()}
+        >
+          <Trans>{buttonText}</Trans>
+        </Button>
+      </SimpleModal>
     </>
   );
 };

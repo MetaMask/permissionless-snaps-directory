@@ -39,7 +39,7 @@ export class AccountVerifiableCredential extends BaseVerifiableCredential {
 
   credentialType = TrustCredentialType.TrustCredential;
 
-  protected getSubjectDid(subjectAddress: Hex): PKHDid {
+  getSubjectDid(subjectAddress: Hex): PKHDid {
     return `did:pkh:eip155:${this.chainId}:${subjectAddress}`;
   }
 

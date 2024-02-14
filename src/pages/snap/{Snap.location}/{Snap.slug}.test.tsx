@@ -16,6 +16,9 @@ jest.mock('../../../hooks/useVerifiableCredential', () => ({
     issuerAddress: 'issuerAddress',
     signMessage: jest.fn(),
     signError: null,
+    snapVCBuilder: {
+      getIssuerDid: jest.fn().mockReturnValue('issuerAddress'),
+    },
   }),
 }));
 

@@ -109,7 +109,7 @@ describe('SnapVerifiableCredential', () => {
             id: `snap://${SNAP_SHASUM_1}`,
             currentStatus: 'Disputed',
             statusReason: {
-              type: 'Dispute',
+              type: 'Malicious',
               value: ['reason'],
             },
           },

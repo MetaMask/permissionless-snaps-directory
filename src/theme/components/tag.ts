@@ -42,6 +42,14 @@ export const Tag = defineMultiStyleConfig({
       },
     }),
 
+    warning: definePartsStyle({
+      container: {
+        ...announcement,
+        color: 'warning.default',
+        background: 'warning.muted',
+      },
+    }),
+
     default: definePartsStyle({
       container: {
         ...announcement,

@@ -2,9 +2,9 @@ import { defineMessage } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
 
 import {
+  AddUserIcon,
   InteroperabilityIcon,
   NotificationsCategoryIcon,
-  AddUserIcon,
   TransactionInsightsIcon,
 } from '../../components/icons';
 import { RegistrySnapCategory } from '../../constants';

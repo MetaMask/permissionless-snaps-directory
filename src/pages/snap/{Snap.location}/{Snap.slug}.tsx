@@ -103,7 +103,11 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
               />
             )}
             {isConnected && address && (
-              <EndorseSnap snapName={name} snapId={snapId} address={address} />
+              <EndorseSnap
+                snapName={name}
+                snapChecksum={latestChecksum}
+                address={address}
+              />
             )}
             {!onboard && (
               <InstallSnapButton

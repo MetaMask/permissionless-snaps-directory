@@ -4,26 +4,51 @@ import { useState, type FunctionComponent } from 'react';
 
 import { EndorseSnapModal } from './modals/EndorseSnapModal';
 import { EndorseButton } from '../../../components';
-import { useVerifiableCredential } from '../../../hooks';
+import {
+  useDispatch,
+  useSelector,
+  useVerifiableCredential,
+} from '../../../hooks';
 import { useSignErrorHandler } from '../../../hooks/useSignErrorHandler';
 import useToastMsg from '../../../hooks/useToastMsg';
+import {
+  createSnapAssertion,
+  fetchSnapAssertionsForSnapId,
+} from '../assertions/api';
+import {
+  getCurrentSnapStatusForIssuer,
+  isSnapEndorsedByIssuer,
+} from '../assertions/store';
 
 type EndorseSnapProps = {
   address: Hex;
-  snapId: string;
+  snapChecksum: string;
   snapName: string;
 };
 
 export const EndorseSnap: FunctionComponent<EndorseSnapProps> = ({
   address,
-  snapId,
+  snapChecksum,
   snapName,
 }) => {
-  const [showModal, setShowModal] = useState(false);
-
-  const { showSuccessMsg } = useToastMsg();
-
   const { signMessage, signError, snapVCBuilder } = useVerifiableCredential();
+
+  const issuer = snapVCBuilder.getIssuerDid(address);
+
+  const latestSnapStatus = useSelector(
+    getCurrentSnapStatusForIssuer(snapChecksum, issuer),
+  );
+
+  const isSnapEndorsed = useSelector(
+    isSnapEndorsedByIssuer(snapChecksum, issuer),
+  );
+
+  const [showModal, setShowModal] = useState(false);
+  const [endorsed, setEndorsed] = useState(isSnapEndorsed);
+
+  const dispatch = useDispatch();
+
+  const { showSuccessMsg, showErrorMsg } = useToastMsg();
 
   useSignErrorHandler(signError);
 
@@ -32,16 +57,42 @@ export const EndorseSnap: FunctionComponent<EndorseSnapProps> = ({
   const options = [t`Good user experience`, t`Useful`, t`Seems secure`];
 
   const onSign = async (selected: string[]) => {
-    const VC = snapVCBuilder.buildEndorsedPayload(address, snapId, selected);
+    const verifiableCredential = snapVCBuilder.buildEndorsedPayload(
+      address,
+      snapChecksum,
+      selected,
+    );
 
-    const signature = await signMessage(VC);
+    const signature = await signMessage(verifiableCredential);
     if (signature) {
-      const assertion = snapVCBuilder.getSignedAssertion(VC, signature);
-      console.log('Snap Endorse assertion', assertion);
-      showSuccessMsg({
-        title: t`Success`,
-        description: t`${snapName} has been endorsed.`,
-      });
+      const assertion = snapVCBuilder.getSignedAssertion(
+        verifiableCredential,
+        signature,
+      );
+      dispatch(createSnapAssertion(assertion))
+        .then((action) => {
+          if (action.type.endsWith('fulfilled')) {
+            dispatch(fetchSnapAssertionsForSnapId(snapChecksum)).catch(
+              (error) => console.log(error),
+            );
+            setEndorsed(true);
+            showSuccessMsg({
+              title: t`Success`,
+              description: t`${snapName} has been endorsed.`,
+            });
+          } else {
+            showErrorMsg({
+              title: t`Error`,
+              description: t`Failed to create endorsement for ${snapName}.`,
+            });
+          }
+        })
+        .catch(() => {
+          showErrorMsg({
+            title: t`Error`,
+            description: t`Failed to create endorsement for ${snapName}.`,
+          });
+        });
     }
     setShowModal(false);
   };
@@ -50,7 +101,8 @@ export const EndorseSnap: FunctionComponent<EndorseSnapProps> = ({
     <>
       <EndorseButton
         onClick={() => setShowModal(true)}
-        endorsed={false}
+        endorsed={endorsed}
+        isDisabled={endorsed || latestSnapStatus !== null}
         size="lg"
       />
       {showModal && (

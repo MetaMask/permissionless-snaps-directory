@@ -7,18 +7,20 @@ import { DangerIcon } from '.';
 export type ReportButtonProps = {
   onClick: () => void;
   reported: boolean;
+  isDisabled?: boolean;
   size?: 'sm' | 'md' | 'lg';
 };
 
 export const ReportButton: FunctionComponent<ReportButtonProps> = ({
   onClick,
   reported,
+  isDisabled = false,
   size = 'sm',
 }) => (
   <Button
     leftIcon={<DangerIcon fill={reported ? '#FFFFFF' : ''} />}
     variant={reported ? 'primaryPortableError' : 'outlinePortableError'}
-    isDisabled={reported}
+    isDisabled={isDisabled}
     size={size}
     onClick={onClick}
   >

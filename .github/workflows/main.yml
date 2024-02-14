@@ -29,6 +29,9 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    secrets:
+      GATSBY_INDEXER_API_BASE_URL: ${{ secrets.GATSBY_INDEXER_API_BASE_URL }}
+      GATSBY_INDEXER_API_KEY: ${{ secrets.GATSBY_INDEXER_API_KEY }}
 
   all-jobs-completed:
     name: All jobs completed

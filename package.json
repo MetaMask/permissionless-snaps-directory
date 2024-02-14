@@ -68,6 +68,7 @@
     "@metamask/utils": "^8.1.0",
     "@reduxjs/toolkit": "^1.9.6",
     "@wagmi/core": "^1.4.10",
+    "axios": "^1.6.7",
     "connectkit": "^1.5.3",
     "crypto-browserify": "^3.12.0",
     "framer-motion": "^10.16.2",
@@ -147,6 +148,7 @@
     "prettier-plugin-packagejson": "^2.3.0",
     "sharp": "^0.32.5",
     "simple-git-hooks": "^2.9.0",
+    "ts-mockito": "^2.6.1",
     "typescript": "~4.8.4"
   },
   "packageManager": "yarn@3.6.3",

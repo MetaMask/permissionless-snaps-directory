@@ -4,9 +4,22 @@ import { useState, type FunctionComponent } from 'react';
 
 import { ReportSnapModal } from './modals/ReportSnapModal';
 import { ReportButton } from '../../../components';
-import { useVerifiableCredential } from '../../../hooks';
+import {
+  useDispatch,
+  useSelector,
+  useVerifiableCredential,
+} from '../../../hooks';
 import { useSignErrorHandler } from '../../../hooks/useSignErrorHandler';
 import useToastMsg from '../../../hooks/useToastMsg';
+import {
+  createSnapAssertion,
+  fetchSnapAssertionsForSnapId,
+} from '../assertions/api';
+import {
+  getCurrentSnapStatusForIssuer,
+  isSnapReportedByIssuer,
+} from '../assertions/store';
+import { SnapCurrentStatus } from '../assertions/types';
 
 type ReportSnapProps = {
   address: Hex;
@@ -19,11 +32,24 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
   snapChecksum,
   snapName,
 }) => {
-  const [showModal, setShowModal] = useState(false);
-
-  const { showSuccessMsg } = useToastMsg();
-
   const { signMessage, signError, snapVCBuilder } = useVerifiableCredential();
+
+  const issuer = snapVCBuilder.getIssuerDid(address);
+
+  const latestSnapStatus = useSelector(
+    getCurrentSnapStatusForIssuer(snapChecksum, issuer),
+  );
+
+  const isSnapReported = useSelector(
+    isSnapReportedByIssuer(snapChecksum, issuer),
+  );
+
+  const [showModal, setShowModal] = useState(false);
+  const [reported, setReported] = useState(isSnapReported);
+
+  const dispatch = useDispatch();
+
+  const { showSuccessMsg, showErrorMsg } = useToastMsg();
 
   useSignErrorHandler(signError);
 
@@ -41,11 +67,30 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
     const signature = await signMessage(VC);
     if (signature) {
       const assertion = snapVCBuilder.getSignedAssertion(VC, signature);
-      console.log('Snap Report assertion', assertion);
-      showSuccessMsg({
-        title: t`Success`,
-        description: t`${snapName} has been reported.`,
-      });
+      dispatch(createSnapAssertion(assertion))
+        .then(async (action) => {
+          if (action.type.endsWith('fulfilled')) {
+            dispatch(fetchSnapAssertionsForSnapId(snapChecksum)).catch(
+              (error) => console.log(error),
+            );
+            setReported(true);
+            showSuccessMsg({
+              title: t`Success`,
+              description: t`${snapName} has been reported.`,
+            });
+          } else {
+            showErrorMsg({
+              title: t`Error`,
+              description: t`Failed to create report for ${snapName}.`,
+            });
+          }
+        })
+        .catch(() => {
+          showErrorMsg({
+            title: t`Error`,
+            description: t`Failed to create report for ${snapName}.`,
+          });
+        });
     }
     setShowModal(false);
   };
@@ -54,7 +99,8 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
     <>
       <ReportButton
         onClick={() => setShowModal(true)}
-        reported={false}
+        reported={reported}
+        isDisabled={reported || latestSnapStatus === SnapCurrentStatus.Disputed}
         size="lg"
       />
       {showModal && (
