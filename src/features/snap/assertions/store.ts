@@ -1,13 +1,14 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { fetchSnapAssertionsForSnapId } from './api';
-import { type SnapAssertion, SnapCurrentStatus } from './types';
+import { SnapCurrentStatus } from './types';
 import { type ApplicationState } from '../../../store';
 
 export type SnapAssertionState = {
   snapId: string;
-  endorsementsCount: number;
-  reportsCount: number;
+  issuer: string;
+  currentStatus: SnapCurrentStatus;
+  creationAt: Date;
 };
 
 export type SnapAssertionsState = {
@@ -18,13 +19,17 @@ const initialState: SnapAssertionsState = {
   snapAssertions: [],
 };
 
-const getAssertionsByCurrentStatus = (
-  newSnapAssertions: SnapAssertion[],
-  status: SnapCurrentStatus,
+const getSnapAssertionsWithCurrentStatusForIssuer = (
+  snapAssertions: SnapAssertionState[],
+  issuer: string,
+  snapId: string,
+  snapCurrentStatus: SnapCurrentStatus,
 ) => {
-  return newSnapAssertions.filter(
+  return snapAssertions.filter(
     (assertion) =>
-      assertion.assertion.credentialSubject.currentStatus === status,
+      assertion.issuer === issuer &&
+      assertion.snapId === `snap://${snapId}` &&
+      assertion.currentStatus === snapCurrentStatus,
   );
 };
 
@@ -37,25 +42,19 @@ export const snapAssertionsSlice = createSlice({
       const otherSnapAssertionStates = state.snapAssertions.filter(
         (assertion) => assertion.snapId !== `snap://${action.payload.snapId}`,
       );
-      const newSnapAssertions = action.payload.assertions.filter(
-        (assertion) =>
-          assertion.assertion.credentialSubject.id ===
-          `snap://${action.payload.snapId}`,
-      );
-      const updateSnapAssertionState: SnapAssertionState = {
-        snapId: `snap://${action.payload.snapId}`,
-        endorsementsCount: getAssertionsByCurrentStatus(
-          newSnapAssertions,
-          SnapCurrentStatus.Endorsed,
-        ).length,
-        reportsCount: getAssertionsByCurrentStatus(
-          newSnapAssertions,
-          SnapCurrentStatus.Disputed,
-        ).length,
-      };
+      const newSnapAssertions = action.payload.assertions;
+      const updateSnapAssertionStates: SnapAssertionState[] =
+        newSnapAssertions.map((assertion) => {
+          return {
+            snapId: assertion.assertion.credentialSubject.id,
+            issuer: assertion.assertion.issuer,
+            currentStatus: assertion.assertion.credentialSubject.currentStatus,
+            creationAt: assertion.creationAt,
+          };
+        });
       state.snapAssertions = [
         ...otherSnapAssertionStates,
-        updateSnapAssertionState,
+        ...updateSnapAssertionStates,
       ];
     });
   },
@@ -69,14 +68,60 @@ export const getSnapAssertions = createSelector(
 
 // Selector to get snapAssertions for a specific snapId
 export const getSnapAssertionDetailsForSnapId = (snapId: string) =>
-  createSelector(
-    getSnapAssertions,
-    (snapAssertions) =>
-      snapAssertions?.find(
-        (assertion) => assertion.snapId === `snap://${snapId}`,
-      ) ?? {
-        snapId,
-        endorsementsCount: 0,
-        reportsCount: 0,
-      },
-  );
+  createSelector(getSnapAssertions, (snapAssertions) => {
+    return {
+      snapId: `snap://${snapId}`,
+      endorsementsCount: snapAssertions.filter(
+        (assertion) =>
+          assertion.snapId === `snap://${snapId}` &&
+          assertion.currentStatus === SnapCurrentStatus.Endorsed,
+      ).length,
+      reportsCount: snapAssertions.filter(
+        (assertion) =>
+          assertion.snapId === `snap://${snapId}` &&
+          assertion.currentStatus === SnapCurrentStatus.Disputed,
+      ).length,
+    };
+  });
+
+export const getCurrentSnapStatusForIssuer = (snapId: string, issuer: string) =>
+  createSelector(getSnapAssertions, (snapAssertions) => {
+    const filteredAssertions = snapAssertions.filter(
+      (assertion) =>
+        assertion.issuer === issuer && assertion.snapId === `snap://${snapId}`,
+    );
+    if (filteredAssertions.length === 0) {
+      return null;
+    }
+    return filteredAssertions.reduce((latest, assertion) =>
+      assertion.creationAt > latest.creationAt ? assertion : latest,
+    ).currentStatus;
+  });
+
+export const isSnapEndorsedByIssuer = (snapId: string, issuer: string) =>
+  createSelector(getSnapAssertions, (snapAssertions) => {
+    const filteredAssertions = getSnapAssertionsWithCurrentStatusForIssuer(
+      snapAssertions,
+      issuer,
+      snapId,
+      SnapCurrentStatus.Endorsed,
+    );
+    if (filteredAssertions.length === 0) {
+      return false;
+    }
+    return true;
+  });
+
+export const isSnapReportedByIssuer = (snapId: string, issuer: string) =>
+  createSelector(getSnapAssertions, (snapAssertions) => {
+    const filteredAssertions = getSnapAssertionsWithCurrentStatusForIssuer(
+      snapAssertions,
+      issuer,
+      snapId,
+      SnapCurrentStatus.Disputed,
+    );
+    if (filteredAssertions.length === 0) {
+      return false;
+    }
+    return true;
+  });

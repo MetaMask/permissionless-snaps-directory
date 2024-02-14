@@ -4,6 +4,7 @@ import { CommunitySentimentModal } from './CommunitySentimentModal';
 import { SentimentType } from './types';
 import { createStore } from '../../../../store';
 import { render } from '../../../../utils/test-utils';
+import { SnapCurrentStatus } from '../../assertions/types';
 
 describe('CommunitySentimentModal', () => {
   const onCloseMock = jest.fn();
@@ -40,8 +41,15 @@ describe('CommunitySentimentModal', () => {
           snapAssertions: [
             {
               snapId: 'snap://checksum',
-              endorsementsCount: 2,
-              reportsCount: 3,
+              issuer: 'issuer1',
+              currentStatus: SnapCurrentStatus.Endorsed,
+              creationAt: new Date(),
+            },
+            {
+              snapId: 'snap://checksum',
+              issuer: 'issuer2',
+              currentStatus: SnapCurrentStatus.Disputed,
+              creationAt: new Date(),
             },
           ],
         },
@@ -60,8 +68,8 @@ describe('CommunitySentimentModal', () => {
       );
 
       expect(screen.queryByText(expectedText)).toBeInTheDocument();
-      expect(screen.queryByText('2 endorsements')).toBeInTheDocument();
-      expect(screen.queryByText('3 reports')).toBeInTheDocument();
+      expect(screen.queryByText('1 endorsements')).toBeInTheDocument();
+      expect(screen.queryByText('1 reports')).toBeInTheDocument();
     });
   });
 
@@ -71,8 +79,9 @@ describe('CommunitySentimentModal', () => {
         snapAssertions: [
           {
             snapId: 'snap://checksum',
-            endorsementsCount: 2,
-            reportsCount: 3,
+            issuer: 'issuer1',
+            currentStatus: SnapCurrentStatus.Endorsed,
+            creationAt: new Date(),
           },
         ],
       },

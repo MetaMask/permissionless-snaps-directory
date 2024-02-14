@@ -35,6 +35,7 @@ describe('ReportSnap', () => {
       snapVCBuilder: {
         buildDisputedPayload: jest.fn().mockReturnValue('VC'),
         getSignedAssertion: jest.fn().mockReturnValue('assertion'),
+        getIssuerDid: jest.fn().mockReturnValue(VALID_ACCOUNT_1),
       },
       signError: null,
     });
@@ -75,6 +76,7 @@ describe('ReportSnap', () => {
       snapVCBuilder: {
         buildDisputedPayload: jest.fn().mockReturnValue('VC'),
         getSignedAssertion: jest.fn().mockReturnValue('assertion'),
+        getIssuerDid: jest.fn().mockReturnValue(VALID_ACCOUNT_1),
       },
       signError: null,
     });

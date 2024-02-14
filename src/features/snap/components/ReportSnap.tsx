@@ -4,13 +4,22 @@ import { useState, type FunctionComponent } from 'react';
 
 import { ReportSnapModal } from './modals/ReportSnapModal';
 import { ReportButton } from '../../../components';
-import { useDispatch, useVerifiableCredential } from '../../../hooks';
+import {
+  useDispatch,
+  useSelector,
+  useVerifiableCredential,
+} from '../../../hooks';
 import { useSignErrorHandler } from '../../../hooks/useSignErrorHandler';
 import useToastMsg from '../../../hooks/useToastMsg';
 import {
   createSnapAssertion,
   fetchSnapAssertionsForSnapId,
 } from '../assertions/api';
+import {
+  getCurrentSnapStatusForIssuer,
+  isSnapReportedByIssuer,
+} from '../assertions/store';
+import { SnapCurrentStatus } from '../assertions/types';
 
 type ReportSnapProps = {
   address: Hex;
@@ -23,13 +32,24 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
   snapChecksum,
   snapName,
 }) => {
+  const { signMessage, signError, snapVCBuilder } = useVerifiableCredential();
+
+  const issuer = snapVCBuilder.getIssuerDid(address);
+
+  const latestSnapStatus = useSelector(
+    getCurrentSnapStatusForIssuer(snapChecksum, issuer),
+  );
+
+  const isSnapReported = useSelector(
+    isSnapReportedByIssuer(snapChecksum, issuer),
+  );
+
   const [showModal, setShowModal] = useState(false);
+  const [reported, setReported] = useState(isSnapReported);
 
   const dispatch = useDispatch();
 
   const { showSuccessMsg, showErrorMsg } = useToastMsg();
-
-  const { signMessage, signError, snapVCBuilder } = useVerifiableCredential();
 
   useSignErrorHandler(signError);
 
@@ -53,6 +73,7 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
             dispatch(fetchSnapAssertionsForSnapId(snapChecksum)).catch(
               (error) => console.log(error),
             );
+            setReported(true);
             showSuccessMsg({
               title: t`Success`,
               description: t`${snapName} has been reported.`,
@@ -78,7 +99,8 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
     <>
       <ReportButton
         onClick={() => setShowModal(true)}
-        reported={false}
+        reported={reported}
+        isDisabled={reported || latestSnapStatus === SnapCurrentStatus.Disputed}
         size="lg"
       />
       {showModal && (

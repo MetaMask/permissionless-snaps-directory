@@ -4,13 +4,21 @@ import { useState, type FunctionComponent } from 'react';
 
 import { EndorseSnapModal } from './modals/EndorseSnapModal';
 import { EndorseButton } from '../../../components';
-import { useDispatch, useVerifiableCredential } from '../../../hooks';
+import {
+  useDispatch,
+  useSelector,
+  useVerifiableCredential,
+} from '../../../hooks';
 import { useSignErrorHandler } from '../../../hooks/useSignErrorHandler';
 import useToastMsg from '../../../hooks/useToastMsg';
 import {
   createSnapAssertion,
   fetchSnapAssertionsForSnapId,
 } from '../assertions/api';
+import {
+  getCurrentSnapStatusForIssuer,
+  isSnapEndorsedByIssuer,
+} from '../assertions/store';
 
 type EndorseSnapProps = {
   address: Hex;
@@ -23,13 +31,24 @@ export const EndorseSnap: FunctionComponent<EndorseSnapProps> = ({
   snapChecksum,
   snapName,
 }) => {
+  const { signMessage, signError, snapVCBuilder } = useVerifiableCredential();
+
+  const issuer = snapVCBuilder.getIssuerDid(address);
+
+  const latestSnapStatus = useSelector(
+    getCurrentSnapStatusForIssuer(snapChecksum, issuer),
+  );
+
+  const isSnapEndorsed = useSelector(
+    isSnapEndorsedByIssuer(snapChecksum, issuer),
+  );
+
   const [showModal, setShowModal] = useState(false);
+  const [endorsed, setEndorsed] = useState(isSnapEndorsed);
 
   const dispatch = useDispatch();
 
   const { showSuccessMsg, showErrorMsg } = useToastMsg();
-
-  const { signMessage, signError, snapVCBuilder } = useVerifiableCredential();
 
   useSignErrorHandler(signError);
 
@@ -56,6 +75,7 @@ export const EndorseSnap: FunctionComponent<EndorseSnapProps> = ({
             dispatch(fetchSnapAssertionsForSnapId(snapChecksum)).catch(
               (error) => console.log(error),
             );
+            setEndorsed(true);
             showSuccessMsg({
               title: t`Success`,
               description: t`${snapName} has been endorsed.`,
@@ -81,7 +101,8 @@ export const EndorseSnap: FunctionComponent<EndorseSnapProps> = ({
     <>
       <EndorseButton
         onClick={() => setShowModal(true)}
-        endorsed={false}
+        endorsed={endorsed}
+        isDisabled={endorsed || latestSnapStatus !== null}
         size="lg"
       />
       {showModal && (

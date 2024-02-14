@@ -66,7 +66,7 @@ export abstract class BaseVerifiableCredential {
     this.chainId = chainId;
   }
 
-  protected getIssuerDid(address: Hex): PKHDid {
+  getIssuerDid(address: Hex): PKHDid {
     return `did:pkh:eip155:${this.chainId}:${address}`;
   }
 

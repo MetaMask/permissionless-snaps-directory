@@ -3,6 +3,7 @@ import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { CommunitySentiment } from './CommunitySentiment';
 import { createStore } from '../../../../store';
 import { render } from '../../../../utils/test-utils';
+import { SnapCurrentStatus } from '../../assertions/types';
 
 describe('CommunitySentiment', () => {
   const sentimentsInput = [
@@ -32,15 +33,27 @@ describe('CommunitySentiment', () => {
   it.each(sentimentsInput)(
     'renders correctly with %s sentiment',
     async (sentiment) => {
+      const endorsements = [];
+      for (let i = 0; i < sentiment.endorsements; i++) {
+        endorsements.push({
+          snapId: 'snap://checksum',
+          issuer: `issuer${i + 1}`,
+          currentStatus: SnapCurrentStatus.Endorsed,
+          creationAt: new Date(),
+        });
+      }
+      const reports = [];
+      for (let i = 0; i < sentiment.reports; i++) {
+        reports.push({
+          snapId: 'snap://checksum',
+          issuer: `issuer${i + 1}`,
+          currentStatus: SnapCurrentStatus.Disputed,
+          creationAt: new Date(),
+        });
+      }
       const store = createStore({
         snapAssertions: {
-          snapAssertions: [
-            {
-              snapId: 'snap://checksum',
-              endorsementsCount: sentiment.endorsements,
-              reportsCount: sentiment.reports,
-            },
-          ],
+          snapAssertions: [...endorsements, ...reports],
         },
         snapTrustScores: {
           snapTrustScores: [
@@ -73,8 +86,9 @@ describe('CommunitySentiment', () => {
         snapAssertions: [
           {
             snapId: 'snap://checksum',
-            endorsementsCount: 1,
-            reportsCount: 1,
+            issuer: 'issuer1',
+            currentStatus: SnapCurrentStatus.Disputed,
+            creationAt: new Date(),
           },
         ],
       },
@@ -99,8 +113,9 @@ describe('CommunitySentiment', () => {
         snapAssertions: [
           {
             snapId: 'snap://checksum',
-            endorsementsCount: 1,
-            reportsCount: 1,
+            issuer: 'issuer1',
+            currentStatus: SnapCurrentStatus.Disputed,
+            creationAt: new Date(),
           },
         ],
       },
@@ -124,8 +139,9 @@ describe('CommunitySentiment', () => {
         snapAssertions: [
           {
             snapId: 'snap://checksum',
-            endorsementsCount: 10,
-            reportsCount: 3,
+            issuer: 'issuer1',
+            currentStatus: SnapCurrentStatus.Endorsed,
+            creationAt: new Date(),
           },
         ],
       },
@@ -140,7 +156,7 @@ describe('CommunitySentiment', () => {
       store,
     );
 
-    const linkLabel = screen.getByText('10 endorsements');
+    const linkLabel = screen.getByText('1 endorsements');
     fireEvent.click(linkLabel);
 
     const modalTitle = screen.queryByText('Snap Name');

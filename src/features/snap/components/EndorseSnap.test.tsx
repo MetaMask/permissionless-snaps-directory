@@ -1,7 +1,11 @@
 import { act, waitFor } from '@testing-library/react';
 
 import { EndorseSnap } from './EndorseSnap';
-import { useVerifiableCredential, useDispatch } from '../../../hooks';
+import {
+  useVerifiableCredential,
+  useDispatch,
+  useSelector,
+} from '../../../hooks';
 import { VALID_ACCOUNT_1, render } from '../../../utils/test-utils';
 import {
   createSnapAssertion,
@@ -19,10 +23,15 @@ jest.mock('../assertions/api');
 describe('EndorseSnap', () => {
   let mockUseVerifiableCredential: jest.Mock;
   let mockUseDispatch: jest.Mock;
+  let mockUseSelector: jest.Mock;
 
   beforeEach(() => {
     mockUseDispatch = useDispatch as jest.Mock;
     mockUseDispatch.mockClear();
+    mockUseSelector = useSelector as jest.Mock;
+    mockUseSelector.mockClear();
+    mockUseSelector.mockReturnValueOnce(null);
+    mockUseSelector.mockReturnValueOnce(false);
     mockUseVerifiableCredential = useVerifiableCredential as jest.Mock;
     mockUseVerifiableCredential.mockClear();
     mockUseVerifiableCredential.mockReturnValue({
@@ -31,6 +40,7 @@ describe('EndorseSnap', () => {
       snapVCBuilder: {
         buildEndorsedPayload: jest.fn().mockReturnValue('VC'),
         getSignedAssertion: jest.fn().mockReturnValue('assertion'),
+        getIssuerDid: jest.fn().mockReturnValue(VALID_ACCOUNT_1),
       },
       signError: null,
     });
@@ -71,6 +81,7 @@ describe('EndorseSnap', () => {
       snapVCBuilder: {
         buildEndorsedPayload: jest.fn().mockReturnValue('VC'),
         getSignedAssertion: jest.fn().mockReturnValue('assertion'),
+        getIssuerDid: jest.fn().mockReturnValue(VALID_ACCOUNT_1),
       },
       signError: null,
     });

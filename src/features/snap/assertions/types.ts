@@ -51,6 +51,7 @@ export type SnapStatusReason = {
 
 export type SnapAssertion = {
   id: string;
+  creationAt: Date;
   assertion: SnapAssertionResponse;
 };
 
