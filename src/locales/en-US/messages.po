@@ -344,10 +344,6 @@ msgstr ""
 msgid "could not be evaluated by your community and might be unsecure"
 msgstr ""
 
-#: src/features/banner/components/create-snap-banner/CreateSnapBanner.tsx
-msgid "Create your own Snap"
-msgstr ""
-
 #: src/constants.ts
 msgid "Create an Ethereum Account"
 msgstr ""
@@ -952,6 +948,7 @@ msgid "Show notifications"
 msgstr ""
 
 #: src/components/icons/index.ts
+#: src/components/icons/index.ts
 #: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Sign"
 msgstr ""
@@ -997,6 +994,7 @@ msgstr ""
 msgid "Speedometer"
 msgstr ""
 
+#: src/components/icons/index.ts
 #: src/components/icons/index.ts
 msgid "Star"
 msgstr ""
@@ -1157,6 +1155,7 @@ msgstr ""
 msgid "warning"
 msgstr ""
 
+#: src/components/icons/index.ts
 #: src/components/icons/index.ts
 #: src/components/icons/index.ts
 msgid "Warning"
