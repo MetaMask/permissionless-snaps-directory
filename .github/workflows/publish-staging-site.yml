@@ -6,7 +6,11 @@ on:
       destination_dir:
         required: true
         type: string
-
+    secrets:
+      GATSBY_INDEXER_API_BASE_URL:
+        required: true
+      GATSBY_INDEXER_API_KEY:
+        required: true
 jobs:
   publish-site-to-gh-pages:
     name: Publish staging site to GitHub Pages
