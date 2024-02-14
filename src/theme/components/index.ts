@@ -9,6 +9,7 @@ import { Skeleton } from './skeleton';
 import { Tabs } from './tabs';
 import { Tag } from './tag';
 import { Text } from './text';
+import { Tooltip } from './tooltip';
 
 export const components = {
   Button,
@@ -22,4 +23,5 @@ export const components = {
   Tag,
   Text,
   Tabs,
+  Tooltip,
 };

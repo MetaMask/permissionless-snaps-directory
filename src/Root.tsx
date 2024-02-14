@@ -6,14 +6,14 @@ import { WagmiConfig } from 'wagmi';
 
 import { Layout, SnapsProvider } from './components';
 import { WAGMI_CONFIG } from './config/wagmi-config';
-import { messages } from './locales/en/messages';
+import { messages } from './locales/en-US/messages';
 import { createStore } from './store';
 
 // eslint-disable-next-line import/no-unassigned-import, import/extensions
 import './assets/fonts/fonts.css';
 
-i18n.load('en', messages);
-i18n.activate('en');
+i18n.load('en-US', messages);
+i18n.activate('en-US');
 
 /**
  * Wrap every page in the specified components. This can be used to wrap pages
@@ -23,14 +23,16 @@ i18n.activate('en');
  * This is exported here so that it can be used in both gatsby-browser.tsx and
  * gatsby-ssr.tsx.
  *
- * @param props - The props provided by Gatsby.
- * @param props.element - The page element to wrap.
+ * @param options - The options provided by Gatsby.
+ * @param options.element - The page element to wrap.
+ * @param options.props - The props for the page.
  * @returns The wrapped page element.
  */
 export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
   element,
+  props,
 }) => {
-  return <Layout>{element}</Layout>;
+  return <Layout {...props}>{element}</Layout>;
 };
 
 /**

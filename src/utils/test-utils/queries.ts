@@ -1,3 +1,5 @@
+import type { InitialPermissions } from '@metamask/snaps-sdk';
+
 import { SNAP_SHASUM_1 } from './constants';
 import { RegistrySnapCategory } from '../../constants';
 import type { Fields } from '../snaps';
@@ -66,6 +68,10 @@ export type MockSnap = Fields<
   | 'gatsbyPath'
   | 'downloads'
   | 'lastUpdated'
+  | 'permissions'
+  | 'privateCode'
+  | 'privacyPolicy'
+  | 'termsOfUse'
 >;
 
 export type GetMockSnapArgs = {
@@ -85,11 +91,18 @@ export type GetMockSnapArgs = {
   audits?: Fields<Queries.SnapAudits, 'auditor' | 'report'>[];
   banner?: Fields<Queries.File, 'publicURL'>;
   support?: Partial<
-    Fields<Queries.SnapSupport, 'contact' | 'faq' | 'knowledgeBase'>
+    Fields<
+      Queries.SnapSupport,
+      'contact' | 'faq' | 'knowledgeBase' | 'keyRecovery'
+    >
   >;
   gatsbyPath?: string;
   downloads?: number;
   lastUpdated?: number;
+  permissions?: InitialPermissions;
+  privateCode?: boolean;
+  privacyPolicy?: string;
+  termsOfUse?: string;
 };
 
 /**
@@ -114,6 +127,11 @@ export type GetMockSnapArgs = {
  * @param args.gatsbyPath - The Gatsby path.
  * @param args.downloads - The number of downloads.
  * @param args.lastUpdated - A unix timestamp of the last update to the snap.
+ * @param args.permissions - The Snap's initial permissions.
+ * @param args.privateCode - Whether the Snap's source code is (partially)
+ * private.
+ * @param args.privacyPolicy - The privacy policy URL.
+ * @param args.termsOfUse - The terms of use URL.
  * @param args.latestChecksum - The checksum value of latest version of the Snap.
  * @returns The mock snap data.
  */
@@ -150,10 +168,19 @@ export function getMockSnap({
     contact: 'https://example.com/contact',
     faq: 'https://example.com/faq',
     knowledgeBase: 'https://example.com/knowledge-base',
+    keyRecovery: 'https://example.com/key-recovery',
   },
   gatsbyPath = `/snap/${snapId}`,
   downloads = 0,
   lastUpdated = 1701260892,
+  permissions = {
+    'endowment:rpc': {
+      dapps: true,
+    },
+  },
+  privateCode = false,
+  privacyPolicy = 'https://example.com/privacyPolicy',
+  termsOfUse = 'https://example.com/termsOfUse',
 }: GetMockSnapArgs = {}): { snap: MockSnap } {
   return {
     snap: {
@@ -179,6 +206,10 @@ export function getMockSnap({
       gatsbyPath,
       downloads,
       lastUpdated,
+      permissions,
+      privateCode,
+      privacyPolicy,
+      termsOfUse,
     },
   };
 }

@@ -41,7 +41,7 @@ describe('Snap page', () => {
       render(<SnapPage data={getMockSnap({ name: 'Foo Snap' })} />),
     );
 
-    expect(queryAllByText('Foo Snap')).toHaveLength(2);
+    expect(queryAllByText('Foo Snap')).toHaveLength(3);
   });
 
   it('renders the report button if the user is connected', async () => {

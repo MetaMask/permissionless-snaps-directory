@@ -59,7 +59,7 @@ export const semanticTokens: SemanticTokens = {
         _dark: '#1098FC',
       },
       muted: {
-        default: '#0376C91A',
+        default: '#037DD61A',
         _dark: '#1098FC26',
       },
     },
@@ -81,6 +81,16 @@ export const semanticTokens: SemanticTokens = {
       muted: {
         default: '#D738471A',
         _dark: '#D738471A',
+      },
+    },
+    warning: {
+      default: {
+        default: '#BF5208',
+        _dark: '#FFD33D',
+      },
+      muted: {
+        default: '#BF520819',
+        _dark: '#FFD33D26',
       },
     },
     default: {
@@ -123,7 +133,10 @@ export const semanticTokens: SemanticTokens = {
   },
 
   shadows: {
-    md: '0px 2px 16px 0px #0000001A',
+    md: {
+      default: '0px 4px 16px 0px #00000066',
+      _dark: '0px 2px 16px 0px #00000040',
+    },
     lg: '0px 2px 40px 0px #0000001A',
     xl: '0px 4px 16px 0px #0000001A',
   },

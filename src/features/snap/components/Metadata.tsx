@@ -24,9 +24,13 @@ export type MetadataProps = {
     | 'category'
     | 'author'
     | 'sourceCode'
+    | 'additionalSourceCode'
     | 'audits'
     | 'banner'
     | 'support'
+    | 'privateCode'
+    | 'privacyPolicy'
+    | 'termsOfUse'
   >;
 };
 
@@ -68,6 +72,11 @@ export const Metadata: FunctionComponent<MetadataProps> = ({ snap }) => {
                 {support.knowledgeBase && (
                   <ExternalLink href={support.knowledgeBase}>
                     <Trans>Knowledge Base</Trans>
+                  </ExternalLink>
+                )}
+                {support.keyRecovery && (
+                  <ExternalLink href={support.keyRecovery}>
+                    <Trans>Key Recovery</Trans>
                   </ExternalLink>
                 )}
               </>
