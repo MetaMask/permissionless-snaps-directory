@@ -33,6 +33,8 @@ jobs:
           GATSBY_STAGING: true
           STAGING_PATH_PREFIX: permissionless-snaps-directory/${{ inputs.destination_dir }}
           PREFIX_PATHS: true
+          GATSBY_INDEXER_API_BASE_URL: ${{ secrets.GATSBY_INDEXER_API_BASE_URL }}
+          GATSBY_INDEXER_API_KEY: ${{ secrets.GATSBY_INDEXER_API_KEY }}
       - name: Deploy to `${{ inputs.destination_dir }}` directory of `gh-pages` branch
         uses: peaceiris/actions-gh-pages@de7ea6f8efb354206b205ef54722213d99067935
         with:
