@@ -67,13 +67,29 @@ describe('Selectors', () => {
   });
 
   describe('getAccountAssertionDetailsForAccountId', () => {
-    it('should return account assertion details for a specific accountId', () => {
+    it('should return account assertion details for a specific accountId when there are no account assertions in the store', () => {
+      const mockedApplicationState: ApplicationState = mock<ApplicationState>();
+      mockedApplicationState.accountAssertions.accountAssertions = [];
+
+      const accountAssertionDetails = getAccountAssertionDetailsForAccountId(
+        'accountId',
+      )(mockedApplicationState);
+
+      expect(accountAssertionDetails).toStrictEqual({
+        accountId: 'accountId',
+        endorsementsCount: 0,
+        reportsCount: 0,
+      });
+    });
+
+    it('should return account assertion details for a specific accountId with no endorsements or reports', () => {
       const accountAssertion = {
         accountId: 'accountId',
         issuer: 'issuer',
         trustworthiness: [],
         creationAt: new Date(),
       };
+
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [
         accountAssertion,
@@ -87,6 +103,85 @@ describe('Selectors', () => {
         accountId: 'accountId',
         endorsementsCount: 0,
         reportsCount: 0,
+      });
+    });
+
+    it('should return account assertion details for a specific accountId with endorsements but no reports', () => {
+      const accountAssertion: AccountAssertionState = {
+        accountId: 'accountId',
+        issuer: 'issuer',
+        trustworthiness: [
+          { level: 1, scope: TrustworthinessScope.SoftwareDevelopment }, // Positive endorsement
+        ],
+        creationAt: new Date(),
+      };
+
+      const mockedApplicationState: ApplicationState = mock<ApplicationState>();
+      mockedApplicationState.accountAssertions.accountAssertions = [
+        accountAssertion,
+      ];
+
+      const accountAssertionDetails = getAccountAssertionDetailsForAccountId(
+        'accountId',
+      )(mockedApplicationState);
+
+      expect(accountAssertionDetails).toStrictEqual({
+        accountId: 'accountId',
+        endorsementsCount: 1,
+        reportsCount: 0,
+      });
+    });
+
+    it('should return account assertion details for a specific accountId with reports but no endorsements', () => {
+      const accountAssertion: AccountAssertionState = {
+        accountId: 'accountId',
+        issuer: 'issuer',
+        trustworthiness: [
+          { level: -1, scope: TrustworthinessScope.Honesty }, // Negative report
+        ],
+        creationAt: new Date(),
+      };
+
+      const mockedApplicationState: ApplicationState = mock<ApplicationState>();
+      mockedApplicationState.accountAssertions.accountAssertions = [
+        accountAssertion,
+      ];
+
+      const accountAssertionDetails = getAccountAssertionDetailsForAccountId(
+        'accountId',
+      )(mockedApplicationState);
+
+      expect(accountAssertionDetails).toStrictEqual({
+        accountId: 'accountId',
+        endorsementsCount: 0,
+        reportsCount: 1,
+      });
+    });
+
+    it('should return account assertion details for a specific accountId with both endorsements and reports', () => {
+      const accountAssertion: AccountAssertionState = {
+        accountId: 'accountId',
+        issuer: 'issuer',
+        trustworthiness: [
+          { level: 1, scope: TrustworthinessScope.SoftwareDevelopment }, // Positive endorsement
+          { level: -1, scope: TrustworthinessScope.Honesty }, // Negative report
+        ],
+        creationAt: new Date(),
+      };
+
+      const mockedApplicationState: ApplicationState = mock<ApplicationState>();
+      mockedApplicationState.accountAssertions.accountAssertions = [
+        accountAssertion,
+      ];
+
+      const accountAssertionDetails = getAccountAssertionDetailsForAccountId(
+        'accountId',
+      )(mockedApplicationState);
+
+      expect(accountAssertionDetails).toStrictEqual({
+        accountId: 'accountId',
+        endorsementsCount: 1,
+        reportsCount: 1,
       });
     });
   });
@@ -104,6 +199,7 @@ describe('Selectors', () => {
 
     it('should return the latest trustworthiness level for an issuer', () => {
       const earlierDate = new Date('2022-01-01');
+      const middleDate = new Date('2022-01-02');
       const laterDate = new Date('2022-01-03');
       const accountAssertion1: AccountAssertionState = {
         accountId: 'accountId',
@@ -116,12 +212,21 @@ describe('Selectors', () => {
       const accountAssertion2: AccountAssertionState = {
         accountId: 'accountId',
         issuer: 'issuer',
+        trustworthiness: [
+          { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
+        ],
+        creationAt: middleDate, // Middle date
+      };
+      const accountAssertion3: AccountAssertionState = {
+        accountId: 'accountId',
+        issuer: 'issuer',
         trustworthiness: [{ level: -1, scope: TrustworthinessScope.Honesty }],
         creationAt: laterDate, // Later date
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [
         accountAssertion1,
+        accountAssertion3,
         accountAssertion2,
       ];
 
