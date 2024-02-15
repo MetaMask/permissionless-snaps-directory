@@ -56,6 +56,7 @@ describe('AccountTEEndorsement', () => {
       accountVCBuilder: {
         buildTechnicalExpertiseTrust: buildTechnicalExpertiseTrustSpy,
         getSignedAssertion: getSignedAssertionSpy,
+        getSubjectDid: jest.fn().mockReturnValue(VALID_ACCOUNT_1),
       },
       signError,
       issuerAddress: VALID_ACCOUNT_1,

@@ -34,6 +34,14 @@ msgstr ""
 msgid "{nameText} Snaps on the MetaMask Snaps Directory"
 msgstr ""
 
+#: src/features/account/AccountTEEndorsement.tsx
+msgid "{pkhAddress} has been endorsed."
+msgstr ""
+
+#: src/features/account/AccountReport.tsx
+msgid "{pkhAddress} has been reported."
+msgstr ""
+
 #: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
 #: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
 #: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
@@ -447,6 +455,10 @@ msgstr ""
 msgid "error"
 msgstr ""
 
+#: src/features/account/AccountReport.tsx
+#: src/features/account/AccountReport.tsx
+#: src/features/account/AccountTEEndorsement.tsx
+#: src/features/account/AccountTEEndorsement.tsx
 #: src/features/account/MoreOptionMenu.tsx
 #: src/features/snap/components/EndorseSnap.tsx
 #: src/features/snap/components/EndorseSnap.tsx
@@ -499,9 +511,19 @@ msgstr ""
 msgid "Failed to copy profile link to clipboard"
 msgstr ""
 
+#: src/features/account/AccountTEEndorsement.tsx
+#: src/features/account/AccountTEEndorsement.tsx
+msgid "Failed to create endorsement for {pkhAddress}."
+msgstr ""
+
 #: src/features/snap/components/EndorseSnap.tsx
 #: src/features/snap/components/EndorseSnap.tsx
 msgid "Failed to create endorsement for {snapName}."
+msgstr ""
+
+#: src/features/account/AccountReport.tsx
+#: src/features/account/AccountReport.tsx
+msgid "Failed to create report for {pkhAddress}."
 msgstr ""
 
 #: src/features/snap/components/ReportSnap.tsx
@@ -595,10 +617,6 @@ msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
 msgid "has been evaluated as unsecured by your community"
-msgstr ""
-
-#: src/features/account/AccountReport.tsx
-msgid "has been reported"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -1175,10 +1193,6 @@ msgstr ""
 
 #: src/components/FooterAccountManagementTerms.tsx
 msgid "You will not be able to use your MetaMask Secret Recovery Phrase to recover accounts added through Account Management Snaps. If your account credentials are lost or compromised, MetaMask will not be able to help you. If the Snap or the associated dapp is hacked or ceases to function, you may not be able to access your account and the funds in your account."
-msgstr ""
-
-#: src/features/account/AccountTEEndorsement.tsx
-msgid "Your endorsement has been done"
 msgstr ""
 
 #: src/features/account/components/modals/TEEndorsementModal.tsx

@@ -1,11 +1,19 @@
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
-import { useMemo, useState, type FunctionComponent } from 'react';
+import { useMemo, useState, type FunctionComponent, useEffect } from 'react';
 import { useEnsName } from 'wagmi';
 
+import {
+  createAccountAssertion,
+  fetchAccountAssertionsForAccountId,
+} from './assertions/api';
+import {
+  getCurrentTrustworthinessLevelForIssuer,
+  isAccountReportedByIssuer,
+} from './assertions/store';
 import { AccountReportModal } from './components';
 import { ReportButton } from '../../components';
-import { useVerifiableCredential } from '../../hooks';
+import { useDispatch, useSelector, useVerifiableCredential } from '../../hooks';
 import { useSignErrorHandler } from '../../hooks/useSignErrorHandler';
 import useToastMsg from '../../hooks/useToastMsg';
 import { trimAddress } from '../../utils';
@@ -23,18 +31,36 @@ export const AccountReport: FunctionComponent<AccountReportProps> = ({
     address,
   });
 
-  const { showSuccessMsg } = useToastMsg();
-
   const { signMessage, signError, accountVCBuilder } =
     useVerifiableCredential();
 
-  useSignErrorHandler(signError);
-
   const trimedAddress = useMemo(() => trimAddress(address), [address]);
+
+  const pkhAddress = accountVCBuilder.getSubjectDid(address);
+  const issuer = accountVCBuilder.getSubjectDid(connectedAddress);
+
+  const latestTrustworthinessLevel = useSelector(
+    getCurrentTrustworthinessLevelForIssuer(pkhAddress, issuer),
+  );
+
+  const isAccountReported = useSelector(
+    isAccountReportedByIssuer(pkhAddress, issuer),
+  );
 
   const reportEntity = data ?? trimedAddress;
 
   const [showModal, setShowModal] = useState(false);
+  const [reported, setEndorsed] = useState(isAccountReported);
+
+  useEffect(() => {
+    setEndorsed(isAccountReported);
+  }, [isAccountReported]);
+
+  const dispatch = useDispatch();
+
+  const { showSuccessMsg, showErrorMsg } = useToastMsg();
+
+  useSignErrorHandler(signError);
 
   // TODO: hardcode options for now, change to dynamic if needed
   const options = [
@@ -56,23 +82,45 @@ export const AccountReport: FunctionComponent<AccountReportProps> = ({
 
     if (signature) {
       const assertion = accountVCBuilder.getSignedAssertion(VC, signature);
-      console.log('report assertion', assertion);
-      const successMessage = `${reportEntity} ${t`has been reported`}`;
-
-      showSuccessMsg({
-        title: t`Success`,
-        description: successMessage,
-      });
-
-      // save db (assertion)
-
-      setShowModal(false);
+      dispatch(createAccountAssertion(assertion))
+        .then((action) => {
+          if (action.type.endsWith('fulfilled')) {
+            dispatch(fetchAccountAssertionsForAccountId(pkhAddress)).catch(
+              (error) => console.log(error),
+            );
+            setEndorsed(true);
+            showSuccessMsg({
+              title: t`Success`,
+              description: t`${pkhAddress} has been reported.`,
+            });
+          } else {
+            showErrorMsg({
+              title: t`Error`,
+              description: t`Failed to create report for ${pkhAddress}.`,
+            });
+          }
+        })
+        .catch(() => {
+          showErrorMsg({
+            title: t`Error`,
+            description: t`Failed to create report for ${pkhAddress}.`,
+          });
+        });
     }
+    setShowModal(false);
   };
 
   return (
     <>
-      <ReportButton onClick={() => setShowModal(true)} reported={false} />
+      <ReportButton
+        onClick={() => setShowModal(true)}
+        reported={reported}
+        isDisabled={
+          reported ||
+          (latestTrustworthinessLevel !== undefined &&
+            latestTrustworthinessLevel < 0)
+        }
+      />
       {showModal && (
         <AccountReportModal
           reportEntity={reportEntity}
