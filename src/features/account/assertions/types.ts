@@ -65,7 +65,7 @@ export type AccountAssertionResponse = {
   type: TrustCredentialType[];
   issuer: Did;
   credentialSubject: AccountCredentialSubject;
-  proof: ProofEip712 | ProofJWT;
+  proof?: ProofEip712;
 };
 
 export type AccountAssertion = {
