@@ -114,7 +114,6 @@ describe('createSnapAssertion', () => {
 
     // Assert
     expect(mockedAxios.post.mock.calls).toHaveLength(1);
-    console.log(dispatch.mock.calls);
     expect(dispatch).toHaveBeenLastCalledWith(
       expect.objectContaining({
         type: 'snapAssertions/createSnapAssertion/rejected',
@@ -134,7 +133,6 @@ describe('createSnapAssertion', () => {
 
     // Assert
     expect(mockedAxios.post.mock.calls).toHaveLength(1);
-    console.log(dispatch.mock.calls);
     expect(dispatch).toHaveBeenLastCalledWith(
       expect.objectContaining({
         type: 'snapAssertions/createSnapAssertion/rejected',
