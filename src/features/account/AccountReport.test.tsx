@@ -21,12 +21,6 @@ jest.mock('wagmi', () => ({
   useEnsName: jest.fn(),
 }));
 
-jest.mock('./assertions/store', () => ({
-  ...jest.requireActual('./assertions/store'),
-  getCurrentTrustworthinessLevelForIssuer: jest.fn(),
-  isAccountReportedByIssuer: jest.fn(),
-}));
-
 jest.mock('../../hooks/useVerifiableCredential', () => ({
   ...jest.requireActual('../../hooks/useVerifiableCredential'),
   useVerifiableCredential: jest.fn(),
@@ -39,36 +33,32 @@ const buildEnsNameMock = (name?: string, isLoading = false) => {
     isLoading,
   }));
 };
-let mockUseVerifiableCredential: jest.Mock;
-let mockUseSelector: jest.Mock;
-
-const buildUseVerifiableCredentialMock = () => {
-  mockUseSelector = useSelector as jest.Mock;
-  mockUseSelector.mockClear();
-  mockUseSelector.mockReturnValueOnce(null);
-  mockUseSelector.mockReturnValueOnce(false);
-  mockUseVerifiableCredential = useVerifiableCredential as jest.Mock;
-  mockUseVerifiableCredential.mockClear();
-  mockUseVerifiableCredential.mockReturnValue({
-    issuerAddress: 'issuerAddress',
-    signMessage: jest.fn().mockReturnValue(Promise.resolve('signature')),
-    accountVCBuilder: {
-      buildReportAccountTrust: jest.fn().mockReturnValue('VC'),
-      getSignedAssertion: jest.fn().mockReturnValue('assertion'),
-      getSubjectDid: jest.fn().mockReturnValue(VALID_ACCOUNT_1),
-      getIssuerDid: jest.fn().mockReturnValue(VALID_ACCOUNT_2),
-    },
-    signError: null,
-  });
-};
 
 describe('AccountReport', () => {
+  let mockUseVerifiableCredential: jest.Mock;
+  let mockUseSelector: jest.Mock;
   let mockUseDispatch: jest.Mock;
   beforeEach(() => {
     mockUseDispatch = useDispatch as jest.Mock;
     mockUseDispatch.mockClear();
     buildEnsNameMock('ens.mock.name');
-    buildUseVerifiableCredentialMock();
+    mockUseSelector = useSelector as jest.Mock;
+    mockUseSelector.mockClear();
+    mockUseSelector.mockReturnValueOnce(null);
+    mockUseSelector.mockReturnValueOnce(false);
+    mockUseVerifiableCredential = useVerifiableCredential as jest.Mock;
+    mockUseVerifiableCredential.mockClear();
+    mockUseVerifiableCredential.mockReturnValue({
+      issuerAddress: 'issuerAddress',
+      signMessage: jest.fn().mockReturnValue(Promise.resolve('signature')),
+      accountVCBuilder: {
+        buildReportAccountTrust: jest.fn().mockReturnValue('VC'),
+        getSignedAssertion: jest.fn().mockReturnValue('assertion'),
+        getSubjectDid: jest.fn().mockReturnValue(VALID_ACCOUNT_1),
+        getIssuerDid: jest.fn().mockReturnValue(VALID_ACCOUNT_2),
+      },
+      signError: null,
+    });
   });
   it('renders the component', () => {
     const { queryByText } = render(

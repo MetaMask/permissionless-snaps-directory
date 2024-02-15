@@ -3,6 +3,7 @@ import { getAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
 import AccountProfilePage, { Head } from '.';
+import { useDispatch } from '../../hooks';
 import {
   getMockSiteMetadata,
   render,
@@ -11,6 +12,11 @@ import {
 
 jest.mock('../../features/account/components/AccountInfo', () => ({
   AccountInfo: () => <div />,
+}));
+
+jest.mock('../../hooks', () => ({
+  ...jest.requireActual('../../hooks'),
+  useDispatch: jest.fn(),
 }));
 
 jest.mock('../../hooks/useVerifiableCredential', () => ({
@@ -49,8 +55,14 @@ jest.mock('@chakra-ui/react', () => ({
 describe('Account Profile page', () => {
   let mockGetAddress: jest.Mock;
   let mockUseAccount: jest.Mock;
+  let mockUseDispatch: jest.Mock;
 
   beforeEach(() => {
+    mockUseDispatch = useDispatch as jest.Mock;
+    mockUseDispatch.mockClear();
+    const mockDispatch = jest.fn();
+    mockUseDispatch.mockReturnValue(mockDispatch);
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve());
     mockGetAddress = getAddress as jest.Mock;
     mockUseAccount = useAccount as jest.Mock;
     mockGetAddress.mockClear();
@@ -58,6 +70,34 @@ describe('Account Profile page', () => {
   });
 
   it('renders', async () => {
+    const address = VALID_ACCOUNT_1;
+    mockGetAddress.mockReturnValue(address);
+    mockUseAccount.mockReturnValue({
+      address: null,
+      isConnected: false,
+    });
+
+    const mockLocationSearchParam = {
+      search: new URLSearchParams({ address }),
+    };
+
+    const { queryByText, queryByTestId } = render(
+      <AccountProfilePage location={mockLocationSearchParam} />,
+    );
+
+    expect(
+      queryByText("The page you're looking for can't be found."),
+    ).not.toBeInTheDocument();
+    expect(queryByTestId('account-info')).toBeInTheDocument();
+  });
+
+  it('renders even when fetchAccountAssertionsForAccountId fails', async () => {
+    const mockDispatch = jest.fn();
+    mockUseDispatch.mockReturnValue(mockDispatch);
+    mockDispatch.mockImplementationOnce(async () =>
+      Promise.reject(new Error()),
+    );
+
     const address = VALID_ACCOUNT_1;
     mockGetAddress.mockReturnValue(address);
     mockUseAccount.mockReturnValue({

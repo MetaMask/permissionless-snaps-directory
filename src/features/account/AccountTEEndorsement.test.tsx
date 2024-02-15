@@ -1,24 +1,25 @@
-import { useToast } from '@chakra-ui/react';
-import { act } from '@testing-library/react';
+import { act, waitFor } from '@testing-library/react';
 import { useEnsName } from 'wagmi';
 
 import { AccountTEEndorsement } from './AccountTEEndorsement';
-import type { VCSignError } from '../../hooks/useVerifiableCredential';
+import {
+  createAccountAssertion,
+  fetchAccountAssertionsForAccountId,
+} from './assertions/api';
+import { useDispatch, useSelector } from '../../hooks';
 import { useVerifiableCredential } from '../../hooks/useVerifiableCredential';
-import { trimAddress, TrustworthinessScope } from '../../utils';
 import {
   render,
   VALID_ACCOUNT_1,
   VALID_ACCOUNT_2,
 } from '../../utils/test-utils';
 
+jest.mock('../../hooks');
+
+jest.mock('./assertions/api');
+
 jest.mock('wagmi', () => ({
   useEnsName: jest.fn(),
-}));
-
-jest.mock('@chakra-ui/react', () => ({
-  ...jest.requireActual('@chakra-ui/react'),
-  useToast: jest.fn(),
 }));
 
 jest.mock('../../hooks/useVerifiableCredential', () => ({
@@ -26,51 +27,175 @@ jest.mock('../../hooks/useVerifiableCredential', () => ({
   useVerifiableCredential: jest.fn(),
 }));
 
+const buildEnsNameMock = (name?: string, isLoading = false) => {
+  const mockUseEnsName = useEnsName as jest.Mock;
+  mockUseEnsName.mockImplementation(() => ({
+    data: name,
+    isLoading,
+  }));
+};
+
 describe('AccountTEEndorsement', () => {
-  const buildToastSpy = () => {
-    const mockUseToast = useToast as jest.Mock;
-    const toastSpy = jest.fn();
-    mockUseToast.mockReturnValue(toastSpy);
-    return {
-      toastSpy,
-    };
-  };
+  let mockUseVerifiableCredential: jest.Mock;
+  let mockUseSelector: jest.Mock;
+  let mockUseDispatch: jest.Mock;
 
-  const buildEnsNameMock = (name?: string, isLoading = false) => {
-    const mockUseEnsName = useEnsName as jest.Mock;
-    mockUseEnsName.mockImplementation(() => ({
-      data: name,
-      isLoading,
-    }));
-  };
-
-  const buildUseVerifiableCredentialMock = (signError?: VCSignError) => {
-    const useVerifiableCredentialMock = useVerifiableCredential as jest.Mock;
-
-    const signMessageSpy = jest.fn();
-    const buildTechnicalExpertiseTrustSpy = jest.fn();
-    const getSignedAssertionSpy = jest.fn();
-
-    useVerifiableCredentialMock.mockReturnValue({
-      signMessage: signMessageSpy,
+  beforeEach(() => {
+    mockUseDispatch = useDispatch as jest.Mock;
+    mockUseDispatch.mockClear();
+    buildEnsNameMock('ens.mock.name');
+    mockUseSelector = useSelector as jest.Mock;
+    mockUseSelector.mockClear();
+    mockUseSelector.mockReturnValueOnce(undefined);
+    mockUseSelector.mockReturnValueOnce(false);
+    mockUseVerifiableCredential = useVerifiableCredential as jest.Mock;
+    mockUseVerifiableCredential.mockClear();
+    mockUseVerifiableCredential.mockReturnValue({
+      issuerAddress: 'issuerAddress',
+      signMessage: jest.fn().mockReturnValue(Promise.resolve('signature')),
       accountVCBuilder: {
-        buildTechnicalExpertiseTrust: buildTechnicalExpertiseTrustSpy,
-        getSignedAssertion: getSignedAssertionSpy,
+        buildTechnicalExpertiseTrust: jest.fn().mockReturnValue('VC'),
+        getSignedAssertion: jest.fn().mockReturnValue('assertion'),
         getSubjectDid: jest.fn().mockReturnValue(VALID_ACCOUNT_1),
+        getIssuerDid: jest.fn().mockReturnValue(VALID_ACCOUNT_2),
       },
-      signError,
-      issuerAddress: VALID_ACCOUNT_1,
+      signError: null,
+    });
+  });
+
+  it('renders', async () => {
+    const { queryByText } = render(
+      <AccountTEEndorsement
+        address={VALID_ACCOUNT_1}
+        connectedAddress={VALID_ACCOUNT_2}
+      />,
+    );
+
+    expect(queryByText('Endorse')).toBeInTheDocument();
+  });
+
+  it('renders the component without ens name', () => {
+    buildEnsNameMock();
+    const { queryByText } = render(
+      <AccountTEEndorsement
+        address={VALID_ACCOUNT_1}
+        connectedAddress={VALID_ACCOUNT_2}
+      />,
+    );
+    expect(queryByText('Endorse')).toBeInTheDocument();
+  });
+
+  it('shows modal when endorse button is clicked', async () => {
+    const { queryByText, getByText } = render(
+      <AccountTEEndorsement
+        address={VALID_ACCOUNT_1}
+        connectedAddress={VALID_ACCOUNT_2}
+      />,
+    );
+
+    await act(async () => getByText('Endorse').click());
+
+    expect(queryByText('Sign')).toBeInTheDocument();
+  });
+
+  it('does not sign when signature is null', async () => {
+    const mockSignMessage = jest.fn();
+
+    mockUseVerifiableCredential.mockReturnValue({
+      issuerAddress: 'issuerAddress',
+      signMessage: mockSignMessage,
+      accountVCBuilder: {
+        buildTechnicalExpertiseTrust: jest.fn().mockReturnValue('VC'),
+        getSignedAssertion: jest.fn().mockReturnValue('assertion'),
+        getSubjectDid: jest.fn().mockReturnValue(VALID_ACCOUNT_1),
+        getIssuerDid: jest.fn().mockReturnValue(VALID_ACCOUNT_2),
+      },
+      signError: null,
     });
 
-    return {
-      signMessageSpy,
-      getSignedAssertionSpy,
-      buildTechnicalExpertiseTrustSpy,
-    };
-  };
+    mockSignMessage.mockReturnValue(null);
 
-  const runOnSign = async () => {
-    const { getByText } = render(
+    const { queryByText, getByText } = render(
+      <AccountTEEndorsement
+        address={VALID_ACCOUNT_1}
+        connectedAddress={VALID_ACCOUNT_2}
+      />,
+    );
+
+    await act(async () => getByText('Endorse').click());
+
+    expect(queryByText('Sign')).toBeInTheDocument();
+    await act(async () => getByText('Sign').click());
+    expect(mockSignMessage).toHaveBeenCalled();
+
+    expect(queryByText('Endorse')).toBeInTheDocument();
+    expect(queryByText('Endorsed')).not.toBeInTheDocument();
+  });
+
+  it('closes modal when close button is clicked', async () => {
+    const { queryByText, getByText, getByLabelText } = render(
+      <AccountTEEndorsement
+        address={VALID_ACCOUNT_1}
+        connectedAddress={VALID_ACCOUNT_2}
+      />,
+    );
+
+    await act(async () => getByText('Endorse').click());
+
+    expect(queryByText('Sign')).toBeInTheDocument();
+
+    await act(async () => getByLabelText('Close').click());
+
+    expect(queryByText('Sign')).not.toBeInTheDocument();
+  });
+
+  it('displays `Success` toast when endorsement is successful', async () => {
+    const mockDispatch = jest.fn();
+    mockUseDispatch.mockReturnValue(mockDispatch);
+    mockDispatch.mockImplementationOnce(async () =>
+      Promise.resolve({
+        type: 'fulfilled',
+      }),
+    );
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve({}));
+
+    const { queryByText, getByText } = render(
+      <AccountTEEndorsement
+        address={VALID_ACCOUNT_1}
+        connectedAddress={VALID_ACCOUNT_2}
+      />,
+    );
+
+    await act(async () => getByText('Endorse').click());
+    await act(async () => getByText('Software Development').click());
+    await act(async () => getByText('Sign').click());
+
+    // Wait for async actions to complete
+    await waitFor(() => {
+      expect(queryByText('Success')).toBeInTheDocument();
+      expect(mockDispatch).toHaveBeenCalledTimes(2);
+      expect(mockDispatch).toHaveBeenCalledWith(
+        createAccountAssertion(expect.anything()),
+      );
+      expect(mockDispatch).toHaveBeenCalledWith(
+        fetchAccountAssertionsForAccountId(expect.anything()),
+      );
+    });
+  });
+
+  it('displays `Success` toast when endorsement is successful even when fetchAccountAssertionsForAccountId fails', async () => {
+    const mockDispatch = jest.fn();
+    mockUseDispatch.mockReturnValue(mockDispatch);
+    mockDispatch.mockImplementationOnce(async () =>
+      Promise.resolve({
+        type: 'fulfilled',
+      }),
+    );
+    mockDispatch.mockImplementationOnce(async () =>
+      Promise.reject(new Error()),
+    );
+
+    const { queryByText, getByText } = render(
       <AccountTEEndorsement
         address={VALID_ACCOUNT_1}
         connectedAddress={VALID_ACCOUNT_2}
@@ -79,163 +204,72 @@ describe('AccountTEEndorsement', () => {
 
     await act(async () => getByText('Endorse').click());
     await act(async () => getByText('Sign').click());
-  };
 
-  it('renders', async () => {
-    buildEnsNameMock('ens.mock.name');
-    buildUseVerifiableCredentialMock();
-
-    const { queryByText, getByText } = render(
-      <AccountTEEndorsement
-        address={VALID_ACCOUNT_1}
-        connectedAddress={VALID_ACCOUNT_2}
-      />,
-    );
-
-    await act(async () => getByText('Endorse').click());
-
-    expect(queryByText('Endorse')).toBeInTheDocument();
-    expect(queryByText('Software Security')).toBeInTheDocument();
-    expect(queryByText('Software Development')).toBeInTheDocument();
-  });
-
-  it('assigns trimed address to `trustEntity` when `useEnsName` is not ready or return null', async () => {
-    buildEnsNameMock();
-    buildUseVerifiableCredentialMock();
-
-    const { queryByText, getByText } = render(
-      <AccountTEEndorsement
-        address={VALID_ACCOUNT_1}
-        connectedAddress={VALID_ACCOUNT_2}
-      />,
-    );
-
-    await act(async () => getByText('Endorse').click());
-
-    expect(queryByText(trimAddress(VALID_ACCOUNT_1))).toBeInTheDocument();
-  });
-
-  it('assigns ens name to `trustEntity` when `useEnsName` returns a name', async () => {
-    buildEnsNameMock('mock.ens.name');
-    buildUseVerifiableCredentialMock();
-
-    const { queryByText, getByText } = render(
-      <AccountTEEndorsement
-        address={VALID_ACCOUNT_1}
-        connectedAddress={VALID_ACCOUNT_2}
-      />,
-    );
-
-    await act(async () => getByText('Endorse').click());
-
-    expect(queryByText('mock.ens.name')).toBeInTheDocument();
-  });
-
-  it('closes modal when close button is clicked', async () => {
-    buildEnsNameMock('mock.ens.name');
-    buildToastSpy();
-    buildUseVerifiableCredentialMock();
-
-    const { queryByText, getByLabelText, getByText } = render(
-      <AccountTEEndorsement
-        address={VALID_ACCOUNT_1}
-        connectedAddress={VALID_ACCOUNT_2}
-      />,
-    );
-
-    await act(async () => getByText('Endorse').click());
-    await act(async () => getByLabelText('Close').click());
-
-    expect(queryByText('mock.ens.name')).not.toBeInTheDocument();
-  });
-
-  describe('when onSign is triggered', () => {
-    it('calls `getSignedAssertion` when `signMessage` returns signature', async () => {
-      buildEnsNameMock('mock.ens.name');
-      buildToastSpy();
-      const {
-        signMessageSpy,
-        getSignedAssertionSpy,
-        buildTechnicalExpertiseTrustSpy,
-      } = buildUseVerifiableCredentialMock(undefined);
-
-      signMessageSpy.mockResolvedValue('0xSignature');
-
-      await runOnSign();
-
-      expect(signMessageSpy).toHaveBeenCalled();
-      expect(getSignedAssertionSpy).toHaveBeenCalled();
-      expect(buildTechnicalExpertiseTrustSpy).toHaveBeenCalledWith(
-        VALID_ACCOUNT_2,
-        VALID_ACCOUNT_1,
-        [
-          {
-            scope: TrustworthinessScope.SoftwareDevelopment,
-            level: 0,
-          },
-          {
-            scope: TrustworthinessScope.SoftwareSecurity,
-            level: 0,
-          },
-        ],
+    // Wait for async actions to complete
+    await waitFor(() => {
+      expect(queryByText('Success')).toBeInTheDocument();
+      expect(mockDispatch).toHaveBeenCalledTimes(2);
+      expect(mockDispatch).toHaveBeenCalledWith(
+        createAccountAssertion(expect.anything()),
+      );
+      expect(mockDispatch).toHaveBeenCalledWith(
+        fetchAccountAssertionsForAccountId(expect.anything()),
       );
     });
+  });
 
-    it('does not calls `getSignedAssertion` when `signMessage` returns null', async () => {
-      buildEnsNameMock('mock.ens.name');
-      buildToastSpy();
-      const {
-        signMessageSpy,
-        getSignedAssertionSpy,
-        buildTechnicalExpertiseTrustSpy,
-      } = buildUseVerifiableCredentialMock(undefined);
+  it('displays error message when createAccountAssertion is rejected', async () => {
+    const mockDispatch = jest.fn();
+    mockUseDispatch.mockReturnValue(mockDispatch);
+    mockDispatch.mockImplementationOnce(async () =>
+      Promise.resolve({
+        type: 'rejected',
+      }),
+    );
 
-      signMessageSpy.mockResolvedValue(null);
+    const { queryByText, getByText } = render(
+      <AccountTEEndorsement
+        address={VALID_ACCOUNT_1}
+        connectedAddress={VALID_ACCOUNT_2}
+      />,
+    );
 
-      await runOnSign();
+    await act(async () => getByText('Endorse').click());
+    await act(async () => getByText('Sign').click());
 
-      expect(signMessageSpy).toHaveBeenCalled();
-      expect(buildTechnicalExpertiseTrustSpy).toHaveBeenCalled();
-      expect(getSignedAssertionSpy).not.toHaveBeenCalled();
-    });
-
-    it('merges selected `ExpertiseTrust` and default `ExpertiseTrust`', async () => {
-      buildEnsNameMock('mock.ens.name');
-      buildToastSpy();
-      const {
-        signMessageSpy,
-        getSignedAssertionSpy,
-        buildTechnicalExpertiseTrustSpy,
-      } = buildUseVerifiableCredentialMock(undefined);
-
-      signMessageSpy.mockResolvedValue('0xSignature');
-
-      const { getByText } = render(
-        <AccountTEEndorsement
-          address={VALID_ACCOUNT_1}
-          connectedAddress={VALID_ACCOUNT_2}
-        />,
+    // Wait for async actions to complete
+    await waitFor(() => {
+      expect(queryByText('Error')).toBeInTheDocument();
+      expect(mockDispatch).toHaveBeenCalledTimes(1);
+      expect(mockDispatch).toHaveBeenCalledWith(
+        createAccountAssertion(expect.anything()),
       );
+    });
+  });
 
-      await act(async () => getByText('Endorse').click());
-      await act(async () => getByText('Software Development').click());
-      await act(async () => getByText('Sign').click());
+  it('displays error message when createAccountAssertion throws execption', async () => {
+    const mockDispatch = jest.fn();
+    mockUseDispatch.mockReturnValue(mockDispatch);
+    mockDispatch.mockImplementationOnce(async () =>
+      Promise.reject(new Error()),
+    );
 
-      expect(signMessageSpy).toHaveBeenCalled();
-      expect(getSignedAssertionSpy).toHaveBeenCalled();
-      expect(buildTechnicalExpertiseTrustSpy).toHaveBeenCalledWith(
-        VALID_ACCOUNT_2,
-        VALID_ACCOUNT_1,
-        [
-          {
-            scope: TrustworthinessScope.SoftwareDevelopment,
-            level: 1,
-          },
-          {
-            scope: TrustworthinessScope.SoftwareSecurity,
-            level: 0,
-          },
-        ],
+    const { queryByText, getByText } = render(
+      <AccountTEEndorsement
+        address={VALID_ACCOUNT_1}
+        connectedAddress={VALID_ACCOUNT_2}
+      />,
+    );
+
+    await act(async () => getByText('Endorse').click());
+    await act(async () => getByText('Sign').click());
+
+    // Wait for async actions to complete
+    await waitFor(() => {
+      expect(queryByText('Error')).toBeInTheDocument();
+      expect(mockDispatch).toHaveBeenCalledTimes(1);
+      expect(mockDispatch).toHaveBeenCalledWith(
+        createAccountAssertion(expect.anything()),
       );
     });
   });

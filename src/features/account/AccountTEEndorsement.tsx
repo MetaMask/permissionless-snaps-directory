@@ -51,6 +51,8 @@ export const AccountTEEndorsement: FunctionComponent<
     isAccountEndorsedByIssuer(pkhAddress, issuer),
   );
 
+  const trustEntity = data ?? trimedAddress;
+
   const [showModal, setShowModal] = useState(false);
   const [endorsed, setEndorsed] = useState(isAccountEndorsed);
 
@@ -134,7 +136,7 @@ export const AccountTEEndorsement: FunctionComponent<
       />
       {showModal && (
         <TEEndorsementModal
-          trustEntity={data ?? trimedAddress}
+          trustEntity={trustEntity}
           visibility={showModal}
           onClose={() => setShowModal(false)}
           options={options}
