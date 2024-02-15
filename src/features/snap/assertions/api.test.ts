@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { mock } from 'ts-mockito';
 
-import { fetchSnapAssertionsForSnapId, createSnapAssertion } from './api';
+import { createSnapAssertion, fetchSnapAssertionsForSnapId } from './api';
 import {
   type SnapAssertion,
   type SnapAssertionResponse,
@@ -24,7 +24,9 @@ describe('fetchSnapAssertionsForSnapId', () => {
     const snapId = 'snapId';
     const mockAssertions = [mock<SnapAssertion>()];
 
-    mockedAxios.get.mockResolvedValueOnce({ data: mockAssertions });
+    mockedAxios.get.mockResolvedValueOnce({
+      data: { assertions: mockAssertions },
+    });
 
     const dispatch = jest.fn();
 
