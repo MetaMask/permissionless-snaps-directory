@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
-import { useState, type FunctionComponent } from 'react';
+import { useState, type FunctionComponent, useEffect } from 'react';
 
 import { ReportSnapModal } from './modals/ReportSnapModal';
 import { ReportButton } from '../../../components';
@@ -46,6 +46,10 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
 
   const [showModal, setShowModal] = useState(false);
   const [reported, setReported] = useState(isSnapReported);
+
+  useEffect(() => {
+    setReported(isSnapReported);
+  }, [isSnapReported]);
 
   const dispatch = useDispatch();
 
