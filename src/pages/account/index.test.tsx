@@ -17,7 +17,9 @@ jest.mock('../../hooks/useVerifiableCredential', () => ({
   useVerifiableCredential: () => ({
     signMessage: jest.fn(),
     signError: null,
-    accountVCBuilder: jest.fn(),
+    accountVCBuilder: {
+      getSubjectDid: jest.fn().mockReturnValue(VALID_ACCOUNT_1),
+    },
   }),
 }));
 

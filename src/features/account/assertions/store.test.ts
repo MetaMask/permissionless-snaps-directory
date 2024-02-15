@@ -1,226 +1,236 @@
 import { mock } from 'ts-mockito';
 
-import { fetchSnapAssertionsForSnapId } from './api';
+import { fetchAccountAssertionsForAccountId } from './api';
 import {
-  snapAssertionsSlice,
-  getSnapAssertions,
-  getSnapAssertionDetailsForSnapId,
-  type SnapAssertionsState,
-  type SnapAssertionState,
-  getCurrentSnapStatusForIssuer,
-  isSnapEndorsedByIssuer,
-  isSnapReportedByIssuer,
+  accountAssertionsSlice,
+  getAccountAssertions,
+  getAccountAssertionDetailsForAccountId,
+  type AccountAssertionsState,
+  getCurrentTrustworthinessLevelForIssuer,
+  isAccountEndorsedByIssuer,
+  isAccountReportedByIssuer,
+  type AccountAssertionState,
 } from './store';
 import {
-  SnapCurrentStatus,
-  type SnapAssertion,
-  type SnapCredentialSubject,
+  type AccountAssertion,
+  type AccountAssertionResponse,
+  TrustworthinessScope,
 } from './types';
 import { type ApplicationState } from '../../../store';
 
-describe('snapAssertionsSlice', () => {
+describe('accountAssertionsSlice', () => {
   describe('extraReducers', () => {
-    it('fetchSnapAssertionsForSnapId.fulfilled', () => {
-      const mockSnapAssertion: SnapAssertion = mock<SnapAssertion>();
-      mockSnapAssertion.assertion.credentialSubject =
-        mock<SnapCredentialSubject>();
-      mockSnapAssertion.assertion.credentialSubject.id = 'snap://snapId';
+    it('fetchAccountAssertionsForAccountId.fulfilled', () => {
+      const mockAssertionResponse: AccountAssertion = mock<AccountAssertion>();
+      mockAssertionResponse.id = 'id';
+      mockAssertionResponse.assertion = mock<AccountAssertionResponse>();
+      mockAssertionResponse.assertion.issuer = 'did:pkh:issuer';
+      mockAssertionResponse.assertion.credentialSubject.id =
+        'did:pkh:accountId';
       const mockPayload = {
-        snapId: 'snapId',
-        assertions: [mockSnapAssertion],
+        accountId: 'did:pkh:accountId',
+        assertions: [mockAssertionResponse],
       };
-      const initialState: SnapAssertionsState = {
-        snapAssertions: [
+      const initialState: AccountAssertionsState = {
+        accountAssertions: [
           {
-            snapId: 'snap://snapId',
-            issuer: 'issuer',
-            currentStatus: SnapCurrentStatus.Endorsed,
+            accountId: 'did:pkh:accountId',
+            issuer: 'did:pkh:issuer',
+            trustworthiness: [],
             creationAt: new Date(),
           },
         ],
       };
-      const action = fetchSnapAssertionsForSnapId.fulfilled(
+      const action = fetchAccountAssertionsForAccountId.fulfilled(
         mockPayload,
         '',
         'meta',
       );
 
-      const newState = snapAssertionsSlice.reducer(initialState, action);
+      const newState = accountAssertionsSlice.reducer(initialState, action);
 
-      expect(newState.snapAssertions).toHaveLength(1);
+      expect(newState.accountAssertions).toHaveLength(1);
     });
   });
 });
 
 describe('Selectors', () => {
-  describe('getSnapAssertions', () => {
-    it('should return snapAssertions from the store', () => {
+  describe('getAccountAssertions', () => {
+    it('should return accountAssertions from the store', () => {
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
-      mockedApplicationState.snapAssertions.snapAssertions = [];
+      mockedApplicationState.accountAssertions.accountAssertions = [];
 
-      const snapAssertions = getSnapAssertions(mockedApplicationState);
+      const accountAssertions = getAccountAssertions(mockedApplicationState);
 
-      expect(snapAssertions).toStrictEqual([]);
+      expect(accountAssertions).toStrictEqual([]);
     });
   });
 
-  describe('getSnapAssertionDetailsForSnapId', () => {
-    it('should return snap assertion details for a specific snapId', () => {
-      const snapAssertion = {
-        snapId: 'snap://snapId',
+  describe('getAccountAssertionDetailsForAccountId', () => {
+    it('should return account assertion details for a specific accountId', () => {
+      const accountAssertion = {
+        accountId: 'accountId',
         issuer: 'issuer',
-        currentStatus: SnapCurrentStatus.Endorsed,
+        trustworthiness: [],
         creationAt: new Date(),
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
-      mockedApplicationState.snapAssertions.snapAssertions = [snapAssertion];
+      mockedApplicationState.accountAssertions.accountAssertions = [
+        accountAssertion,
+      ];
 
-      const snapAssertionDetails = getSnapAssertionDetailsForSnapId('snapId')(
-        mockedApplicationState,
-      );
+      const accountAssertionDetails = getAccountAssertionDetailsForAccountId(
+        'accountId',
+      )(mockedApplicationState);
 
-      expect(snapAssertionDetails).toStrictEqual({
-        snapId: 'snap://snapId',
-        endorsementsCount: 1,
+      expect(accountAssertionDetails).toStrictEqual({
+        accountId: 'accountId',
+        endorsementsCount: 0,
         reportsCount: 0,
       });
     });
   });
 
-  describe('getCurrentSnapStatusForIssuer', () => {
+  describe('getCurrentTrustworthinessLevelForIssuer', () => {
     it('should return null if no assertions found', () => {
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
-      mockedApplicationState.snapAssertions.snapAssertions = [];
-      const result = getCurrentSnapStatusForIssuer(
-        'snapId',
+      mockedApplicationState.accountAssertions.accountAssertions = [];
+      const result = getCurrentTrustworthinessLevelForIssuer(
+        'accountId',
         'issuer',
       )(mockedApplicationState);
-      expect(result).toBeNull();
+      expect(result).toBeUndefined();
     });
 
-    it('should return the latest snap status for an issuer', () => {
+    it('should return the latest trustworthiness level for an issuer', () => {
       const earlierDate = new Date('2022-01-01');
-      const middleDate = new Date('2022-01-02');
       const laterDate = new Date('2022-01-03');
-      const snapAssertion1: SnapAssertionState = {
-        snapId: 'snap://snapId',
+      const accountAssertion1: AccountAssertionState = {
+        accountId: 'accountId',
         issuer: 'issuer',
-        currentStatus: SnapCurrentStatus.Endorsed,
+        trustworthiness: [
+          { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
+        ],
         creationAt: earlierDate, // Earlier date
       };
-      const snapAssertion2: SnapAssertionState = {
-        snapId: 'snap://snapId',
+      const accountAssertion2: AccountAssertionState = {
+        accountId: 'accountId',
         issuer: 'issuer',
-        currentStatus: SnapCurrentStatus.Disputed,
+        trustworthiness: [{ level: -1, scope: TrustworthinessScope.Honesty }],
         creationAt: laterDate, // Later date
       };
-      const snapAssertion3: SnapAssertionState = {
-        snapId: 'snap://snapId',
-        issuer: 'issuer',
-        currentStatus: SnapCurrentStatus.Endorsed,
-        creationAt: middleDate, // Middle date
-      };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
-      mockedApplicationState.snapAssertions.snapAssertions = [
-        snapAssertion1,
-        snapAssertion2,
-        snapAssertion3,
+      mockedApplicationState.accountAssertions.accountAssertions = [
+        accountAssertion1,
+        accountAssertion2,
       ];
 
-      const result = getCurrentSnapStatusForIssuer(
-        'snapId',
+      const result = getCurrentTrustworthinessLevelForIssuer(
+        'accountId',
         'issuer',
       )(mockedApplicationState);
-      expect(result).toBe(SnapCurrentStatus.Disputed); // Ensure the latest status is returned
+      expect(result).toBe(-1); // Ensure the latest level is returned
     });
   });
 
-  describe('isSnapEndorsedByIssuer', () => {
+  describe('isAccountEndorsedByIssuer', () => {
     it('should return false if no assertions found', () => {
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
-      mockedApplicationState.snapAssertions.snapAssertions = [];
-      const result = isSnapEndorsedByIssuer(
-        'snapId',
+      mockedApplicationState.accountAssertions.accountAssertions = [];
+      const result = isAccountEndorsedByIssuer(
+        'accountId',
         'issuer',
       )(mockedApplicationState);
       expect(result).toBe(false);
     });
 
-    it('should return true if snap is endorsed by the issuer', () => {
-      const snapAssertion: SnapAssertionState = {
-        snapId: 'snap://snapId',
+    it('should return true if account is endorsed by the issuer', () => {
+      const accountAssertion: AccountAssertionState = {
+        accountId: 'accountId',
         issuer: 'issuer',
-        currentStatus: SnapCurrentStatus.Endorsed,
+        trustworthiness: [
+          { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
+        ],
         creationAt: new Date(),
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
-      mockedApplicationState.snapAssertions.snapAssertions = [snapAssertion];
+      mockedApplicationState.accountAssertions.accountAssertions = [
+        accountAssertion,
+      ];
 
-      const result = isSnapEndorsedByIssuer(
-        'snapId',
+      const result = isAccountEndorsedByIssuer(
+        'accountId',
         'issuer',
       )(mockedApplicationState);
       expect(result).toBe(true);
     });
 
-    it('should return false if snap is not endorsed by the issuer', () => {
-      const snapAssertion: SnapAssertionState = {
-        snapId: 'snap://snapId',
+    it('should return false if account is not endorsed by the issuer', () => {
+      const accountAssertion: AccountAssertionState = {
+        accountId: 'accountId',
         issuer: 'issuer',
-        currentStatus: SnapCurrentStatus.Disputed,
+        trustworthiness: [{ level: -1, scope: TrustworthinessScope.Honesty }],
         creationAt: new Date(),
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
-      mockedApplicationState.snapAssertions.snapAssertions = [snapAssertion];
+      mockedApplicationState.accountAssertions.accountAssertions = [
+        accountAssertion,
+      ];
 
-      const result = isSnapEndorsedByIssuer(
-        'snapId',
+      const result = isAccountEndorsedByIssuer(
+        'accountId',
         'issuer',
       )(mockedApplicationState);
       expect(result).toBe(false);
     });
   });
 
-  describe('isSnapReportedByIssuer', () => {
+  describe('isAccountReportedByIssuer', () => {
     it('should return false if no assertions found', () => {
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
-      mockedApplicationState.snapAssertions.snapAssertions = [];
-      const result = isSnapReportedByIssuer(
-        'snapId',
+      mockedApplicationState.accountAssertions.accountAssertions = [];
+      const result = isAccountReportedByIssuer(
+        'accountId',
         'issuer',
       )(mockedApplicationState);
       expect(result).toBe(false);
     });
 
-    it('should return true if snap is reported by the issuer', () => {
-      const snapAssertion: SnapAssertionState = {
-        snapId: 'snap://snapId',
+    it('should return true if account is reported by the issuer', () => {
+      const accountAssertion: AccountAssertionState = {
+        accountId: 'accountId',
         issuer: 'issuer',
-        currentStatus: SnapCurrentStatus.Disputed,
+        trustworthiness: [{ level: -1, scope: TrustworthinessScope.Honesty }],
         creationAt: new Date(),
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
-      mockedApplicationState.snapAssertions.snapAssertions = [snapAssertion];
+      mockedApplicationState.accountAssertions.accountAssertions = [
+        accountAssertion,
+      ];
 
-      const result = isSnapReportedByIssuer(
-        'snapId',
+      const result = isAccountReportedByIssuer(
+        'accountId',
         'issuer',
       )(mockedApplicationState);
       expect(result).toBe(true);
     });
 
-    it('should return false if snap is not reported by the issuer', () => {
-      const snapAssertion: SnapAssertionState = {
-        snapId: 'snap://snapId',
+    it('should return false if account is not reported by the issuer', () => {
+      const accountAssertion: AccountAssertionState = {
+        accountId: 'accountId',
         issuer: 'issuer',
-        currentStatus: SnapCurrentStatus.Endorsed,
+        trustworthiness: [
+          { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
+        ],
         creationAt: new Date(),
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
-      mockedApplicationState.snapAssertions.snapAssertions = [snapAssertion];
+      mockedApplicationState.accountAssertions.accountAssertions = [
+        accountAssertion,
+      ];
 
-      const result = isSnapReportedByIssuer(
-        'snapId',
+      const result = isAccountReportedByIssuer(
+        'accountId',
         'issuer',
       )(mockedApplicationState);
       expect(result).toBe(false);
