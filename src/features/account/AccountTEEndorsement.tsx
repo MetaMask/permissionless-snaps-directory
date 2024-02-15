@@ -1,10 +1,19 @@
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
-import { useMemo, useState, type FunctionComponent } from 'react';
+import { useMemo, useState, type FunctionComponent, useEffect } from 'react';
 import { useEnsName } from 'wagmi';
 
+import {
+  createAccountAssertion,
+  fetchAccountAssertionsForAccountId,
+} from './assertions/api';
+import {
+  getCurrentTrustworthinessLevelForIssuer,
+  isAccountEndorsedByIssuer,
+} from './assertions/store';
 import { TEEndorsementModal } from './components';
 import { EndorseButton } from '../../components';
+import { useDispatch, useSelector } from '../../hooks';
 import { useSignErrorHandler } from '../../hooks/useSignErrorHandler';
 import useToastMsg from '../../hooks/useToastMsg';
 import { useVerifiableCredential } from '../../hooks/useVerifiableCredential';
@@ -26,16 +35,34 @@ export const AccountTEEndorsement: FunctionComponent<
     address,
   });
 
-  const { showSuccessMsg } = useToastMsg();
-
   const { signMessage, signError, accountVCBuilder } =
     useVerifiableCredential();
 
-  useSignErrorHandler(signError);
-
   const trimedAddress = useMemo(() => trimAddress(address), [address]);
 
+  const pkhAddress = accountVCBuilder.getSubjectDid(address);
+  const issuer = accountVCBuilder.getSubjectDid(connectedAddress);
+
+  const latestTrustworthinessLevel = useSelector(
+    getCurrentTrustworthinessLevelForIssuer(pkhAddress, issuer),
+  );
+
+  const isAccountEndorsed = useSelector(
+    isAccountEndorsedByIssuer(pkhAddress, issuer),
+  );
+
   const [showModal, setShowModal] = useState(false);
+  const [endorsed, setEndorsed] = useState(isAccountEndorsed);
+
+  useEffect(() => {
+    setEndorsed(isAccountEndorsed);
+  }, [isAccountEndorsed]);
+
+  const dispatch = useDispatch();
+
+  const { showSuccessMsg, showErrorMsg } = useToastMsg();
+
+  useSignErrorHandler(signError);
 
   const options = [
     {
@@ -70,22 +97,41 @@ export const AccountTEEndorsement: FunctionComponent<
 
     if (signature) {
       const assertion = accountVCBuilder.getSignedAssertion(VC, signature);
-      console.log('assertion', assertion);
-
-      showSuccessMsg({
-        title: t`Success`,
-        description: t`Your endorsement has been done`,
-      });
-
-      // save db (assertion)
-
-      setShowModal(false);
+      dispatch(createAccountAssertion(assertion))
+        .then((action) => {
+          if (action.type.endsWith('fulfilled')) {
+            dispatch(fetchAccountAssertionsForAccountId(pkhAddress)).catch(
+              (error) => console.log(error),
+            );
+            setEndorsed(true);
+            showSuccessMsg({
+              title: t`Success`,
+              description: t`${pkhAddress} has been endorsed.`,
+            });
+          } else {
+            showErrorMsg({
+              title: t`Error`,
+              description: t`Failed to create endorsement for ${pkhAddress}.`,
+            });
+          }
+        })
+        .catch(() => {
+          showErrorMsg({
+            title: t`Error`,
+            description: t`Failed to create endorsement for ${pkhAddress}.`,
+          });
+        });
     }
+    setShowModal(false);
   };
 
   return (
     <>
-      <EndorseButton onClick={() => setShowModal(true)} endorsed={false} />
+      <EndorseButton
+        onClick={() => setShowModal(true)}
+        endorsed={endorsed}
+        isDisabled={endorsed || latestTrustworthinessLevel !== undefined}
+      />
       {showModal && (
         <TEEndorsementModal
           trustEntity={data ?? trimedAddress}

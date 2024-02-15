@@ -3,6 +3,7 @@ import type { NoInfer } from '@reduxjs/toolkit/src/tsHelpers';
 import type { CombinedState, PreloadedState } from 'redux';
 
 // Imported separately to avoid circular dependencies.
+import { accountAssertionsSlice } from '../features/account/assertions/store';
 import { accountProfileSlice } from '../features/account/store';
 import { filterSlice } from '../features/filter/store';
 import { notificationsSlice } from '../features/notifications/store';
@@ -19,6 +20,7 @@ const reducer = combineReducers({
   snapsApi: snapsApi.reducer,
   snapAssertions: snapAssertionsSlice.reducer,
   snapTrustScores: snapTrustScoresSlice.reducer,
+  accountAssertions: accountAssertionsSlice.reducer,
 });
 
 /**

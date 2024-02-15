@@ -9,7 +9,7 @@ import {
 import { Trans, t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
 import { graphql, Link as GatsbyLink, withPrefix } from 'gatsby';
-import type { FunctionComponent } from 'react';
+import { useEffect, type FunctionComponent } from 'react';
 import { useAccount } from 'wagmi';
 
 import banner from '../../assets/images/seo/home.png';
@@ -20,6 +20,8 @@ import {
   AccountReport,
   AccountTEEndorsement,
 } from '../../features/account';
+import { fetchAccountAssertionsForAccountId } from '../../features/account/assertions/api';
+import { useDispatch, useVerifiableCredential } from '../../hooks';
 import { type Fields, parseAddress } from '../../utils';
 import NotFound from '../404';
 
@@ -33,11 +35,21 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
   const { address: connectedAddress, isConnected } = useAccount();
   const params = new URLSearchParams(location.search);
   const address = parseAddress(params.get('address') as Hex);
+  const { accountVCBuilder } = useVerifiableCredential();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (address) {
+      const issuer = accountVCBuilder.getIssuerDid(address);
+      dispatch(fetchAccountAssertionsForAccountId(issuer)).catch((error) =>
+        console.log(error),
+      );
+    }
+  }, [dispatch, accountVCBuilder, address]);
+
+  const isMyAccount = address === connectedAddress;
   if (!address) {
     return <NotFound />;
   }
-
-  const isMyAccount = address === connectedAddress;
 
   return (
     <Box position="relative" data-testid="account-info">
