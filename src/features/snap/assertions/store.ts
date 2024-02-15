@@ -106,10 +106,8 @@ export const isSnapEndorsedByIssuer = (snapId: string, issuer: string) =>
       snapId,
       SnapCurrentStatus.Endorsed,
     );
-    if (filteredAssertions.length === 0) {
-      return false;
-    }
-    return true;
+
+    return filteredAssertions.length !== 0;
   });
 
 export const isSnapReportedByIssuer = (snapId: string, issuer: string) =>
@@ -120,8 +118,6 @@ export const isSnapReportedByIssuer = (snapId: string, issuer: string) =>
       snapId,
       SnapCurrentStatus.Disputed,
     );
-    if (filteredAssertions.length === 0) {
-      return false;
-    }
-    return true;
+
+    return filteredAssertions.length !== 0;
   });

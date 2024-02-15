@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
-import { useState, type FunctionComponent } from 'react';
+import { useState, type FunctionComponent, useEffect } from 'react';
 
 import { EndorseSnapModal } from './modals/EndorseSnapModal';
 import { EndorseButton } from '../../../components';
@@ -45,6 +45,10 @@ export const EndorseSnap: FunctionComponent<EndorseSnapProps> = ({
 
   const [showModal, setShowModal] = useState(false);
   const [endorsed, setEndorsed] = useState(isSnapEndorsed);
+
+  useEffect(() => {
+    setEndorsed(isSnapEndorsed);
+  }, [isSnapEndorsed]);
 
   const dispatch = useDispatch();
 
