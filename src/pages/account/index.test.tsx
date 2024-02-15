@@ -4,8 +4,8 @@ import { useAccount } from 'wagmi';
 
 import AccountProfilePage, { Head } from '.';
 import {
-  render,
   getMockSiteMetadata,
+  render,
   VALID_ACCOUNT_1,
 } from '../../utils/test-utils';
 
@@ -18,7 +18,11 @@ jest.mock('../../hooks/useVerifiableCredential', () => ({
     signMessage: jest.fn(),
     signError: null,
     accountVCBuilder: {
-      getSubjectDid: jest.fn().mockReturnValue(VALID_ACCOUNT_1),
+      // TODO: use `ACCOUNT_1` instead of a full address
+      getSubjectDid: jest
+        .fn()
+        .mockReturnValue('0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7'),
+      getIssuerDid: jest.fn().mockReturnValue('issuerAddress'),
     },
   }),
 }));
