@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
-import { useMemo, useState, type FunctionComponent, useEffect } from 'react';
+import { mainnet } from '@wagmi/core/chains';
+import { type FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { useEnsName } from 'wagmi';
 
 import {
@@ -29,12 +30,13 @@ export const AccountReport: FunctionComponent<AccountReportProps> = ({
 }) => {
   const { data } = useEnsName({
     address,
+    chainId: mainnet.id,
   });
 
   const { signMessage, signError, accountVCBuilder } =
     useVerifiableCredential();
 
-  const trimedAddress = useMemo(() => trimAddress(address), [address]);
+  const trimmedAddress = useMemo(() => trimAddress(address), [address]);
 
   const pkhAddress = accountVCBuilder.getSubjectDid(address);
   const issuer = accountVCBuilder.getSubjectDid(connectedAddress);
@@ -47,7 +49,7 @@ export const AccountReport: FunctionComponent<AccountReportProps> = ({
     isAccountReportedByIssuer(pkhAddress, issuer),
   );
 
-  const reportEntity = data ?? trimedAddress;
+  const reportEntity = data ?? trimmedAddress;
 
   const [showModal, setShowModal] = useState(false);
   const [reported, setEndorsed] = useState(isAccountReported);
