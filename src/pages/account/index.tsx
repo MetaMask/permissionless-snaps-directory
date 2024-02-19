@@ -55,7 +55,7 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
     <Box position="relative" data-testid="account-info">
       <AccountProfileBanner />
       <Container maxWidth="container.xl" paddingTop="0" position="relative">
-        <VStack mt="175" spacing={['10', null, '20']}>
+        <VStack mt="175" spacing="10">
           <AccountInfo address={address} />
           <Box position={['static', null, 'absolute']} right="5" top="90">
             <HStack>
