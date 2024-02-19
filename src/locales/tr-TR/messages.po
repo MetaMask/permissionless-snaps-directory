@@ -612,7 +612,7 @@ msgid "Harassment"
 msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
-msgid "has been evaluated as unsecure by your community"
+msgid "has been evaluated as secured by your community"
 msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx

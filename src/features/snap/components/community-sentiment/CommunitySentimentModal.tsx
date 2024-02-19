@@ -49,7 +49,7 @@ export const CommunitySentimentModal: FunctionComponent<
         suffixText = t`could not be evaluated by your community and might be unsecure`;
         break;
       case SentimentType.Secured:
-        suffixText = t`has been evaluated as unsecure by your community`;
+        suffixText = t`has been evaluated as secured by your community`;
         break;
       case SentimentType.Unsecured:
         suffixText = t`has been evaluated as unsecured by your community`;
