@@ -18,11 +18,14 @@ export const ReportButton: FunctionComponent<ReportButtonProps> = ({
   size = 'md',
 }) => (
   <Button
-    leftIcon={<DangerIcon fill={reported ? '#FFFFFF' : ''} />}
+    leftIcon={<DangerIcon width="1.3rem" fill={reported ? '#FFFFFF' : ''} />}
     variant={reported ? 'primaryPortableError' : 'outlinePortableError'}
     isDisabled={isDisabled}
     size={size}
+    fontSize="md"
+    fontWeight="medium"
     onClick={onClick}
+    width={{ base: '100%', md: 'auto' }}
   >
     {reported ? <Trans>Reported</Trans> : <Trans>Report</Trans>}
   </Button>
