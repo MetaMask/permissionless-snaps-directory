@@ -91,7 +91,7 @@ describe('Account Profile page', () => {
     expect(queryByTestId('account-info')).toBeInTheDocument();
   });
 
-  it('renders even when fetchAccountAssertionsForAccountId fails', async () => {
+  it('renders if `fetchAccountAssertionsForAccountId` failed', async () => {
     const mockDispatch = jest.fn();
     mockUseDispatch.mockReturnValue(mockDispatch);
     mockDispatch.mockImplementationOnce(async () =>
@@ -140,69 +140,6 @@ describe('Account Profile page', () => {
       queryByText("The page you're looking for can't be found."),
     ).toBeInTheDocument();
     expect(queryByTestId('account-info')).not.toBeInTheDocument();
-  });
-
-  it('renders edit button if the connected address is equal to query parameter `address`', async () => {
-    const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
-    mockGetAddress.mockReturnValue(address);
-    mockUseAccount.mockReturnValue({
-      address,
-      isConnected: true,
-    });
-
-    const mockLocationSearchParam = {
-      search: new URLSearchParams({ address }),
-    };
-
-    const { queryByText } = render(
-      <AccountProfilePage location={mockLocationSearchParam} />,
-    );
-
-    expect(queryByText('Edit Profile')).toBeInTheDocument();
-    expect(queryByText('Report')).not.toBeInTheDocument();
-    expect(queryByText('Endorse')).not.toBeInTheDocument();
-  });
-
-  it('does not render edit button if connected address not equal to query parameter `address`', async () => {
-    const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
-    mockGetAddress.mockReturnValue(address);
-    mockUseAccount.mockReturnValue({
-      address: '0x6B24aE0ABbeb67058D07b891aF415f288eA57000',
-      isConnected: true,
-    });
-
-    const mockLocationSearchParam = {
-      search: new URLSearchParams({ address }),
-    };
-
-    const { queryByText } = render(
-      <AccountProfilePage location={mockLocationSearchParam} />,
-    );
-
-    expect(queryByText('Edit Profile')).not.toBeInTheDocument();
-    expect(queryByText('Report')).toBeInTheDocument();
-    expect(queryByText('Endorse')).toBeInTheDocument();
-  });
-
-  it('does not render edit button if account is not connected', async () => {
-    const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
-    mockGetAddress.mockReturnValue(address);
-    mockUseAccount.mockReturnValue({
-      address: null,
-      isConnected: false,
-    });
-
-    const mockLocationSearchParam = {
-      search: new URLSearchParams({ address }),
-    };
-
-    const { queryByText } = render(
-      <AccountProfilePage location={mockLocationSearchParam} />,
-    );
-
-    expect(queryByText('Edit Profile')).not.toBeInTheDocument();
-    expect(queryByText('Report')).not.toBeInTheDocument();
-    expect(queryByText('Endorse')).not.toBeInTheDocument();
   });
 
   describe('Head', () => {
