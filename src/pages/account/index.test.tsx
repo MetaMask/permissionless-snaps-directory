@@ -91,6 +91,26 @@ describe('Account Profile page', () => {
     expect(queryByTestId('account-info')).toBeInTheDocument();
   });
 
+  it('does not render edit button if connected address not equal to query parameter `address`', async () => {
+    const address = '0x6B24aE0ABbeb67058D07b891aF415f288eA57Cc7';
+    mockGetAddress.mockReturnValue(address);
+    mockUseAccount.mockReturnValue({
+      address: '0x6B24aE0ABbeb67058D07b891aF415f288eA57000',
+      isConnected: true,
+    });
+
+    const mockLocationSearchParam = {
+      search: new URLSearchParams({ address }),
+    };
+
+    const { queryByText } = render(
+      <AccountProfilePage location={mockLocationSearchParam} />,
+    );
+
+    expect(queryByText('Report')).toBeInTheDocument();
+    expect(queryByText('Endorse')).toBeInTheDocument();
+  });
+
   it('renders if `fetchAccountAssertionsForAccountId` failed', async () => {
     const mockDispatch = jest.fn();
     mockUseDispatch.mockReturnValue(mockDispatch);

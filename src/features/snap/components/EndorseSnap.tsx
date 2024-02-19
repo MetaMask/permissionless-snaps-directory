@@ -107,7 +107,6 @@ export const EndorseSnap: FunctionComponent<EndorseSnapProps> = ({
         onClick={() => setShowModal(true)}
         endorsed={endorsed}
         isDisabled={endorsed || latestSnapStatus !== null}
-        size="lg"
       />
       {showModal && (
         <EndorseSnapModal

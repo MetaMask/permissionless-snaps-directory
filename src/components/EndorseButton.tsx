@@ -15,10 +15,16 @@ export const EndorseButton: FunctionComponent<EndorseButtonProps> = ({
   onClick,
   endorsed,
   isDisabled = false,
-  size = 'sm',
+  size = 'md',
 }) => (
   <Button
-    leftIcon={endorsed ? <UserCheckIcon fill="#ffffff" /> : <StarFilledIcon />}
+    leftIcon={
+      endorsed ? (
+        <UserCheckIcon fill="#ffffff" />
+      ) : (
+        <StarFilledIcon fill="info.default" />
+      )
+    }
     variant={endorsed ? 'primaryPortable' : 'outlinePortable'}
     isDisabled={isDisabled}
     onClick={onClick}

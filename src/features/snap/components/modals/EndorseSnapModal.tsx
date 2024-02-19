@@ -39,14 +39,14 @@ export const EndorseSnapModal: FunctionComponent<EndorseSnapModalProps> = ({
       isOpen={isOpen}
       isLoading={isLoading}
       mode="positive"
-      headerIcon={<StarFilledShadowIcon />}
+      headerIcon={<StarFilledShadowIcon fill="info.default" />}
       buttonText={t`Sign to endorse`}
       onClose={onClose}
       onSignButtonClick={onSignButtonClick}
     >
       <Center>
-        <VStack textAlign="center">
-          <Text fontSize="md" fontWeight="bold">
+        <VStack textAlign="center" fontSize="md">
+          <Text fontWeight="medium">
             <Trans>
               Endorse{' '}
               <Text variant="blue" as="span">
@@ -55,10 +55,10 @@ export const EndorseSnapModal: FunctionComponent<EndorseSnapModalProps> = ({
             </Trans>
           </Text>
 
-          <Text fontSize="sm" noOfLines={2} as="span">
+          <Text noOfLines={2} fontWeight="regular" as="span">
             <Trans>
               This action will endorse the snap as secure in your community.
-            </Trans>
+            </Trans>{' '}
             <Link>
               <Trans>Learn more</Trans>
             </Link>

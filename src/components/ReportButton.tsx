@@ -15,7 +15,7 @@ export const ReportButton: FunctionComponent<ReportButtonProps> = ({
   onClick,
   reported,
   isDisabled = false,
-  size = 'sm',
+  size = 'md',
 }) => (
   <Button
     leftIcon={<DangerIcon fill={reported ? '#FFFFFF' : ''} />}

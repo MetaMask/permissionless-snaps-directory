@@ -105,7 +105,6 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
         onClick={() => setShowModal(true)}
         reported={reported}
         isDisabled={reported || latestSnapStatus === SnapCurrentStatus.Disputed}
-        size="lg"
       />
       {showModal && (
         <ReportSnapModal
