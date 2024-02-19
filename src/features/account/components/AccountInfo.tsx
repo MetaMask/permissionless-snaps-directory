@@ -1,5 +1,6 @@
-import { CircularProgress, HStack, Heading, VStack } from '@chakra-ui/react';
+import { CircularProgress, Heading, HStack, VStack } from '@chakra-ui/react';
 import type { Hex } from '@metamask/utils';
+import { mainnet } from '@wagmi/core/chains';
 import type { FunctionComponent } from 'react';
 import { useAccount, useEnsName } from 'wagmi';
 
@@ -18,6 +19,7 @@ export const AccountInfo: FunctionComponent<AccountInfoProps> = ({
 }) => {
   const { data, isLoading } = useEnsName({
     address,
+    chainId: mainnet.id,
   });
   const { isConnected } = useAccount();
 

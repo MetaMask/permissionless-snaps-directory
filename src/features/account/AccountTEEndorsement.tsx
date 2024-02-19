@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
+import { mainnet } from '@wagmi/core/chains';
 import { useMemo, useState, type FunctionComponent, useEffect } from 'react';
 import { useEnsName } from 'wagmi';
 
@@ -33,6 +34,7 @@ export const AccountTEEndorsement: FunctionComponent<
 > = ({ address, connectedAddress }) => {
   const { data } = useEnsName({
     address,
+    chainId: mainnet.id,
   });
 
   const { signMessage, signError, accountVCBuilder } =
