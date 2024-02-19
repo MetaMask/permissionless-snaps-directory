@@ -1,4 +1,4 @@
-import { Center, Heading, Text, VStack, Checkbox, Box } from '@chakra-ui/react';
+import { Center, Text, VStack, Checkbox, Box } from '@chakra-ui/react';
 import { Trans, t } from '@lingui/macro';
 import { useState, type FunctionComponent } from 'react';
 
@@ -59,11 +59,11 @@ export const TEEndorsementModal: FunctionComponent<TEEndorsementModalProps> = ({
       onSignButtonClick={onSignButtonClick}
     >
       <Center>
-        <VStack>
-          <Heading as="h3" size="sm">
+        <VStack fontSize="md">
+          <Text fontWeight="medium" textAlign="center">
             <Trans>Trusted technical abilities</Trans>
-          </Heading>
-          <Text fontSize="sm" textAlign="center">
+          </Text>
+          <Text textAlign="center">
             <Trans>
               Your level of confidence in{' '}
               <Text variant="blue" as="span">
@@ -92,7 +92,7 @@ export const TEEndorsementModal: FunctionComponent<TEEndorsementModalProps> = ({
                     handleCheckboxChange(event.target.checked, index)
                   }
                 >
-                  <Text fontSize="sm">{option.label}</Text>
+                  <Text>{option.label}</Text>
                 </Checkbox>
                 {option.description && (
                   <Text fontSize="xs">{option.description}</Text>

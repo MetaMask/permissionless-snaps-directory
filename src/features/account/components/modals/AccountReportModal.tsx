@@ -45,8 +45,8 @@ export const AccountReportModal: FunctionComponent<AccountReportModalProps> = ({
       onSignButtonClick={onSignButtonClick}
     >
       <Center>
-        <VStack textAlign="center">
-          <Text fontSize="md" fontWeight="bold">
+        <VStack textAlign="center" fontSize="md">
+          <Text fontWeight="medium">
             <Trans>
               Report for{' '}
               <Text variant="blue" as="span">
@@ -56,10 +56,10 @@ export const AccountReportModal: FunctionComponent<AccountReportModalProps> = ({
             </Trans>
           </Text>
 
-          <Text fontSize="sm" noOfLines={2} as="span">
+          <Text noOfLines={2} as="span">
             <Trans>
               This action will flag the user as a malicious in your community.
-            </Trans>
+            </Trans>{' '}
             <Link>
               <Trans>Learn more</Trans>
             </Link>

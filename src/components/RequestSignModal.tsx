@@ -53,7 +53,8 @@ export const RequestSignModal: FunctionComponent<RequestSignModalProps> = ({
         <Button
           variant="primary"
           bg={mode === 'positive' ? 'info.default' : 'error.default'}
-          fontSize="sm"
+          fontSize="md"
+          fontWeight="medium"
           leftIcon={<SignIcon width="1rem" fill="currentColor" />}
           width="100%"
           isLoading={isLoading}

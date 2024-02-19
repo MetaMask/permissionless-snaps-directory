@@ -1,21 +1,12 @@
-import {
-  Container,
-  Divider,
-  VStack,
-  Box,
-  Link,
-  HStack,
-} from '@chakra-ui/react';
-import { Trans, t } from '@lingui/macro';
+import { Container, VStack, Box, HStack } from '@chakra-ui/react';
+import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
-import { graphql, Link as GatsbyLink, withPrefix } from 'gatsby';
+import { graphql, withPrefix } from 'gatsby';
 import { useEffect, type FunctionComponent } from 'react';
 import { useAccount } from 'wagmi';
 
 import banner from '../../assets/images/seo/home.png';
 import {
-  AccountProfileBanner,
-  AccountProfileTabs,
   AccountInfo,
   AccountReport,
   AccountTEEndorsement,
@@ -52,12 +43,11 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
   }
 
   return (
-    <Box position="relative" data-testid="account-info">
-      <AccountProfileBanner />
+    <Box position="relative" data-testid="account-info" mt="4rem">
       <Container maxWidth="container.xl" paddingTop="0" position="relative">
-        <VStack mt="175" spacing={['10', null, '20']}>
+        <VStack spacing="5">
           <AccountInfo address={address} />
-          <Box position={['static', null, 'absolute']} right="5" top="90">
+          <Box>
             <HStack>
               {isConnected && !isMyAccount && (
                 <>
@@ -71,19 +61,8 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
                   />
                 </>
               )}
-              {isConnected && isMyAccount && (
-                <Link
-                  as={GatsbyLink}
-                  variant="landing"
-                  to={`/account/edit?address=${connectedAddress}`}
-                >
-                  <Trans>Edit Profile</Trans>
-                </Link>
-              )}
             </HStack>
           </Box>
-          <Divider />
-          <AccountProfileTabs />
         </VStack>
       </Container>
     </Box>

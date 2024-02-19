@@ -427,10 +427,6 @@ msgstr ""
 msgid "Dropdown"
 msgstr ""
 
-#: src/pages/account/index.tsx
-msgid "Edit Profile"
-msgstr ""
-
 #: src/components/icons/index.ts
 msgid "Enable dark mode"
 msgstr ""

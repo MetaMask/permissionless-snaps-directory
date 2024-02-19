@@ -4,7 +4,6 @@ import { mainnet } from '@wagmi/core/chains';
 import type { FunctionComponent } from 'react';
 import { useAccount, useEnsName } from 'wagmi';
 
-import { AccountRole, AccountRoleTags } from './AccountRoleTags';
 import { AddToUserCircleModal } from './modals';
 import { MoreOptionMenu } from '..';
 import { JazzIcon } from '../../../components';
@@ -46,13 +45,6 @@ export const AccountInfo: FunctionComponent<AccountInfoProps> = ({
           </>
         )}
       </HStack>
-      <AccountRoleTags
-        roles={[
-          AccountRole.Developer,
-          AccountRole.Auditor,
-          AccountRole.Reviewer,
-        ]}
-      />
     </VStack>
   );
 };
