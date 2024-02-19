@@ -71,6 +71,7 @@ describe('theme', () => {
                 "borderColor": "info.default",
                 "borderRadius": "30px",
                 "color": "info.default",
+                "height": "48px",
                 "padding": "4",
               },
               "outlinePortableError": Object {
@@ -79,6 +80,7 @@ describe('theme', () => {
                 "borderColor": "error.default",
                 "borderRadius": "30px",
                 "color": "error.default",
+                "height": "48px",
                 "padding": "4",
               },
               "primary": Object {
@@ -107,6 +109,7 @@ describe('theme', () => {
                 "borderColor": "info.default",
                 "borderRadius": "30px",
                 "color": "white",
+                "height": "48px",
                 "padding": "4",
               },
               "primaryPortableError": Object {
@@ -119,6 +122,7 @@ describe('theme', () => {
                 "borderColor": "error.default",
                 "borderRadius": "30px",
                 "color": "white",
+                "height": "48px",
                 "padding": "4",
               },
               "small": Object {
