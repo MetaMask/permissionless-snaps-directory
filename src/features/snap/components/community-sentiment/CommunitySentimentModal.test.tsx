@@ -19,7 +19,7 @@ describe('CommunitySentimentModal', () => {
     {
       type: SentimentType.Secured,
       result: 1,
-      expectedText: /has been evaluated as unsecure by your community/u,
+      expectedText: /has been evaluated as secured by your community/u,
     },
     {
       type: SentimentType.InReview,

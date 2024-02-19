@@ -6,7 +6,7 @@ import { type SnapAssertion, type SnapAssertionResponse } from './types';
 import { type SignedAssertion } from '../../../utils';
 
 const BASE_URL = process.env.GATSBY_INDEXER_API_BASE_URL;
-const API_KEY = process.env.GATSBY_INDEXER_API_KEY;
+const API_KEY = 'wwGQDJrwt92dggKjLwlyR8OpqcNCLTSA14Duja4s';
 
 export const fetchSnapAssertionsForSnapId = createAsyncThunk(
   'snapAssertions/fetchSnapAssertionsForSnapId',
