@@ -1,0 +1,22 @@
+{
+  "componentChunkName": "component---src-pages-installed-tsx",
+  "path": "/installed/",
+  "result": {
+    "data": {
+      "file": {
+        "publicURL": "/static/9ca343e5f358366624d527c5980a6151/main-installed-banner.png"
+      },
+      "site": {
+        "siteMetadata": {
+          "title": "MetaMask Snaps Directory",
+          "description": "Explore community-built Snaps to customize your web3 experience via our official directory.",
+          "author": "MetaMask",
+          "siteUrl": "https://snaps.metamask.io"
+        }
+      }
+    },
+    "pageContext": {}
+  },
+  "staticQueryHashes": ["1327515118", "3999265853"],
+  "slicesMap": {}
+}
