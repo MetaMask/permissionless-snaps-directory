@@ -389,6 +389,15 @@ describe('theme', () => {
                   "textTransform": "none",
                 },
               },
+              "user": Object {
+                "container": Object {
+                  "fontSize": "md",
+                  "fontWeight": "500",
+                  "lineHeight": "1.5rem",
+                  "paddingX": "2",
+                  "textTransform": "none",
+                },
+              },
               "warning": Object {
                 "container": Object {
                   "background": "warning.muted",

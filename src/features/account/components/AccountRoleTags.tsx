@@ -1,64 +1,123 @@
-import { Tag, TagLabel, TagLeftIcon, HStack } from '@chakra-ui/react';
+import { Tag, TagLabel, HStack } from '@chakra-ui/react';
 import { t } from '@lingui/macro';
-import type { FunctionComponent } from 'react';
+import { type FunctionComponent } from 'react';
+import { type Hex } from 'viem';
 
-import { AuditorIcon, DeveloperIcon, ReviewerIcon } from '../../../components';
+import { useSelector, useVerifiableCredential } from '../../../hooks';
+import { getAccountTrustScoreForAccountId } from '../trust-score/store';
+import { TrustScoreScope } from '../trust-score/types';
 
-export enum AccountRole {
+export enum AccountRoleType {
   Developer = 'developer',
   Auditor = 'auditor',
-  Reviewer = 'reviewer',
+  Reported = 'reported',
 }
 
+export type AccountRole = {
+  roleType: AccountRoleType;
+  tier: number;
+};
+
 export type AccountRoleTagProps = {
-  roles: AccountRole[];
+  address: Hex;
 };
 
 export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
-  roles,
+  address,
 }) => {
-  const roleset = new Set(roles);
-  const roleArr = Array.from(roleset);
+  const { accountVCBuilder } = useVerifiableCredential();
 
-  const roleAttrs = {
-    [AccountRole.Developer]: {
-      bg: '#FFDC5B40',
-      color: '#FFC700',
-      icon: DeveloperIcon,
-      label: t`Developer`,
-    },
-    [AccountRole.Auditor]: {
-      bg: '#72398E40',
-      color: '#AE00FF',
-      icon: AuditorIcon,
-      label: t`Auditor`,
-    },
-    [AccountRole.Reviewer]: {
-      bg: '#42FF3240',
-      color: '#0FB900',
-      icon: ReviewerIcon,
-      label: t`Reviewer`,
-    },
+  const accountId = accountVCBuilder.getSubjectDid(address);
+
+  const trustScores = useSelector(getAccountTrustScoreForAccountId(accountId));
+
+  const roles = [] as AccountRole[];
+
+  trustScores.forEach((trustScore) => {
+    if (trustScore.result >= 0) {
+      if (trustScore.trustScoreScope === TrustScoreScope.SoftwareDevelopment) {
+        const role: AccountRole = {
+          roleType: AccountRoleType.Developer,
+          tier: 0,
+        };
+        roles.push(role);
+      }
+      if (trustScore.trustScoreScope === TrustScoreScope.SoftwareSecurity) {
+        let tier = 0;
+        if (trustScore.accuracy !== undefined) {
+          if (trustScore.accuracy >= 0.99) {
+            tier = 1;
+          } else if (trustScore.accuracy >= 0.9) {
+            tier = 2;
+          } else if (trustScore.accuracy >= 0.75) {
+            tier = 3;
+          }
+        }
+        const role: AccountRole = {
+          roleType: AccountRoleType.Auditor,
+          tier,
+        };
+        roles.push(role);
+      }
+    } else {
+      const role: AccountRole = {
+        roleType: AccountRoleType.Reported,
+        tier: 0,
+      };
+      roles.push(role);
+    }
+  });
+
+  const getRoleAttributes = (role: AccountRole) => {
+    switch (role.roleType) {
+      case AccountRoleType.Developer:
+        return {
+          bg: '#FFDC5B40',
+          color: '#FFC700',
+          label: t`Developer`,
+        };
+      case AccountRoleType.Reported:
+        return {
+          bg: '#D738471A',
+          color: '#D73847',
+          label: t`Reported`,
+        };
+      default:
+        return {
+          bg: '#72398E40',
+          color: '#AE00FF',
+          label: t`Auditor`,
+        };
+    }
+  };
+
+  const getRoleIcon = (role: AccountRole) => {
+    switch (role.roleType) {
+      case AccountRoleType.Developer:
+        return '🧑‍💻';
+      case AccountRoleType.Auditor:
+        switch (role.tier) {
+          case 1:
+            return '🥇';
+          case 2:
+            return '🥈';
+          case 3:
+            return '🥉';
+          default:
+            return '';
+        }
+      default:
+        return '👹';
+    }
   };
 
   return (
     <HStack spacing="2" alignItems="center">
-      {roleArr.map((role, i) => {
-        const attr = roleAttrs[role];
-
-        if (attr === undefined) {
-          return null;
-        }
-
+      {roles.map((role, i) => {
+        const attr = getRoleAttributes(role);
         return (
-          <Tag
-            key={i}
-            size="lg"
-            variant="solid"
-            bg={attr.bg}
-            borderRadius="full"
-          >
-            <TagLeftIcon boxSize="16px" as={attr.icon} />
+          <Tag key={i} variant="user" bg={attr.bg} borderRadius="full">
+            <TagLabel>{getRoleIcon(role)}</TagLabel>
             <TagLabel color={attr.color}>{attr.label}</TagLabel>
           </Tag>
         );

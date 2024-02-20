@@ -12,6 +12,7 @@ import {
   AccountTEEndorsement,
 } from '../../features/account';
 import { fetchAccountAssertionsForAccountId } from '../../features/account/assertions/api';
+import { fetchTrustScoreForAccountId } from '../../features/account/trust-score/api';
 import { useDispatch, useVerifiableCredential } from '../../hooks';
 import { type Fields, parseAddress } from '../../utils';
 import NotFound from '../404';
@@ -34,6 +35,9 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
       dispatch(fetchAccountAssertionsForAccountId(issuer)).catch((error) =>
         console.log(error),
       );
+      dispatch(fetchTrustScoreForAccountId(issuer)).catch((error) =>
+        console.log(error),
+      );
     }
   }, [dispatch, accountVCBuilder, address]);
 
@@ -45,24 +49,22 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
   return (
     <Box position="relative" data-testid="account-info" mt="4rem">
       <Container maxWidth="container.xl" paddingTop="0" position="relative">
-        <VStack spacing="5">
+        <VStack spacing="8">
           <AccountInfo address={address} />
-          <Box>
-            <HStack>
-              {isConnected && !isMyAccount && (
-                <>
-                  <AccountReport
-                    address={address}
-                    connectedAddress={connectedAddress as Hex}
-                  />
-                  <AccountTEEndorsement
-                    address={address}
-                    connectedAddress={connectedAddress as Hex}
-                  />
-                </>
-              )}
-            </HStack>
-          </Box>
+          <HStack>
+            {isConnected && !isMyAccount && (
+              <>
+                <AccountReport
+                  address={address}
+                  connectedAddress={connectedAddress as Hex}
+                />
+                <AccountTEEndorsement
+                  address={address}
+                  connectedAddress={connectedAddress as Hex}
+                />
+              </>
+            )}
+          </HStack>
         </VStack>
       </Container>
     </Box>
