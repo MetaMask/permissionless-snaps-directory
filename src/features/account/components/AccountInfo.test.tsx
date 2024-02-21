@@ -24,6 +24,10 @@ jest.mock('wagmi', () => ({
   }),
 }));
 
+jest.mock('./AccountRoleTags', () => ({
+  AccountRoleTags: () => <div />,
+}));
+
 describe('AccountInfo', () => {
   let mockUseEnsName: jest.Mock;
   let mockUseAccount: jest.Mock;

@@ -5,6 +5,7 @@ import type { CombinedState, PreloadedState } from 'redux';
 // Imported separately to avoid circular dependencies.
 import { accountAssertionsSlice } from '../features/account/assertions/store';
 import { accountProfileSlice } from '../features/account/store';
+import { accountTrustScoresSlice } from '../features/account/trust-score/store';
 import { accountTrustScoresAllSlice } from '../features/community/store';
 import { filterSlice } from '../features/filter/store';
 import { notificationsSlice } from '../features/notifications/store';
@@ -23,6 +24,7 @@ const reducer = combineReducers({
   snapTrustScores: snapTrustScoresSlice.reducer,
   accountAssertions: accountAssertionsSlice.reducer,
   accountTrustScoresAll: accountTrustScoresAllSlice.reducer,
+  accountTrustScores: accountTrustScoresSlice.reducer,
 });
 
 /**

@@ -77,6 +77,16 @@ export const Tag = defineMultiStyleConfig({
       },
     }),
 
+    user: definePartsStyle({
+      container: {
+        lineHeight: '1.5rem',
+        textTransform: 'none',
+        paddingX: '2',
+        fontSize: 'md',
+        fontWeight: '500',
+      },
+    }),
+
     muted: definePartsStyle({
       container: {
         backgroundColor: 'background.alternative',

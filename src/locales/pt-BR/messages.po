@@ -868,6 +868,7 @@ msgid "Report for <0>{snapName}</0> as a malicious snap"
 msgstr ""
 
 #: src/components/ReportButton.tsx
+#: src/features/account/components/AccountRoleTags.tsx
 msgid "Reported"
 msgstr ""
 
@@ -876,7 +877,6 @@ msgid "Results for \"{searchQuery}\""
 msgstr ""
 
 #: src/components/icons/index.ts
-#: src/features/account/components/AccountRoleTags.tsx
 msgid "Reviewer"
 msgstr ""
 
