@@ -62,7 +62,7 @@ describe('Account Profile page', () => {
     mockUseDispatch.mockClear();
     const mockDispatch = jest.fn();
     mockUseDispatch.mockReturnValue(mockDispatch);
-    mockDispatch.mockImplementationOnce(async () => Promise.resolve());
+    mockDispatch.mockImplementation(async () => Promise.resolve());
     mockGetAddress = getAddress as jest.Mock;
     mockUseAccount = useAccount as jest.Mock;
     mockGetAddress.mockClear();
@@ -114,6 +114,36 @@ describe('Account Profile page', () => {
   it('renders if `fetchAccountAssertionsForAccountId` failed', async () => {
     const mockDispatch = jest.fn();
     mockUseDispatch.mockReturnValue(mockDispatch);
+    mockDispatch.mockImplementationOnce(async () =>
+      Promise.reject(new Error()),
+    );
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve());
+
+    const address = VALID_ACCOUNT_1;
+    mockGetAddress.mockReturnValue(address);
+    mockUseAccount.mockReturnValue({
+      address: null,
+      isConnected: false,
+    });
+
+    const mockLocationSearchParam = {
+      search: new URLSearchParams({ address }),
+    };
+
+    const { queryByText, queryByTestId } = render(
+      <AccountProfilePage location={mockLocationSearchParam} />,
+    );
+
+    expect(
+      queryByText("The page you're looking for can't be found."),
+    ).not.toBeInTheDocument();
+    expect(queryByTestId('account-info')).toBeInTheDocument();
+  });
+
+  it('renders if `fetchTrustScoreForAccountId` failed', async () => {
+    const mockDispatch = jest.fn();
+    mockUseDispatch.mockReturnValue(mockDispatch);
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve());
     mockDispatch.mockImplementationOnce(async () =>
       Promise.reject(new Error()),
     );
