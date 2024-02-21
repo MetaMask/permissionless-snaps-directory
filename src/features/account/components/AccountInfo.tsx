@@ -27,7 +27,6 @@ export const AccountInfo: FunctionComponent<AccountInfoProps> = ({
     <VStack spacing="8" data-testid="account-info">
       <HStack>
         <JazzIcon address={address} size={130} />
-      <HStack>
         <AccountRoleTags address={address} />
       </HStack>
       <HStack>
