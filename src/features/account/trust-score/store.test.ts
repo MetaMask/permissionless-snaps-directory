@@ -3,7 +3,7 @@ import { mock } from 'ts-mockito';
 import { fetchTrustScoreForAccountId } from './api';
 import {
   accountTrustScoresSlice,
-  getAccountTrustScores,
+  getAccountsTrustScores,
   getAccountTrustScoreForAccountId,
 } from './store';
 import { TrustScoreScope } from './types';
@@ -17,6 +17,7 @@ describe('accountTrustScoresSlice', () => {
           subjectId: 'accountId',
           result: 0.8,
           accuracy: 0.85,
+          rank: 1,
           value: 1,
           trustScoreScope: TrustScoreScope.SoftwareDevelopment,
         },
@@ -27,6 +28,7 @@ describe('accountTrustScoresSlice', () => {
             accountId: 'accountId',
             result: 0.5,
             accuracy: 0.75,
+            rank: 1,
             trustScoreScope: TrustScoreScope.SoftwareSecurity,
           },
         ],
@@ -44,6 +46,7 @@ describe('accountTrustScoresSlice', () => {
         accountId: 'accountId',
         result: 0.8,
         accuracy: 0.85,
+        rank: 1,
         trustScoreScope: TrustScoreScope.SoftwareDevelopment,
       });
     });
@@ -75,12 +78,12 @@ describe('accountTrustScoresSlice', () => {
 });
 
 describe('Selectors', () => {
-  describe('getAccountTrustScores', () => {
+  describe('getAccountsTrustScores', () => {
     it('should return accountTrustScores from the store', () => {
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountTrustScores.accountTrustScores = [];
 
-      const accountTrustScores = getAccountTrustScores(mockedApplicationState);
+      const accountTrustScores = getAccountsTrustScores(mockedApplicationState);
 
       expect(accountTrustScores).toStrictEqual([]);
     });

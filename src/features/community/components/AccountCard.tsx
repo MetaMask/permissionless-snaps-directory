@@ -2,24 +2,35 @@ import { Flex, Text, Box, Button } from '@chakra-ui/react';
 import { Trans } from '@lingui/macro';
 import { Link } from 'gatsby';
 import type { FunctionComponent } from 'react';
+import { type Hex } from 'viem';
+import { mainnet, useEnsName } from 'wagmi';
 
 import { Card, JazzIcon } from '../../../components';
+import { trimAddress } from '../../../utils';
+import {
+  AccountRoleTags,
+  type AccountTrustScore,
+} from '../../account/components/AccountRoleTags';
 
 export type AccountCardProps = {
   accountId: string;
-  accountRole: string;
-  profilePath: string;
+  trustScore: AccountTrustScore;
   onClick?: () => void;
 };
 
 export const AccountCard: FunctionComponent<AccountCardProps> = ({
   accountId,
-  accountRole,
-  profilePath,
-  onClick = () => undefined,
+  trustScore,
 }) => {
+  const address = accountId.split(':')[4] as Hex;
+  const { data } = useEnsName({
+    address,
+    chainId: mainnet.id,
+  });
+  const shortAddress = trimAddress(address);
+  const title = data ?? shortAddress;
   return (
-    <Link to={profilePath} onClick={onClick}>
+    <Link to={`/account/?address=${address}`}>
       <Card
         padding="2"
         _hover={{
@@ -34,7 +45,6 @@ export const AccountCard: FunctionComponent<AccountCardProps> = ({
           },
         }}
       >
-        {/* <AccountProfileBanner /> */}
         <Flex
           height="3rem"
           flexDirection="row"
@@ -48,13 +58,13 @@ export const AccountCard: FunctionComponent<AccountCardProps> = ({
             gap="2"
             overflow="hidden"
           >
-            <JazzIcon address={accountId} size={44} />
+            <JazzIcon address={address} size={44} />
             <Box overflow="hidden">
               <Text fontWeight="medium" isTruncated={true}>
-                {accountId}
+                {title}
               </Text>
               <Text color="text.alternative" fontSize="xs" isTruncated={true}>
-                {accountRole}
+                {shortAddress}
               </Text>
             </Box>
           </Flex>
@@ -65,6 +75,7 @@ export const AccountCard: FunctionComponent<AccountCardProps> = ({
           </Flex>
         </Flex>
       </Card>
+      <AccountRoleTags trustScores={[trustScore]} />
     </Link>
   );
 };

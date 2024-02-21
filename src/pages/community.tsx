@@ -1,7 +1,8 @@
 import { Container } from '@chakra-ui/react';
 import { useEffect, type FunctionComponent } from 'react';
 
-import { CommunityList, fetchTrustScoreForAllAccounts } from '../features';
+import { CommunityList } from '../features';
+import { fetchTrustScoreForAllAccounts } from '../features/account/trust-score/api';
 import { useDispatch } from '../hooks';
 
 const CommunityPage: FunctionComponent = () => {

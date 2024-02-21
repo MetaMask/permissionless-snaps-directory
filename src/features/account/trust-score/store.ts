@@ -1,14 +1,18 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 
-import { fetchTrustScoreForAccountId } from './api';
+import {
+  fetchTrustScoreForAccountId,
+  fetchTrustScoreForAllAccounts,
+} from './api';
 import { type TrustScoreScope } from './types';
 import { type ApplicationState } from '../../../store';
 
 export type AccountTrustScoreState = {
   accountId: string;
   result: number;
-  accuracy: number | undefined;
+  accuracy?: number | undefined;
   trustScoreScope: TrustScoreScope;
+  rank?: number | undefined;
 };
 
 export type AccountsTrustScoresState = {
@@ -38,6 +42,7 @@ export const accountTrustScoresSlice = createSlice({
             result: trustScorePayload.result,
             accuracy: trustScorePayload.accuracy,
             trustScoreScope: trustScorePayload.trustScoreScope,
+            rank: trustScorePayload.rank,
           }));
 
         state.accountTrustScores = [
@@ -46,19 +51,52 @@ export const accountTrustScoresSlice = createSlice({
         ];
       }
     });
+    builder.addCase(
+      fetchTrustScoreForAllAccounts.fulfilled,
+      (state, action) => {
+        if (action.payload.length > 0) {
+          state.accountTrustScores = action.payload.map(
+            (trustScorePayload) => ({
+              accountId: trustScorePayload.subjectId,
+              result: trustScorePayload.result,
+              accuracy: trustScorePayload.accuracy,
+              trustScoreScope: trustScorePayload.trustScoreScope,
+              rank: trustScorePayload.rank,
+            }),
+          );
+        }
+      },
+    );
   },
 });
 
 // Selector to get accountTrustScores from the store
-export const getAccountTrustScores = createSelector(
+export const getAccountsTrustScores = createSelector(
   (state: ApplicationState) => state.accountTrustScores,
   ({ accountTrustScores }) => accountTrustScores,
 );
 
 // Selector to get accountTrustScores for a specific accountId
 export const getAccountTrustScoreForAccountId = (accountId: string) =>
-  createSelector(getAccountTrustScores, (accountTrustScores) =>
+  createSelector(getAccountsTrustScores, (accountTrustScores) =>
     accountTrustScores?.filter(
       (accountTrustScore) => accountTrustScore.accountId === accountId,
     ),
+  );
+
+export const getTopAccountsForScope = (
+  topCounter: number,
+  trustScoreScope: TrustScoreScope,
+) =>
+  createSelector(
+    getAccountsTrustScores,
+    (accountTrustScores) =>
+      accountTrustScores
+        .filter((score) => score.trustScoreScope === trustScoreScope)
+        .sort(
+          (a, b) =>
+            (a.rank ?? accountTrustScores.length) -
+            (b.rank ?? accountTrustScores.length),
+        )
+        .slice(0, topCounter), // Getting the top counter accounts
   );

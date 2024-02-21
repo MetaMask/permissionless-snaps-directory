@@ -3,12 +3,17 @@ import { Trans } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
 
 import { AccountCard } from './components';
-import { getTopSoftwareAuditors, getTopSoftwareDevelopers } from './store';
 import { useSelector } from '../../hooks';
+import { getTopAccountsForScope } from '../account/trust-score/store';
+import { TrustScoreScope } from '../account/trust-score/types';
 
 export const CommunityList: FunctionComponent = () => {
-  const topDevelopers = useSelector(getTopSoftwareDevelopers(9));
-  const topAuditors = useSelector(getTopSoftwareAuditors(9));
+  const topDevelopers = useSelector(
+    getTopAccountsForScope(9, TrustScoreScope.SoftwareDevelopment),
+  );
+  const topAuditors = useSelector(
+    getTopAccountsForScope(9, TrustScoreScope.SoftwareSecurity),
+  );
 
   return (
     <>
@@ -28,8 +33,7 @@ export const CommunityList: FunctionComponent = () => {
           <AccountCard
             key={`${developer.accountId}-${index}`}
             accountId={developer.accountId}
-            accountRole={developer.trustScoreScope}
-            profilePath=""
+            trustScore={developer}
           ></AccountCard>
         ))}
       </SimpleGrid>
@@ -50,8 +54,7 @@ export const CommunityList: FunctionComponent = () => {
           <AccountCard
             key={`${auditor.accountId}-${index}`}
             accountId={auditor.accountId}
-            accountRole={auditor.trustScoreScope}
-            profilePath=""
+            trustScore={auditor}
           ></AccountCard>
         ))}
       </SimpleGrid>
