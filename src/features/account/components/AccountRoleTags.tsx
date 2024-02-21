@@ -42,7 +42,7 @@ export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
         };
         roles.push(role);
       }
-      if (trustScore.trustScoreScope === TrustScoreScope.SoftwareSecurity) {
+      else if (trustScore.trustScoreScope === TrustScoreScope.SoftwareSecurity) {
         let tier = 0;
         if (trustScore.accuracy !== undefined) {
           if (trustScore.accuracy >= 0.99) {
