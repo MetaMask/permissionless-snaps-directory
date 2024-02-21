@@ -801,6 +801,10 @@ msgstr ""
 msgid "Open Beta Live"
 msgstr ""
 
+#: src/components/CommunityButton.tsx
+msgid "Open community menu"
+msgstr ""
+
 #: src/features/filter/components/FilterButton.tsx
 msgid "Open filter menu"
 msgstr ""
@@ -927,6 +931,10 @@ msgstr ""
 #: src/constants.ts
 #: src/pages/explore.tsx
 msgid "See All"
+msgstr ""
+
+#: src/pages/community.tsx
+msgid "See All Developers"
 msgstr ""
 
 #: src/features/filter/components/FilterSearch.tsx
@@ -1085,6 +1093,10 @@ msgstr ""
 
 #: src/components/ColorModeToggle.tsx
 msgid "Toggle color mode"
+msgstr ""
+
+#: src/pages/community.tsx
+msgid "Top Community Developers"
 msgstr ""
 
 #: src/features/account/AccountProfileTabs.tsx
