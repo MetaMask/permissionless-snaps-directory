@@ -41,9 +41,7 @@ export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
           tier: 0,
         };
         roles.push(role);
-      } else if (
-        trustScore.trustScoreScope === TrustScoreScope.SoftwareSecurity
-      ) {
+      } else {
         let tier = 0;
         if (trustScore.accuracy !== undefined) {
           if (trustScore.accuracy >= 0.99) {
