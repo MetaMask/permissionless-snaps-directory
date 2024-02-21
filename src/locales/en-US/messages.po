@@ -933,10 +933,6 @@ msgstr ""
 msgid "See All"
 msgstr ""
 
-#: src/pages/community.tsx
-msgid "See All Developers"
-msgstr ""
-
 #: src/features/filter/components/FilterSearch.tsx
 msgid "See all results"
 msgstr ""
@@ -1095,8 +1091,12 @@ msgstr ""
 msgid "Toggle color mode"
 msgstr ""
 
-#: src/pages/community.tsx
+#: src/features/community/CommunityList.tsx
 msgid "Top Community Developers"
+msgstr ""
+
+#: src/features/community/CommunityList.tsx
+msgid "Top Community Security Reviewers"
 msgstr ""
 
 #: src/features/account/AccountProfileTabs.tsx
@@ -1156,6 +1156,7 @@ msgstr ""
 msgid "Version {0} update available"
 msgstr ""
 
+#: src/features/community/components/AccountCard.tsx
 #: src/features/snaps/components/SnapCard.tsx
 msgid "View"
 msgstr ""

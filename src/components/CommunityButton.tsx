@@ -1,6 +1,7 @@
 import type { As, IconButtonProps, ComponentWithAs } from '@chakra-ui/react';
 import { forwardRef, IconButton } from '@chakra-ui/react';
 import { t } from '@lingui/macro';
+import { navigate } from 'gatsby';
 
 import { AvatarBlueIcon } from '.';
 
@@ -12,7 +13,8 @@ export const CommunityButton: ComponentWithAs<As, CommunityButtonProps> =
       <IconButton
         ref={ref}
         {...props}
-        // onClick={async () => navigate(`/community`, { replace: true })}
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        onClick={async () => navigate(`/community`, { replace: true })}
         position="relative"
         aria-label={t`Open community menu`}
         variant="clear"
