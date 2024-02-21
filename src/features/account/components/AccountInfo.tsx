@@ -25,10 +25,8 @@ export const AccountInfo: FunctionComponent<AccountInfoProps> = ({
 
   return (
     <VStack spacing="8" data-testid="account-info">
-      <HStack>
-        <JazzIcon address={address} size={130} />
-        <AccountRoleTags address={address} />
-      </HStack>
+      <JazzIcon address={address} size={130} />
+      <AccountRoleTags address={address} />
       <HStack>
         <Heading
           as="h3"
