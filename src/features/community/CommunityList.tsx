@@ -1,4 +1,4 @@
-import { Divider, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
+import { Divider, Heading, SimpleGrid } from '@chakra-ui/react';
 import { Trans } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
 
@@ -17,17 +17,9 @@ export const CommunityList: FunctionComponent = () => {
 
   return (
     <>
-      <Flex
-        width="100%"
-        marginBottom="8"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Heading as="h2" fontSize="2xl">
-          <Trans>Top Community Developers</Trans>
-        </Heading>
-      </Flex>
+      <Heading as="h2" fontSize="2xl" marginBottom={8}>
+        <Trans>Top Community Developers</Trans>
+      </Heading>
       <SimpleGrid columns={[1, null, 2, 3]} spacing={4}>
         {topDevelopers.map((developer, index) => (
           <AccountCard
@@ -38,17 +30,9 @@ export const CommunityList: FunctionComponent = () => {
         ))}
       </SimpleGrid>
       <Divider my="8" />
-      <Flex
-        width="100%"
-        marginBottom="8"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Heading as="h2" fontSize="2xl">
-          <Trans>Top Community Security Reviewers</Trans>
-        </Heading>
-      </Flex>
+      <Heading as="h2" fontSize="2xl" marginBottom={8}>
+        <Trans>Top Community Security Reviewers</Trans>
+      </Heading>
       <SimpleGrid columns={[1, null, 2, 3]} spacing={4}>
         {topAuditors.map((auditor, index) => (
           <AccountCard

@@ -14,11 +14,7 @@ const CommunityPage: FunctionComponent = () => {
   }, [dispatch]);
 
   return (
-    <Container
-      maxWidth="container.xl"
-      paddingTop="0"
-      marginTop={{ base: 4, md: 20 }}
-    >
+    <Container maxWidth="container.xl" paddingTop="0" marginTop={20}>
       <CommunityList />
     </Container>
   );
