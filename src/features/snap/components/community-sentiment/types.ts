@@ -1,7 +1,7 @@
 export enum SentimentType {
   InsufficientReview = 'Insufficient Reviews',
-  Secured = 'Secured',
+  Endorsed = 'Endorsed',
   InReview = 'In Review',
-  Unsecured = 'Unsecured',
+  Reported = 'Reported',
   Unknown = 'Unknown',
 }

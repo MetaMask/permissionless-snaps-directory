@@ -17,9 +17,9 @@ describe('CommunitySentimentModal', () => {
         /could not be evaluated by your community and might be unsecure/u,
     },
     {
-      type: SentimentType.Secured,
+      type: SentimentType.Endorsed,
       result: 1,
-      expectedText: /has been evaluated as secured by your community/u,
+      expectedText: /has been evaluated as secure by your community/u,
     },
     {
       type: SentimentType.InReview,
@@ -28,9 +28,9 @@ describe('CommunitySentimentModal', () => {
         /currently under review by your community and may be insecure/u,
     },
     {
-      type: SentimentType.Unsecured,
+      type: SentimentType.Reported,
       result: 3,
-      expectedText: /has been evaluated as unsecured by your community/u,
+      expectedText: /has been evaluated as unsecure by your community/u,
     },
   ];
 
