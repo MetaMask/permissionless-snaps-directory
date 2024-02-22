@@ -45,34 +45,25 @@ export const AccountCard: FunctionComponent<AccountCardProps> = ({
           },
         }}
       >
-        <Flex
+       <Flex
           height="3rem"
           flexDirection="row"
-          justifyContent="space-between"
+          alignItems={'center'}
           gap="2"
         >
-          <Flex
-            alignItems="center"
-            width={{ base: '100%', md: 'auto' }}
-            height="fit-content"
-            gap="2"
-            overflow="hidden"
-          >
-            <JazzIcon address={address} size={44} />
-            <Box overflow="hidden">
-              <Text fontWeight="medium" isTruncated={true}>
-                {title}
-              </Text>
-              <Text color="text.alternative" fontSize="xs" isTruncated={true}>
-                {shortAddress}
-              </Text>
-            </Box>
-          </Flex>
-          <Flex alignItems="center" justifyContent="flex-end">
-            <Button variant="small">
-              <Trans>View</Trans>
-            </Button>
-          </Flex>
+          <JazzIcon address={address} size={44} />
+          <Box overflow="hidden">
+            <Text fontWeight="medium" isTruncated={true}>
+              {title}
+            </Text>
+            <Text color="text.alternative" fontSize="xs" isTruncated={true}>
+              {shortAddress}
+            </Text>
+          </Box>
+          <Spacer />
+          <Button variant="small">
+            <Trans>View</Trans>
+          </Button>
         </Flex>
       </Card>
       <AccountRoleTags trustScores={[trustScore]} />
