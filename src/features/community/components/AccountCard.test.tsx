@@ -1,13 +1,9 @@
+import { act } from '@testing-library/react';
 import { useAccount, useEnsName } from 'wagmi';
 
 import { AccountCard } from './AccountCard';
-import { VALID_ACCOUNT_1, render } from '../../../utils/test-utils';
+import { render, VALID_ACCOUNT_1 } from '../../../utils/test-utils';
 import { TrustScoreScope } from '../../account/trust-score/types';
-
-jest.mock('gatsby', () => ({
-  ...jest.requireActual('gatsby'),
-  navigate: jest.fn(),
-}));
 
 jest.mock('wagmi', () => ({
   ...jest.requireActual('wagmi'),
@@ -104,5 +100,33 @@ describe('AccountCard', () => {
 
     expect(queryByText('name [Snap1]')).toBeInTheDocument();
     expect(queryAllByTestId('account-role-tags')).toHaveLength(1);
+  });
+
+  it('calls the default onClick handler when clicked if no onClick handler is provided', async () => {
+    const { getByRole } = await act(() =>
+      render(
+        <AccountCard accountId={mockAccountId} trustScore={mockTrustScore} />,
+      ),
+    );
+
+    expect(() => act(() => getByRole('link').click())).not.toThrow();
+  });
+
+  it('calls the onClick handler when clicked', async () => {
+    const onClick = jest.fn();
+
+    const { getByRole } = await act(() =>
+      render(
+        <AccountCard
+          accountId={mockAccountId}
+          trustScore={mockTrustScore}
+          onClick={onClick}
+        />,
+      ),
+    );
+
+    act(() => getByRole('link').click());
+
+    expect(onClick).toHaveBeenCalled();
   });
 });

@@ -38,7 +38,7 @@ export const FilterSearchInput: FunctionComponent<FilterSearchInputProps> =
         <Input
           type="search"
           borderRadius="full"
-          placeholder={t`Search Snaps`}
+          placeholder={t`Search users or snaps`}
           value={query}
           onChange={onFormChange}
           onClick={onFormClick}

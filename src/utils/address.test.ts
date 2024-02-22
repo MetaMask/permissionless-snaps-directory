@@ -7,6 +7,10 @@ jest.mock('viem', () => ({
   getAddress: jest.fn(),
 }));
 
+jest.mock('wagmi', () => ({
+  createConfig: jest.fn(),
+}));
+
 describe('parseAddress', () => {
   let mockGetAddress: jest.Mock;
 

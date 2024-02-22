@@ -20,6 +20,7 @@ jest.mock('./assertions/api');
 
 jest.mock('wagmi', () => ({
   useEnsName: jest.fn(),
+  createConfig: jest.fn(),
 }));
 
 jest.mock('../../hooks/useVerifiableCredential', () => ({

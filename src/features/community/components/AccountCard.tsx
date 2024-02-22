@@ -1,4 +1,4 @@
-import { Flex, Text, Box, Button, Spacer } from '@chakra-ui/react';
+import { Box, Button, Flex, Spacer, Text } from '@chakra-ui/react';
 import { Trans } from '@lingui/macro';
 import { Link } from 'gatsby';
 import type { FunctionComponent } from 'react';
@@ -23,6 +23,7 @@ export const AccountCard: FunctionComponent<AccountCardProps> = ({
   accountId,
   trustScore,
   snapName,
+  onClick = () => undefined,
 }) => {
   const address = (
     accountId.startsWith('0x') ? accountId : accountId.split(':')[4]
@@ -34,7 +35,7 @@ export const AccountCard: FunctionComponent<AccountCardProps> = ({
   const shortAddress = trimAddress(address);
   const title = `${data ?? shortAddress}${snapName ? ` [${snapName}]` : ``}`;
   return (
-    <Link to={`/account/?address=${address}`}>
+    <Link to={`/account/?address=${address}`} onClick={onClick}>
       <Card
         padding="2"
         _hover={{

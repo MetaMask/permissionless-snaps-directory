@@ -58,9 +58,6 @@ export const AddToUserCircleModal: FunctionComponent<
     signMessage(VC)
       .then((signature) => {
         if (signature) {
-          const assertion = accountVCBuilder.getSignedAssertion(VC, signature);
-          console.log('assertion', assertion);
-
           showSuccessMsg({
             title: t`Added to your trust circle`,
             description: t`${shortSubAddress} has been added to your trust circle`,
