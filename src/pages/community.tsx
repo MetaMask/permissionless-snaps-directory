@@ -12,6 +12,7 @@ const CommunityPage: FunctionComponent = () => {
       console.log(error),
     );
   }, [dispatch]);
+
   return (
     <Container
       maxWidth="container.xl"
