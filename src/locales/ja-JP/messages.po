@@ -801,6 +801,10 @@ msgstr ""
 msgid "Open Beta Live"
 msgstr ""
 
+#: src/components/CommunityButton.tsx
+msgid "Open community menu"
+msgstr ""
+
 #: src/features/filter/components/FilterButton.tsx
 msgid "Open filter menu"
 msgstr ""
@@ -1087,6 +1091,14 @@ msgstr ""
 msgid "Toggle color mode"
 msgstr ""
 
+#: src/features/community/CommunityList.tsx
+msgid "Top Community Developers"
+msgstr ""
+
+#: src/features/community/CommunityList.tsx
+msgid "Top Community Security Reviewers"
+msgstr ""
+
 #: src/features/account/AccountProfileTabs.tsx
 msgid "Trusted Circle"
 msgstr ""
@@ -1144,6 +1156,7 @@ msgstr ""
 msgid "Version {0} update available"
 msgstr ""
 
+#: src/features/community/components/AccountCard.tsx
 #: src/features/snaps/components/SnapCard.tsx
 msgid "View"
 msgstr ""

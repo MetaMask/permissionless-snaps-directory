@@ -1,17 +1,17 @@
 import { act } from '@testing-library/react';
+import { mock } from 'ts-mockito';
 import { useAccount, useEnsName } from 'wagmi';
 
 import { AccountInfo } from './AccountInfo';
+import { useSelector, useVerifiableCredential } from '../../../hooks';
 import { createStore } from '../../../store';
 import { render, VALID_ACCOUNT_1 } from '../../../utils/test-utils';
+import { type AccountTrustScoreState } from '../trust-score/store';
 
-jest.mock('../../../hooks/useVerifiableCredential', () => ({
-  ...jest.requireActual('../../../hooks/useVerifiableCredential'),
-  useVerifiableCredential: () => ({
-    issuerAddress: 'issuerAddress',
-    signMessage: jest.fn(),
-    signError: null,
-  }),
+jest.mock('../../../hooks', () => ({
+  ...jest.requireActual('../../../hooks'),
+  useSelector: jest.fn(),
+  useVerifiableCredential: jest.fn(),
 }));
 
 jest.mock('wagmi', () => ({
@@ -25,18 +25,42 @@ jest.mock('wagmi', () => ({
 }));
 
 jest.mock('./AccountRoleTags', () => ({
-  AccountRoleTags: () => <div />,
+  AccountRoleTags: () => <div data-testid="account-role-tags" />,
+}));
+
+jest.mock('./modals', () => ({
+  AddToUserCircleModal: () => <div data-testid="user-circle-modal" />,
+}));
+
+jest.mock('..', () => ({
+  MoreOptionMenu: () => <div data-testid="more-options" />,
 }));
 
 describe('AccountInfo', () => {
   let mockUseEnsName: jest.Mock;
   let mockUseAccount: jest.Mock;
+  let mockUseSelector: jest.Mock;
+  let mockUseVerifiableCredential: jest.Mock;
 
   beforeEach(() => {
     mockUseEnsName = useEnsName as jest.Mock;
     mockUseEnsName.mockClear();
     mockUseAccount = useAccount as jest.Mock;
     mockUseAccount.mockClear();
+    mockUseSelector = useSelector as jest.Mock;
+    mockUseSelector.mockReturnValueOnce([mock<AccountTrustScoreState>]);
+    mockUseVerifiableCredential = useVerifiableCredential as jest.Mock;
+    mockUseVerifiableCredential.mockClear();
+    mockUseVerifiableCredential.mockReturnValue({
+      issuerAddress: 'issuerAddress',
+      signMessage: jest.fn().mockReturnValue(Promise.resolve('signature')),
+      accountVCBuilder: {
+        buildReportAccountTrust: jest.fn().mockReturnValue('VC'),
+        getSignedAssertion: jest.fn().mockReturnValue('assertion'),
+        getSubjectDid: jest.fn().mockReturnValue('0xmockAddress'),
+      },
+      signError: null,
+    });
   });
 
   it('renders', async () => {
@@ -57,7 +81,9 @@ describe('AccountInfo', () => {
     expect(queryByTestId('account-info-loading')).not.toBeInTheDocument();
     expect(queryByTestId('account-info')).toBeInTheDocument();
     expect(queryByText('name')).toBeInTheDocument();
-    expect(queryByTestId('icon-menu-button')).toBeInTheDocument();
+    expect(queryByTestId('account-role-tags')).toBeInTheDocument();
+    expect(queryByTestId('user-circle-modal')).toBeInTheDocument();
+    expect(queryByTestId('more-options')).toBeInTheDocument();
   });
 
   it('renders loading component if `useEnsName` is not complete', async () => {
