@@ -53,7 +53,7 @@ msgid "{sentimentType}"
 msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
-msgid "{sentimentType} by Community"
+msgid "{sentimentType} {0}"
 msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
@@ -608,11 +608,11 @@ msgid "Harassment"
 msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
-msgid "has been evaluated as secured by your community"
+msgid "has been evaluated as secure by your community"
 msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
-msgid "has been evaluated as unsecured by your community"
+msgid "has been evaluated as unsecure by your community"
 msgstr ""
 
 #: src/components/icons/index.ts
