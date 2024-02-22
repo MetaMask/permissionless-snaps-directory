@@ -1,4 +1,4 @@
-import { Flex, Text, Box, Button } from '@chakra-ui/react';
+import { Flex, Text, Box, Button, Spacer } from '@chakra-ui/react';
 import { Trans } from '@lingui/macro';
 import { Link } from 'gatsby';
 import type { FunctionComponent } from 'react';
@@ -45,12 +45,7 @@ export const AccountCard: FunctionComponent<AccountCardProps> = ({
           },
         }}
       >
-       <Flex
-          height="3rem"
-          flexDirection="row"
-          alignItems={'center'}
-          gap="2"
-        >
+        <Flex height="3rem" flexDirection="row" alignItems={'center'} gap="2">
           <JazzIcon address={address} size={44} />
           <Box overflow="hidden">
             <Text fontWeight="medium" isTruncated={true}>
