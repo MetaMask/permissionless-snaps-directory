@@ -21,9 +21,7 @@ jest.mock('wagmi', () => ({
   useAccount: jest.fn(),
   usePublicClient: jest.fn(),
   useSignTypedData: jest.fn(),
-  mainnet: {
-    id: 1,
-  },
+  useChainId: () => 1,
 }));
 
 describe('useVerifiableCredential', () => {

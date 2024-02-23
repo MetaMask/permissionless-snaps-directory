@@ -1,7 +1,12 @@
 import type { Hex } from '@metamask/utils';
 import type { SignTypedDataArgs } from '@wagmi/core';
 import { useCallback, useMemo, useState } from 'react';
-import { mainnet, useAccount, usePublicClient, useSignTypedData } from 'wagmi';
+import {
+  useAccount,
+  useChainId,
+  usePublicClient,
+  useSignTypedData,
+} from 'wagmi';
 
 import {
   AccountVerifiableCredential,
@@ -26,7 +31,7 @@ export type VCSignError = {
  */
 export function useVerifiableCredential() {
   const verifyClient = usePublicClient();
-  const chainId = mainnet.id; // TODO: use useChainId() when we start allowing multiple chains
+  const chainId = useChainId();
   const { address } = useAccount();
   const { signTypedDataAsync } = useSignTypedData();
 
