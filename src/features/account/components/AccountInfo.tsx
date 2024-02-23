@@ -5,7 +5,6 @@ import type { FunctionComponent } from 'react';
 import { useAccount, useEnsName } from 'wagmi';
 
 import { AccountRoleTags } from './AccountRoleTags';
-import { AddToUserCircleModal } from './modals';
 import { MoreOptionMenu } from '..';
 import { JazzIcon } from '../../../components';
 import { useSelector, useVerifiableCredential } from '../../../hooks';
@@ -51,7 +50,8 @@ export const AccountInfo: FunctionComponent<AccountInfoProps> = ({
         {isConnected && (
           <>
             <MoreOptionMenu subjectAddress={address} />
-            <AddToUserCircleModal subjectAddress={address} />
+            {/* Hidden for now */}
+            {/* <AddToUserCircleModal subjectAddress={address} /> */}
           </>
         )}
       </HStack>
