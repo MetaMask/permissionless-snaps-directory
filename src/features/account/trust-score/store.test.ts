@@ -10,6 +10,7 @@ import {
   getAccountsTrustScores,
   getAccountTrustScoreForAccountId,
   getTopAccountsForScope,
+  getTopAuthors,
 } from './store';
 import { TrustScoreScope } from './types';
 import { type ApplicationState } from '../../../store';
@@ -271,5 +272,27 @@ describe('Selectors', () => {
       // Expect the selector to return an empty array
       expect(topSoftwareDevelopers).toStrictEqual([]);
     });
+  });
+});
+
+describe('getTopAuthors', () => {
+  it('returns an array of top authors with the correct structure', () => {
+    const topAuthors = getTopAuthors();
+
+    // Check if the returned value is an array
+    expect(Array.isArray(topAuthors)).toBe(true);
+
+    // Check if each author has the correct structure
+    topAuthors.forEach((author) => {
+      expect(author).toHaveProperty('accountId');
+      expect(author).toHaveProperty('snapName');
+    });
+  });
+
+  it('returns the correct number of top authors', () => {
+    const topAuthors = getTopAuthors();
+
+    // Check if the returned array contains 6 authors
+    expect(topAuthors).toHaveLength(6);
   });
 });

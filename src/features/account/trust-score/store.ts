@@ -105,3 +105,32 @@ export const getTopAccountsForScope = (
         )
         .slice(0, topCounter), // Getting the top counter accounts
   );
+
+export const getTopAuthors = () => {
+  return [
+    {
+      accountId: '0x17FA0A61bf1719D12C08c61F211A063a58267A19',
+      snapName: 'WalletChat',
+    },
+    {
+      accountId: '0x34998e5b7Ad419618A9071E73Edb5C4332D9201D',
+      snapName: 'Blockfence',
+    },
+    {
+      accountId: '0xC63caBe93bB29c61E337a87B2E3d4D7C5F5556c0',
+      snapName: 'EAS',
+    },
+    {
+      accountId: '0x34312D7Ccc11486bb725428773D5Def8371c689B',
+      snapName: 'Tuum Tech',
+    },
+    {
+      accountId: '0xA1e08A6379c3d50CAC89AeE0bc020abA7FA16099',
+      snapName: 'Masca',
+    },
+    {
+      accountId: '0xA43c3Cbe0476eEA16ee135bE4646c7A5423E812e',
+      snapName: 'Wallet Guard',
+    },
+  ];
+};

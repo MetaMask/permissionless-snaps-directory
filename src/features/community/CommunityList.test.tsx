@@ -57,7 +57,7 @@ describe('CommunityList', () => {
     const { queryAllByTestId } = render(<CommunityList />);
 
     expect(queryAllByTestId('account-card')).toHaveLength(
-      mockTopDevelopers.length,
+      mockTopDevelopers.length + 6, // 6 is the number of authors hardcoded
     );
   });
 
@@ -68,7 +68,7 @@ describe('CommunityList', () => {
     const { queryAllByTestId } = render(<CommunityList />);
 
     expect(queryAllByTestId('account-card')).toHaveLength(
-      mockTopAuditors.length,
+      mockTopAuditors.length + 6, // 6 is the number of authors hardcoded
     );
   });
 });
