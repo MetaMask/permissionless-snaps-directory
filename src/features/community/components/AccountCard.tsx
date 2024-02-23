@@ -14,21 +14,25 @@ import {
 
 export type AccountCardProps = {
   accountId: string;
-  trustScore: AccountTrustScore;
+  trustScore?: AccountTrustScore;
+  snapName?: string;
   onClick?: () => void;
 };
 
 export const AccountCard: FunctionComponent<AccountCardProps> = ({
   accountId,
   trustScore,
+  snapName,
 }) => {
-  const address = accountId.split(':')[4] as Hex;
+  const address = (
+    accountId.startsWith('0x') ? accountId : accountId.split(':')[4]
+  ) as Hex;
   const { data } = useEnsName({
     address,
     chainId: mainnet.id,
   });
   const shortAddress = trimAddress(address);
-  const title = data ?? shortAddress;
+  const title = `${data ?? shortAddress}${snapName ? ` [${snapName}]` : ``}`;
   return (
     <Link to={`/account/?address=${address}`}>
       <Card
@@ -61,7 +65,7 @@ export const AccountCard: FunctionComponent<AccountCardProps> = ({
           </Button>
         </Flex>
       </Card>
-      <AccountRoleTags trustScores={[trustScore]} />
+      {trustScore && <AccountRoleTags trustScores={[trustScore]} />}
     </Link>
   );
 };
