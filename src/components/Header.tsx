@@ -7,6 +7,7 @@ import { ColorModeToggle } from './ColorModeToggle';
 import { CommunityButton } from './CommunityButton';
 import { ConnectButton } from './ConnectButton';
 import { Logo } from './Logo';
+import { PermissionlessDisclaimer } from './PermissionlessDisclaimer';
 import { FilterSearch, Notifications } from '../features';
 
 type HeaderProps = BoxProps;
@@ -15,9 +16,6 @@ export const Header: FunctionComponent<HeaderProps> = (props) => (
   <Box
     {...props}
     as="header"
-    display="flex"
-    flexDirection="row"
-    justifyContent="space-between"
     background="background.header"
     backdropFilter="auto"
     backdropBlur="1.25rem"
@@ -28,6 +26,7 @@ export const Header: FunctionComponent<HeaderProps> = (props) => (
     width="100%"
     zIndex="sticky"
   >
+    <PermissionlessDisclaimer />
     <Container maxWidth="7xl">
       <Stack
         direction="row"
