@@ -33,7 +33,8 @@ export const accountTrustScoresSlice = createSlice({
         const accountId = action.meta.arg;
         const trustScorePayloads = action.payload;
         const otherAccountsTrustScores = state.accountTrustScores.filter(
-          (trustScore) => trustScore.accountId !== accountId,
+          (trustScore) =>
+            trustScore?.accountId.toLowerCase() !== accountId.toLowerCase(),
         );
 
         const updateAccountTrustScores: AccountTrustScoreState[] =
@@ -80,7 +81,8 @@ export const getAccountsTrustScores = createSelector(
 export const getAccountTrustScoreForAccountId = (accountId: string) =>
   createSelector(getAccountsTrustScores, (accountTrustScores) =>
     accountTrustScores?.filter(
-      (accountTrustScore) => accountTrustScore.accountId === accountId,
+      (accountTrustScore) =>
+        accountTrustScore.accountId.toLowerCase() === accountId.toLowerCase(),
     ),
   );
 
