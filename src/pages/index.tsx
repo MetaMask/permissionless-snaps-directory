@@ -5,6 +5,7 @@ import { graphql, Link as GatsbyLink, withPrefix } from 'gatsby';
 import { useEffect, type FunctionComponent, Fragment } from 'react';
 
 import banner from '../assets/images/seo/home.png';
+import { PermissionlessIntroductory } from '../components/PermissionlessIntroductory';
 import { RegistrySnapCategory, SNAP_CATEGORY_LINKS } from '../constants';
 import { Banner, FilteredSnaps, resetFilters } from '../features';
 import { Order } from '../features/filter/constants';
@@ -88,6 +89,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
       display="flex"
       flexDirection="column"
     >
+      <PermissionlessIntroductory />
       <Banner snaps={data.allSnap.nodes} />
       <Divider my="8" />
 

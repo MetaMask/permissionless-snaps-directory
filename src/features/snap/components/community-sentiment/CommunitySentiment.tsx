@@ -41,7 +41,7 @@ export const CommunitySentiment: FunctionComponent<CommunitySentimentProps> = ({
     }
     let linkLabel;
     switch (sentimentType) {
-      case SentimentType.Secured:
+      case SentimentType.Endorsed:
         linkLabel = t`${endorsementsCount} endorsements`;
         break;
       case SentimentType.InReview:

@@ -92,7 +92,10 @@ export const getTopAccountsForScope = (
     getAccountsTrustScores,
     (accountTrustScores) =>
       accountTrustScores
-        .filter((score) => score.trustScoreScope === trustScoreScope)
+        .filter(
+          (score) =>
+            score.trustScoreScope === trustScoreScope && score.result >= 0,
+        )
         .sort(
           (a, b) =>
             (a.rank ?? accountTrustScores.length) -

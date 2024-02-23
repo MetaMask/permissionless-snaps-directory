@@ -12,7 +12,7 @@ describe('CommunitySentiment', () => {
       endorsements: 5,
       reports: 0,
       expectedLinkLabel: '5 endorsements',
-      expectedSentimentLabel: 'Secured',
+      expectedSentimentLabel: 'Endorsed',
     },
     {
       result: 2,
@@ -26,7 +26,7 @@ describe('CommunitySentiment', () => {
       endorsements: 0,
       reports: 2,
       expectedLinkLabel: '2 reports',
-      expectedSentimentLabel: 'Unsecured',
+      expectedSentimentLabel: 'Reported',
     },
   ];
 
