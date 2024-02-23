@@ -36,7 +36,6 @@ export const SimpleModal: FunctionComponent<SimpleModalProps> = ({
       size="sm"
       isOpen={isOpen}
       onClose={onClose}
-      closeOnOverlayClick={false}
       {...props}
     >
       <ModalOverlay />
