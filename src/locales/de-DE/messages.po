@@ -411,6 +411,10 @@ msgstr ""
 msgid "Display dialog windows in MetaMask"
 msgstr ""
 
+#: src/components/PermissionlessIntroductory.tsx
+msgid "Do share your feedback <0>in this form</0>, and join this <1>telegram group</1> for questions and support."
+msgstr ""
+
 #: src/components/icons/index.ts
 msgid "Document code"
 msgstr ""
@@ -473,6 +477,10 @@ msgstr ""
 
 #: src/components/FooterAccountManagementTerms.tsx
 msgid "Experimental Beta"
+msgstr ""
+
+#: src/components/PermissionlessDisclaimer.tsx
+msgid "Experimental site for testing only. Official Snaps Directory: <0>snaps.metamask.io</0>"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -699,6 +707,10 @@ msgstr ""
 
 #: src/pages/latest.tsx
 msgid "Latest Snaps on the MetaMask Snaps Directory"
+msgstr ""
+
+#: src/components/PermissionlessIntroductory.tsx
+msgid "Launching Snaps is our first milestone towards permissionless innovation. Making Snaps distribution permissionless is our next step towards opening up MetaMask as a platform for developers and the community."
 msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
@@ -984,6 +996,10 @@ msgstr ""
 msgid "Snap"
 msgstr ""
 
+#: src/components/PermissionlessIntroductory.tsx
+msgid "Snaps and Users build reputation as a result of compute (EigenTrust) on this reputation graph. This compute is verifiable and configurable by the community."
+msgstr ""
+
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "Software Development"
 msgstr ""
@@ -1059,6 +1075,10 @@ msgstr ""
 msgid "The page you're looking for can't be found."
 msgstr ""
 
+#: src/components/PermissionlessIntroductory.tsx
+msgid "These attestations create a <0>reputation graph</0> for Users and Snaps"
+msgstr ""
+
 #: src/features/snap/components/modals/EndorseSnapModal.tsx
 msgid "This action will endorse the snap as secure in your community."
 msgstr ""
@@ -1069,6 +1089,10 @@ msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
 msgid "This action will flag the user as a malicious in your community."
+msgstr ""
+
+#: src/components/PermissionlessIntroductory.tsx
+msgid "This community ranking system can be used to identify safe and malicious snaps."
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -1136,6 +1160,10 @@ msgstr ""
 msgid "User check"
 msgstr ""
 
+#: src/components/PermissionlessIntroductory.tsx
+msgid "Users can issue explicit trust or distrust attestations to each other and Snaps"
+msgstr ""
+
 #: src/features/snap/components/MetadataModal.tsx
 msgid "Version"
 msgstr ""
@@ -1175,6 +1203,18 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
+#: src/components/PermissionlessIntroductory.tsx
+msgid "We are launching this prototype to test some features of a decentralized trust and reputation system for Snaps."
+msgstr ""
+
+#: src/components/PermissionlessIntroductory.tsx
+msgid "We want to enable a decentralized App Store for MetaMask Snaps. We envision a community of Snaps users, developers, auditors, and security experts safeguarding Snaps based on collective community wisdom and sentiment, instead of centralized gate-keeping."
+msgstr ""
+
+#: src/components/PermissionlessIntroductory.tsx
+msgid "We're experimenting with a community reputation system for Snaps"
+msgstr ""
+
 #: src/components/FooterLinks.tsx
 msgid "Website"
 msgstr ""
@@ -1185,6 +1225,10 @@ msgstr ""
 
 #: src/components/FooterTerms.tsx
 msgid "You acknowledge that any Snap that you install is a Third Party Service, unless otherwise identified, as defined in the <0>Consensys Terms of Use</0>. Your use of Third Party Services is governed by separate terms and conditions set forth by the Third Party Service provider. Consensys does not recommend the use of any Snap by any particular person for any particular reason. You access, rely upon or use the Third Party Service at your own risk. Consensys disclaims all responsibility and liability for any losses on account of your use of Third Party Services. Any information you share with Third Party Services will be collected directly by those Third Party Services in accordance with their privacy policies. Please refer to their privacy policies for more information. Consensys has no access to information you share with Third Party Services."
+msgstr ""
+
+#: src/components/PermissionlessIntroductory.tsx
+msgid "You can read a detailed User Guide for this prototype <0>here</0>."
 msgstr ""
 
 #: src/components/FooterAccountManagementTerms.tsx
