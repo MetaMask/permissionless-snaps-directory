@@ -83,7 +83,10 @@ export const PermissionlessIntroductory: FunctionComponent = () => (
       <Text>
         <Trans>
           You can read a detailed User Guide for this prototype{' '}
-          <Link>here</Link>.
+          <Link href="spd-experimentation-user-guide.pdf" target="_blank">
+            here
+          </Link>
+          .
         </Trans>
       </Text>
 
@@ -96,7 +99,11 @@ export const PermissionlessIntroductory: FunctionComponent = () => (
           >
             in this form
           </Link>
-          , and join this <Link>telegram group</Link> for questions and support.
+          , and join this{' '}
+          <Link href="https://t.me/+tzukbymkkjU5NGRk" target="_blank">
+            telegram group
+          </Link>{' '}
+          for questions and support.
         </Trans>
       </Text>
     </Flex>
