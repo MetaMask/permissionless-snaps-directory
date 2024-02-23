@@ -1,10 +1,7 @@
 import { Tag, TagLabel, HStack } from '@chakra-ui/react';
 import { t } from '@lingui/macro';
 import { type FunctionComponent } from 'react';
-import { type Hex } from 'viem';
 
-import { useSelector, useVerifiableCredential } from '../../../hooks';
-import { getAccountTrustScoreForAccountId } from '../trust-score/store';
 import { TrustScoreScope } from '../trust-score/types';
 
 export enum AccountRoleType {
@@ -18,19 +15,19 @@ export type AccountRole = {
   tier: number;
 };
 
+export type AccountTrustScore = {
+  result: number;
+  trustScoreScope: TrustScoreScope;
+  accuracy?: number | undefined;
+};
+
 export type AccountRoleTagProps = {
-  address: Hex;
+  trustScores: AccountTrustScore[];
 };
 
 export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
-  address,
+  trustScores,
 }) => {
-  const { accountVCBuilder } = useVerifiableCredential();
-
-  const accountId = accountVCBuilder.getSubjectDid(address);
-
-  const trustScores = useSelector(getAccountTrustScoreForAccountId(accountId));
-
   const roles = [] as AccountRole[];
 
   trustScores.forEach((trustScore) => {

@@ -11,7 +11,7 @@ export const fetchTrustScoreForSnapId = createAsyncThunk(
   async (snapId: string): Promise<SnapTrustScore> => {
     try {
       const response = await axios.get(
-        `${BASE_URL}/trustscores/snap://${snapId}`,
+        `${BASE_URL}/trustscores/id/snap://${snapId}`,
       );
       if (response.data.length === 0) {
         return {

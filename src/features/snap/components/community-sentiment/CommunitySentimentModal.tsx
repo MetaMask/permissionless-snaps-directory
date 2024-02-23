@@ -48,11 +48,11 @@ export const CommunitySentimentModal: FunctionComponent<
       case SentimentType.InsufficientReview:
         suffixText = t`could not be evaluated by your community and might be unsecure`;
         break;
-      case SentimentType.Secured:
-        suffixText = t`has been evaluated as secured by your community`;
+      case SentimentType.Endorsed:
+        suffixText = t`has been evaluated as secure by your community`;
         break;
-      case SentimentType.Unsecured:
-        suffixText = t`has been evaluated as unsecured by your community`;
+      case SentimentType.Reported:
+        suffixText = t`has been evaluated as unsecure by your community`;
         break;
       default:
         suffixText = t`is currently under review by your community and may be insecure`;
@@ -72,7 +72,7 @@ export const CommunitySentimentModal: FunctionComponent<
     switch (sentimentType) {
       case SentimentType.InsufficientReview:
         return <WarningFilledShadowIcon />;
-      case SentimentType.Secured:
+      case SentimentType.Endorsed:
         return <CheckFilledShadowIcon />;
       case SentimentType.InReview:
         return <WarningFilledShadowIcon />;
@@ -112,7 +112,13 @@ export const CommunitySentimentModal: FunctionComponent<
                         fill="currentColor"
                       ></SignHexagonIcon>
                       <TagLabel>
-                        <Trans>{`${sentimentType} by Community`}</Trans>
+                        <Trans>
+                          {sentimentType}{' '}
+                          {sentimentType === SentimentType.Endorsed ||
+                          sentimentType === SentimentType.Reported
+                            ? 'by Community'
+                            : ''}
+                        </Trans>
                       </TagLabel>
                     </Tag>
                   </HStack>

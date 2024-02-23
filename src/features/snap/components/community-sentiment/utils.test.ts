@@ -5,9 +5,9 @@ describe('getColorForSentiment', () => {
   it.each`
     type                                | expectedColor
     ${SentimentType.InsufficientReview} | ${'warning'}
-    ${SentimentType.Secured}            | ${'success'}
+    ${SentimentType.Endorsed}           | ${'success'}
     ${SentimentType.InReview}           | ${'warning'}
-    ${SentimentType.Unsecured}          | ${'error'}
+    ${SentimentType.Reported}           | ${'error'}
     ${123}                              | ${'success'}
   `('returns $expectedColor color for $type', ({ type, expectedColor }) => {
     expect(getColorForSentiment(type)).toBe(expectedColor);
@@ -18,9 +18,9 @@ describe('getSentimentTypeFromResult', () => {
   it.each`
     result | expectedType
     ${0}   | ${SentimentType.InsufficientReview}
-    ${1}   | ${SentimentType.Secured}
+    ${1}   | ${SentimentType.Endorsed}
     ${2}   | ${SentimentType.InReview}
-    ${3}   | ${SentimentType.Unsecured}
+    ${3}   | ${SentimentType.Reported}
     ${4}   | ${SentimentType.Unknown}
     ${-1}  | ${SentimentType.Unknown}
   `('returns $expectedType for result $result', ({ result, expectedType }) => {

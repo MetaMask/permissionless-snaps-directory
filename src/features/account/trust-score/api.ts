@@ -10,7 +10,21 @@ export const fetchTrustScoreForAccountId = createAsyncThunk(
   'accountTrustScore/fetchTrustScoreForAccountId',
   async (accountId: string): Promise<AccountTrustScore[]> => {
     try {
-      const response = await axios.get(`${BASE_URL}/trustscores/${accountId}`);
+      const response = await axios.get(
+        `${BASE_URL}/trustscores/id/${accountId}`,
+      );
+      return response.data;
+    } catch (error) {
+      return [];
+    }
+  },
+);
+
+export const fetchTrustScoreForAllAccounts = createAsyncThunk(
+  'accountTrustScore/fetchTrustScoreForAllAccounts',
+  async (): Promise<AccountTrustScore[]> => {
+    try {
+      const response = await axios.get(`${BASE_URL}/trustscores/accounts`);
       return response.data;
     } catch (error) {
       return [];

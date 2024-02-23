@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-import { fetchTrustScoreForAccountId } from './api';
+import {
+  fetchTrustScoreForAccountId,
+  fetchTrustScoreForAllAccounts,
+} from './api';
+import { TrustScoreScope } from './types';
 
 // Mock axios methods
 jest.mock('axios');
@@ -17,9 +21,8 @@ describe('fetchTrustScoreForAccountId', () => {
     const mockTrustScores = [
       {
         subjectId: 'accountId',
-        confidence: null,
-        value: null,
-        trustScoreScope: 'SoftwareDevelopment',
+        value: 1,
+        trustScoreScope: TrustScoreScope.SoftwareDevelopment,
         result: 1,
       },
     ];
@@ -63,6 +66,64 @@ describe('fetchTrustScoreForAccountId', () => {
         expect.anything(),
         expect.anything(),
       ),
+    );
+  });
+});
+
+describe('fetchTrustScoreForAllAccounts', () => {
+  const mockTrustScores = [
+    {
+      subjectId: 'accountId1',
+      value: 1,
+      trustScoreScope: TrustScoreScope.SoftwareDevelopment,
+      result: 1,
+    },
+    {
+      subjectId: 'accountId2',
+      value: 2,
+      trustScoreScope: TrustScoreScope.SoftwareSecurity,
+      result: 2,
+    },
+  ];
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should fetch account trust scores for all accounts successfully', async () => {
+    // Arrange
+    mockedAxios.get.mockResolvedValueOnce({
+      data: mockTrustScores,
+    });
+
+    const dispatch = jest.fn();
+
+    // Act
+    await fetchTrustScoreForAllAccounts()(dispatch, jest.fn(), null);
+
+    // Assert
+    expect(mockedAxios.get.mock.calls).toHaveLength(1);
+    expect(dispatch).toHaveBeenCalledWith(
+      fetchTrustScoreForAllAccounts.fulfilled(
+        mockTrustScores,
+        expect.anything(),
+      ),
+    );
+  });
+
+  it('should handle fetch error gracefully', async () => {
+    // Arrange
+    const mockError = new Error('Failed to fetch accounts trust scores');
+    mockedAxios.get.mockRejectedValueOnce(mockError);
+
+    const dispatch = jest.fn();
+
+    // Act
+    await fetchTrustScoreForAllAccounts()(dispatch, jest.fn(), null);
+
+    // Assert
+    expect(mockedAxios.get.mock.calls).toHaveLength(1);
+    expect(dispatch).toHaveBeenLastCalledWith(
+      fetchTrustScoreForAllAccounts.fulfilled([], expect.anything()),
     );
   });
 });

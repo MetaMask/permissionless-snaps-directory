@@ -1,50 +1,36 @@
 import { AccountRoleTags } from './AccountRoleTags';
-import { useSelector, useVerifiableCredential } from '../../../hooks';
 import { render } from '../../../utils/test-utils';
-
-jest.mock('../../../hooks', () => ({
-  ...jest.requireActual('../../../hooks'),
-  useSelector: jest.fn(),
-  useVerifiableCredential: jest.fn(),
-}));
+import { TrustScoreScope } from '../trust-score/types';
 
 describe('AccountRoleTags component', () => {
-  let mockUseSelector: jest.Mock;
-  let mockUseVerifiableCredential: jest.Mock;
   beforeEach(() => {
-    mockUseSelector = useSelector as jest.Mock;
-    mockUseSelector.mockClear();
-    mockUseVerifiableCredential = useVerifiableCredential as jest.Mock;
-    mockUseVerifiableCredential.mockClear();
-    mockUseVerifiableCredential.mockReturnValue({
-      issuerAddress: 'issuerAddress',
-      signMessage: jest.fn().mockReturnValue(Promise.resolve('signature')),
-      accountVCBuilder: {
-        buildReportAccountTrust: jest.fn().mockReturnValue('VC'),
-        getSignedAssertion: jest.fn().mockReturnValue('assertion'),
-        getSubjectDid: jest.fn().mockReturnValue('0xmockAddress'),
-      },
-      signError: null,
-    });
+    jest.clearAllMocks();
   });
 
   it('renders correctly with multiple trust scores', () => {
     const mockTrustScores = [
-      { result: 1, accuracy: 0.9, trustScoreScope: 'SoftwareDevelopment' },
-      { result: 1, accuracy: 0.99, trustScoreScope: 'SoftwareSecurity' },
+      {
+        result: 1,
+        accuracy: 0.9,
+        trustScoreScope: TrustScoreScope.SoftwareDevelopment,
+      },
+      {
+        result: 1,
+        accuracy: 0.99,
+        trustScoreScope: TrustScoreScope.SoftwareSecurity,
+      },
     ];
-    mockUseSelector.mockReturnValue(mockTrustScores);
 
-    const { getByText } = render(<AccountRoleTags address="0xmockAddress" />);
+    const { getByText } = render(
+      <AccountRoleTags trustScores={mockTrustScores} />,
+    );
 
     expect(getByText('Developer')).toBeInTheDocument();
     expect(getByText('Auditor')).toBeInTheDocument();
   });
 
   it('renders correctly without trust scores', () => {
-    mockUseSelector.mockReturnValue([]);
-
-    const { queryByText } = render(<AccountRoleTags address="0xmockAddress" />);
+    const { queryByText } = render(<AccountRoleTags trustScores={[]} />);
 
     expect(queryByText('Developer')).not.toBeInTheDocument();
     expect(queryByText('Auditor')).not.toBeInTheDocument();
@@ -53,11 +39,16 @@ describe('AccountRoleTags component', () => {
 
   it('renders correctly with Developer trust scores', () => {
     const mockTrustScores = [
-      { result: 1, accuracy: 0.9, trustScoreScope: 'SoftwareDevelopment' },
+      {
+        result: 1,
+        accuracy: 0.9,
+        trustScoreScope: TrustScoreScope.SoftwareDevelopment,
+      },
     ];
-    mockUseSelector.mockReturnValue(mockTrustScores);
 
-    const { getByText } = render(<AccountRoleTags address="0xmockAddress" />);
+    const { getByText } = render(
+      <AccountRoleTags trustScores={mockTrustScores} />,
+    );
 
     expect(getByText('🧑‍💻')).toBeInTheDocument();
     expect(getByText('Developer')).toBeInTheDocument();
@@ -65,11 +56,16 @@ describe('AccountRoleTags component', () => {
 
   it('renders Auditor Tier 1 role correctly', () => {
     const mockTrustScores = [
-      { result: 1, accuracy: 0.99, trustScoreScope: 'SoftwareSecurity' },
+      {
+        result: 1,
+        accuracy: 0.99,
+        trustScoreScope: TrustScoreScope.SoftwareSecurity,
+      },
     ];
-    mockUseSelector.mockReturnValue(mockTrustScores);
 
-    const { queryByText } = render(<AccountRoleTags address="0xmockAddress" />);
+    const { queryByText } = render(
+      <AccountRoleTags trustScores={mockTrustScores} />,
+    );
 
     expect(queryByText('🥇')).toBeInTheDocument();
     expect(queryByText('Auditor')).toBeInTheDocument();
@@ -77,11 +73,16 @@ describe('AccountRoleTags component', () => {
 
   it('renders Auditor Tier 2 role correctly', () => {
     const mockTrustScores = [
-      { result: 1, accuracy: 0.92, trustScoreScope: 'SoftwareSecurity' },
+      {
+        result: 1,
+        accuracy: 0.92,
+        trustScoreScope: TrustScoreScope.SoftwareSecurity,
+      },
     ];
-    mockUseSelector.mockReturnValue(mockTrustScores);
 
-    const { queryByText } = render(<AccountRoleTags address="0xmockAddress" />);
+    const { queryByText } = render(
+      <AccountRoleTags trustScores={mockTrustScores} />,
+    );
 
     expect(queryByText('🥈')).toBeInTheDocument();
     expect(queryByText('Auditor')).toBeInTheDocument();
@@ -89,11 +90,16 @@ describe('AccountRoleTags component', () => {
 
   it('renders Auditor Tier 3 role correctly', () => {
     const mockTrustScores = [
-      { result: 1, accuracy: 0.85, trustScoreScope: 'SoftwareSecurity' },
+      {
+        result: 1,
+        accuracy: 0.85,
+        trustScoreScope: TrustScoreScope.SoftwareSecurity,
+      },
     ];
-    mockUseSelector.mockReturnValue(mockTrustScores);
 
-    const { queryByText } = render(<AccountRoleTags address="0xmockAddress" />);
+    const { queryByText } = render(
+      <AccountRoleTags trustScores={mockTrustScores} />,
+    );
 
     expect(queryByText('🥉')).toBeInTheDocument();
     expect(queryByText('Auditor')).toBeInTheDocument();
@@ -101,11 +107,16 @@ describe('AccountRoleTags component', () => {
 
   it('renders Auditor with no Tier role correctly', () => {
     const mockTrustScores = [
-      { result: 1, accuracy: 0.7, trustScoreScope: 'SoftwareSecurity' },
+      {
+        result: 1,
+        accuracy: 0.7,
+        trustScoreScope: TrustScoreScope.SoftwareSecurity,
+      },
     ];
-    mockUseSelector.mockReturnValue(mockTrustScores);
 
-    const { queryByText } = render(<AccountRoleTags address="0xmockAddress" />);
+    const { queryByText } = render(
+      <AccountRoleTags trustScores={mockTrustScores} />,
+    );
 
     expect(queryByText('🥇')).not.toBeInTheDocument();
     expect(queryByText('🥈')).not.toBeInTheDocument();
@@ -115,11 +126,12 @@ describe('AccountRoleTags component', () => {
 
   it('renders Auditor with no Tier role when accuracy is not available', () => {
     const mockTrustScores = [
-      { result: 1, trustScoreScope: 'SoftwareSecurity' },
+      { result: 1, trustScoreScope: TrustScoreScope.SoftwareSecurity },
     ];
-    mockUseSelector.mockReturnValue(mockTrustScores);
 
-    const { queryByText } = render(<AccountRoleTags address="0xmockAddress" />);
+    const { queryByText } = render(
+      <AccountRoleTags trustScores={mockTrustScores} />,
+    );
 
     expect(queryByText('🥇')).not.toBeInTheDocument();
     expect(queryByText('🥈')).not.toBeInTheDocument();
@@ -128,10 +140,13 @@ describe('AccountRoleTags component', () => {
   });
 
   it('renders Reported role correctly', () => {
-    const mockTrustScores = [{ result: -1, trustScoreScope: 'UnknownScope' }];
-    mockUseSelector.mockReturnValue(mockTrustScores);
+    const mockTrustScores = [
+      { result: -1, trustScoreScope: TrustScoreScope.SoftwareDevelopment },
+    ];
 
-    const { queryByText } = render(<AccountRoleTags address="0xmockAddress" />);
+    const { queryByText } = render(
+      <AccountRoleTags trustScores={mockTrustScores} />,
+    );
 
     expect(queryByText('👹')).toBeInTheDocument();
     expect(queryByText('Reported')).toBeInTheDocument();
