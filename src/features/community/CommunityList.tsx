@@ -1,5 +1,5 @@
 import { Box, Divider, Heading, SimpleGrid } from '@chakra-ui/react';
-import { Trans } from '@lingui/macro';
+import { Trans, t } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
 
 import { AccountCardShort } from './components';
@@ -55,11 +55,11 @@ export const CommunityList: FunctionComponent = () => {
 
   return (
     <>
-      {renderAccountGridRow(topAuthors, 'Top Builders')}
+      {renderAccountGridRow(topAuthors, t`Top Builders`)}
       <Divider mt="3rem" mb="2rem" />
-      {renderAccountGridRow(topDevelopers, 'Top Community Developers')}
+      {renderAccountGridRow(topDevelopers, t`Top Community Developers`)}
       <Divider mt="3rem" mb="2rem" />
-      {renderAccountGridRow(topAuditors, 'Top Community Security Reviewers')}
+      {renderAccountGridRow(topAuditors, t`Top Community Security Reviewers`)}
     </>
   );
 };

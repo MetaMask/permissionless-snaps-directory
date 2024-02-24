@@ -1119,6 +1119,18 @@ msgstr ""
 msgid "Toggle color mode"
 msgstr ""
 
+#: src/features/community/CommunityList.tsx
+msgid "Top Builders"
+msgstr ""
+
+#: src/features/community/CommunityList.tsx
+msgid "Top Community Developers"
+msgstr ""
+
+#: src/features/community/CommunityList.tsx
+msgid "Top Community Security Reviewers"
+msgstr ""
+
 #: src/features/account/AccountProfileTabs.tsx
 msgid "Trusted Circle"
 msgstr ""
