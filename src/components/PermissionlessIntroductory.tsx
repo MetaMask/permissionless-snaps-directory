@@ -13,7 +13,7 @@ import type { FunctionComponent } from 'react';
 import { DangerIcon } from './icons';
 
 export const PermissionlessIntroductory: FunctionComponent = () => (
-  <Box width="100%" bg="background.alternative" padding="6" mb="8" mt="8">
+  <Box bg="background.alternative" padding="6" mb="8" mt="8" borderRadius="xl">
     <Heading as="h2" fontSize="3xl" mb="8">
       <Flex>
         <DangerIcon width="12" mt="-1" mr="2" />
