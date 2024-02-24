@@ -20,6 +20,10 @@ jest.mock('wagmi', () => ({
   }),
 }));
 
+jest.mock('../../account/components/AccountRoleTags', () => ({
+  AccountRoleTags: () => <div data-testid="account-role-tags" />,
+}));
+
 describe('AccountCard', () => {
   const mockTrustScore = {
     accountId: 'accountId',
@@ -47,22 +51,58 @@ describe('AccountCard', () => {
   const mockAccountId = `did:pkh:eip155:1:${VALID_ACCOUNT_1}`;
 
   it('renders the account card correctly', () => {
-    const { queryByText } = render(
+    const { queryByText, queryAllByTestId } = render(
       <AccountCard accountId={mockAccountId} trustScore={mockTrustScore} />,
     );
 
     expect(queryByText('name')).toBeInTheDocument();
     expect(queryByText('View')).toBeInTheDocument();
+    expect(queryAllByTestId('account-role-tags')).toHaveLength(1);
   });
 
   it('renders the account card correctly when ens name does not exist', () => {
     mockUseEnsName.mockImplementation(() => ({
       isLoading: false,
     }));
-    const { queryByText } = render(
+    const { queryAllByTestId } = render(
       <AccountCard accountId={mockAccountId} trustScore={mockTrustScore} />,
     );
 
-    expect(queryByText('Developer')).toBeInTheDocument();
+    expect(queryAllByTestId('account-role-tags')).toHaveLength(1);
+  });
+
+  it('renders the account card without AccountRoleTags if trustscore is not provided', () => {
+    const { queryAllByTestId } = render(
+      <AccountCard accountId={mockAccountId} />,
+    );
+
+    expect(queryAllByTestId('account-role-tags')).toHaveLength(0);
+  });
+
+  it('renders the account card with snap name', () => {
+    const { queryAllByTestId, queryByText } = render(
+      <AccountCard
+        accountId={mockAccountId}
+        trustScore={mockTrustScore}
+        snapName="Snap1"
+      />,
+    );
+
+    expect(queryByText('name [Snap1]')).toBeInTheDocument();
+    expect(queryAllByTestId('account-role-tags')).toHaveLength(1);
+  });
+
+  it('renders the account card with accountId starting with 0x', () => {
+    const accountIdStartingWith0x = VALID_ACCOUNT_1;
+    const { queryAllByTestId, queryByText } = render(
+      <AccountCard
+        accountId={accountIdStartingWith0x}
+        trustScore={mockTrustScore}
+        snapName="Snap1"
+      />,
+    );
+
+    expect(queryByText('name [Snap1]')).toBeInTheDocument();
+    expect(queryAllByTestId('account-role-tags')).toHaveLength(1);
   });
 });
