@@ -48,6 +48,14 @@ export const semanticTokens: SemanticTokens = {
       alternative: { default: '#F2F4F6', _dark: '#141618' },
       'alternative-hover': { default: '#EDEFF1', _dark: '#191B1D' },
     },
+    gradient: {
+      row: {
+        default:
+          'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)',
+        _dark:
+          'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #24272A 100%)',
+      },
+    },
     primary: {
       inverse: {
         default: '#FCFCFC',

@@ -511,6 +511,12 @@ describe('theme', () => {
                 "default": "#D738471A",
               },
             },
+            "gradient": Object {
+              "row": Object {
+                "_dark": "linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #24272A 100%)",
+                "default": "linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%)",
+              },
+            },
             "icon": Object {
               "alternative": Object {
                 "_dark": "#141618",

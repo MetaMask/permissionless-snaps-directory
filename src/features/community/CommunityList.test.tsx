@@ -6,7 +6,7 @@ import { TrustScoreScope } from '../account/trust-score/types';
 jest.mock('../../hooks');
 
 jest.mock('./components', () => ({
-  AccountCard: () => <div data-testid="account-card" />,
+  AccountCardShort: () => <div data-testid="account-card-short" />,
 }));
 
 const mockTopDevelopers = [
@@ -56,7 +56,7 @@ describe('CommunityList', () => {
 
     const { queryAllByTestId } = render(<CommunityList />);
 
-    expect(queryAllByTestId('account-card')).toHaveLength(
+    expect(queryAllByTestId('account-card-short')).toHaveLength(
       mockTopDevelopers.length + 6, // 6 is the number of authors hardcoded
     );
   });
@@ -67,7 +67,7 @@ describe('CommunityList', () => {
 
     const { queryAllByTestId } = render(<CommunityList />);
 
-    expect(queryAllByTestId('account-card')).toHaveLength(
+    expect(queryAllByTestId('account-card-short')).toHaveLength(
       mockTopAuditors.length + 6, // 6 is the number of authors hardcoded
     );
   });
