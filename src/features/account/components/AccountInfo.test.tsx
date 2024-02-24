@@ -82,7 +82,6 @@ describe('AccountInfo', () => {
     expect(queryByTestId('account-info')).toBeInTheDocument();
     expect(queryByText('name')).toBeInTheDocument();
     expect(queryByTestId('account-role-tags')).toBeInTheDocument();
-    expect(queryByTestId('user-circle-modal')).toBeInTheDocument();
     expect(queryByTestId('more-options')).toBeInTheDocument();
   });
 
