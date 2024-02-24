@@ -68,6 +68,10 @@ msgstr ""
 msgid "{snapName} has been reported."
 msgstr ""
 
+#: src/features/community/CommunityList.tsx
+msgid "{title}"
+msgstr ""
+
 #: src/components/FooterCopyright.tsx
 msgid "©{0} MetaMask. All rights reserved."
 msgstr ""
@@ -1115,18 +1119,6 @@ msgstr ""
 msgid "Toggle color mode"
 msgstr ""
 
-#: src/features/community/CommunityList.tsx
-msgid "Top Community Authors"
-msgstr ""
-
-#: src/features/community/CommunityList.tsx
-msgid "Top Community Developers"
-msgstr ""
-
-#: src/features/community/CommunityList.tsx
-msgid "Top Community Security Reviewers"
-msgstr ""
-
 #: src/features/account/AccountProfileTabs.tsx
 msgid "Trusted Circle"
 msgstr ""
@@ -1189,6 +1181,7 @@ msgid "Version {0} update available"
 msgstr ""
 
 #: src/features/community/components/AccountCard.tsx
+#: src/features/community/components/AccountCardShort.tsx
 #: src/features/snaps/components/SnapCard.tsx
 msgid "View"
 msgstr ""
