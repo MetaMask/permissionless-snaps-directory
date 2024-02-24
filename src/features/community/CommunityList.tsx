@@ -47,7 +47,7 @@ export const CommunityList: FunctionComponent = () => {
         ))}
       </SimpleGrid>
       <Divider my="8" />
-      <Heading as="h2" fontSize="2xl" marginBottom={8}>
+      <Heading as="h2" fontSize="2xl" mb={8}>
         <Trans>Top Community Authors</Trans>
       </Heading>
       <SimpleGrid columns={[1, null, 2, 3]} spacing={4}>
