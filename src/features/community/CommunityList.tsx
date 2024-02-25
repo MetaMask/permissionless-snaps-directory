@@ -1,8 +1,8 @@
-import { Divider, Heading, SimpleGrid } from '@chakra-ui/react';
-import { Trans } from '@lingui/macro';
+import { Box, Divider, Heading, SimpleGrid } from '@chakra-ui/react';
+import { Trans, t } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
 
-import { AccountCard } from './components';
+import { AccountCardShort } from './components';
 import { useSelector } from '../../hooks';
 import {
   getTopAccountsForScope,
@@ -19,46 +19,47 @@ export const CommunityList: FunctionComponent = () => {
   );
   const topAuthors = getTopAuthors();
 
+  const renderAccountGridRow = (
+    accounts: { accountId: string }[],
+    title: string,
+  ) => {
+    return (
+      <>
+        <Heading as="h2" fontSize="2xl" marginBottom={8}>
+          <Trans>{title}</Trans>
+        </Heading>
+        <SimpleGrid
+          columns={[1, null, 2, 9]}
+          spacing="1rem"
+          style={{ position: 'relative' }}
+        >
+          {accounts.map((auditor, index) => (
+            <AccountCardShort
+              key={`${auditor.accountId}-${index}`}
+              accountId={auditor.accountId}
+            ></AccountCardShort>
+          ))}
+          <Box
+            bg="gradient.row"
+            position="absolute"
+            top="0"
+            left="calc(6 * (100% / 9))"
+            width="calc(3 * (105% / 9))"
+            height="100%"
+            pointerEvents="none"
+          />
+        </SimpleGrid>
+      </>
+    );
+  };
+
   return (
     <>
-      <Heading as="h2" fontSize="2xl" marginBottom={8}>
-        <Trans>Top Community Developers</Trans>
-      </Heading>
-      <SimpleGrid columns={[1, null, 2, 3]} spacing={4}>
-        {topDevelopers.map((developer, index) => (
-          <AccountCard
-            key={`${developer.accountId}-${index}`}
-            accountId={developer.accountId}
-            trustScore={developer}
-          ></AccountCard>
-        ))}
-      </SimpleGrid>
-      <Divider my="8" />
-      <Heading as="h2" fontSize="2xl" marginBottom={8}>
-        <Trans>Top Community Security Reviewers</Trans>
-      </Heading>
-      <SimpleGrid columns={[1, null, 2, 3]} spacing={4}>
-        {topAuditors.map((auditor, index) => (
-          <AccountCard
-            key={`${auditor.accountId}-${index}`}
-            accountId={auditor.accountId}
-            trustScore={auditor}
-          ></AccountCard>
-        ))}
-      </SimpleGrid>
-      <Divider my="8" />
-      <Heading as="h2" fontSize="2xl" mb={8}>
-        <Trans>Top Community Authors</Trans>
-      </Heading>
-      <SimpleGrid columns={[1, null, 2, 3]} spacing={4}>
-        {topAuthors.map((authors, index) => (
-          <AccountCard
-            key={`${authors.accountId}-${index}`}
-            accountId={authors.accountId}
-            snapName={authors.snapName}
-          ></AccountCard>
-        ))}
-      </SimpleGrid>
+      {renderAccountGridRow(topAuthors, t`Top Builders`)}
+      <Divider mt="3rem" mb="2rem" />
+      {renderAccountGridRow(topDevelopers, t`Top Community Developers`)}
+      <Divider mt="3rem" mb="2rem" />
+      {renderAccountGridRow(topAuditors, t`Top Community Security Reviewers`)}
     </>
   );
 };
