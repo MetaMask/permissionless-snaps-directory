@@ -18,6 +18,7 @@ jest.mock('wagmi', () => ({
       chainId: 1,
     },
   }),
+  createConfig: jest.fn(),
 }));
 
 describe('MoreOptionMenu', () => {

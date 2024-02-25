@@ -45,6 +45,7 @@ jest.mock('wagmi', () => ({
     },
     loading: false,
   }),
+  createConfig: jest.fn(),
 }));
 
 jest.mock('@chakra-ui/react', () => ({

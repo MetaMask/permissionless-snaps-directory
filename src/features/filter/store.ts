@@ -1,5 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSelector, createSlice } from '@reduxjs/toolkit';
+import type { Address } from '@wagmi/core';
 
 import { Order } from './constants';
 import { SORT_FUNCTIONS } from './sort';
@@ -10,7 +11,7 @@ import { getInstalledSnaps, getSnapsById } from '../snaps';
 
 export type FilterState = {
   searchQuery: string;
-  searchResults: Snap[];
+  searchResults: { snaps: Snap[]; users: { address: Address }[] };
   installed: boolean;
   categories: RegistrySnapCategory[];
   order: Order;
@@ -22,7 +23,7 @@ const INITIAL_CATEGORIES = Object.values(
 
 const initialState: FilterState = {
   searchQuery: '',
-  searchResults: [],
+  searchResults: { snaps: [], users: [] },
   installed: false,
   categories: INITIAL_CATEGORIES,
   order: Order.Popularity,
@@ -35,12 +36,15 @@ export const filterSlice = createSlice({
     setSearchQuery: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
     },
-    setSearchResults: (state, action: PayloadAction<Snap[]>) => {
+    setSearchResults: (
+      state,
+      action: PayloadAction<{ snaps: Snap[]; users: { address: Address }[] }>,
+    ) => {
       state.searchResults = action.payload;
     },
     resetSearch: (state) => {
       state.searchQuery = '';
-      state.searchResults = [];
+      state.searchResults = { snaps: [], users: [] };
     },
     filterAll: (state) => {
       state.installed = false;
@@ -141,7 +145,7 @@ export const getFilteredSnaps = createSelector(
 
     const searchedSnaps =
       searchQuery.length > 0
-        ? getSnapsById(searchResults.map((snap) => snap.snapId))(state)
+        ? getSnapsById(searchResults.snaps.map((snap) => snap.snapId))(state)
         : snaps;
 
     const sortedSnaps = SORT_FUNCTIONS[order](searchedSnaps);

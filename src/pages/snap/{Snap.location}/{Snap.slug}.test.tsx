@@ -4,9 +4,9 @@ import { useAccount } from 'wagmi';
 
 import SnapPage, { Head } from './{Snap.slug}';
 import {
-  render,
   getMockSiteMetadata,
   getMockSnap,
+  render,
   VALID_ACCOUNT_1,
 } from '../../../utils/test-utils';
 
@@ -24,6 +24,7 @@ jest.mock('../../../hooks/useVerifiableCredential', () => ({
 
 jest.mock('wagmi', () => ({
   useAccount: jest.fn(),
+  createConfig: jest.fn(),
 }));
 
 describe('Snap page', () => {

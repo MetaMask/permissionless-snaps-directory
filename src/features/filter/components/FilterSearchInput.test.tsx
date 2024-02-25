@@ -15,7 +15,7 @@ describe('FilterSearchInput', () => {
       />,
     );
 
-    const input = getByPlaceholderText('Search Snaps');
+    const input = getByPlaceholderText('Search users or snaps');
     fireEvent.change(input, { target: { value: 'test' } });
 
     expect(onFormChange).toHaveBeenCalledTimes(1);
@@ -32,7 +32,7 @@ describe('FilterSearchInput', () => {
       />,
     );
 
-    const input = getByPlaceholderText('Search Snaps');
+    const input = getByPlaceholderText('Search users or snaps');
     fireEvent.click(input);
 
     expect(onFormClick).toHaveBeenCalledTimes(1);
@@ -49,7 +49,7 @@ describe('FilterSearchInput', () => {
       />,
     );
 
-    const input = getByPlaceholderText('Search Snaps');
+    const input = getByPlaceholderText('Search users or snaps');
     fireEvent.keyDown(input, { key: 'Enter' });
 
     expect(onFormSubmit).toHaveBeenCalledTimes(1);
@@ -66,7 +66,7 @@ describe('FilterSearchInput', () => {
       />,
     );
 
-    const input = getByPlaceholderText('Search Snaps');
+    const input = getByPlaceholderText('Search users or snaps');
     fireEvent.keyDown(input, { key: 'a' });
 
     expect(onFormSubmit).toHaveBeenCalledTimes(0);

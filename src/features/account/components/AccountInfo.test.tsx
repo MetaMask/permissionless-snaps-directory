@@ -22,6 +22,7 @@ jest.mock('wagmi', () => ({
       chainId: 1,
     },
   }),
+  createConfig: jest.fn(),
 }));
 
 jest.mock('./AccountRoleTags', () => ({

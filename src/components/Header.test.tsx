@@ -15,6 +15,6 @@ describe('Header', () => {
       async () => await act(() => render(<Header />)),
     );
 
-    expect(queryByPlaceholderText('Search Snaps')).toBeInTheDocument();
+    expect(queryByPlaceholderText('Search users or snaps')).toBeInTheDocument();
   });
 });

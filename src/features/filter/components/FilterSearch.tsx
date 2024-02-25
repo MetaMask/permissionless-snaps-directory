@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 
 import { FilterSearchInput } from './FilterSearchInput';
 import { useDispatch, useSearchResults, useSelector } from '../../../hooks';
+import { AccountCard } from '../../community/components';
 import { getSnapsById } from '../../snaps';
 import { SnapCard } from '../../snaps/components';
 import { Order } from '../constants';
@@ -24,8 +25,10 @@ export const FilterSearch: FunctionComponent = () => {
   const dispatch = useDispatch();
 
   const snaps = useSelector(
-    getSnapsById(results.map((result) => result.snapId)),
+    getSnapsById(results.snaps.map((result) => result.snapId)),
   );
+
+  const users = results.users.map((result) => result.address);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
@@ -50,12 +53,12 @@ export const FilterSearch: FunctionComponent = () => {
   };
 
   useEffect(() => {
-    if (snaps.length > 0) {
+    if (snaps.length > 0 || users.length > 0) {
       return onOpen();
     }
 
     return onClose();
-  }, [snaps.length, query, onOpen, onClose]);
+  }, [snaps.length, users.length, query, onOpen, onClose]);
 
   return (
     <Menu isLazy={true} isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
@@ -66,21 +69,31 @@ export const FilterSearch: FunctionComponent = () => {
         onFormClick={handleClick}
         onFormSubmit={handleAll}
       />
-      <MenuList maxWidth="23.875rem" padding="1" boxShadow="xl">
+      <MenuList
+        minWidth="23.875rem"
+        maxWidth="23.875rem"
+        padding="1"
+        boxShadow="xl"
+      >
         {snaps.slice(0, 5).map((snap) => (
           <SnapCard key={`${snap.snapId}`} {...snap} onClick={onClose} />
         ))}
-        <Link
-          href="#"
-          display="block"
-          fontSize="md"
-          fontWeight="500"
-          textAlign="center"
-          paddingY="4"
-          onClick={handleAll}
-        >
-          <Trans>See all results</Trans>
-        </Link>
+        {users.slice(0, 5).map((user) => (
+          <AccountCard key={`${user}`} accountId={user} onClick={onClose} />
+        ))}
+        {users.length === 0 && (
+          <Link
+            href="#"
+            display="block"
+            fontSize="md"
+            fontWeight="500"
+            textAlign="center"
+            paddingY="4"
+            onClick={handleAll}
+          >
+            <Trans>See all results</Trans>
+          </Link>
+        )}
       </MenuList>
     </Menu>
   );

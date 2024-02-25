@@ -917,7 +917,7 @@ msgid "Search"
 msgstr ""
 
 #: src/features/filter/components/FilterSearchInput.tsx
-msgid "Search Snaps"
+msgid "Search users or snaps"
 msgstr ""
 
 #: src/components/icons/index.ts

@@ -41,10 +41,10 @@ describe('filterSlice', () => {
       const { snap } = getMockSnap();
       const state = filterSlice.reducer(
         filterSlice.getInitialState(),
-        setSearchResults([{ item: snap }]),
+        setSearchResults({ snaps: [snap], users: [] }),
       );
 
-      expect(state.searchResults).toStrictEqual([{ item: snap }]);
+      expect(state.searchResults).toStrictEqual({ snaps: [snap], users: [] });
     });
   });
 
@@ -60,7 +60,7 @@ describe('filterSlice', () => {
       const newState = filterSlice.reducer(state, resetSearch());
 
       expect(newState.searchQuery).toBe('');
-      expect(newState.searchResults).toStrictEqual([]);
+      expect(newState.searchResults).toStrictEqual({ snaps: [], users: [] });
     });
   });
 
@@ -186,7 +186,7 @@ describe('filterSlice', () => {
         {
           installed: true,
           searchQuery: 'foo',
-          searchResults: [],
+          searchResults: { snaps: [], users: [] },
           categories: [RegistrySnapCategory.Interoperability],
           order: Order.Latest,
         },
@@ -312,7 +312,7 @@ describe('filterSlice', () => {
       const state = getMockState({
         filter: {
           searchQuery: '',
-          searchResults: [],
+          searchResults: { snaps: [], users: [] },
           installed: false,
           categories: [],
           order: Order.Popularity,
@@ -333,7 +333,7 @@ describe('filterSlice', () => {
       const state = getMockState({
         filter: {
           searchQuery: '',
-          searchResults: [],
+          searchResults: { snaps: [], users: [] },
           installed: false,
           categories: [
             RegistrySnapCategory.Interoperability,
@@ -383,7 +383,7 @@ describe('filterSlice', () => {
       const state = getMockState({
         filter: {
           searchQuery: '',
-          searchResults: [],
+          searchResults: { snaps: [], users: [] },
           installed: false,
           categories: [
             RegistrySnapCategory.Interoperability,
@@ -427,7 +427,7 @@ describe('filterSlice', () => {
       const state = getMockState({
         filter: {
           searchQuery: 'foo',
-          searchResults: [fooSnap, barSnap],
+          searchResults: { snaps: [fooSnap, barSnap], users: [] },
           installed: false,
           categories: [
             RegistrySnapCategory.Interoperability,
@@ -467,14 +467,10 @@ describe('filterSlice', () => {
       const state = getMockState({
         filter: {
           searchQuery: '',
-          searchResults: [
-            {
-              item: fooSnap,
-            },
-            {
-              item: barSnap,
-            },
-          ],
+          searchResults: {
+            snaps: [fooSnap, barSnap],
+            users: [],
+          },
           installed: false,
           categories: [
             RegistrySnapCategory.Interoperability,
@@ -512,7 +508,7 @@ describe('filterSlice', () => {
       const state = getMockState({
         filter: {
           searchQuery: '',
-          searchResults: [],
+          searchResults: { snaps: [], users: [] },
           installed: true,
           categories: [
             RegistrySnapCategory.Interoperability,
@@ -557,7 +553,7 @@ describe('filterSlice', () => {
       const state = getMockState({
         filter: {
           searchQuery: '',
-          searchResults: [],
+          searchResults: { snaps: [], users: [] },
           installed: false,
           categories: [
             RegistrySnapCategory.Notifications,
@@ -605,7 +601,7 @@ describe('filterSlice', () => {
       const state = getMockState({
         filter: {
           searchQuery: '',
-          searchResults: [],
+          searchResults: { snaps: [], users: [] },
           installed: false,
           categories: [
             RegistrySnapCategory.Interoperability,
@@ -661,7 +657,7 @@ describe('filterSlice', () => {
       const state = getMockState({
         filter: {
           searchQuery: '',
-          searchResults: [],
+          searchResults: { snaps: [], users: [] },
           installed: false,
           categories: [
             RegistrySnapCategory.Interoperability,
@@ -714,7 +710,7 @@ describe('filterSlice', () => {
       const state = getMockState({
         filter: {
           searchQuery: '',
-          searchResults: [],
+          searchResults: { snaps: [], users: [] },
           installed: false,
           categories: [
             RegistrySnapCategory.Interoperability,
@@ -767,7 +763,7 @@ describe('filterSlice', () => {
       const state = getMockState({
         filter: {
           searchQuery: '',
-          searchResults: [],
+          searchResults: { snaps: [], users: [] },
           installed: false,
           categories: [
             RegistrySnapCategory.Interoperability,
@@ -821,7 +817,7 @@ describe('filterSlice', () => {
       const state = getMockState({
         filter: {
           searchQuery: '',
-          searchResults: [],
+          searchResults: { snaps: [], users: [] },
           installed: false,
           categories: [
             RegistrySnapCategory.Interoperability,

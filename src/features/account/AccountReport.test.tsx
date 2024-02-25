@@ -8,9 +8,9 @@ import {
 } from './assertions/api';
 import { useDispatch, useSelector, useVerifiableCredential } from '../../hooks';
 import {
+  render,
   VALID_ACCOUNT_1,
   VALID_ACCOUNT_2,
-  render,
 } from '../../utils/test-utils';
 
 jest.mock('../../hooks');
@@ -19,6 +19,7 @@ jest.mock('./assertions/api');
 
 jest.mock('wagmi', () => ({
   useEnsName: jest.fn(),
+  createConfig: jest.fn(),
 }));
 
 jest.mock('../../hooks/useVerifiableCredential', () => ({
