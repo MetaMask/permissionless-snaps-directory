@@ -8,7 +8,7 @@ const STAGING_PATH_PREFIX = IS_STAGING
 
 const SITE_URL = IS_STAGING
   ? `https://metamask.github.io`
-  : 'https://dev-permissionles.snaps.metamask.io';
+  : 'https://permissionless.snaps.metamask.io';
 
 const config: GatsbyConfig = {
   siteMetadata: {
