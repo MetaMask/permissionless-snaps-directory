@@ -14,6 +14,10 @@ on:
         required: true
       SEGMENT_PRODUCTION_WRITE_KEY:
         required: true
+      GATSBY_INDEXER_API_BASE_URL:
+        required: true
+      GATSBY_INDEXER_API_KEY:
+        required: true
 
 jobs:
   publish-site-to-gh-pages:
