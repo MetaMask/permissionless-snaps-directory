@@ -35,7 +35,7 @@ jobs:
         run: yarn build
         env:
           GATSBY_STAGING: true
-          STAGING_PATH_PREFIX: permissionless-snaps-directory/${{ inputs.destination_dir }}
+          STAGING_PATH_PREFIX: ${{ inputs.destination_dir }}
           PREFIX_PATHS: true
           GATSBY_INDEXER_API_BASE_URL: ${{ secrets.GATSBY_INDEXER_API_BASE_URL }}
           GATSBY_INDEXER_API_KEY: ${{ secrets.GATSBY_INDEXER_API_KEY }}
