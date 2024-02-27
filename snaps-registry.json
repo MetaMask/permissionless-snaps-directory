@@ -116,7 +116,8 @@
         "name": "Aleo",
         "author": {
           "name": "ChainSafe",
-          "website": "https://chainsafe.io/"
+          "website": "https://chainsafe.io/",
+          "address": "0xC754fFBA675a6AAFf244e5BccA525C962d907B78"
         },
         "summary": "Enables MetaMask users to interact with Aleo blockchain.",
         "description": "Enables MetaMask users to interact with Aleo blockchain.",
@@ -175,7 +176,8 @@
         "name": "app.walletchat.fun 💬",
         "author": {
           "name": "WalletChat",
-          "website": "https://www.walletchat.fun/"
+          "website": "https://www.walletchat.fun/",
+          "address": "0x17FA0A61bf1719D12C08c61F211A063a58267A19"
         },
         "website": "https://app.walletchat.fun/",
         "summary": "Send and receive DMs inside MetaMask, with WalletChat",
@@ -246,7 +248,8 @@
         "name": "Wallet Guard",
         "author": {
           "name": "Wallet Guard",
-          "website": "https://www.walletguard.app/"
+          "website": "https://www.walletguard.app/",
+          "address": "0xA43c3Cbe0476eEA16ee135bE4646c7A5423E812e"
         },
         "website": "https://www.walletguard.app/snap",
         "summary": "Protect your crypto with transaction insights and proactive security alerts.",
@@ -314,7 +317,8 @@
         "name": "Identify",
         "author": {
           "name": "Tuum Technologies",
-          "website": "https://www.tuum.tech/"
+          "website": "https://www.tuum.tech/",
+          "address": "0x34312D7Ccc11486bb725428773D5Def8371c689B"
         },
         "website": "https://www.tuum.tech/identify",
         "summary": "Extends the functionality of the most popular crypto wallet by adding Decentralized Identity.",
@@ -345,7 +349,8 @@
         "name": "Blockfence",
         "author": {
           "name": "Blockfence",
-          "website": "https://blockfence.io/"
+          "website": "https://blockfence.io/",
+          "address": "0x34998e5b7Ad419618A9071E73Edb5C4332D9201D"
         },
         "website": "https://blockfence.io/snap/",
         "summary": "Blockfence empowers you to evaluate the safety of your transactions before giving them a green light. This ensures you steer clear of scams and fraudulent activities.",
@@ -1200,7 +1205,8 @@
         "name": "Masca",
         "author": {
           "name": "Blockchain Lab:UM",
-          "website": "https://blockchain-lab.um.si/?lang=en"
+          "website": "https://blockchain-lab.um.si/?lang=en",
+          "address": "0xA1e08A6379c3d50CAC89AeE0bc020abA7FA16099"
         },
         "website": "https://masca.io/app",
         "summary": "A Snap that enables MetaMask to be a universal decentralized identity wallet - from managing your identifiers (DIDs) to handling credentials (VCs).",
@@ -2093,7 +2099,8 @@
         "name": "EAS",
         "author": {
           "name": "EAS",
-          "website": "https://attest.sh/"
+          "website": "https://attest.sh/",
+          "address": "0xC63caBe93bB29c61E337a87B2E3d4D7C5F5556c0"
         },
         "summary": "Decode EAS schema and attestation transaction data.",
         "description": "The EAS Snap enhances the transparency and security of EAS attestations signed with your MetaMask. It decodes attestation data, allowing users to clearly understand and verify the details before confirming a transaction.\n\nWhy It Matters\nWhen signing attestations with MetaMask, the data often appears in a hexadecimal format, which is not human-readable. The EAS Snap converts this data into a clear, readable format. This ensures you're fully aware of the attestation's details, mitigating the risk of unintentional or malicious signings.\n\nKey Features\n- Attestation Decoding: Utilizes SchemaEncoder from the EAS SDK to decode attestation data, presenting it in a readable format.\n- Transaction Data Parsing: The snap parses Ethereum transaction data to identify if it is related to an EAS attestation, using ethers library.\n- Dynamic Content Rendering: It dynamically renders transaction details in the MetaMask UI, including schema, recipient, reference UID, expiration time, and revocability status, offering users a complete overview of the attestation they are about to sign.\n- Time Formatting: Utilizes dayjs with extended formats to display expiration times in a user-friendly manner.\n- GraphQL Integration: Communicates with EAS's GraphQL endpoint to fetch and display the schema associated with the attestation.\n- Data Decoding and Display: Decodes and displays each piece of attestation data using the fetched schema, allowing users to understand the specifics of what they are attesting.\n\nAfter installing the Snap, you can view insights in the transaction flow while interacting with an EAS contract. To explore EAS, try EAS Scan: https://sepolia.easscan.org/",
