@@ -27,9 +27,9 @@ export const accountProfileSlice = createSlice({
   initialState,
   reducers: {
     // Entity relative
-    setUserAccount: (state, action) => {
-      state.userAccount = action.payload;
-    },
+    // setUserAccount: (state, action) => {
+    //   state.userAccount = action.payload;
+    // },
 
     addUserToUserCircle: (state, action) => {
       state.userAccount.userCircle.push(action.payload);
