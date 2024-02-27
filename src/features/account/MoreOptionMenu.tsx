@@ -1,19 +1,15 @@
 import { t } from '@lingui/macro';
-import { useCallback, useMemo, type FunctionComponent } from 'react';
+import { useCallback, type FunctionComponent } from 'react';
 import { useAccount, useNetwork } from 'wagmi';
 
-import { setAddToUserModalOpen } from './store';
 import {
   ExportOutlineIcon,
   IconMenu,
   MenuItemCard,
   MoreOptionIcon,
   ShareIcon,
-  UserCircleAddIcon,
 } from '../../components';
-import { useDispatch, useSelector } from '../../hooks';
 import useToastMsg from '../../hooks/useToastMsg';
-import type { ApplicationState } from '../../store';
 
 type MoreOptionMenuProps = {
   subjectAddress: string;
@@ -22,11 +18,6 @@ type MoreOptionMenuProps = {
 export const MoreOptionMenu: FunctionComponent<MoreOptionMenuProps> = ({
   subjectAddress,
 }) => {
-  const { userAccount } = useSelector(
-    (state: ApplicationState) => state.accountProfile,
-  );
-  const dispatch = useDispatch();
-
   const { chain } = useNetwork();
   const { address } = useAccount();
   const { showSuccessMsg, showErrorMsg } = useToastMsg();
@@ -53,28 +44,28 @@ export const MoreOptionMenu: FunctionComponent<MoreOptionMenuProps> = ({
     window.open(`${chain?.blockExplorers?.etherscan?.url}/address/${address}`);
   }, [chain, address]);
 
-  const shouldShowAddModal = useMemo(() => {
-    if (address === subjectAddress) {
-      return false;
-    }
+  // const shouldShowAddModal = useMemo(() => {
+  //   if (address === subjectAddress) {
+  //     return false;
+  //   }
 
-    if (userAccount.userCircle.includes(subjectAddress)) {
-      return false;
-    }
+  //   if (userAccount.userCircle.includes(subjectAddress)) {
+  //     return false;
+  //   }
 
-    return true;
-  }, [address, subjectAddress, userAccount]);
+  //   return true;
+  // }, [address, subjectAddress, userAccount]);
 
   return (
     <IconMenu icon={<MoreOptionIcon />}>
-      {shouldShowAddModal && (
+      {/* {shouldShowAddModal && (
         <MenuItemCard
           icon={<UserCircleAddIcon />}
           label={t`Add to my circle`}
           testId="add-to-circle"
           onClick={() => dispatch(setAddToUserModalOpen(true))}
         />
-      )}
+      )} */}
       <MenuItemCard
         icon={<ShareIcon />}
         label={t`Copy profile link`}
