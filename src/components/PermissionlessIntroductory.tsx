@@ -18,18 +18,12 @@ export const PermissionlessIntroductory: FunctionComponent = () => (
     <Flex flexDirection="column" gap="4" textAlign="left">
       <Text fontWeight="400">
         <Trans>
-          Snaps have transformed MetaMask into an execution platform, allowing
-          it to be extended by the community. This experiment is a pivotal step
-          towards permissionless innovation, by making Snaps distribution
-          permissionless. We envision a community comprising users, developers,
-          and security experts who safeguard Snaps through collective wisdom and
-          sentiment, moving away from centralized gatekeeping. For more
-          information, please{' '}
+          This experimental version of the official Snaps Directory is our next milestone towards permissionless innovation. We envision a community of users, developers, and security experts safeguarding Snaps based on collective sentiment—moving away from centralized gatekeeping.{' '}
           <Link
             href="https://support.metamask.io/hc/en-us/articles/23263846792475"
             target="_blank"
           >
-            review the user guide here.
+            Learn more
           </Link>
         </Trans>
       </Text>
