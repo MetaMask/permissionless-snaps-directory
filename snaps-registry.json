@@ -1,5 +1,115 @@
 {
   "verifiedSnaps": {
+    "npm:dummy-snap-one": {
+      "id": "npm:dummy-snap-one",
+      "metadata": {
+        "name": "Dummy Snap #1",
+        "author": {
+          "name": "Dummy author",
+          "website": "https://t.me/+tzukbymkkjU5NGRk"
+        },
+        "summary": "This Snap is a dummy Snap designed for this experimentation. It represents a user-friendly Snap.",
+        "description": "This Snap is a dummy Snap designed for this experimentation. It represents a user-friendly Snap.",
+        "category": "notification",
+        "support": {
+          "contact": "https://t.me/+tzukbymkkjU5NGRk"
+        },
+        "sourceCode": "https://github.com/hypnagonia/snap1"
+      },
+      "versions": {
+        "0.1.7": {
+          "checksum": "6dJ4wEFleBCLKJ0+EVSblcHX8mXASgwn3UN/9JXUHZE="
+        }
+      }
+    },
+    "npm:dummy-snap-two": {
+      "id": "npm:dummy-snap-two",
+      "metadata": {
+        "name": "Dummy Snap #2",
+        "author": {
+          "name": "Dummy author",
+          "website": "https://t.me/+tzukbymkkjU5NGRk"
+        },
+        "summary": "This Snap is a dummy Snap designed for this experimentation. It represents a useful Snap.",
+        "description": "This Snap is a dummy Snap designed for this experimentation. It represents a useful Snap.",
+        "category": "notification",
+        "support": {
+          "contact": "https://t.me/+tzukbymkkjU5NGRk"
+        },
+        "sourceCode": "https://github.com/hypnagonia/snap1"
+      },
+      "versions": {
+        "0.1.1": {
+          "checksum": "YEXnV4lMgkA/wyNRBGbATL2D10eQZbsKRdc3R2hyJsQ="
+        }
+      }
+    },
+    "npm:dummy-snap-three": {
+      "id": "npm:dummy-snap-three",
+      "metadata": {
+        "name": "Dummy Snap #3",
+        "author": {
+          "name": "Dummy author",
+          "website": "https://t.me/+tzukbymkkjU5NGRk"
+        },
+        "summary": "This Snap is a dummy Snap designed for this experimentation. It represents a secure Snap.",
+        "description": "This Snap is a dummy Snap designed for this experimentation. It represents a secure Snap.",
+        "category": "transaction insights",
+        "support": {
+          "contact": "https://t.me/+tzukbymkkjU5NGRk"
+        },
+        "sourceCode": "https://github.com/hypnagonia/snap1"
+      },
+      "versions": {
+        "0.1.7": {
+          "checksum": "G2cjOEhRr3UC6VHPgS+y6xI03Rk/e7JG2n/FzoI5cCk="
+        }
+      }
+    },
+    "npm:dummy-snap-four": {
+      "id": "npm:dummy-snap-four",
+      "metadata": {
+        "name": "Dummy Snap #4",
+        "author": {
+          "name": "Dummy author",
+          "website": "https://t.me/+tzukbymkkjU5NGRk"
+        },
+        "summary": "This Snap is a dummy Snap designed for this experimentation. It represents a scammy Snap.",
+        "description": "This Snap is a dummy Snap designed for this experimentation. It represents a scammy Snap.",
+        "category": "notification",
+        "support": {
+          "contact": "https://t.me/+tzukbymkkjU5NGRk"
+        },
+        "sourceCode": "https://github.com/hypnagonia/snap1"
+      },
+      "versions": {
+        "0.1.7": {
+          "checksum": "PgCSyIwEV53KB61jG7bPO5s+4+s0PXPxjBVgclADdWw="
+        }
+      }
+    },
+    "npm:dummy-snap-five": {
+      "id": "npm:dummy-snap-five",
+      "metadata": {
+        "name": "Dummy Snap #5",
+        "author": {
+          "name": "Dummy author",
+          "website": "https://t.me/+tzukbymkkjU5NGRk"
+        },
+        "summary": "This Snap is a dummy Snap designed for this experimentation. It represents a vulnerable Snap.",
+        "description": "This Snap is a dummy Snap designed for this experimentation. It represents a vulnerable Snap.",
+        "category": "interoperability",
+        "support": {
+          "contact": "https://t.me/+tzukbymkkjU5NGRk"
+        },
+        "sourceCode": "https://github.com/hypnagonia/snap1"
+      },
+      "versions": {
+        "0.1.5": {
+          "checksum": "JrqrU4/nna+m+chLTQ9+nWQPVlFqCDxtHL77En3wDbE="
+        }
+      }
+    },
     "npm:@chainsafe/aleo-snap": {
       "id": "npm:@chainsafe/aleo-snap",
       "metadata": {
