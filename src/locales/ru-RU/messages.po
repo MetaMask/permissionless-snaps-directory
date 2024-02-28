@@ -995,10 +995,6 @@ msgstr ""
 msgid "Snap"
 msgstr ""
 
-#: src/components/PermissionlessIntroductory.tsx
-msgid "Snaps have transformed MetaMask into an execution platform, allowing it to be extended by the community. This experiment is a pivotal step towards permissionless innovation, by making Snaps distribution permissionless. We envision a community comprising users, developers, and security experts who safeguard Snaps through collective wisdom and sentiment, moving away from centralized gatekeeping. For more information, please <0>review the user guide here.</0>"
-msgstr ""
-
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "Software Development"
 msgstr ""
@@ -1084,6 +1080,10 @@ msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
 msgid "This action will flag the user as a malicious in your community."
+msgstr ""
+
+#: src/components/PermissionlessIntroductory.tsx
+msgid "This experimental version of the official Snaps Directory is our next milestone towards permissionless innovation. We envision a community of users, developers, and security experts safeguarding Snaps based on collective sentiment—moving away from centralized gatekeeping. <0>Learn more</0>"
 msgstr ""
 
 #: src/components/icons/index.ts
