@@ -10,7 +10,7 @@
         },
         "summary": "This Snap is a dummy Snap designed for this experimentation. It represents a user-friendly Snap.",
         "description": "This Snap is a dummy Snap designed for this experimentation. It represents a user-friendly Snap.",
-        "category": "notification",
+        "category": "notifications",
         "support": {
           "contact": "https://t.me/+tzukbymkkjU5NGRk"
         },
@@ -32,7 +32,7 @@
         },
         "summary": "This Snap is a dummy Snap designed for this experimentation. It represents a useful Snap.",
         "description": "This Snap is a dummy Snap designed for this experimentation. It represents a useful Snap.",
-        "category": "notification",
+        "category": "notifications",
         "support": {
           "contact": "https://t.me/+tzukbymkkjU5NGRk"
         },
@@ -76,7 +76,7 @@
         },
         "summary": "This Snap is a dummy Snap designed for this experimentation. It represents a scammy Snap.",
         "description": "This Snap is a dummy Snap designed for this experimentation. It represents a scammy Snap.",
-        "category": "notification",
+        "category": "notifications",
         "support": {
           "contact": "https://t.me/+tzukbymkkjU5NGRk"
         },
