@@ -54,7 +54,8 @@ type SnapNode = NodeInput & {
 
 // eslint-disable-next-line no-restricted-globals
 const IS_STAGING = process.env.GATSBY_STAGING === 'true';
-const REGISTRY_URL = 'https://acl.execution.metamask.io/latest/registry.json';
+const REGISTRY_URL =
+  'https://raw.githubusercontent.com/MetaMask/permissionless-snaps-directory/dev/snaps-registry.json';
 
 /**
  * Normalize the description to ensure it ends with a period. This also replaces
