@@ -85,11 +85,11 @@ msgid "<0>{snapName}</0> {suffixText}"
 msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
-msgid "Ability to develop MetaMask Snaps"
+msgid "Ability to develop reliable Snaps"
 msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
-msgid "Ability to develop secure applications"
+msgid "Ability to evaluate Snaps security"
 msgstr ""
 
 #: src/components/FooterLinks.tsx

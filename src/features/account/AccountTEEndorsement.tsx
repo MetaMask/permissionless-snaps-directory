@@ -71,12 +71,12 @@ export const AccountTEEndorsement: FunctionComponent<
   const options = [
     {
       label: t`Software Development`,
-      description: t`Ability to develop MetaMask Snaps`,
+      description: t`Ability to develop reliable Snaps`,
       value: TrustworthinessScope.SoftwareDevelopment,
     },
     {
       label: t`Software Security`,
-      description: t`Ability to develop secure applications`,
+      description: t`Ability to evaluate Snaps security`,
       value: TrustworthinessScope.SoftwareSecurity,
     },
   ];
