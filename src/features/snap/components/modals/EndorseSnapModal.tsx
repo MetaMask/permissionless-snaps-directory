@@ -52,10 +52,10 @@ export const EndorseSnapModal: FunctionComponent<EndorseSnapModalProps> = ({
 
           <Text noOfLines={2} fontWeight="regular" as="span">
             <Trans>
-              Sign to endorse
+              Sign to endorse{' '}
               <Text variant="blue" as="span">
                 {snapName}
-              </Text>
+              </Text>{' '}
               as trustworthy for your community.
             </Trans>{' '}
             <Link

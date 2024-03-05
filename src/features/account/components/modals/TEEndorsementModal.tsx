@@ -75,7 +75,7 @@ export const TEEndorsementModal: FunctionComponent<TEEndorsementModalProps> = ({
               href="https://support.metamask.io/hc/en-us/articles/23263846792475"
               target="_blank"
             >
-              <Trans>Learn more</Trans>Learn more
+              <Trans>Learn more</Trans>
             </Link>
           </Text>
           {options.map((option: TEEndorsementOption, index: number) => (

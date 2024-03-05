@@ -991,12 +991,12 @@ msgstr ""
 msgid "Sign to endorse"
 msgstr ""
 
-#: src/features/account/components/modals/TEEndorsementModal.tsx
-msgid "Sign to endorse <0>{trustEntity}</0> expertise within your community."
+#: src/features/snap/components/modals/EndorseSnapModal.tsx
+msgid "Sign to endorse <0>{snapName}</0> as trustworthy for your community."
 msgstr ""
 
-#: src/features/snap/components/modals/EndorseSnapModal.tsx
-msgid "Sign to endorse<0>{snapName}</0>as trustworthy for your community."
+#: src/features/account/components/modals/TEEndorsementModal.tsx
+msgid "Sign to endorse <0>{trustEntity}</0> expertise within your community."
 msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
@@ -1009,7 +1009,7 @@ msgid "Sign to report <0>{reportEntity}</0> as malicious to safeguard your commu
 msgstr ""
 
 #: src/features/snap/components/modals/ReportSnapModal.tsx
-msgid "Sign to report<0>{snapName}</0>as untrustworthy to safeguard your community."
+msgid "Sign to report <0>{snapName}</0> as untrustworthy to safeguard your community."
 msgstr ""
 
 #: src/components/icons/index.ts
