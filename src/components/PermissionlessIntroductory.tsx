@@ -18,10 +18,14 @@ export const PermissionlessIntroductory: FunctionComponent = () => (
     <Flex flexDirection="column" gap="4" textAlign="left">
       <Text fontWeight="400">
         <Trans>
-          This experimental version of the official Snaps Directory is our next
-          milestone towards permissionless innovation. We envision a community
-          of users, developers, and security experts safeguarding Snaps based on
-          collective sentiment—moving away from centralized gatekeeping.{' '}
+          This experimental version of the{' '}
+          <Link href="https://snaps.metamask.io" target="_blank">
+            Official Snaps Directory
+          </Link>{' '}
+          is our next milestone towards permissionless innovation. We envision a
+          community of users, developers, and security experts safeguarding
+          Snaps based on collective sentiment—moving away from centralized
+          gatekeeping.{' '}
           <Link
             href="https://support.metamask.io/hc/en-us/articles/23263846792475"
             target="_blank"
