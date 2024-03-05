@@ -120,10 +120,6 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: src/features/account/components/modals/AddToUserCircleModal.tsx
-msgid "Add <0>{shortSubAddress}</0> to your trust circle"
-msgstr ""
-
 #: src/features/snap/permissions.tsx
 msgid "Add and control Ethereum accounts"
 msgstr ""
@@ -443,7 +439,15 @@ msgid "Endorse"
 msgstr ""
 
 #: src/features/snap/components/modals/EndorseSnapModal.tsx
-msgid "Endorse <0>{snapName}</0>"
+msgid "Endorse a Trustworthy Snap"
+msgstr ""
+
+#: src/features/account/components/modals/AddToUserCircleModal.tsx
+msgid "Endorse a Trustworthy User"
+msgstr ""
+
+#: src/features/account/components/modals/TEEndorsementModal.tsx
+msgid "Endorse Technical Expertises"
 msgstr ""
 
 #: src/components/EndorseButton.tsx
@@ -710,6 +714,7 @@ msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
+#: src/features/account/components/modals/TEEndorsementModal.tsx
 #: src/features/snap/components/modals/EndorseSnapModal.tsx
 #: src/features/snap/components/modals/ReportSnapModal.tsx
 msgid "Learn more"
@@ -867,11 +872,11 @@ msgid "Report"
 msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
-msgid "Report for <0>{reportEntity}</0> as a malicious actor"
+msgid "Report a Malicious Actor"
 msgstr ""
 
 #: src/features/snap/components/modals/ReportSnapModal.tsx
-msgid "Report for <0>{snapName}</0> as a malicious snap"
+msgid "Report an Untrustworthy Snap"
 msgstr ""
 
 #: src/components/ReportButton.tsx
@@ -986,9 +991,25 @@ msgstr ""
 msgid "Sign to endorse"
 msgstr ""
 
+#: src/features/account/components/modals/TEEndorsementModal.tsx
+msgid "Sign to endorse <0>{trustEntity}</0> expertise within your community."
+msgstr ""
+
+#: src/features/snap/components/modals/EndorseSnapModal.tsx
+msgid "Sign to endorse<0>{snapName}</0>as trustworthy for your community."
+msgstr ""
+
 #: src/features/account/components/modals/AccountReportModal.tsx
 #: src/features/snap/components/modals/ReportSnapModal.tsx
 msgid "Sign to report"
+msgstr ""
+
+#: src/features/account/components/modals/AccountReportModal.tsx
+msgid "Sign to report <0>{reportEntity}</0> as malicious to safeguard your community."
+msgstr ""
+
+#: src/features/snap/components/modals/ReportSnapModal.tsx
+msgid "Sign to report<0>{snapName}</0>as untrustworthy to safeguard your community."
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -1070,18 +1091,6 @@ msgstr ""
 msgid "The page you're looking for can't be found."
 msgstr ""
 
-#: src/features/snap/components/modals/EndorseSnapModal.tsx
-msgid "This action will endorse the snap as secure in your community."
-msgstr ""
-
-#: src/features/snap/components/modals/ReportSnapModal.tsx
-msgid "This action will flag the snap as a malicious in your community."
-msgstr ""
-
-#: src/features/account/components/modals/AccountReportModal.tsx
-msgid "This action will flag the user as a malicious in your community."
-msgstr ""
-
 #: src/components/PermissionlessIntroductory.tsx
 msgid "This experimental version of the official Snaps Directory is our next milestone towards permissionless innovation. We envision a community of users, developers, and security experts safeguarding Snaps based on collective sentiment—moving away from centralized gatekeeping. <0>Learn more</0>"
 msgstr ""
@@ -1116,10 +1125,6 @@ msgstr ""
 
 #: src/features/account/AccountProfileTabs.tsx
 msgid "Trusted Circle"
-msgstr ""
-
-#: src/features/account/components/modals/TEEndorsementModal.tsx
-msgid "Trusted technical abilities"
 msgstr ""
 
 #: src/hooks/useSignErrorHandler.ts
@@ -1222,8 +1227,4 @@ msgstr ""
 
 #: src/components/FooterAccountManagementTerms.tsx
 msgid "You will not be able to use your MetaMask Secret Recovery Phrase to recover accounts added through Account Management Snaps. If your account credentials are lost or compromised, MetaMask will not be able to help you. If the Snap or the associated dapp is hacked or ceases to function, you may not be able to access your account and the funds in your account."
-msgstr ""
-
-#: src/features/account/components/modals/TEEndorsementModal.tsx
-msgid "Your level of confidence in <0>{trustEntity}</0> skill set"
 msgstr ""

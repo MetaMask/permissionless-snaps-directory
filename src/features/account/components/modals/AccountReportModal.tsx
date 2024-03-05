@@ -47,20 +47,21 @@ export const AccountReportModal: FunctionComponent<AccountReportModalProps> = ({
       <Center>
         <VStack textAlign="center" fontSize="md">
           <Text fontWeight="medium">
-            <Trans>
-              Report for{' '}
-              <Text variant="blue" as="span">
-                {reportEntity}
-              </Text>{' '}
-              as a malicious actor
-            </Trans>
+            <Trans>Report a Malicious Actor</Trans>
           </Text>
 
           <Text noOfLines={2} as="span">
             <Trans>
-              This action will flag the user as a malicious in your community.
+              Sign to report{' '}
+              <Text variant="blue" as="span">
+                {reportEntity}
+              </Text>{' '}
+              as malicious to safeguard your community.
             </Trans>{' '}
-            <Link>
+            <Link
+              href="https://support.metamask.io/hc/en-us/articles/23263846792475"
+              target="_blank"
+            >
               <Trans>Learn more</Trans>
             </Link>
           </Text>

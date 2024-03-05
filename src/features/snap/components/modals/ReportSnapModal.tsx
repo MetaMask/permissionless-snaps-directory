@@ -47,20 +47,21 @@ export const ReportSnapModal: FunctionComponent<ReportSnapModalProps> = ({
       <Center>
         <VStack textAlign="center" fontSize="md">
           <Text fontWeight="medium">
-            <Trans>
-              Report for{' '}
-              <Text variant="blue" as="span">
-                {snapName}
-              </Text>{' '}
-              as a malicious snap
-            </Trans>
+            <Trans>Report an Untrustworthy Snap</Trans>
           </Text>
 
           <Text noOfLines={2} as="span">
             <Trans>
-              This action will flag the snap as a malicious in your community.
+              Sign to report
+              <Text variant="blue" as="span">
+                {snapName}
+              </Text>
+              as untrustworthy to safeguard your community.
             </Trans>{' '}
-            <Link>
+            <Link
+              href="https://support.metamask.io/hc/en-us/articles/23263846792475"
+              target="_blank"
+            >
               <Trans>Learn more</Trans>
             </Link>
           </Text>

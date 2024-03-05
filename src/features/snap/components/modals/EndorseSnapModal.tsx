@@ -47,19 +47,21 @@ export const EndorseSnapModal: FunctionComponent<EndorseSnapModalProps> = ({
       <Center>
         <VStack textAlign="center" fontSize="md">
           <Text fontWeight="medium">
-            <Trans>
-              Endorse{' '}
-              <Text variant="blue" as="span">
-                {snapName}
-              </Text>{' '}
-            </Trans>
+            <Trans>Endorse a Trustworthy Snap</Trans>
           </Text>
 
           <Text noOfLines={2} fontWeight="regular" as="span">
             <Trans>
-              This action will endorse the snap as secure in your community.
+              Sign to endorse
+              <Text variant="blue" as="span">
+                {snapName}
+              </Text>
+              as trustworthy for your community.
             </Trans>{' '}
-            <Link>
+            <Link
+              href="https://support.metamask.io/hc/en-us/articles/23263846792475"
+              target="_blank"
+            >
               <Trans>Learn more</Trans>
             </Link>
           </Text>

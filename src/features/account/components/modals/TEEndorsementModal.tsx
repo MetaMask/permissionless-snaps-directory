@@ -1,4 +1,4 @@
-import { Center, Text, VStack, Checkbox, Box } from '@chakra-ui/react';
+import { Center, Text, VStack, Checkbox, Box, Link } from '@chakra-ui/react';
 import { Trans, t } from '@lingui/macro';
 import { useState, type FunctionComponent } from 'react';
 
@@ -61,16 +61,22 @@ export const TEEndorsementModal: FunctionComponent<TEEndorsementModalProps> = ({
       <Center>
         <VStack fontSize="md">
           <Text fontWeight="medium" textAlign="center">
-            <Trans>Trusted technical abilities</Trans>
+            <Trans>Endorse Technical Expertises</Trans>
           </Text>
           <Text textAlign="center">
             <Trans>
-              Your level of confidence in{' '}
+              Sign to endorse{' '}
               <Text variant="blue" as="span">
                 {trustEntity}
               </Text>{' '}
-              skill set
-            </Trans>
+              expertise within your community.
+            </Trans>{' '}
+            <Link
+              href="https://support.metamask.io/hc/en-us/articles/23263846792475"
+              target="_blank"
+            >
+              <Trans>Learn more</Trans>Learn more
+            </Link>
           </Text>
           {options.map((option: TEEndorsementOption, index: number) => (
             <Box

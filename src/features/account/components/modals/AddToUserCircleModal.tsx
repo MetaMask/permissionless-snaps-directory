@@ -86,19 +86,19 @@ export const AddToUserCircleModal: FunctionComponent<
       <Center>
         <VStack textAlign="center">
           <Text fontSize="md" fontWeight="bold">
-            <Trans>
-              Add{' '}
-              <Text variant="blue" as="span">
-                {shortSubAddress}
-              </Text>{' '}
-              to your trust circle
-            </Trans>
+            <Trans>Endorse a Trustworthy User</Trans>
           </Text>
 
           <Text fontSize="sm" noOfLines={2}>
-            Lorem ipsum dolor description of what it means to add a user to your
-            trust circle.{' '}
-            <Link>
+            Sign to endorse{' '}
+            <Text variant="blue" as="span">
+              {shortSubAddress}
+            </Text>{' '}
+            as trustworthy in your community.{' '}
+            <Link
+              href="https://support.metamask.io/hc/en-us/articles/23263846792475"
+              target="_blank"
+            >
               <Trans>Learn more</Trans>
             </Link>
           </Text>
