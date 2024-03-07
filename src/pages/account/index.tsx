@@ -1,5 +1,6 @@
 import { Container, VStack, Box, HStack } from '@chakra-ui/react';
 import { t } from '@lingui/macro';
+import Jazzicon from '@metamask/jazzicon';
 import type { Hex } from '@metamask/utils';
 import { graphql, withPrefix } from 'gatsby';
 import { useEffect, type FunctionComponent } from 'react';
@@ -46,28 +47,53 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
     return <NotFound />;
   }
 
+  const addr = address.trim().slice(2, 10);
+  const seed = parseInt(addr, 16);
+
+  const jazziconElement = Jazzicon(10, seed);
+  const colorRects = jazziconElement.querySelectorAll('rect');
+  const colorList: string[] = [];
+  colorRects.forEach((rect) => {
+    colorList.push(rect.getAttribute('fill')?.toString() as string);
+  });
+  const gradientBackground = `linear-gradient(to right, ${colorList[0]}, ${colorList[1]}, ${colorList[2]})`;
+
   return (
-    <Box position="relative" data-testid="account-info" mt="4rem">
-      <Container maxWidth="container.xl" paddingTop="0" position="relative">
-        <VStack spacing="8">
-          <AccountInfo address={address} />
-          <HStack>
-            {isConnected && !isMyAccount && (
-              <>
-                <AccountReport
-                  address={address}
-                  connectedAddress={connectedAddress as Hex}
-                />
-                <AccountTEEndorsement
-                  address={address}
-                  connectedAddress={connectedAddress as Hex}
-                />
-              </>
-            )}
-          </HStack>
-        </VStack>
-      </Container>
-    </Box>
+    <>
+      <Box
+        data-testid="background"
+        sx={{
+          position: 'fixed',
+          width: '100%',
+          height: '100%',
+          zIndex: -1,
+          background: gradientBackground,
+          filter: 'blur(96px) saturate(1.2)',
+          opacity: '0.10',
+        }}
+      />
+      <Box position="relative" data-testid="account-info" mt="4rem">
+        <Container maxWidth="container.xl" paddingTop="0" position="relative">
+          <VStack spacing="8">
+            <AccountInfo address={address} />
+            <HStack>
+              {isConnected && !isMyAccount && (
+                <>
+                  <AccountReport
+                    address={address}
+                    connectedAddress={connectedAddress as Hex}
+                  />
+                  <AccountTEEndorsement
+                    address={address}
+                    connectedAddress={connectedAddress as Hex}
+                  />
+                </>
+              )}
+            </HStack>
+          </VStack>
+        </Container>
+      </Box>
+    </>
   );
 };
 
