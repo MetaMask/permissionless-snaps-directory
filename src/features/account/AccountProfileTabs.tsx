@@ -10,10 +10,10 @@ import { Trans } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
 
 import {
+  DevelopedSnapsSection,
+  ReviewsTabPanel,
   SecurityReportsTabPanel,
   TrustedCircleTabPanel,
-  ReviewsTabPanel,
-  MySnapsTabPanel,
 } from './components';
 
 export const AccountProfileTabs: FunctionComponent = () => {
@@ -38,7 +38,7 @@ export const AccountProfileTabs: FunctionComponent = () => {
 
       <TabPanels>
         <TabPanel>
-          <MySnapsTabPanel />
+          <DevelopedSnapsSection />
         </TabPanel>
         <TabPanel>
           <SecurityReportsTabPanel />

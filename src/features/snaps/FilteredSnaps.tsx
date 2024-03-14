@@ -1,4 +1,5 @@
 import { SimpleGrid } from '@chakra-ui/react';
+import type { Address } from '@wagmi/core';
 import type { FunctionComponent } from 'react';
 
 import { LoadingGrid, SnapCard } from './components';
@@ -13,6 +14,7 @@ export type FilteredSnapsProps = {
   limit?: number | undefined;
   excluded?: string[] | undefined;
   images?: boolean | undefined;
+  author?: Address | undefined;
 };
 
 export const FilteredSnaps: FunctionComponent<FilteredSnapsProps> = ({
@@ -21,6 +23,7 @@ export const FilteredSnaps: FunctionComponent<FilteredSnapsProps> = ({
   limit,
   excluded,
   images,
+  author,
 }) => {
   const snaps = useSelector(
     getSnapsByFilter({
@@ -28,6 +31,7 @@ export const FilteredSnaps: FunctionComponent<FilteredSnapsProps> = ({
       category,
       limit,
       excluded,
+      author,
     }),
   );
 
