@@ -371,6 +371,10 @@ msgstr ""
 msgid "Desktop only"
 msgstr ""
 
+#: src/features/account/components/snaps/DevelopedSnapsSection.tsx
+msgid "Developed by this user"
+msgstr ""
+
 #: src/features/account/AccountProfileTabs.tsx
 msgid "Developed Snaps"
 msgstr ""

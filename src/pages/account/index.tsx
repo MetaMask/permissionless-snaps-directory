@@ -1,8 +1,8 @@
-import { Container, VStack, Box, HStack } from '@chakra-ui/react';
+import { Box, Container, HStack, VStack } from '@chakra-ui/react';
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
 import { graphql, withPrefix } from 'gatsby';
-import { useEffect, type FunctionComponent } from 'react';
+import { type FunctionComponent, useEffect } from 'react';
 import { useAccount } from 'wagmi';
 
 import banner from '../../assets/images/seo/home.png';
@@ -10,6 +10,7 @@ import {
   AccountInfo,
   AccountReport,
   AccountTEEndorsement,
+  DevelopedSnapsSection,
 } from '../../features/account';
 import { fetchAccountAssertionsForAccountId } from '../../features/account/assertions/api';
 import { fetchTrustScoreForAccountId } from '../../features/account/trust-score/api';
@@ -66,6 +67,7 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
             )}
           </HStack>
         </VStack>
+        <DevelopedSnapsSection author={address} />
       </Container>
     </Box>
   );

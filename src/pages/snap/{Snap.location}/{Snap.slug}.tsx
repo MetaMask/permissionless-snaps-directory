@@ -14,10 +14,10 @@ import { InstallSnapButton, SnapWebsiteButton } from '../../../components';
 import { RegistrySnapCategory } from '../../../constants';
 import {
   Authorship,
+  Description,
   Metadata,
   NotificationAcknowledger,
   Permissions,
-  Description,
   RelatedSnaps,
   useGetInstalledSnapsQuery,
 } from '../../../features';
@@ -208,6 +208,7 @@ export const query = graphql`
       onboard
       category
       author {
+        address
         name
         website
       }

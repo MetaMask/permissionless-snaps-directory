@@ -86,7 +86,7 @@ export type GetMockSnapArgs = {
   website?: string;
   onboard?: boolean;
   category?: RegistrySnapCategory | undefined;
-  author?: Fields<Queries.SnapAuthor, 'name' | 'website'>;
+  author?: Fields<Queries.SnapAuthor, 'name' | 'website' | 'address'>;
   sourceCode?: string;
   audits?: Fields<Queries.SnapAudits, 'auditor' | 'report'>[];
   banner?: Fields<Queries.File, 'publicURL'>;
@@ -153,6 +153,7 @@ export function getMockSnap({
   author = {
     name: 'Author',
     website: 'https://example.com/author',
+    address: '0x0000000000000000000000000000000000000000',
   },
   sourceCode = 'https://example.com/source-code',
   audits = [
