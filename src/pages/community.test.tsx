@@ -20,10 +20,10 @@ describe('CommunityPage', () => {
   it('should dispatch fetchTrustScoreForAllAccounts action on mount', async () => {
     const mockDispatch = jest.fn();
     mockUseDispatch.mockReturnValue(mockDispatch);
-    mockDispatch.mockImplementationOnce(async () => Promise.resolve({}));
+    mockDispatch.mockImplementation(async () => Promise.resolve({}));
     const { queryByTestId } = await act(async () => render(<CommunityPage />));
 
-    expect(mockDispatch).toHaveBeenCalledTimes(1);
+    expect(mockDispatch).toHaveBeenCalledTimes(2);
     expect(queryByTestId('community-list')).toBeInTheDocument();
   });
 
@@ -33,9 +33,23 @@ describe('CommunityPage', () => {
     mockDispatch.mockImplementationOnce(async () =>
       Promise.reject(new Error()),
     );
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve({}));
     const { queryByTestId } = await act(async () => render(<CommunityPage />));
 
-    expect(mockDispatch).toHaveBeenCalledTimes(1);
+    expect(mockDispatch).toHaveBeenCalledTimes(2);
+    expect(queryByTestId('community-list')).toBeInTheDocument();
+  });
+
+  it('should render even if fetchAssertionsForAllAccounts action fails', async () => {
+    const mockDispatch = jest.fn();
+    mockUseDispatch.mockReturnValue(mockDispatch);
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve({}));
+    mockDispatch.mockImplementationOnce(async () =>
+      Promise.reject(new Error()),
+    );
+    const { queryByTestId } = await act(async () => render(<CommunityPage />));
+
+    expect(mockDispatch).toHaveBeenCalledTimes(2);
     expect(queryByTestId('community-list')).toBeInTheDocument();
   });
 });

@@ -96,6 +96,7 @@ module.exports = {
     '^.+\\.svg(\\?raw)?$': '<rootDir>/src/__mocks__/svg.tsx',
     '^.+\\.(png|css)': '<rootDir>/src/__mocks__/file.ts',
     '^connectkit$': '<rootDir>/node_modules/connectkit/build/index.es.js',
+    d3: '<rootDir>/node_modules/d3/dist/d3.min.js',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

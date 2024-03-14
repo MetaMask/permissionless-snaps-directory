@@ -6,97 +6,91 @@ import { useEffect, useRef } from 'react';
 interface Node extends d3.SimulationNodeDatum {
   id: string;
   group: number;
-  isMain?: boolean;
-  address: string;
+  isMain: boolean;
+  location: number;
 }
 
-type Link = {
-  source: string | number;
-  target: string | number;
-  value: number;
+type NodeInput = {
+  id: string;
+  group: number;
+  isMain: boolean;
 };
 
-type ConnectedNodesProps = {
-  nodes: Node[];
+interface Link extends d3.SimulationLinkDatum<Node> {}
+
+export type ConnectedNodesProps = {
+  nodes: NodeInput[];
   links: Link[];
 };
 
-const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({ data }) => {
+export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
+  data,
+}) => {
   const svgRef = useRef<SVGSVGElement>(null);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   useEffect(() => {
     const width = 1248;
     const height = 507;
 
-    const links = data.links.map((node) => ({ ...node }));
-    const nodes: Node[] = data.nodes.map((node) => ({ ...node }));
+    const links: Link[] = data.links.map((link) => ({ ...link }));
+    const nodes: Node[] = data.nodes.map((node) => ({ ...node, location: 0 }));
 
     const mainNodeIndex = nodes.findIndex((node) => node.isMain);
     const mainNode = nodes[mainNodeIndex];
+    if (mainNode) {
+      mainNode.location = 0;
+    }
 
-    const getRandomX = (node) => {
-      switch (node.index) {
-        case 1:
-          return (mainNode.x as number) - 380;
-        case 2:
-          return (mainNode.x as number) + 353;
-        case 3:
-          return (mainNode.x as number) - 540;
-        case 4:
-          return (mainNode.x as number) - 126;
-        case 5:
-          return (mainNode.x as number) + 246;
-        case 6:
-          return (mainNode.x as number) + 454;
-        default:
-          return mainNode.x as number;
-      }
+    const offsetMapX: Record<number, number> = {
+      1: -380,
+      2: 353,
+      11: -540,
+      12: -126,
+      21: 246,
+      22: 454,
+      23: 246,
+      24: 454,
     };
 
-    const getRandomY = (node) => {
-      switch (node.index) {
-        case 1:
-          return mainNode.y - 45;
-        case 2:
-          return mainNode.y - 96;
-        case 3:
-          return mainNode.y - 288;
-        case 4:
-          return mainNode.y - 207;
-        case 5:
-          return mainNode.y - 255;
-        case 6:
-          return mainNode.y - 255;
-        default:
-          return mainNode.y;
-      }
+    const offsetMapY: Record<number, number> = {
+      1: -45,
+      2: -96,
+      11: -288,
+      12: -207,
+      21: -255,
+      22: -255,
+      23: -255,
+      24: -255,
     };
 
-    const simulation = d3
-      .forceSimulation(nodes)
-      .force(
-        'link',
-        d3
-          .forceLink(links)
-          .id((node: any) => node.id)
-          .distance(200) // Minimum distance between nodes
-          .strength(0.2), // Decrease strength to allow more flexible links
-      )
-      .force('charge', d3.forceManyBody()) // Add repulsion between nodes
-      .force(
-        'x',
-        d3
-          .forceX()
-          .strength(0.05)
-          .x(width / 2),
-      ) // Center nodes horizontally at the center of SVG
-      .force(
-        'y',
-        d3
-          .forceY()
-          .strength(0.05)
-          .y(height / 3),
-      ); // Center nodes vertically at the center of SVG
+    for (let i = 2; i <= 3; i++) {
+      const groupNodes = nodes.filter((groupNode) => groupNode.group === i);
+      groupNodes.forEach((groupNode, index) => {
+        const parentNodeId = links.find(
+          (link) => link.target === groupNode.id,
+        )?.source;
+        const parentNode = nodes.find(
+          (node) => node.id === parentNodeId,
+        ) as Node;
+        groupNode.location = parentNode.location * 10 + index + 1;
+      });
+    }
+
+    const getX = (node: Node) => {
+      const offset = offsetMapX[node.location] || 0;
+      return (mainNode.x as number) + offset;
+    };
+
+    const getY = (node: { location: number }) => {
+      const offset = offsetMapY[node.location] || 0;
+      return mainNode.y + offset;
+    };
+
+    const simulation = d3.forceSimulation(nodes).force(
+      'link',
+      d3.forceLink(links).id((node: any) => node.id),
+    );
 
     simulation.nodes(nodes).alpha(1).restart();
 
@@ -104,130 +98,159 @@ const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({ data }) => {
       .select(svgRef.current)
       .attr('width', '100%')
       .attr('height', height)
-      .attr('viewBox', [-width / 2, -height + 100, width, height])
-      .attr('style', 'max-width: 100%; height: auto;');
+      .attr('viewBox', [-width / 2, -height + 100, width, height]);
 
-    const linkGeneratorInside = d3
-      .linkHorizontal()
-      .x((node: any) => getRandomX(node) ?? 0)
-      .y((node: any) => getRandomY(node) ?? 0);
+    createLinks();
 
-    const linkGeneratorOutside = d3
-      .linkVertical()
-      .x((node: any) => getRandomX(node) ?? 0)
-      .y((node: any) => getRandomY(node) ?? 0);
+    createGlowObject();
 
-    svg
-      .append('g')
-      .attr('stroke', '#999')
-      .attr('stroke-opacity', 0.6)
-      .selectAll('path')
-      .data(links)
-      .join('path')
-      .attr('fill', 'none')
-      .attr('stroke-width', (node: any) => Math.sqrt(node.value))
-      .attr('d', (givenNode: any) => {
-        const sourceNode = nodes.find(
-          (node) => node.id === givenNode.source.id,
-        );
-        const targetNode = nodes.find(
-          (node) => node.id === givenNode.target.id,
-        );
-        return givenNode.index % 2 === 0
-          ? linkGeneratorInside({ source: sourceNode, target: targetNode })
-          : linkGeneratorOutside({ source: sourceNode, target: targetNode });
-      });
+    const jazzicons = createJazzicons();
 
-    // const node = svg
-    //   .append('g')
-    //   .attr('stroke', '#fff')
-    //   .attr('stroke-width', 1.5)
-    //   .selectAll<SVGCircleElement, Node>('circle')
-    //   .data(nodes)
-    //   .join('circle')
-    //   .attr('r', (d: any) => (d.isMain ? 48 : 24)) // Larger radius for main node
-    //   .attr('fill', (d: any) => color(d.group))
-    //   .attr('cx', (d: any) => (d.isMain ? d.x : getRandomX(d))) // Set initial x position of nodes
-    //   .attr('cy', (d: any) => (d.isMain ? d.y : getRandomY(d))); // Set initial y position of nodes
+    applyGlowToJazzions();
 
-    // node.append('title').text((d: any) => d.id);
-
-    const jazzicons = svg
-      .selectAll('.jazzicon')
-      .data(nodes)
-      .enter()
-      .append('g')
-      .attr('class', 'jazzicon')
-      .attr('fill', 'red')
-      .attr(
-        'transform',
-        (node: any) =>
-          `translate(${node.isMain ? node.x : getRandomX(node)}, ${
-            node.isMain ? node.y : getRandomY(node)
-          })`,
-      );
-
-    jazzicons.each(function (node) {
-      const size = node.isMain ? 70 : 35;
-      const addr = node.address.trim().slice(2, 10);
-      const seed = parseInt(addr, 16);
-
-      // const jazziconSvg = generateJazziconSVG({ seed, size });
-      const jazziconElement = Jazzicon(size, seed);
-
-      // Access the inner SVG element
-      const jazziconSvg = jazziconElement.querySelector('svg');
-
-      const rect = document.createElementNS(
-        'http://www.w3.org/2000/svg',
-        'rect',
-      );
-      rect.setAttribute('x', `${node.isMain ? '-50' : '-25'}`);
-      rect.setAttribute('y', `${node.isMain ? '-50' : '-25'}`);
-      rect.setAttribute('width', '200%');
-      rect.setAttribute('height', '200%');
-      rect.setAttribute('fill', jazziconElement.style.background);
-
-      const mask = document.createElementNS(
-        'http://www.w3.org/2000/svg',
-        'mask',
-      );
-      mask.setAttribute('id', `circleMask${node.index}`);
-
-      const circle = document.createElementNS(
-        'http://www.w3.org/2000/svg',
-        'circle',
-      );
-      const circleRadius = node.isMain ? '48' : '24';
-      circle.setAttribute('cx', '0');
-      circle.setAttribute('cy', '0');
-      circle.setAttribute('r', circleRadius);
-      circle.setAttribute(
-        'style',
-        `background: rgb(${seed % 256}, ${seed % 128}, ${seed % 64})`,
-      );
-      circle.setAttribute('fill', 'white');
-
-      jazziconSvg.insertBefore(rect, jazziconSvg.firstChild);
-      mask.appendChild(circle);
-      svg.append(() => mask);
-      // svg.setAttribute('style', 'background: rgb(251, 24, 145)');
-
-      // Apply the mask to the <svg> element
-      d3.select(jazziconSvg).attr('mask', `url(#circleMask${node.index})`);
-
-      // Append the modified SVG to the current 'g' element
-      if (jazziconSvg !== null) {
-        d3.select(this).node()?.appendChild(jazziconSvg);
-      }
-    });
+    convertJazziconsToCircle();
 
     return () => {
       simulation.stop();
     };
+
+    function convertJazziconsToCircle() {
+      jazzicons.each(function (node) {
+        const size = node.isMain ? 70 : 35;
+        const addr = node.id.trim().substring(19, 27);
+        const seed = parseInt(addr, 16);
+        const jazziconElement = Jazzicon(size, seed);
+
+        // Access the inner SVG element
+        const jazziconSvg = jazziconElement.querySelector('svg');
+
+        const rect = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'rect',
+        );
+        rect.setAttribute('x', `${node.isMain ? '-50' : '-25'}`);
+        rect.setAttribute('y', `${node.isMain ? '-50' : '-25'}`);
+        rect.setAttribute('width', '200%');
+        rect.setAttribute('height', '200%');
+        rect.setAttribute('fill', jazziconElement.style.background);
+
+        const mask = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'mask',
+        );
+        mask.setAttribute('id', `circleMask${node.index}`);
+
+        const circle = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'circle',
+        );
+        const circleRadius = node.isMain ? '48' : '24';
+        circle.setAttribute('cx', '0');
+        circle.setAttribute('cy', '0');
+        circle.setAttribute('r', circleRadius);
+        circle.setAttribute('fill', 'white');
+
+        jazziconSvg.insertBefore(rect, jazziconSvg.firstChild);
+        mask.appendChild(circle);
+        svg.append(() => mask);
+
+        d3.select(jazziconSvg).attr('mask', `url(#circleMask${node.index})`);
+
+        if (jazziconSvg !== null) {
+          d3.select(this).node()?.appendChild(jazziconSvg);
+        }
+      });
+    }
+
+    function applyGlowToJazzions() {
+      jazzicons
+        .append('circle')
+        .data(nodes)
+        .attr('cx', 0)
+        .attr('cy', 0)
+        .attr('r', 40) // Use the buffer radius
+        .attr('opacity', 0) // Make the circle invisible
+        .on('mouseover', function () {
+          // Apply glow effect on mouseover
+          d3.select(this.parentNode).style('filter', 'url(#glow)');
+          utteranceRef.current = new SpeechSynthesisUtterance(
+            `This user's address is ${this.parentNode.id}`,
+          );
+          window.speechSynthesis.speak(utteranceRef.current);
+        })
+        .on('mouseout', function () {
+          // Remove the glow effect on mouseout
+          d3.select(this.parentNode).style('filter', null);
+          if (utteranceRef.current) {
+            window.speechSynthesis.cancel();
+          }
+        });
+    }
+
+    function createLinks() {
+      const linkGeneratorInside = d3
+        .linkHorizontal()
+        .x((node: any) => getX(node) ?? 0)
+        .y((node: any) => getY(node) ?? 0);
+
+      const linkGeneratorOutside = d3
+        .linkVertical()
+        .x((node: any) => getX(node) ?? 0)
+        .y((node: any) => getY(node) ?? 0);
+
+      // Create a group for links and add it before jazzicons
+      const linksGroup = svg.insert('g', '.jazzicon');
+
+      linksGroup
+        .attr('stroke', '#999')
+        .attr('stroke-opacity', 0.6)
+        .selectAll('path')
+        .data(links)
+        .join('path')
+        .attr('fill', 'none')
+        .attr('stroke-width', (node: any) => Math.sqrt(node.value))
+        .attr('d', (givenNode: any) => {
+          const sourceNode = nodes.find(
+            (node) => node.id === givenNode.source.id,
+          );
+          const targetNode = nodes.find(
+            (node) => node.id === givenNode.target.id,
+          );
+          return givenNode.index % 2 === 0
+            ? linkGeneratorInside({ source: sourceNode, target: targetNode })
+            : linkGeneratorOutside({ source: sourceNode, target: targetNode });
+        });
+    }
+
+    function createJazzicons() {
+      return svg
+        .selectAll('.jazzicon')
+        .data(nodes)
+        .enter()
+        .append('g')
+        .attr('class', 'jazzicon')
+        .attr(
+          'transform',
+          (node: any) =>
+            `translate(${node.isMain ? node.x : getX(node)}, ${
+              node.isMain ? node.y : getY(node)
+            })`,
+        )
+        .attr('id', (node: any) => `${node.id})`);
+    }
+
+    function createGlowObject() {
+      const defs = svg.append('defs');
+      const filter = defs.append('filter').attr('id', 'glow');
+      filter
+        .append('feGaussianBlur')
+        .attr('stdDeviation', '10.5')
+        .attr('result', 'coloredBlur');
+      const feMerge = filter.append('feMerge');
+      feMerge.append('feMergeNode').attr('in', 'coloredBlur');
+      feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
+    }
   }, [data]);
 
   return <svg ref={svgRef} />;
 };
-
-export default ConnectedNodes;
