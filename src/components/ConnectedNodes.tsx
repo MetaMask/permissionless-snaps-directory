@@ -40,25 +40,25 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
     const mainNode = nodes[mainNodeIndex];
 
     const offsetMapX: Record<number, number> = {
-      1: -380,
-      2: 353,
-      11: -540,
-      12: -126,
-      21: 246,
-      22: 454,
-      23: 246,
-      24: 454,
+      1: -380, // Left child of main node
+      2: 353, // Right child of main node
+      11: -540, // Left child of number 1
+      12: -126, // Right child of number 1
+      21: 246, // Left child of number 2
+      22: 454, // Right child of number 2
+      23: 246, // Left child of number 2 (temporary logic needed when node number 1 does not have any children)
+      24: 454, // Right child of number 2 (temporary logic needed when node number 1 does not have any children)
     };
 
     const offsetMapY: Record<number, number> = {
-      1: -45,
-      2: -96,
-      11: -288,
-      12: -207,
-      21: -255,
-      22: -255,
-      23: -255,
-      24: -255,
+      1: -45, // Left child of main node
+      2: -96, // Right child of main node
+      11: -288, // Left child of number 1
+      12: -207, // Right child of number 1
+      21: -255, // Left child of number 2
+      22: -255, // Right child of number 2
+      23: -255, // Left child of number 2 (temporary logic needed when node number 1 does not have any children)
+      24: -255, // Right child of number 2 (temporary logic needed when node number 1 does not have any children)
     };
 
     for (let i = 2; i <= 3; i++) {
