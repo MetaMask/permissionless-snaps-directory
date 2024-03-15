@@ -26,6 +26,18 @@ export const fetchAccountAssertionsForAccountId = createAsyncThunk(
   },
 );
 
+export const fetchAssertionsForAllAccounts = createAsyncThunk(
+  'accountTrustScore/fetchAssertionsForAllAccounts',
+  async (): Promise<AccountAssertion[]> => {
+    try {
+      const response = await axios.get(`${BASE_URL}/assertions?from=1`);
+      return response.data.assertions as AccountAssertion[];
+    } catch (error) {
+      return [] as AccountAssertion[];
+    }
+  },
+);
+
 export const createAccountAssertion = createAsyncThunk(
   'accountAssertions/createAccountAssertion',
   async (data: SignedAssertion) => {

@@ -6,9 +6,10 @@ import { useAccount, useEnsName } from 'wagmi';
 
 import { AccountRoleTags } from './AccountRoleTags';
 import { MoreOptionMenu } from '..';
-import { JazzIcon } from '../../../components';
+import { ConnectedNodes } from '../../../components';
 import { useSelector, useVerifiableCredential } from '../../../hooks';
 import { trimAddress } from '../../../utils';
+import { getAccountConnectedNodes } from '../connections/store';
 import { getAccountTrustScoreForAccountId } from '../trust-score/store';
 
 export type AccountInfoProps = {
@@ -29,10 +30,11 @@ export const AccountInfo: FunctionComponent<AccountInfoProps> = ({
   const accountId = accountVCBuilder.getSubjectDid(address);
 
   const trustScores = useSelector(getAccountTrustScoreForAccountId(accountId));
+  const conncetedNodes = useSelector(getAccountConnectedNodes(accountId));
 
   return (
     <VStack spacing="8" data-testid="account-info">
-      <JazzIcon address={address} size={130} />
+      <ConnectedNodes data={conncetedNodes}></ConnectedNodes>
       {trustScores.length > 0 && <AccountRoleTags trustScores={trustScores} />}
       <HStack>
         <Heading

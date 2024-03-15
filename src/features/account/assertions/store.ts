@@ -1,6 +1,9 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 
-import { fetchAccountAssertionsForAccountId } from './api';
+import {
+  fetchAccountAssertionsForAccountId,
+  fetchAssertionsForAllAccounts,
+} from './api';
 import { type Trustworthiness } from './types';
 import { type ApplicationState } from '../../../store';
 
@@ -56,6 +59,23 @@ export const accountAssertionsSlice = createSlice({
           ...otherAccountAssertionStates,
           ...updateAccountAssertionStates,
         ];
+      },
+    );
+    builder.addCase(
+      fetchAssertionsForAllAccounts.fulfilled,
+      (state, action) => {
+        const accountAssertions = action.payload;
+        const accountAssertionStates: AccountAssertionState[] =
+          accountAssertions.map((assertion) => {
+            return {
+              accountId: assertion.assertion.credentialSubject.id,
+              issuer: assertion.assertion.issuer,
+              trustworthiness:
+                assertion.assertion.credentialSubject.trustworthiness,
+              creationAt: assertion.creationAt,
+            };
+          });
+        state.accountAssertions = accountAssertionStates;
       },
     );
   },

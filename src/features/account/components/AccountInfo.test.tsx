@@ -6,6 +6,7 @@ import { AccountInfo } from './AccountInfo';
 import { useSelector, useVerifiableCredential } from '../../../hooks';
 import { createStore } from '../../../store';
 import { render, VALID_ACCOUNT_1 } from '../../../utils/test-utils';
+import { type AccountConnections } from '../connections/store';
 import { type AccountTrustScoreState } from '../trust-score/store';
 
 jest.mock('../../../hooks', () => ({
@@ -29,6 +30,10 @@ jest.mock('./AccountRoleTags', () => ({
   AccountRoleTags: () => <div data-testid="account-role-tags" />,
 }));
 
+jest.mock('../../../components/ConnectedNodes', () => ({
+  ConnectedNodes: () => <div data-testid="connected-nodes" />,
+}));
+
 jest.mock('./modals', () => ({
   AddToUserCircleModal: () => <div data-testid="user-circle-modal" />,
 }));
@@ -50,6 +55,7 @@ describe('AccountInfo', () => {
     mockUseAccount.mockClear();
     mockUseSelector = useSelector as jest.Mock;
     mockUseSelector.mockReturnValueOnce([mock<AccountTrustScoreState>]);
+    mockUseSelector.mockReturnValueOnce(mock<AccountConnections>);
     mockUseVerifiableCredential = useVerifiableCredential as jest.Mock;
     mockUseVerifiableCredential.mockClear();
     mockUseVerifiableCredential.mockReturnValue({
@@ -83,6 +89,7 @@ describe('AccountInfo', () => {
     expect(queryByTestId('account-info')).toBeInTheDocument();
     expect(queryByText('name')).toBeInTheDocument();
     expect(queryByTestId('account-role-tags')).toBeInTheDocument();
+    expect(queryByTestId('connected-nodes')).toBeInTheDocument();
     expect(queryByTestId('more-options')).toBeInTheDocument();
   });
 

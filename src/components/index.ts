@@ -4,6 +4,7 @@ export * from './BackButton';
 export * from './Banner';
 export * from './Card';
 export * from './CheckboxWithSlider';
+export * from './ConnectedNodes';
 export * from './Container';
 export * from './EndorseButton';
 export * from './ExternalLink';
