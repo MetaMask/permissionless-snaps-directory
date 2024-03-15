@@ -85,11 +85,11 @@ msgid "<0>{snapName}</0> {suffixText}"
 msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
-msgid "Ability to develop MetaMask Snaps"
+msgid "Ability to develop reliable Snaps"
 msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
-msgid "Ability to develop secure applications"
+msgid "Ability to evaluate Snaps security"
 msgstr ""
 
 #: src/components/FooterLinks.tsx
@@ -369,6 +369,10 @@ msgstr ""
 
 #: src/components/InstallUnsupportedMobile.tsx
 msgid "Desktop only"
+msgstr ""
+
+#: src/features/account/components/snaps/DevelopedSnapsSection.tsx
+msgid "Developed by this user"
 msgstr ""
 
 #: src/features/account/AccountProfileTabs.tsx
@@ -1083,7 +1087,7 @@ msgid "This action will flag the user as a malicious in your community."
 msgstr ""
 
 #: src/components/PermissionlessIntroductory.tsx
-msgid "This experimental version of the official Snaps Directory is our next milestone towards permissionless innovation. We envision a community of users, developers, and security experts safeguarding Snaps based on collective sentiment—moving away from centralized gatekeeping. <0>Learn more</0>"
+msgid "This experimental version of the <0>Official Snaps Directory</0> is our next milestone towards permissionless innovation. We envision a community of users, developers, and security experts safeguarding Snaps based on collective sentiment—moving away from centralized gatekeeping. <1>Learn more</1>"
 msgstr ""
 
 #: src/components/icons/index.ts

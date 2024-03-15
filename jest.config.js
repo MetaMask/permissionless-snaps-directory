@@ -26,6 +26,7 @@ module.exports = {
     './src/**/*.ts',
     './src/**/*.tsx',
     '!./src/**/*.d.ts',
+    '!./src/types/snaps-registry.ts',
     '!./src/locales/**',
     '!./src/utils/test-utils/**',
     '!./src/!(pages)/**/index.{ts,tsx}',

@@ -85,6 +85,7 @@
     "react-use-fusejs": "^2.0.2",
     "redux": "^4.2.1",
     "semver": "^7.5.4",
+    "superstruct": "^1.0.3",
     "viem": "^1.19.13",
     "wagmi": "^1.4.10"
   },

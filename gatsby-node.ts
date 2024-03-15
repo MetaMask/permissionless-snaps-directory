@@ -1,9 +1,6 @@
 /* eslint-disable import/no-nodejs-modules */
 import { detectSnapLocation, getSnapFiles } from '@metamask/snaps-controllers';
-import type {
-  SnapsRegistryDatabase,
-  VerifiedSnap,
-} from '@metamask/snaps-registry';
+import type { VerifiedSnap } from '@metamask/snaps-registry';
 import {
   getLocalizedSnapManifest,
   getValidatedLocalizationFiles,
@@ -17,9 +14,10 @@ import { createFileNodeFromBuffer } from 'gatsby-source-filesystem';
 import { GraphQLJSONObject } from 'graphql-type-json';
 import type { RequestInfo, RequestInit } from 'node-fetch';
 import fetch from 'node-fetch';
-import { FileSystemCache, fetchBuilder } from 'node-fetch-cache';
+import { fetchBuilder, FileSystemCache } from 'node-fetch-cache';
 import path from 'path';
 
+import type { PermissionlessSnapsRegistryDatabase } from './src/types/snaps-registry';
 import type { Fields } from './src/utils';
 import {
   getLatestSnapVersion,
@@ -119,9 +117,12 @@ async function getRegistry() {
     new FileSystemCache({ cacheDirectory: fetchCachePath }),
   );
 
-  const registry: SnapsRegistryDatabase = await fetch(REGISTRY_URL, {
-    headers,
-  }).then(async (response) => response.json());
+  const registry: PermissionlessSnapsRegistryDatabase = await fetch(
+    REGISTRY_URL,
+    {
+      headers,
+    },
+  ).then(async (response) => response.json());
 
   const cachedRegistry = await cachedFetch(REGISTRY_URL, { headers }).then(
     async (response: any) => response.json(),

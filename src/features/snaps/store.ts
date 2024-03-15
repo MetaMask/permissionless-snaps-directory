@@ -1,5 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSelector, createSlice } from '@reduxjs/toolkit';
+import type { Address } from '@wagmi/core';
 import semver from 'semver/preload';
 
 import { getInstalledSnaps } from './api';
@@ -14,6 +15,7 @@ export type Snap = Fields<
   | 'id'
   | 'snapId'
   | 'name'
+  | 'author'
   | 'summary'
   | 'icon'
   | 'category'
@@ -54,6 +56,7 @@ type GetFilteredSnapsOptions = {
   category?: RegistrySnapCategory | undefined;
   limit?: number | undefined;
   excluded?: string[] | undefined;
+  author?: Address | undefined;
 };
 
 /**
@@ -68,6 +71,8 @@ type GetFilteredSnapsOptions = {
  * @param options.limit - The maximum number of Snaps to return. If not
  * provided, all Snaps will be returned.
  * @param options.excluded - An array of Snap IDs to exclude from the results.
+ * @param options.author - The address of the author to filter the Snaps by. If not
+ * provided, all Snaps will be returned.
  * @returns A selector that returns the filtered Snaps.
  */
 export const getSnapsByFilter = ({
@@ -75,6 +80,7 @@ export const getSnapsByFilter = ({
   category,
   limit,
   excluded = [],
+  author,
 }: GetFilteredSnapsOptions) =>
   createSelector(
     (state: ApplicationState) => getSnaps(state),
@@ -86,7 +92,9 @@ export const getSnapsByFilter = ({
       const filteredSnaps = snaps.filter(
         (snap) =>
           !excluded.includes(snap.snapId) &&
-          (!category || snap.category === category),
+          (!category || snap.category === category) &&
+          (!author ||
+            snap.author?.address?.toLowerCase() === author.toLowerCase()),
       );
 
       return SORT_FUNCTIONS[order](filteredSnaps).slice(0, limit);
