@@ -23,6 +23,7 @@ const getConnectedNodesForLevel = (
   accountAssertions: AccountAssertionsState,
   accountId: string,
   level: number,
+  igonreAccountIds: string[] = [],
 ) => {
   const accountConnections: AccountConnections = {
     nodes: [],
@@ -36,7 +37,9 @@ const getConnectedNodesForLevel = (
     });
   }
   const endorsementsOnAccount = accountAssertions.accountAssertions.filter(
-    (assertion) => assertion.accountId === accountId,
+    (assertion) =>
+      assertion.accountId === accountId &&
+      !igonreAccountIds.includes(assertion.issuer),
   );
   const topTwoConnections = endorsementsOnAccount.slice(0, 2);
   topTwoConnections.forEach((connection) => {
@@ -52,11 +55,13 @@ const getConnectedNodesForLevel = (
   });
   if (level < 2) {
     const connectedNodeLevel = level + 1;
+    igonreAccountIds.push(...accountConnections.nodes.map((node) => node.id));
     topTwoConnections.forEach((connection) => {
       const issuerConnections = getConnectedNodesForLevel(
         accountAssertions,
         connection.issuer,
         connectedNodeLevel,
+        igonreAccountIds,
       );
       accountConnections.links.push(...issuerConnections.links);
       accountConnections.nodes.push(...issuerConnections.nodes);
