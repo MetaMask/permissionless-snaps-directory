@@ -1,6 +1,9 @@
 import { mock } from 'ts-mockito';
 
-import { fetchAccountAssertionsForAccountId } from './api';
+import {
+  fetchAccountAssertionsForAccountId,
+  fetchAssertionsForAllAccounts,
+} from './api';
 import {
   accountAssertionsSlice,
   getAccountAssertions,
@@ -46,6 +49,32 @@ describe('accountAssertionsSlice', () => {
         '',
         'meta',
       );
+
+      const newState = accountAssertionsSlice.reducer(initialState, action);
+
+      expect(newState.accountAssertions).toHaveLength(1);
+    });
+
+    it('fetchAssertionsForAllAccounts.fulfilled', () => {
+      const mockAssertionResponse: AccountAssertion = mock<AccountAssertion>();
+      mockAssertionResponse.id = 'id';
+      mockAssertionResponse.assertion = mock<AccountAssertionResponse>();
+      mockAssertionResponse.assertion.issuer = 'did:pkh:issuer';
+      mockAssertionResponse.assertion.credentialSubject.id =
+        'did:pkh:accountId';
+      const mockPayload = [mockAssertionResponse];
+
+      const initialState: AccountAssertionsState = {
+        accountAssertions: [
+          {
+            accountId: 'did:pkh:accountId',
+            issuer: 'did:pkh:issuer',
+            trustworthiness: [],
+            creationAt: new Date(),
+          },
+        ],
+      };
+      const action = fetchAssertionsForAllAccounts.fulfilled(mockPayload, '');
 
       const newState = accountAssertionsSlice.reducer(initialState, action);
 

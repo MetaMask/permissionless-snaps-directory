@@ -38,9 +38,6 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
 
     const mainNodeIndex = nodes.findIndex((node) => node.isMain);
     const mainNode = nodes[mainNodeIndex];
-    if (mainNode) {
-      mainNode.location = 0;
-    }
 
     const offsetMapX: Record<number, number> = {
       1: -380,
@@ -73,7 +70,9 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
         const parentNode = nodes.find(
           (node) => node.id === parentNodeId,
         ) as Node;
-        groupNode.location = parentNode.location * 10 + index + 1;
+        if (parentNode) {
+          groupNode.location = parentNode.location * 10 + index + 1;
+        }
       });
     }
 
@@ -153,12 +152,8 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
         jazziconSvg.insertBefore(rect, jazziconSvg.firstChild);
         mask.appendChild(circle);
         svg.append(() => mask);
-
         d3.select(jazziconSvg).attr('mask', `url(#circleMask${node.index})`);
-
-        if (jazziconSvg !== null) {
-          d3.select(this).node()?.appendChild(jazziconSvg);
-        }
+        d3.select(this).node()?.appendChild(jazziconSvg);
       });
     }
 
@@ -170,6 +165,7 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
         .attr('cy', 0)
         .attr('r', 40) // Use the buffer radius
         .attr('opacity', 0) // Make the circle invisible
+        .attr('data-testid', 'glow')
         .on('mouseover', function () {
           // Apply glow effect on mouseover
           d3.select(this.parentNode).style('filter', 'url(#glow)');
@@ -181,22 +177,20 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
         .on('mouseout', function () {
           // Remove the glow effect on mouseout
           d3.select(this.parentNode).style('filter', null);
-          if (utteranceRef.current) {
-            window.speechSynthesis.cancel();
-          }
+          window.speechSynthesis.cancel();
         });
     }
 
     function createLinks() {
       const linkGeneratorInside = d3
         .linkHorizontal()
-        .x((node: any) => getX(node) ?? 0)
-        .y((node: any) => getY(node) ?? 0);
+        .x((node: any) => getX(node))
+        .y((node: any) => getY(node));
 
       const linkGeneratorOutside = d3
         .linkVertical()
-        .x((node: any) => getX(node) ?? 0)
-        .y((node: any) => getY(node) ?? 0);
+        .x((node: any) => getX(node))
+        .y((node: any) => getY(node));
 
       // Create a group for links and add it before jazzicons
       const linksGroup = svg.insert('g', '.jazzicon');
@@ -236,7 +230,8 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
               node.isMain ? node.y : getY(node)
             })`,
         )
-        .attr('id', (node: any) => `${node.id})`);
+        .attr('id', (node: any) => `${node.id})`)
+        .attr('data-testid', 'jazzicon');
     }
 
     function createGlowObject() {

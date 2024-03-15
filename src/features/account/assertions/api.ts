@@ -31,9 +31,9 @@ export const fetchAssertionsForAllAccounts = createAsyncThunk(
   async (): Promise<AccountAssertion[]> => {
     try {
       const response = await axios.get(`${BASE_URL}/assertions?from=1`);
-      return response.data.assertions;
+      return response.data.assertions as AccountAssertion[];
     } catch (error) {
-      return [];
+      return [] as AccountAssertion[];
     }
   },
 );

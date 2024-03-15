@@ -4,6 +4,7 @@ import { mock } from 'ts-mockito';
 import {
   createAccountAssertion,
   fetchAccountAssertionsForAccountId,
+  fetchAssertionsForAllAccounts,
 } from './api';
 import {
   type AccountAssertion,
@@ -74,6 +75,53 @@ describe('fetchAccountAssertionsForAccountId', () => {
         expect.anything(),
         expect.anything(),
       ),
+    );
+  });
+});
+
+describe('fetchAssertionsForAllAccounts', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should fetch account assertions for all accounts successfully', async () => {
+    // Arrange
+    const mockAssertions = [mock<AccountAssertion>()];
+
+    mockedAxios.get.mockResolvedValueOnce({
+      data: { assertions: mockAssertions },
+    });
+
+    const dispatch = jest.fn();
+
+    // Act
+    await fetchAssertionsForAllAccounts()(dispatch, jest.fn(), null);
+
+    // Assert
+    expect(mockedAxios.get.mock.calls).toHaveLength(1);
+    expect(dispatch).toHaveBeenCalledWith(
+      fetchAssertionsForAllAccounts.fulfilled(
+        mockAssertions,
+        expect.anything(),
+        undefined,
+      ),
+    );
+  });
+
+  it('should handle fetch error gracefully', async () => {
+    // Arrange
+    const mockError = new Error('Failed to fetch account assertions');
+    mockedAxios.get.mockRejectedValueOnce(mockError);
+
+    const dispatch = jest.fn();
+
+    // Act
+    await fetchAssertionsForAllAccounts()(dispatch, jest.fn(), null);
+
+    // Assert
+    expect(mockedAxios.get.mock.calls).toHaveLength(1);
+    expect(dispatch).toHaveBeenLastCalledWith(
+      fetchAssertionsForAllAccounts.fulfilled([], expect.anything(), undefined),
     );
   });
 });
