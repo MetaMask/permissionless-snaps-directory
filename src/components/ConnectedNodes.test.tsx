@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-globals */
 import { screen } from '@testing-library/react';
 
 import { ConnectedNodes, type ConnectedNodesProps } from './ConnectedNodes';
@@ -19,10 +18,12 @@ describe('ConnectedNodes', () => {
 
   beforeEach(() => {
     // Mock the SpeechSynthesisUtterance and window.speechSynthesis objects
+    // eslint-disable-next-line no-restricted-globals
     window.speechSynthesis = {
       speak: jest.fn(),
       cancel: jest.fn(),
     } as any;
+    // eslint-disable-next-line no-restricted-globals
     window.SpeechSynthesisUtterance = jest.fn() as any;
   });
 
@@ -43,9 +44,11 @@ describe('ConnectedNodes', () => {
     render(<ConnectedNodes data={testData} />);
     const nodeElements = screen.getAllByTestId('glow');
     expect(nodeElements).toHaveLength(3);
-    const nodeElement = nodeElements[0] as HTMLElement;
+    const nodeElement = nodeElements[0] as any;
+    // eslint-disable-next-line no-restricted-globals
     nodeElement.dispatchEvent(new MouseEvent('mouseover'));
     expect(nodeElement.parentElement).toHaveStyle('filter: url(#glow)');
+    // eslint-disable-next-line no-restricted-globals
     nodeElement.dispatchEvent(new MouseEvent('mouseout'));
     expect(nodeElement.parentElement).not.toHaveStyle('filter: url(#glow)');
   });
