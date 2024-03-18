@@ -439,6 +439,14 @@ msgid "Endorse"
 msgstr ""
 
 #: src/features/snap/components/modals/EndorseSnapModal.tsx
+msgid "Endorse <0>{snapName}</0> as trustworthy for your community."
+msgstr ""
+
+#: src/features/account/components/modals/TEEndorsementModal.tsx
+msgid "Endorse <0>{trustEntity}</0> expertise within your community."
+msgstr ""
+
+#: src/features/snap/components/modals/EndorseSnapModal.tsx
 msgid "Endorse a Trustworthy Snap"
 msgstr ""
 
@@ -872,6 +880,14 @@ msgid "Report"
 msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
+msgid "Report <0>{reportEntity}</0> as malicious to safeguard your community."
+msgstr ""
+
+#: src/features/snap/components/modals/ReportSnapModal.tsx
+msgid "Report <0>{snapName}</0> as untrustworthy to safeguard your community."
+msgstr ""
+
+#: src/features/account/components/modals/AccountReportModal.tsx
 msgid "Report a Malicious Actor"
 msgstr ""
 
@@ -979,7 +995,6 @@ msgstr ""
 
 #: src/components/icons/index.ts
 #: src/components/icons/index.ts
-#: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Sign"
 msgstr ""
 
@@ -987,29 +1002,14 @@ msgstr ""
 msgid "Sign to add"
 msgstr ""
 
+#: src/features/account/components/modals/TEEndorsementModal.tsx
 #: src/features/snap/components/modals/EndorseSnapModal.tsx
 msgid "Sign to endorse"
-msgstr ""
-
-#: src/features/snap/components/modals/EndorseSnapModal.tsx
-msgid "Sign to endorse <0>{snapName}</0> as trustworthy for your community."
-msgstr ""
-
-#: src/features/account/components/modals/TEEndorsementModal.tsx
-msgid "Sign to endorse <0>{trustEntity}</0> expertise within your community."
 msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
 #: src/features/snap/components/modals/ReportSnapModal.tsx
 msgid "Sign to report"
-msgstr ""
-
-#: src/features/account/components/modals/AccountReportModal.tsx
-msgid "Sign to report <0>{reportEntity}</0> as malicious to safeguard your community."
-msgstr ""
-
-#: src/features/snap/components/modals/ReportSnapModal.tsx
-msgid "Sign to report <0>{snapName}</0> as untrustworthy to safeguard your community."
 msgstr ""
 
 #: src/components/icons/index.ts

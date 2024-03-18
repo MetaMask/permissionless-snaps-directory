@@ -52,7 +52,7 @@ export const ReportSnapModal: FunctionComponent<ReportSnapModalProps> = ({
 
           <Text noOfLines={2} as="span">
             <Trans>
-              Sign to report{' '}
+              Report{' '}
               <Text variant="blue" as="span">
                 {snapName}
               </Text>{' '}

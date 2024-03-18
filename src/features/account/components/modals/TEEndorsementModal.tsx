@@ -54,7 +54,7 @@ export const TEEndorsementModal: FunctionComponent<TEEndorsementModalProps> = ({
       isLoading={isLoading}
       mode="positive"
       headerIcon={<AvatarBlueIcon />}
-      buttonText={t`Sign`}
+      buttonText={t`Sign to endorse`}
       onClose={onClose}
       onSignButtonClick={onSignButtonClick}
     >
@@ -65,7 +65,7 @@ export const TEEndorsementModal: FunctionComponent<TEEndorsementModalProps> = ({
           </Text>
           <Text textAlign="center">
             <Trans>
-              Sign to endorse{' '}
+              Endorse{' '}
               <Text variant="blue" as="span">
                 {trustEntity}
               </Text>{' '}

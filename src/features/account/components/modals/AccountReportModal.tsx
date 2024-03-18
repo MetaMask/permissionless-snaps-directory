@@ -52,7 +52,7 @@ export const AccountReportModal: FunctionComponent<AccountReportModalProps> = ({
 
           <Text noOfLines={2} as="span">
             <Trans>
-              Sign to report{' '}
+              Report{' '}
               <Text variant="blue" as="span">
                 {reportEntity}
               </Text>{' '}

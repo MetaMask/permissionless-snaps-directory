@@ -52,7 +52,7 @@ export const EndorseSnapModal: FunctionComponent<EndorseSnapModalProps> = ({
 
           <Text noOfLines={2} fontWeight="regular" as="span">
             <Trans>
-              Sign to endorse{' '}
+              Endorse{' '}
               <Text variant="blue" as="span">
                 {snapName}
               </Text>{' '}
