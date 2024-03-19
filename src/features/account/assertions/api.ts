@@ -12,7 +12,9 @@ export const fetchAccountAssertionsForAccountId = createAsyncThunk(
   'accountAssertions/fetchAccountAssertionsForAccountId',
   async (accountId: string) => {
     try {
-      const response = await axios.get(`${BASE_URL}/assertions/${accountId}`);
+      const response = await axios.get(
+        `${BASE_URL}/assertions/subjects/${accountId}`,
+      );
       return { accountId, assertions: response.data.assertions } as {
         accountId: string;
         assertions: AccountAssertion[];
