@@ -1,5 +1,5 @@
 import { SnapVerifiableCredential } from './snapVC';
-import { VALID_ACCOUNT_1, SNAP_SHASUM_1 } from '../test-utils';
+import { SNAP_SHASUM_1, VALID_ACCOUNT_1 } from '../test-utils';
 
 const typedDataStruct = {
   EIP712Domain: [
@@ -117,6 +117,20 @@ describe('SnapVerifiableCredential', () => {
         types: typedDataStruct,
         primaryType: 'VerifiableCredential',
       });
+    });
+  });
+
+  describe('getSnapIdFromDid', () => {
+    it('returns address if parses DID successfully', async () => {
+      const vc = buildSnapVerifiableCredential();
+      expect(vc.getSnapIdFromDid(`snap://${SNAP_SHASUM_1}`)).toBe(
+        SNAP_SHASUM_1,
+      );
+    });
+
+    it('returns undefined if parsing DID fails', async () => {
+      const vc = buildSnapVerifiableCredential();
+      expect(vc.getSnapIdFromDid(`did:foo:${SNAP_SHASUM_1}`)).toBeUndefined();
     });
   });
 });

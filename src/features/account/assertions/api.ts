@@ -28,6 +28,30 @@ export const fetchAccountAssertionsForAccountId = createAsyncThunk(
   },
 );
 
+export const fetchAssertionsByIssuer = createAsyncThunk(
+  'accountAssertions/fetchAssertionsByIssuer',
+  async (issuerId: string) => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/assertions/issuers/${issuerId}`,
+      );
+
+      return {
+        accountId: issuerId,
+        assertions: response.data.assertions,
+      } as {
+        accountId: string;
+        assertions: AccountAssertion[];
+      };
+    } catch (error) {
+      return { accountId: issuerId, assertions: [] } as {
+        accountId: string;
+        assertions: AccountAssertion[];
+      };
+    }
+  },
+);
+
 export const fetchAssertionsForAllAccounts = createAsyncThunk(
   'accountTrustScore/fetchAssertionsForAllAccounts',
   async (): Promise<AccountAssertion[]> => {

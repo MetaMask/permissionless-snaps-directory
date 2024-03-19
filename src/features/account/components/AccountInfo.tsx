@@ -30,11 +30,11 @@ export const AccountInfo: FunctionComponent<AccountInfoProps> = ({
   const accountId = accountVCBuilder.getSubjectDid(address);
 
   const trustScores = useSelector(getAccountTrustScoreForAccountId(accountId));
-  const conncetedNodes = useSelector(getAccountConnectedNodes(accountId));
+  const connectedNodes = useSelector(getAccountConnectedNodes(accountId));
 
   return (
     <VStack spacing="8" data-testid="account-info">
-      <ConnectedNodes data={conncetedNodes}></ConnectedNodes>
+      <ConnectedNodes data={connectedNodes}></ConnectedNodes>
       {trustScores.length > 0 && <AccountRoleTags trustScores={trustScores} />}
       <HStack>
         <Heading

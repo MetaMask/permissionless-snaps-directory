@@ -13,7 +13,11 @@ import {
   AccountTEEndorsement,
   DevelopedSnapsSection,
 } from '../../features/account';
-import { fetchAccountAssertionsForAccountId } from '../../features/account/assertions/api';
+import {
+  fetchAccountAssertionsForAccountId,
+  fetchAssertionsByIssuer,
+} from '../../features/account/assertions/api';
+import { ActivitySection } from '../../features/account/components/activity/ActivitySection';
 import { fetchTrustScoreForAccountId } from '../../features/account/trust-score/api';
 import { useDispatch, useVerifiableCredential } from '../../hooks';
 import { type Fields, parseAddress } from '../../utils';
@@ -38,6 +42,9 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
         console.log(error),
       );
       dispatch(fetchTrustScoreForAccountId(issuer)).catch((error) =>
+        console.log(error),
+      );
+      dispatch(fetchAssertionsByIssuer(issuer)).catch((error) =>
         console.log(error),
       );
     }
@@ -93,6 +100,7 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
             </HStack>
           </VStack>
           <DevelopedSnapsSection author={address} />
+          <ActivitySection address={address} />
         </Container>
       </Box>
     </>

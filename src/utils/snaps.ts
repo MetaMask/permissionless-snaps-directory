@@ -1,4 +1,5 @@
 import type { MetaMaskInpageProvider } from '@metamask/providers';
+import type { SemVerVersion } from '@metamask/utils';
 import semver from 'semver/preload';
 
 import type { PermissionlessSnapsRegistryDatabase } from '../types/snaps-registry';
@@ -142,6 +143,32 @@ export function getLatestSnapVersion(snap: VerifiedSnap) {
   }
 
   return latest;
+}
+
+/**
+ * Get all the versions of the given Snap.
+ *
+ * @param snap - The Snap to get the versions for.
+ * @returns The versions of the Snap.
+ */
+export function getAllSnapVersions(snap: VerifiedSnap) {
+  // This should never happen. The validation in the registry ensures that
+  // there is always at least one version.
+  if (!snap.versions || Object.keys(snap.versions).length === 0) {
+    throw new Error(`No version found for Snap: ${snap.id}.`);
+  }
+
+  return Object.keys(snap.versions)
+    .map((version) => {
+      const versionInfo = snap.versions[version as SemVerVersion];
+      return versionInfo
+        ? {
+            version,
+            checksum: versionInfo.checksum,
+          }
+        : undefined;
+    })
+    .filter(Boolean);
 }
 
 /**

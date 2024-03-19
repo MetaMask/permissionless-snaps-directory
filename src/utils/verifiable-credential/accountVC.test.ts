@@ -251,4 +251,20 @@ describe('AccountVerifiableCredential', () => {
       });
     });
   });
+
+  describe('getAddressFromDid', () => {
+    it('returns address if parses DID successfully', async () => {
+      const vc = buildAccountVerifiableCredential();
+      expect(vc.getAddressFromDid(`did:pkh:eip155:1:${VALID_ACCOUNT_1}`)).toBe(
+        VALID_ACCOUNT_1,
+      );
+    });
+
+    it('returns undefined if parsing DID fails', async () => {
+      const vc = buildAccountVerifiableCredential();
+      expect(
+        vc.getAddressFromDid(`did:foo:${VALID_ACCOUNT_1}`),
+      ).toBeUndefined();
+    });
+  });
 });

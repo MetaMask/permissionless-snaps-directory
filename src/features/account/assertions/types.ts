@@ -15,7 +15,7 @@ export enum TrustCredentialType {
   StatusCredential = 'StatusCredential',
 }
 
-export type PKHDid = `did:pkh:${string}`;
+export type PKHDid = `did:pkh:eip155:${string}`;
 
 export type Did = PKHDid;
 
@@ -59,6 +59,7 @@ export type Trustworthiness = {
 export type AccountCredentialSubject = {
   id: PKHDid;
   trustworthiness: Trustworthiness[];
+  statusReason: { type: string; value: string[] };
 };
 
 export type AccountAssertionResponse = {
@@ -66,6 +67,7 @@ export type AccountAssertionResponse = {
   issuer: Did;
   credentialSubject: AccountCredentialSubject;
   proof?: ProofEip712;
+  issuanceDate: Date;
 };
 
 export type AccountAssertion = {

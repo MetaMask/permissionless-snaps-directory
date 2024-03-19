@@ -3,11 +3,11 @@ import type { SignTypedDataArgs } from '@wagmi/core';
 import type { TypedDataDomain } from 'viem';
 
 import {
-  TrustCredentialType,
-  type PKHDid,
-  type CredentialSubject,
   type Assertion,
+  type CredentialSubject,
+  type PKHDid,
   type SignedAssertion,
+  TrustCredentialType,
   type TypedDataTypes,
 } from './types';
 

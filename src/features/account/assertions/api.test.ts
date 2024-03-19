@@ -4,6 +4,7 @@ import { mock } from 'ts-mockito';
 import {
   createAccountAssertion,
   fetchAccountAssertionsForAccountId,
+  fetchAssertionsByIssuer,
   fetchAssertionsForAllAccounts,
 } from './api';
 import {
@@ -72,6 +73,59 @@ describe('fetchAccountAssertionsForAccountId', () => {
     expect(dispatch).toHaveBeenLastCalledWith(
       fetchAccountAssertionsForAccountId.fulfilled(
         { accountId, assertions: [] },
+        expect.anything(),
+        expect.anything(),
+      ),
+    );
+  });
+});
+
+describe('fetchAssertionsByIssuer', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should fetch assertions issued by a given address', async () => {
+    // Arrange
+    const issuerId = 'issuerId';
+    const mockAssertions = [mock<AccountAssertion>()];
+
+    mockedAxios.get.mockResolvedValueOnce({
+      data: { assertions: mockAssertions },
+    });
+
+    const dispatch = jest.fn();
+
+    // Act
+    await fetchAssertionsByIssuer(issuerId)(dispatch, jest.fn(), null);
+
+    // Assert
+    expect(mockedAxios.get.mock.calls).toHaveLength(1);
+    expect(dispatch).toHaveBeenCalledWith(
+      fetchAssertionsByIssuer.fulfilled(
+        { accountId: issuerId, assertions: mockAssertions },
+        expect.anything(),
+        expect.anything(),
+      ),
+    );
+  });
+
+  it('should handle fetch error gracefully', async () => {
+    // Arrange
+    const issuerId = 'issuerId';
+    const mockError = new Error('Failed to fetch assertions');
+    mockedAxios.get.mockRejectedValueOnce(mockError);
+
+    const dispatch = jest.fn();
+
+    // Act
+    await fetchAssertionsByIssuer(issuerId)(dispatch, jest.fn(), null);
+
+    // Assert
+    expect(mockedAxios.get.mock.calls).toHaveLength(1);
+    expect(dispatch).toHaveBeenLastCalledWith(
+      fetchAssertionsByIssuer.fulfilled(
+        { accountId: issuerId, assertions: [] },
         expect.anything(),
         expect.anything(),
       ),

@@ -1,7 +1,8 @@
-import { describe, it, expect, beforeEach } from '@jest/globals';
+import { beforeEach, describe, expect, it } from '@jest/globals';
 
 import type { VerifiedSnap } from './snaps';
 import {
+  getAllSnapVersions,
   getLatestSnapVersion,
   getLatestSnapVersionChecksum,
   getMetaMaskProvider,
@@ -10,9 +11,9 @@ import {
   isMetaMaskProvider,
 } from './snaps';
 import {
+  getRequestMethodMock,
   SNAP_SHASUM_1,
   SNAP_SHASUM_2,
-  getRequestMethodMock,
 } from './test-utils';
 
 describe('hasSnapsSupport', () => {
@@ -333,5 +334,92 @@ describe('getLatestSnapVersion', () => {
     expect(() => getLatestSnapVersionChecksum(snap, '3.0.0')).toThrow(
       'Snap:foo-snap version data does not exist for the version 3.0.0',
     );
+  });
+});
+
+describe('getAllSnapVersions', () => {
+  it('returns the versions of a registry Snap with one version', () => {
+    const snap: VerifiedSnap = {
+      versions: {
+        // @ts-expect-error - Technically not a valid version.
+        '1.0.0': {
+          checksum: 'foo',
+        },
+      },
+    };
+
+    expect(getAllSnapVersions(snap)).toStrictEqual([
+      { version: '1.0.0', checksum: 'foo' },
+    ]);
+  });
+
+  it('returns the latest version of a registry Snap with multiple versions', () => {
+    const snap: VerifiedSnap = {
+      versions: {
+        // @ts-expect-error - Technically not a valid version.
+        '1.0.0': {
+          checksum: 'foo',
+        },
+        '2.0.0': {
+          checksum: 'foo',
+        },
+      },
+    };
+
+    expect(getAllSnapVersions(snap)).toStrictEqual([
+      { version: '1.0.0', checksum: 'foo' },
+      { version: '2.0.0', checksum: 'foo' },
+    ]);
+  });
+
+  it('throws if the Snap has no versions', () => {
+    // @ts-expect-error - Partial Snap.
+    const snap: VerifiedSnap = {
+      id: 'foo-snap',
+      versions: {},
+    };
+
+    expect(() => getAllSnapVersions(snap)).toThrow(
+      'No version found for Snap: foo-snap.',
+    );
+  });
+
+  it('throws if the Snap has undefined versions', () => {
+    const snap: VerifiedSnap = {
+      id: 'foo-snap',
+      // @ts-expect-error - Technically not a valid version.
+      versions: undefined,
+    };
+
+    expect(() => getAllSnapVersions(snap)).toThrow(
+      'No version found for Snap: foo-snap.',
+    );
+  });
+
+  it('returns only defined versions of a registry Snap', () => {
+    const snap: VerifiedSnap = {
+      versions: {
+        // @ts-expect-error - Technically not a valid version.
+        '1.0.0': {
+          checksum: 'foo',
+        },
+        '2.0.0': undefined,
+      },
+    };
+
+    expect(getAllSnapVersions(snap)).toStrictEqual([
+      { version: '1.0.0', checksum: 'foo' },
+    ]);
+  });
+
+  it('returns an empty array if not valid version is found', () => {
+    const snap: VerifiedSnap = {
+      versions: {
+        // @ts-expect-error - Technically not a valid version.
+        '1.0.0': undefined,
+      },
+    };
+
+    expect(getAllSnapVersions(snap)).toHaveLength(0);
   });
 });

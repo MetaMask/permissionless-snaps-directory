@@ -116,6 +116,10 @@ msgstr ""
 msgid "Account Profile"
 msgstr ""
 
+#: src/features/account/components/activity/ActivitySection.tsx
+msgid "Activity"
+msgstr ""
+
 #: src/components/icons/index.ts
 msgid "Add"
 msgstr ""
@@ -252,6 +256,10 @@ msgstr ""
 
 #: src/features/filter/constants.tsx
 msgid "Alphabetical"
+msgstr ""
+
+#: src/features/account/components/activity/ActivityItem.tsx
+msgid "and"
 msgstr ""
 
 #: src/features/snap/components/MetadataModal.tsx
@@ -451,6 +459,8 @@ msgid "Endorse <0>{snapName}</0>"
 msgstr ""
 
 #: src/components/EndorseButton.tsx
+#: src/features/account/components/activity/ActivityItem.tsx
+#: src/features/account/components/activity/ActivityItem.tsx
 msgid "Endorsed"
 msgstr ""
 
@@ -880,6 +890,8 @@ msgstr ""
 
 #: src/components/ReportButton.tsx
 #: src/features/account/components/AccountRoleTags.tsx
+#: src/features/account/components/activity/ActivityItem.tsx
+#: src/features/account/components/activity/ActivityItem.tsx
 msgid "Reported"
 msgstr ""
 
@@ -1124,6 +1136,14 @@ msgstr ""
 
 #: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Trusted technical abilities"
+msgstr ""
+
+#: src/features/account/components/activity/ActivitySubject.tsx
+msgid "Unknown"
+msgstr ""
+
+#: src/features/account/components/activity/ActivityItem.tsx
+msgid "Unknown activity"
 msgstr ""
 
 #: src/hooks/useSignErrorHandler.ts
