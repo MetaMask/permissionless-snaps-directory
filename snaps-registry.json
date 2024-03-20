@@ -155,8 +155,7 @@
         "audits": [
           {
             "auditor": "OtterSec",
-            "report": "https://ottersec.notion.site/Sampled-Public-Audit-Reports-a296e98838aa4fdb8f3b192663400772?p=b25b9f3a52ab4821914f379ff0d3ec62&pm=s",
-            "address": "0x2bE127806140dFd6c4DC1cAA0e828411B77E4BbF"
+            "report": "https://ottersec.notion.site/Sampled-Public-Audit-Reports-a296e98838aa4fdb8f3b192663400772?p=b25b9f3a52ab4821914f379ff0d3ec62&pm=s"
           }
         ],
         "category": "interoperability",
@@ -186,13 +185,11 @@
         "audits": [
           {
             "auditor": "Cure53",
-            "report": "https://drive.google.com/file/d/1pNhN43mMOLiA2jWUF5IbJA-5kmfAod1f/view?usp=drive_link",
-            "address": "0x9843D9bDb9a7cf7A5B0A18E1d1510A288e1F4A2D"
+            "report": "https://drive.google.com/file/d/1pNhN43mMOLiA2jWUF5IbJA-5kmfAod1f/view?usp=drive_link"
           },
           {
             "auditor": "Cure53",
-            "report": "https://drive.google.com/file/d/1dixJw4G4ekcO40GpbH7VmizLTINS5gUL/view?usp=drive_link",
-            "address": "0x9843D9bDb9a7cf7A5B0A18E1d1510A288e1F4A2D"
+            "report": "https://drive.google.com/file/d/1dixJw4G4ekcO40GpbH7VmizLTINS5gUL/view?usp=drive_link"
           }
         ],
         "category": "notifications",
@@ -329,8 +326,7 @@
         "audits": [
           {
             "auditor": "Cure53",
-            "report": "https://github.com/tuum-tech/identify/blob/main/SNAP_AUDIT_REPORT_BY_CURE53.pdf",
-            "address": "0x9843D9bDb9a7cf7A5B0A18E1d1510A288e1F4A2D"
+            "report": "https://github.com/tuum-tech/identify/blob/main/SNAP_AUDIT_REPORT_BY_CURE53.pdf"
           }
         ],
         "category": "interoperability",
@@ -1004,8 +1000,7 @@
         "audits": [
           {
             "auditor": "OtterSec",
-            "report": "https://ottersec.notion.site/Forta-Metamask-Snap-7e6e171e836b40adb1465cf2ae090e4d",
-            "address": "0x2bE127806140dFd6c4DC1cAA0e828411B77E4BbF"
+            "report": "https://ottersec.notion.site/Forta-Metamask-Snap-7e6e171e836b40adb1465cf2ae090e4d"
           }
         ],
         "category": "transaction insights",
@@ -1188,8 +1183,7 @@
         "audits": [
           {
             "auditor": "OtterSec",
-            "report": "https://ottersec.notion.site/Vega-Snap-7545db216bee4e128cfcac16d41896b6",
-            "address": "0x2bE127806140dFd6c4DC1cAA0e828411B77E4BbF"
+            "report": "https://ottersec.notion.site/Vega-Snap-7545db216bee4e128cfcac16d41896b6"
           }
         ],
         "support": {
@@ -1380,8 +1374,7 @@
         "audits": [
           {
             "auditor": "OtterSec",
-            "report": "https://ottersec.notion.site/EthSign-keychain-snap-acf38810de8544f9b07beadae5014675",
-            "address": "0x2bE127806140dFd6c4DC1cAA0e828411B77E4BbF"
+            "report": "https://ottersec.notion.site/EthSign-keychain-snap-acf38810de8544f9b07beadae5014675"
           }
         ],
         "category": "interoperability",
@@ -1410,8 +1403,7 @@
         "audits": [
           {
             "auditor": "OtterSec",
-            "report": "https://ottersec.notion.site/Drift-Snap-8575cd9031ae466d87d3b6a1c0afa028",
-            "address": "0x2bE127806140dFd6c4DC1cAA0e828411B77E4BbF"
+            "report": "https://ottersec.notion.site/Drift-Snap-8575cd9031ae466d87d3b6a1c0afa028"
           }
         ],
         "category": "interoperability",
@@ -1509,8 +1501,7 @@
         "audits": [
           {
             "auditor": "OtterSec",
-            "report": "https://ottersec.notion.site/Cosmos-Snap-ef7a8ccde39948e7bece99e86239ae6b",
-            "address": "0x2bE127806140dFd6c4DC1cAA0e828411B77E4BbF"
+            "report": "https://ottersec.notion.site/Cosmos-Snap-ef7a8ccde39948e7bece99e86239ae6b"
           }
         ],
         "category": "interoperability",
@@ -1727,8 +1718,7 @@
         "audits": [
           {
             "auditor": "OtterSec",
-            "report": "https://github.com/here-wallet/near-snap/blob/main/ottersec.pdf",
-            "address": "0x2bE127806140dFd6c4DC1cAA0e828411B77E4BbF"
+            "report": "https://github.com/here-wallet/near-snap/blob/main/ottersec.pdf"
           }
         ],
         "category": "interoperability",
@@ -1818,8 +1808,7 @@
         "audits": [
           {
             "auditor": "OtterSec",
-            "report": "https://ottersec.notion.site/Nocturne-Snap-51f214a222b24df4a938411502ca13cd",
-            "address": "0x2bE127806140dFd6c4DC1cAA0e828411B77E4BbF"
+            "report": "https://ottersec.notion.site/Nocturne-Snap-51f214a222b24df4a938411502ca13cd"
           }
         ],
         "support": {
@@ -1940,8 +1929,7 @@
         "audits": [
           {
             "auditor": "Cure53",
-            "report": "https://cure53.de/pentest-report_dedaub-metamask-snap.pdf",
-            "address": "0x9843D9bDb9a7cf7A5B0A18E1d1510A288e1F4A2D"
+            "report": "https://cure53.de/pentest-report_dedaub-metamask-snap.pdf"
           }
         ],
         "category": "transaction insights",
@@ -2030,8 +2018,7 @@
         "audits": [
           {
             "auditor": "Cure53",
-            "report": "https://cure53.de/pentest-report_tuum-hedera-snap.pdf",
-            "address": "0x9843D9bDb9a7cf7A5B0A18E1d1510A288e1F4A2D"
+            "report": "https://cure53.de/pentest-report_tuum-hedera-snap.pdf"
           }
         ],
         "category": "interoperability",
@@ -2152,18 +2139,15 @@
         "audits": [
           {
             "auditor": "Cure53",
-            "report": "https://cure53.de/pentest-report_silencelabs-snap.pdf",
-            "address": "0x9843D9bDb9a7cf7A5B0A18E1d1510A288e1F4A2D"
+            "report": "https://cure53.de/pentest-report_silencelabs-snap.pdf"
           },
           {
             "auditor": "Cure53",
-            "report": "https://cure53.de/audit-report_silencelabs-ecdsa-lib.pdf",
-            "address": "0x9843D9bDb9a7cf7A5B0A18E1d1510A288e1F4A2D"
+            "report": "https://cure53.de/audit-report_silencelabs-ecdsa-lib.pdf"
           },
           {
             "auditor": "Cure53",
-            "report": "https://cure53.de/pentest-report_silencelabs-apps.pdf",
-            "address": "0x9843D9bDb9a7cf7A5B0A18E1d1510A288e1F4A2D"
+            "report": "https://cure53.de/pentest-report_silencelabs-apps.pdf"
           }
         ],
         "category": "account management",
@@ -2212,8 +2196,7 @@
         "audits": [
           {
             "auditor": "Cure53",
-            "report": "https://cure53.de/pentest-report_safeheron-snap.pdf",
-            "address": "0x9843D9bDb9a7cf7A5B0A18E1d1510A288e1F4A2D"
+            "report": "https://cure53.de/pentest-report_safeheron-snap.pdf"
           },
           {
             "auditor": "Least Authority",
@@ -2333,6 +2316,17 @@
           "checksum": "jLIJlUMNJxBPdD7VXu+lauJFMbrlZ7Ctpa3CG48aB+I="
         }
       }
+    }
+  },
+  "auditors": {
+    "OtterSec": {
+      "address": "0x2bE127806140dFd6c4DC1cAA0e828411B77E4BbF"
+    },
+    "Hacken": {
+      "address": "0x381C5dD2C5F13d4d7D63F0C2318d58070a538C79"
+    },
+    "Cure53": {
+      "address": "0x9843D9bDb9a7cf7A5B0A18E1d1510A288e1F4A2D"
     }
   },
   "blockedSnaps": [
