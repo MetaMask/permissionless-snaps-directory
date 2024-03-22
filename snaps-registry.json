@@ -806,7 +806,8 @@
         "name": "Kleros Scout",
         "author": {
           "name": "Kleros",
-          "website": "https://kleros.io/"
+          "website": "https://kleros.io/",
+          "address": "0xf313d85c7fEF79118fCD70498c71BF94E75Fc2F6"
         },
         "website": "https://docs.kleros.io/products/curate/kleros-scout-metamask-snaps",
         "summary": "A Snap that retrieves contract metadata from the Kleros Curate registries",
@@ -2315,6 +2316,17 @@
           "checksum": "jLIJlUMNJxBPdD7VXu+lauJFMbrlZ7Ctpa3CG48aB+I="
         }
       }
+    }
+  },
+  "auditors": {
+    "OtterSec": {
+      "address": "0x2bE127806140dFd6c4DC1cAA0e828411B77E4BbF"
+    },
+    "Hacken": {
+      "address": "0x381C5dD2C5F13d4d7D63F0C2318d58070a538C79"
+    },
+    "Cure53": {
+      "address": "0x9843D9bDb9a7cf7A5B0A18E1d1510A288e1F4A2D"
     }
   },
   "blockedSnaps": [
