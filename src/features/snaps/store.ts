@@ -24,6 +24,7 @@ export type Snap = Fields<
   | 'downloads'
   | 'lastUpdated'
   | 'latestChecksum'
+  | 'versions'
 >;
 
 export type SnapsState = {
@@ -110,6 +111,23 @@ export const getSnapsById = (snapIds: string[]) => {
       }
 
       return snaps.filter((snap) => snapIds.includes(snap.snapId));
+    },
+  );
+};
+
+export const getSnapByChecksum = (checksum: string) => {
+  return createSelector(
+    (state: ApplicationState) => getSnaps(state),
+    (snaps) => {
+      if (!snaps || snaps.length === 0) {
+        return undefined;
+      }
+
+      return snaps.find((snap) =>
+        snap.versions?.some(
+          (snapVersion) => snapVersion?.checksum === checksum,
+        ),
+      );
     },
   );
 };

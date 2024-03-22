@@ -1,12 +1,13 @@
 import type { Hex } from '@metamask/utils';
+import type { Address } from '@wagmi/core';
 
 import { BaseVerifiableCredential } from './baseVC';
 import {
-  TrustworthinessScope,
-  TrustCredentialType,
-  type PKHDid,
-  type Trustworthiness,
   type AccountCredentialSubject,
+  type PKHDid,
+  TrustCredentialType,
+  type Trustworthiness,
+  TrustworthinessScope,
 } from './types';
 
 export class AccountVerifiableCredential extends BaseVerifiableCredential {
@@ -41,6 +42,12 @@ export class AccountVerifiableCredential extends BaseVerifiableCredential {
 
   getSubjectDid(subjectAddress: Hex): PKHDid {
     return `did:pkh:eip155:${this.chainId}:${subjectAddress}`;
+  }
+
+  getAddressFromDid(did: string): Address | undefined {
+    const regex = /^did:pkh:eip155:\d+:(0x[a-fA-F0-9]{40})$/u;
+    const match = did.match(regex);
+    return match?.[1] as Address | undefined;
   }
 
   protected getCredentialSubject(

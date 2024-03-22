@@ -2,17 +2,20 @@ import { mock } from 'ts-mockito';
 
 import {
   fetchAccountAssertionsForAccountId,
+  fetchAssertionsByIssuer,
   fetchAssertionsForAllAccounts,
 } from './api';
 import {
   accountAssertionsSlice,
-  getAccountAssertions,
-  getAccountAssertionDetailsForAccountId,
   type AccountAssertionsState,
+  type AccountAssertionState,
+  getAccountAssertionDetailsForAccountId,
+  getAccountAssertions,
   getCurrentTrustworthinessLevelForIssuer,
+  getIssuedAssertions,
+  getIssuedAssertionsForIssuerId,
   isAccountEndorsedByIssuer,
   isAccountReportedByIssuer,
-  type AccountAssertionState,
 } from './store';
 import {
   type AccountAssertion,
@@ -43,6 +46,7 @@ describe('accountAssertionsSlice', () => {
             creationAt: new Date(),
           },
         ],
+        issuedAssertions: [],
       };
       const action = fetchAccountAssertionsForAccountId.fulfilled(
         mockPayload,
@@ -53,6 +57,7 @@ describe('accountAssertionsSlice', () => {
       const newState = accountAssertionsSlice.reducer(initialState, action);
 
       expect(newState.accountAssertions).toHaveLength(1);
+      expect(newState.issuedAssertions).toHaveLength(0);
     });
 
     it('fetchAssertionsForAllAccounts.fulfilled', () => {
@@ -73,12 +78,56 @@ describe('accountAssertionsSlice', () => {
             creationAt: new Date(),
           },
         ],
+        issuedAssertions: [],
       };
       const action = fetchAssertionsForAllAccounts.fulfilled(mockPayload, '');
 
       const newState = accountAssertionsSlice.reducer(initialState, action);
 
       expect(newState.accountAssertions).toHaveLength(1);
+      expect(newState.issuedAssertions).toHaveLength(0);
+    });
+
+    it('fetchAssertionsByIssuer.fulfilled', () => {
+      const mockAssertionResponse1: AccountAssertion = mock<AccountAssertion>();
+      mockAssertionResponse1.id = 'id';
+      mockAssertionResponse1.assertion = mock<AccountAssertionResponse>();
+      mockAssertionResponse1.assertion.issuer = 'did:pkh:issuer';
+      mockAssertionResponse1.assertion.issuanceDate = new Date(
+        '2023-01-01T00:00:00Z',
+      );
+      mockAssertionResponse1.assertion.credentialSubject.id =
+        'did:pkh:accountId';
+      const mockAssertionResponse2: AccountAssertion = mock<AccountAssertion>();
+      mockAssertionResponse2.id = 'id';
+      mockAssertionResponse2.assertion = mock<AccountAssertionResponse>();
+      mockAssertionResponse2.assertion.issuer = 'did:pkh:issuer';
+      mockAssertionResponse2.assertion.issuanceDate = new Date(
+        '2024-01-01T00:00:00Z',
+      );
+      mockAssertionResponse2.assertion.credentialSubject.id =
+        'did:pkh:accountId';
+
+      const mockPayload = {
+        assertions: [mockAssertionResponse1, mockAssertionResponse2],
+      };
+
+      const initialState: AccountAssertionsState = {
+        accountAssertions: [],
+        issuedAssertions: [],
+      };
+      const action = fetchAssertionsByIssuer.fulfilled(mockPayload, '');
+
+      const newState = accountAssertionsSlice.reducer(initialState, action);
+
+      expect(newState.accountAssertions).toHaveLength(0);
+      expect(newState.issuedAssertions).toHaveLength(2);
+      expect(newState?.issuedAssertions[0]?.issuanceDate).toStrictEqual(
+        mockAssertionResponse2.assertion.issuanceDate,
+      );
+      expect(newState?.issuedAssertions[1]?.issuanceDate).toStrictEqual(
+        mockAssertionResponse1.assertion.issuanceDate,
+      );
     });
   });
 });
@@ -92,6 +141,52 @@ describe('Selectors', () => {
       const accountAssertions = getAccountAssertions(mockedApplicationState);
 
       expect(accountAssertions).toStrictEqual([]);
+    });
+  });
+
+  describe('getIssuedAssertions', () => {
+    it('should return issuedAssertions from the store', () => {
+      const mockedApplicationState: ApplicationState = mock<ApplicationState>();
+      mockedApplicationState.issuedAssertions = {
+        accountAssertions: [],
+        issuedAssertions: [],
+      };
+
+      const issuedAssertions = getIssuedAssertions(mockedApplicationState);
+
+      expect(issuedAssertions).toStrictEqual([]);
+    });
+  });
+
+  describe('getIssuedAssertionsForIssuerId', () => {
+    it('should return assertions issued by a specific issuerId', () => {
+      const mockedApplicationState: ApplicationState = mock<ApplicationState>();
+      const assertion1 = {
+        accountId: 'accountId',
+        issuer: 'issuerId',
+        trustworthiness: [],
+        creationAt: new Date(),
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+      };
+      const assertion2 = {
+        accountId: 'accountId',
+        issuer: 'notIssuerId',
+        trustworthiness: [],
+        creationAt: new Date(),
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+      };
+      mockedApplicationState.issuedAssertions = {
+        accountAssertions: [],
+        issuedAssertions: [assertion1, assertion2],
+      };
+
+      const issuedAttestations = getIssuedAssertionsForIssuerId('issuerId')(
+        mockedApplicationState,
+      );
+
+      expect(issuedAttestations).toStrictEqual([assertion1]);
     });
   });
 

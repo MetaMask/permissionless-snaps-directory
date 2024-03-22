@@ -22,6 +22,7 @@ const reducer = combineReducers({
   snapAssertions: snapAssertionsSlice.reducer,
   snapTrustScores: snapTrustScoresSlice.reducer,
   accountAssertions: accountAssertionsSlice.reducer,
+  issuedAssertions: accountAssertionsSlice.reducer,
   accountTrustScores: accountTrustScoresSlice.reducer,
 });
 

@@ -1,6 +1,6 @@
 import { getAddress } from 'viem';
 
-import { parseAddress } from './address';
+import { parseAddress, truncateAddress } from './address';
 import { VALID_ACCOUNT_1 } from './test-utils';
 
 jest.mock('viem', () => ({
@@ -33,5 +33,15 @@ describe('parseAddress', () => {
     });
 
     expect(parseAddress(address)).toBeNull();
+  });
+});
+
+describe('truncateAddress', () => {
+  it('returns address if the address is parsed successfully', async () => {
+    expect(truncateAddress(VALID_ACCOUNT_1)).toBe('0x6B24••••7Cc7');
+  });
+
+  it('returns an empty string if the address is undefined', async () => {
+    expect(truncateAddress(undefined)).toBe('');
   });
 });

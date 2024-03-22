@@ -2,12 +2,12 @@ import type { Hex } from '@metamask/utils';
 
 import { BaseVerifiableCredential } from './baseVC';
 import {
-  TrustCredentialType,
-  SnapStatusReasonType,
+  type SnapCredentialSubject,
   SnapCurrentStatus,
   type SnapDid,
+  SnapStatusReasonType,
   type StatusReason,
-  type SnapCredentialSubject,
+  TrustCredentialType,
 } from './types';
 
 export class SnapVerifiableCredential extends BaseVerifiableCredential {
@@ -42,6 +42,12 @@ export class SnapVerifiableCredential extends BaseVerifiableCredential {
 
   protected getSubjectDid(snapChecksum: string): SnapDid {
     return `snap://${snapChecksum}`;
+  }
+
+  getSnapIdFromDid(did: string): string | undefined {
+    const regex = /^snap:\/\/(.+)$/u;
+    const match = did.match(regex);
+    return match?.[1];
   }
 
   protected getCredentialSubject(

@@ -72,6 +72,7 @@ export type MockSnap = Fields<
   | 'privateCode'
   | 'privacyPolicy'
   | 'termsOfUse'
+  | 'versions'
 >;
 
 export type GetMockSnapArgs = {
@@ -103,6 +104,7 @@ export type GetMockSnapArgs = {
   privateCode?: boolean;
   privacyPolicy?: string;
   termsOfUse?: string;
+  versions?: Fields<Queries.SnapVersions, 'version' | 'checksum'>[];
 };
 
 /**
@@ -133,6 +135,7 @@ export type GetMockSnapArgs = {
  * @param args.privacyPolicy - The privacy policy URL.
  * @param args.termsOfUse - The terms of use URL.
  * @param args.latestChecksum - The checksum value of latest version of the Snap.
+ * @param args.versions - The versions of the Snap.
  * @returns The mock snap data.
  */
 export function getMockSnap({
@@ -182,6 +185,7 @@ export function getMockSnap({
   privateCode = false,
   privacyPolicy = 'https://example.com/privacyPolicy',
   termsOfUse = 'https://example.com/termsOfUse',
+  versions = [],
 }: GetMockSnapArgs = {}): { snap: MockSnap } {
   return {
     snap: {
@@ -211,6 +215,7 @@ export function getMockSnap({
       privateCode,
       privacyPolicy,
       termsOfUse,
+      versions,
     },
   };
 }

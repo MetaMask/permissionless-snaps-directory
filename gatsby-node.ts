@@ -20,6 +20,7 @@ import path from 'path';
 import type { PermissionlessSnapsRegistryDatabase } from './src/types/snaps-registry';
 import type { Fields } from './src/utils';
 import {
+  getAllSnapVersions,
   getLatestSnapVersion,
   getLatestSnapVersionChecksum,
 } from './src/utils';
@@ -48,6 +49,12 @@ type SnapNode = NodeInput & {
   icon?: string | undefined;
   permissionsJson: string;
   latestChecksum: string;
+  versions: [
+    {
+      version: string;
+      checksum: string;
+    },
+  ];
 };
 
 // eslint-disable-next-line no-restricted-globals
@@ -169,6 +176,7 @@ export const sourceNodes: GatsbyNode[`sourceNodes`] = async ({
     .filter((snap) => IS_STAGING || snap.metadata.hidden !== true);
 
   for (const snap of verifiedSnaps) {
+    const versions = getAllSnapVersions(snap);
     const latestVersion = getLatestSnapVersion(snap);
     const latestChecksum = getLatestSnapVersionChecksum(snap, latestVersion);
 
@@ -232,6 +240,7 @@ export const sourceNodes: GatsbyNode[`sourceNodes`] = async ({
       icon,
       downloads,
       lastUpdated,
+      versions,
 
       // We need to stringify the permissions because Gatsby doesn't support
       // JSON objects in GraphQL out of the box. This field is turned into a

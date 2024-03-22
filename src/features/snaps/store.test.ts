@@ -1,4 +1,5 @@
 import {
+  getSnapByChecksum,
   getSnaps,
   getUpdatableSnaps,
   getUpdateAvailable,
@@ -155,5 +156,67 @@ describe('snapsSlice', () => {
 
       expect(getUpdatableSnaps(state)).toStrictEqual([barSnap]);
     });
+  });
+
+  describe('getSnapByVersion', () => {
+    it('returns the Snap with the given checksum for one of its versions', () => {
+      const fooSnap = getMockSnap({
+        snapId: 'foo-snap',
+        versions: [
+          { version: '1.0.0', checksum: 'foo1' },
+          { version: '2.0.0', checksum: 'foo2' },
+        ],
+      }).snap;
+      const barSnap = getMockSnap({
+        snapId: 'bar-snap',
+        versions: [
+          { version: '1.0.0', checksum: 'bar1' },
+          { version: '2.0.0', checksum: 'bar2' },
+        ],
+      }).snap;
+
+      const state = getMockState({
+        snaps: {
+          snaps: [fooSnap, barSnap],
+        },
+      });
+
+      expect(getSnapByChecksum('foo1')(state)).toStrictEqual(fooSnap);
+    });
+  });
+
+  it('returns undefined if no Snap with the given checksum for one of its versions is foound', () => {
+    const fooSnap = getMockSnap({
+      snapId: 'foo-snap',
+      versions: [
+        { version: '1.0.0', checksum: 'foo1' },
+        { version: '2.0.0', checksum: 'foo2' },
+      ],
+    }).snap;
+    const barSnap = getMockSnap({
+      snapId: 'bar-snap',
+      versions: [
+        { version: '1.0.0', checksum: 'bar1' },
+        { version: '2.0.0', checksum: 'bar2' },
+      ],
+    }).snap;
+
+    const state = getMockState({
+      snaps: {
+        snaps: [fooSnap, barSnap],
+      },
+    });
+
+    expect(getSnapByChecksum('baz')(state)).toBeUndefined();
+  });
+
+  it("returns undefined if there isn't snap in the store", () => {
+    const state = getMockState({
+      snaps: {
+        snaps: [],
+      },
+    });
+
+    expect(getSnapByChecksum('foo')(state)).toBeUndefined();
   });
 });
