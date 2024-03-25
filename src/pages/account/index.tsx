@@ -10,7 +10,6 @@ import banner from '../../assets/images/seo/home.png';
 import {
   AccountInfo,
   AccountReport,
-  AccountTEEndorsement,
   DevelopedSnapsSection,
 } from '../../features/account';
 import {
@@ -18,6 +17,7 @@ import {
   fetchAssertionsByIssuer,
 } from '../../features/account/assertions/api';
 import { ActivitySection } from '../../features/account/components/activity/ActivitySection';
+import { TechnicalExpertiseSection } from '../../features/account/components/technical-expertise/TechnicalExpertiseSection';
 import { fetchTrustScoreForAccountId } from '../../features/account/trust-score/api';
 import { useDispatch, useVerifiableCredential } from '../../hooks';
 import { type Fields, parseAddress } from '../../utils';
@@ -86,20 +86,18 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
             <AccountInfo address={address} />
             <HStack>
               {isConnected && !isMyAccount && (
-                <>
-                  <AccountReport
-                    address={address}
-                    connectedAddress={connectedAddress as Hex}
-                  />
-                  <AccountTEEndorsement
-                    address={address}
-                    connectedAddress={connectedAddress as Hex}
-                  />
-                </>
+                <AccountReport
+                  address={address}
+                  connectedAddress={connectedAddress as Hex}
+                />
               )}
             </HStack>
           </VStack>
           <DevelopedSnapsSection author={address} />
+          <TechnicalExpertiseSection
+            address={address}
+            connectedAddress={connectedAddress}
+          />
           <ActivitySection address={address} />
         </Container>
       </Box>

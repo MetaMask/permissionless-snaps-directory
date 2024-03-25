@@ -32,7 +32,7 @@ export function trimTextByHeadTail(
 ) {
   const trimmedContent = content.trim();
 
-  // Handle sepcial characters
+  // Handle special characters
   const contentArr = [...trimmedContent];
   if (contentArr.length <= head + tail) {
     return trimmedContent;

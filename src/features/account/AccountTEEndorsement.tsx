@@ -1,7 +1,8 @@
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
+import type { Address } from '@wagmi/core';
 import { mainnet } from '@wagmi/core/chains';
-import { useMemo, useState, type FunctionComponent, useEffect } from 'react';
+import { type FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { useEnsName } from 'wagmi';
 
 import {
@@ -20,13 +21,13 @@ import useToastMsg from '../../hooks/useToastMsg';
 import { useVerifiableCredential } from '../../hooks/useVerifiableCredential';
 import {
   trimAddress,
-  TrustworthinessScope,
   type Trustworthiness,
+  TrustworthinessScope,
 } from '../../utils';
 
 type AccountTEEndorsementProps = {
   address: Hex;
-  connectedAddress: Hex;
+  connectedAddress: Address;
 };
 
 export const AccountTEEndorsement: FunctionComponent<
@@ -40,7 +41,7 @@ export const AccountTEEndorsement: FunctionComponent<
   const { signMessage, signError, accountVCBuilder } =
     useVerifiableCredential();
 
-  const trimedAddress = useMemo(() => trimAddress(address), [address]);
+  const trimmedAddress = useMemo(() => trimAddress(address), [address]);
 
   const pkhAddress = accountVCBuilder.getSubjectDid(address);
   const issuer = accountVCBuilder.getSubjectDid(connectedAddress);
@@ -53,7 +54,7 @@ export const AccountTEEndorsement: FunctionComponent<
     isAccountEndorsedByIssuer(pkhAddress, issuer),
   );
 
-  const trustEntity = data ?? trimedAddress;
+  const trustEntity = data ?? trimmedAddress;
 
   const [showModal, setShowModal] = useState(false);
   const [endorsed, setEndorsed] = useState(isAccountEndorsed);

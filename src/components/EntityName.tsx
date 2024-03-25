@@ -7,16 +7,18 @@ import type { FunctionComponent } from 'react';
 import { useCallback, useMemo } from 'react';
 import { useEnsName } from 'wagmi';
 
-import { useSelector, useVerifiableCredential } from '../../../../hooks';
-import { truncateAddress } from '../../../../utils';
-import { getSnapByChecksum } from '../../../snaps';
+import { getSnapByChecksum } from '../features';
+import { useSelector, useVerifiableCredential } from '../hooks';
+import { trimAddress } from '../utils';
 
 export type ActivitySubjectProps = {
   subject: string;
+  title?: string;
 };
 
-export const ActivitySubject: FunctionComponent<ActivitySubjectProps> = ({
+export const EntityName: FunctionComponent<ActivitySubjectProps> = ({
   subject,
+  title,
 }) => {
   const { accountVCBuilder, snapVCBuilder } = useVerifiableCredential();
 
@@ -42,14 +44,16 @@ export const ActivitySubject: FunctionComponent<ActivitySubjectProps> = ({
   });
 
   const displaySubject = useCallback(() => {
-    if (isSnap) {
+    if (title) {
+      return title;
+    } else if (isSnap) {
       return snap?.name ?? t`Unknown`;
     } else if (data) {
       return data;
     }
 
-    return truncateAddress(attestedSubject);
-  }, [isSnap, snap, data, attestedSubject]);
+    return attestedSubject ? trimAddress(attestedSubject) : t`Unknown`;
+  }, [title, isSnap, data, attestedSubject, snap?.name]);
 
   const buildLink = useCallback(() => {
     return isSnap
@@ -59,7 +63,9 @@ export const ActivitySubject: FunctionComponent<ActivitySubjectProps> = ({
 
   return (
     <Link to={buildLink()}>
-      <Text color="info.default">{displaySubject()}</Text>
+      <Text color="info.default" ml={-1} mr={-1}>
+        {displaySubject()}
+      </Text>
     </Link>
   );
 };

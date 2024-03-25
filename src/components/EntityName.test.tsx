@@ -1,12 +1,12 @@
 import { act } from '@testing-library/react';
 
-import { ActivitySubject } from './ActivitySubject';
-import { useVerifiableCredential } from '../../../../hooks';
-import { createStore } from '../../../../store';
-import { getMockSnap, render } from '../../../../utils/test-utils';
+import { EntityName } from './EntityName';
+import { useVerifiableCredential } from '../hooks';
+import { createStore } from '../store';
+import { getMockSnap, render } from '../utils/test-utils';
 
-jest.mock('../../../../hooks', () => ({
-  ...jest.requireActual('../../../../hooks'),
+jest.mock('../hooks', () => ({
+  ...jest.requireActual('../hooks'),
   useVerifiableCredential: jest.fn(),
 }));
 
@@ -54,7 +54,7 @@ describe('ActivitySubject', () => {
     });
 
     const { queryByText } = await act(async () =>
-      render(<ActivitySubject subject={snapSubject} />, store),
+      render(<EntityName subject={snapSubject} />, store),
     );
 
     expect(queryByText('foo-snap')).toBeInTheDocument();
@@ -85,7 +85,7 @@ describe('ActivitySubject', () => {
     });
 
     const { queryByText } = await act(async () =>
-      render(<ActivitySubject subject={snapSubject} />, store),
+      render(<EntityName subject={snapSubject} />, store),
     );
 
     expect(queryByText('Unknown')).toBeInTheDocument();
@@ -93,9 +93,17 @@ describe('ActivitySubject', () => {
 
   it('renders an account subject with ENS', async () => {
     const { queryByText } = await act(async () =>
-      render(<ActivitySubject subject={peerSubject} />),
+      render(<EntityName subject={peerSubject} />),
     );
 
     expect(queryByText('test.eth')).toBeInTheDocument();
+  });
+
+  it('renders pre-specified title', async () => {
+    const { queryByText } = await act(async () =>
+      render(<EntityName subject={peerSubject} title={'cool title'} />),
+    );
+
+    expect(queryByText('cool title')).toBeInTheDocument();
   });
 });

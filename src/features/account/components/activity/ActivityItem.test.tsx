@@ -11,8 +11,8 @@ jest.mock('../../../../hooks', () => ({
   useVerifiableCredential: jest.fn(),
 }));
 
-jest.mock('./ActivitySubject', () => ({
-  ActivitySubject: () => <div data-testid="activity-subject" />,
+jest.mock('../../../../components/EntityName', () => ({
+  EntityName: () => <div data-testid="entity-name" />,
 }));
 
 const snapAssertion: AccountAssertionState = {
@@ -40,7 +40,7 @@ describe('ActivityItem', () => {
       render(<ActivityItem assertion={snapAssertion} />),
     );
 
-    expect(queryByTestId('activity-subject')).toBeInTheDocument();
+    expect(queryByTestId('entity-name')).toBeInTheDocument();
   });
 
   it('renders a snap report activity item', async () => {
@@ -52,7 +52,7 @@ describe('ActivityItem', () => {
       render(<ActivityItem assertion={snapAssertion} />),
     );
 
-    expect(queryByTestId('activity-subject')).toBeInTheDocument();
+    expect(queryByTestId('entity-name')).toBeInTheDocument();
   });
 
   it('renders a peer endorsement activity item', async () => {
@@ -60,7 +60,7 @@ describe('ActivityItem', () => {
       render(<ActivityItem assertion={peerAssertion} />),
     );
 
-    expect(queryByTestId('activity-subject')).toBeInTheDocument();
+    expect(queryByTestId('entity-name')).toBeInTheDocument();
   });
 
   it('renders a peer report activity item', async () => {
@@ -72,7 +72,7 @@ describe('ActivityItem', () => {
       render(<ActivityItem assertion={peerAssertion} />),
     );
 
-    expect(queryByTestId('activity-subject')).toBeInTheDocument();
+    expect(queryByTestId('entity-name')).toBeInTheDocument();
   });
 
   it('renders an activity item even without knowing its type', async () => {
@@ -83,7 +83,7 @@ describe('ActivityItem', () => {
     );
 
     expect(queryByText('Unknown activity')).toBeInTheDocument();
-    expect(queryByTestId('activity-subject')).toBeInTheDocument();
+    expect(queryByTestId('entity-name')).toBeInTheDocument();
   });
 
   it('renders a snap activity item even without knowing its reason', async () => {
@@ -94,7 +94,7 @@ describe('ActivityItem', () => {
       render(<ActivityItem assertion={snapAssertion} />),
     );
 
-    expect(queryByTestId('activity-subject')).toBeInTheDocument();
+    expect(queryByTestId('entity-name')).toBeInTheDocument();
   });
 
   it('renders a peer activity item even without its reason', async () => {
@@ -105,7 +105,7 @@ describe('ActivityItem', () => {
     );
 
     expect(queryByText('for')).not.toBeInTheDocument();
-    expect(queryByTestId('activity-subject')).toBeInTheDocument();
+    expect(queryByTestId('entity-name')).toBeInTheDocument();
   });
 
   it('renders an activity item even with multiple reasons', async () => {
@@ -133,6 +133,6 @@ describe('ActivityItem', () => {
         `for ${TrustworthinessScope.Honesty}, ${TrustworthinessScope.SoftwareDevelopment} and ${TrustworthinessScope.SoftwareSecurity}`,
       ),
     ).toBeInTheDocument();
-    expect(queryByTestId('activity-subject')).toBeInTheDocument();
+    expect(queryByTestId('entity-name')).toBeInTheDocument();
   });
 });
