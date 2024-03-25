@@ -8,13 +8,18 @@ import {
 } from '@chakra-ui/react';
 import { t, Trans } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
+import type { Hex } from 'viem';
 
+import { Identifier, MetadataAuditItem } from '.';
 import { Audits } from './Audits';
 import { Data } from './Data';
 import { Legal } from './Legal';
 import { MetadataItems } from './MetadataItems';
 import { SourceCode } from './SourceCode';
-import type { Fields } from '../../../utils';
+import { ExternalLink } from '../../../components';
+import { useSelector } from '../../../hooks';
+import { getLinkText, type Fields } from '../../../utils';
+import { getAuditorAddressesByNames } from '../../snaps';
 
 export type MetadataModalProps = {
   snap: Fields<
@@ -29,6 +34,7 @@ export type MetadataModalProps = {
     | 'website'
     | 'privateCode'
     | 'privacyPolicy'
+    | 'support'
     | 'termsOfUse'
   >;
   isOpen: boolean;
@@ -49,8 +55,19 @@ export const MetadataModal: FunctionComponent<MetadataModalProps> = ({
     additionalSourceCode,
     privateCode,
     privacyPolicy,
+    support,
     termsOfUse,
+    snapId,
   } = snap;
+
+  let auditorNames: string[] = [];
+  if (audits) {
+    auditorNames = audits.map((audit) => audit?.auditor) as string[];
+  }
+
+  const auditorAddresses = useSelector(
+    getAuditorAddressesByNames(auditorNames),
+  );
 
   return (
     <Modal variant="minimal" isOpen={isOpen} onClose={onClose}>
@@ -58,8 +75,9 @@ export const MetadataModal: FunctionComponent<MetadataModalProps> = ({
       <ModalContent>
         <ModalCloseButton />
         <ModalBody display="flex" flexDirection="column" gap="4">
-          <MetadataItems snap={snap} />
-
+          <Data label={t`Identifier`} value={<Identifier snapId={snapId} />} />
+          {author && <MetadataItems address={author.address as Hex} />}
+          <MetadataAuditItem auditorAddresses={auditorAddresses} />
           <Data label={t`Version`} value={latestVersion} />
           <Data
             label={t`Source Code`}
@@ -91,7 +109,7 @@ export const MetadataModal: FunctionComponent<MetadataModalProps> = ({
             }
           />
           <Data
-            label={t`Audit`}
+            label={t`Audit Reports`}
             value={
               <Audits
                 audits={
@@ -105,6 +123,35 @@ export const MetadataModal: FunctionComponent<MetadataModalProps> = ({
               label={t`Legal`}
               value={
                 <Legal privacyPolicy={privacyPolicy} termsOfUse={termsOfUse} />
+              }
+            />
+          )}
+          {(support?.contact || support?.faq || support?.knowledgeBase) && (
+            <Data
+              label={t`Support`}
+              value={
+                <>
+                  {support.contact && (
+                    <ExternalLink href={support.contact}>
+                      {getLinkText(support.contact, t`Contact`)}
+                    </ExternalLink>
+                  )}
+                  {support.faq && (
+                    <ExternalLink href={support.faq}>
+                      <Trans>FAQ</Trans>
+                    </ExternalLink>
+                  )}
+                  {support.knowledgeBase && (
+                    <ExternalLink href={support.knowledgeBase}>
+                      <Trans>Knowledge Base</Trans>
+                    </ExternalLink>
+                  )}
+                  {support.keyRecovery && (
+                    <ExternalLink href={support.keyRecovery}>
+                      <Trans>Key Recovery</Trans>
+                    </ExternalLink>
+                  )}
+                </>
               }
             />
           )}

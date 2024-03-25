@@ -5,6 +5,7 @@ export * from './Description';
 export * from './DescriptionText';
 export * from './Identifier';
 export * from './Metadata';
+export * from './MetadataAuditItem';
 export * from './MetadataItems';
 export * from './MetadataModal';
 export * from './Permissions';

@@ -1,7 +1,9 @@
 import { beforeEach } from '@jest/globals';
+import axios from 'axios';
 import { act } from 'react-dom/test-utils';
 
 import {
+  fetchAuditors,
   getInstalledSnap,
   getInstalledSnaps,
   useGetInstalledSnapsQuery,
@@ -18,6 +20,10 @@ import {
   getRequestMethodMock,
   renderHook,
 } from '../../utils/test-utils';
+
+// Mock axios methods
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('snapsApi', () => {
   beforeEach(() => {
@@ -434,6 +440,70 @@ describe('snapsApi', () => {
 
         expect(getInstalledSnap('foo-snap')(state)).toBeNull();
       });
+    });
+  });
+
+  describe('fetchAuditors', () => {
+    const mockAuditorsData = {
+      OtterSec: {
+        address: '0x2bE127806140dFd6c4DC1cAA0e828411B77E4BbF',
+      },
+      Hacken: {
+        address: '0x381C5dD2C5F13d4d7D63F0C2318d58070a538C79',
+      },
+      Cure53: {
+        address: '0x9843D9bDb9a7cf7A5B0A18E1d1510A288e1F4A2D',
+      },
+    };
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('fetches auditors successfully', async () => {
+      const resolvedValue = { data: { auditors: mockAuditorsData } };
+      mockedAxios.get.mockResolvedValueOnce(resolvedValue);
+      const dispatch = jest.fn();
+      await fetchAuditors()(dispatch, jest.fn(), null);
+
+      expect(mockedAxios.get.mock.calls).toHaveLength(1);
+      expect(dispatch).toHaveBeenCalledWith(
+        fetchAuditors.fulfilled(
+          [
+            {
+              address: '0x2bE127806140dFd6c4DC1cAA0e828411B77E4BbF',
+              name: 'OtterSec',
+            },
+            {
+              address: '0x381C5dD2C5F13d4d7D63F0C2318d58070a538C79',
+              name: 'Hacken',
+            },
+            {
+              address: '0x9843D9bDb9a7cf7A5B0A18E1d1510A288e1F4A2D',
+              name: 'Cure53',
+            },
+          ],
+          expect.anything(),
+          undefined,
+        ),
+      );
+    });
+
+    it('should handle fetch error gracefully', async () => {
+      // Arrange
+      const mockError = new Error('Failed to fetch auditors');
+      mockedAxios.get.mockRejectedValueOnce(mockError);
+
+      const dispatch = jest.fn();
+
+      // Act
+      await fetchAuditors()(dispatch, jest.fn(), null);
+
+      // Assert
+      expect(mockedAxios.get.mock.calls).toHaveLength(1);
+      expect(dispatch).toHaveBeenLastCalledWith(
+        fetchAuditors.fulfilled([], expect.anything(), undefined),
+      );
     });
   });
 });

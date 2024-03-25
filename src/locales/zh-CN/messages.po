@@ -76,6 +76,7 @@ msgstr ""
 msgid "©{0} MetaMask. All rights reserved."
 msgstr ""
 
+#: src/features/snap/components/Metadata.tsx
 #: src/features/snap/components/MetadataModal.tsx
 msgid "<0>{name}</0> uses code that isn't viewable by the public. Critical parts of the codebase were audited for security, but later versions of the code may not be. Make sure you trust <1>{0}</1> before installing and using <2>{name}</2>."
 msgstr ""
@@ -263,7 +264,11 @@ msgid "and"
 msgstr ""
 
 #: src/features/snap/components/MetadataModal.tsx
-msgid "Audit"
+msgid "Audit Reports"
+msgstr ""
+
+#: src/features/snap/components/MetadataAuditItem.tsx
+msgid "Audited By"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -340,6 +345,7 @@ msgid "Connect to non-Ethereum blockchains with MetaMask."
 msgstr ""
 
 #: src/features/snap/components/Metadata.tsx
+#: src/features/snap/components/MetadataModal.tsx
 msgid "Contact"
 msgstr ""
 
@@ -559,6 +565,7 @@ msgid "Failed to verify signature"
 msgstr ""
 
 #: src/features/snap/components/Metadata.tsx
+#: src/features/snap/components/MetadataModal.tsx
 msgid "FAQ"
 msgstr ""
 
@@ -589,10 +596,6 @@ msgstr ""
 
 #: src/components/FooterLinks.tsx
 msgid "Get in touch"
-msgstr ""
-
-#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
-msgid "GitHub"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -644,7 +647,8 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: src/features/snap/components/MetadataItems.tsx
+#: src/features/snap/components/Metadata.tsx
+#: src/features/snap/components/MetadataModal.tsx
 msgid "Identifier"
 msgstr ""
 
@@ -702,10 +706,12 @@ msgid "Key"
 msgstr ""
 
 #: src/features/snap/components/Metadata.tsx
+#: src/features/snap/components/MetadataModal.tsx
 msgid "Key Recovery"
 msgstr ""
 
 #: src/features/snap/components/Metadata.tsx
+#: src/features/snap/components/MetadataModal.tsx
 msgid "Knowledge Base"
 msgstr ""
 
@@ -1023,12 +1029,9 @@ msgstr ""
 msgid "Sort"
 msgstr ""
 
+#: src/features/snap/components/Metadata.tsx
 #: src/features/snap/components/MetadataModal.tsx
 msgid "Source Code"
-msgstr ""
-
-#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
-msgid "SOURCE CODE"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -1067,6 +1070,7 @@ msgstr ""
 #: src/components/FooterLinks.tsx
 #: src/features/banner/components/faq-banner/FaqBanner.tsx
 #: src/features/snap/components/Metadata.tsx
+#: src/features/snap/components/MetadataModal.tsx
 msgid "Support"
 msgstr ""
 

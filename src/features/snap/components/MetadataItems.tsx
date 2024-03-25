@@ -1,32 +1,44 @@
+import { Link } from '@chakra-ui/react';
 import { t } from '@lingui/macro';
+import { navigate } from 'gatsby';
 import type { FunctionComponent } from 'react';
+import type { Hex } from 'viem';
+import { mainnet, useEnsName } from 'wagmi';
 
 import { Data } from './Data';
-import { Identifier } from './Identifier';
-import { ExternalLink } from '../../../components';
-import type { Fields } from '../../../utils';
+import { trimAddress } from '../../../utils';
 
 export type MetadataItemsProps = {
-  snap: Fields<Queries.Snap, 'snapId' | 'author'>;
+  address: Hex;
 };
 
 export const MetadataItems: FunctionComponent<MetadataItemsProps> = ({
-  snap,
+  address,
 }) => {
-  const { snapId, author } = snap;
+  const { data } = useEnsName({
+    address,
+    chainId: mainnet.id,
+  });
 
   return (
     <>
-      {author && (
+      {address && (
         <Data
           label={t`Developer`}
           value={
-            <ExternalLink href={author.website}>{author.name}</ExternalLink>
+            <Link
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+              onClick={async () =>
+                navigate(`/account/?address=${address}`, {
+                  replace: true,
+                })
+              }
+            >
+              {data ?? trimAddress(address)}
+            </Link>
           }
         />
       )}
-
-      <Data label={t`Identifier`} value={<Identifier snapId={snapId} />} />
     </>
   );
 };
