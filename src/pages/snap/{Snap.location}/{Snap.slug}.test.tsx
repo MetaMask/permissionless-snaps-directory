@@ -2,9 +2,9 @@ import { describe } from '@jest/globals';
 import { act } from 'react-dom/test-utils';
 import { useAccount } from 'wagmi';
 
-import SnapPage, { Head } from './{Snap.slug}';
+import SnapPage from './{Snap.slug}';
 import {
-  getMockSiteMetadata,
+  getMockPageContext,
   getMockSnap,
   render,
   VALID_ACCOUNT_1,
@@ -42,7 +42,12 @@ describe('Snap page', () => {
     });
 
     const { queryAllByText } = await act(() =>
-      render(<SnapPage data={getMockSnap({ name: 'Foo Snap' })} />),
+      render(
+        <SnapPage
+          pageContext={getMockPageContext()}
+          data={getMockSnap({ name: 'Foo Snap' })}
+        />,
+      ),
     );
 
     expect(queryAllByText('Foo Snap')).toHaveLength(3);
@@ -102,7 +107,10 @@ describe('Snap page', () => {
 
     const { queryByText } = await act(() =>
       render(
-        <SnapPage data={getMockSnap({ name: 'Foo Snap', onboard: true })} />,
+        <SnapPage
+          pageContext={getMockPageContext()}
+          data={getMockSnap({ name: 'Foo Snap', onboard: true })}
+        />,
       ),
     );
 
@@ -117,26 +125,13 @@ describe('Snap page', () => {
 
     const { queryByText } = await act(() =>
       render(
-        <SnapPage data={getMockSnap({ name: 'Foo Snap', support: {} })} />,
+        <SnapPage
+          pageContext={getMockPageContext()}
+          data={getMockSnap({ name: 'Foo Snap', support: {} })}
+        />,
       ),
     );
 
     expect(queryByText('Contact')).not.toBeInTheDocument();
-  });
-
-  describe('Head', () => {
-    it('has the correct title', () => {
-      const { queryByText } = render(
-        <Head
-          data={{
-            ...getMockSnap({ name: 'Foo Snap' }),
-            ...getMockSiteMetadata(),
-          }}
-        />,
-      );
-      expect(
-        queryByText('Foo Snap on the MetaMask Snaps Directory'),
-      ).toBeInTheDocument();
-    });
   });
 });

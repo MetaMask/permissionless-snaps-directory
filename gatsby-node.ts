@@ -10,12 +10,16 @@ import cryptoBrowserify from 'crypto-browserify';
 import deepEqual from 'fast-deep-equal';
 import { rm } from 'fs/promises';
 import type { GatsbyNode, NodeInput } from 'gatsby';
-import { createFileNodeFromBuffer } from 'gatsby-source-filesystem';
+import {
+  createFileNodeFromBuffer,
+  createRemoteFileNode,
+} from 'gatsby-source-filesystem';
 import { GraphQLJSONObject } from 'graphql-type-json';
 import type { RequestInfo, RequestInit } from 'node-fetch';
-import fetch from 'node-fetch';
+import fetch from 'node-fetch'; // @ts-expect-error - No types available for this package.
 import { fetchBuilder, FileSystemCache } from 'node-fetch-cache';
-import path from 'path';
+import { resolve } from 'path';
+import { NormalModuleReplacementPlugin } from 'webpack';
 
 import type { PermissionlessSnapsRegistryDatabase } from './src/types/snaps-registry';
 import type { Fields } from './src/utils';
@@ -124,12 +128,11 @@ async function getRegistry() {
     new FileSystemCache({ cacheDirectory: fetchCachePath }),
   );
 
-  const registry: PermissionlessSnapsRegistryDatabase = await fetch(
-    REGISTRY_URL,
-    {
-      headers,
-    },
-  ).then(async (response) => response.json());
+  const rawRegistry = await fetch(REGISTRY_URL, {
+    headers,
+  }).then(async (response) => response.text());
+
+  const registry: PermissionlessSnapsRegistryDatabase = JSON.parse(rawRegistry);
 
   const cachedRegistry = await cachedFetch(REGISTRY_URL, { headers }).then(
     async (response: any) => response.json(),
@@ -138,7 +141,7 @@ async function getRegistry() {
   // If the registry has changed, we need to clear the fetch cache to ensure
   // that we get the latest tarballs.
   if (!deepEqual(cachedRegistry, registry)) {
-    await rm(path.resolve(fetchCachePath), { recursive: true });
+    await rm(resolve(fetchCachePath), { recursive: true });
   }
 
   /**
@@ -223,10 +226,43 @@ export const sourceNodes: GatsbyNode[`sourceNodes`] = async ({
     const lastUpdated = new Date(time[latestVersion]).getTime();
 
     const downloadsJson = await customFetch(
-      `https://api.npmjs.org/downloads/point/last-year/${slug}`,
+      `https://api.npmjs.org/versions/${encodeURIComponent(slug)}/last-week`,
     ).then(async (response: any) => response.json());
 
-    const { downloads } = downloadsJson;
+    const { downloads } = downloadsJson as {
+      downloads: Record<string, number>;
+    };
+
+    const allVersions = Object.keys(snap.versions);
+    const totalDownloads = Object.entries(downloads).reduce(
+      (total, [version, count]) => {
+        if (allVersions.includes(version)) {
+          return total + count;
+        }
+        return total;
+      },
+      0,
+    );
+
+    const nodeId = createNodeId(`snap__${snap.id}`);
+
+    const screenshots = snap.metadata.screenshots ?? [];
+
+    const screenshotNodes = await Promise.all(
+      screenshots.map(async (path) =>
+        createRemoteFileNode({
+          url: new URL(
+            path,
+            'https://raw.githubusercontent.com/MetaMask/snaps-registry/main/src/',
+          ).toString(),
+          createNode,
+          createNodeId,
+          getCache,
+          cache,
+          parentNodeId: nodeId,
+        }),
+      ),
+    );
 
     const content = {
       ...snap.metadata,
@@ -238,9 +274,12 @@ export const sourceNodes: GatsbyNode[`sourceNodes`] = async ({
       slug,
       latestVersion,
       icon,
-      downloads,
+      downloads: totalDownloads,
       lastUpdated,
       versions,
+      screenshotFiles: screenshotNodes.map(
+        (screenshotNode) => screenshotNode.id,
+      ),
 
       // We need to stringify the permissions because Gatsby doesn't support
       // JSON objects in GraphQL out of the box. This field is turned into a
@@ -250,11 +289,11 @@ export const sourceNodes: GatsbyNode[`sourceNodes`] = async ({
       latestChecksum,
     };
 
-    const node: SnapNode = {
+    const node = {
       ...content,
       parent: null,
       children: [],
-      id: createNodeId(`snap__${snap.id}`),
+      id: nodeId,
       internal: {
         type: 'Snap',
         content: JSON.stringify(content),
@@ -316,6 +355,7 @@ export const sourceNodes: GatsbyNode[`sourceNodes`] = async ({
     [...snaps].sort((a, b) => b.lastUpdated - a.lastUpdated).slice(0, 6),
     6,
   );
+
   await createFileNodeFromBuffer({
     buffer: latestImage,
     name: 'latest-banner',
@@ -347,6 +387,7 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
         additionalSourceCode: [SnapAdditionalSourceCode]
         privacyPolicy: String
         termsOfUse: String
+        screenshots: [File] @link(from: "screenshotFiles")
       }
 
       type SnapAdditionalSourceCode {
@@ -528,6 +569,27 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
 
   replaceWebpackConfig({
     ...config,
+    plugins: [
+      ...config.plugins,
+      new NormalModuleReplacementPlugin(/node:/u, (resource) => {
+        resource.request = resource.request.replace(/^node:/u, '');
+      }),
+    ],
+    resolve: {
+      ...config.resolve,
+      fallback: {
+        ...config.resolve.fallback,
+        assert: false,
+        http: false,
+        https: false,
+        crypto: false,
+        path: false,
+        stream: false,
+        url: false,
+        util: false,
+        zlib: false,
+      },
+    },
     module: {
       ...config.module,
       rules: [

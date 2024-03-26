@@ -291,6 +291,12 @@ describe('theme', () => {
                   "padding": "6",
                 },
               },
+              "screenshot": Object {
+                "dialog": Object {
+                  "borderRadius": "2xl",
+                  "boxShadow": "md",
+                },
+              },
             },
           },
           "Skeleton": Object {
@@ -431,6 +437,18 @@ describe('theme', () => {
                 "letterSpacing": "0.016rem",
                 "lineHeight": "1rem",
               },
+            },
+          },
+          "Tooltip": Object {
+            "baseStyle": Object {
+              "background": "background.default",
+              "border": "1px solid",
+              "borderColor": "border.muted",
+              "borderRadius": "md",
+              "color": "text.default",
+              "fontWeight": "normal",
+              "paddingX": 4,
+              "paddingY": 2,
             },
           },
           "Tooltip": Object {

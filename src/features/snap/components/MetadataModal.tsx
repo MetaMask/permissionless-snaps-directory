@@ -7,6 +7,7 @@ import {
   ModalOverlay,
 } from '@chakra-ui/react';
 import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import type { FunctionComponent } from 'react';
 
 import { Audits } from './Audits';
@@ -40,6 +41,7 @@ export const MetadataModal: FunctionComponent<MetadataModalProps> = ({
   isOpen,
   onClose,
 }) => {
+  const { _ } = useLingui();
   const {
     name,
     author,
@@ -53,16 +55,21 @@ export const MetadataModal: FunctionComponent<MetadataModalProps> = ({
   } = snap;
 
   return (
-    <Modal variant="minimal" isOpen={isOpen} onClose={onClose}>
+    <Modal
+      variant="minimal"
+      isOpen={isOpen}
+      onClose={onClose}
+      preserveScrollBarGap
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton />
         <ModalBody display="flex" flexDirection="column" gap="4">
           <MetadataItems snap={snap} />
 
-          <Data label={t`Version`} value={latestVersion} />
+          <Data label={_(t`Version`)} value={latestVersion} />
           <Data
-            label={t`Source Code`}
+            label={_(t`Source Code`)}
             value={
               <SourceCode
                 url={sourceCode}
@@ -91,7 +98,7 @@ export const MetadataModal: FunctionComponent<MetadataModalProps> = ({
             }
           />
           <Data
-            label={t`Audit`}
+            label={_(t`Audit`)}
             value={
               <Audits
                 audits={
@@ -102,7 +109,7 @@ export const MetadataModal: FunctionComponent<MetadataModalProps> = ({
           />
           {(privacyPolicy || termsOfUse) && (
             <Data
-              label={t`Legal`}
+              label={_(t`Legal`)}
               value={
                 <Legal privacyPolicy={privacyPolicy} termsOfUse={termsOfUse} />
               }

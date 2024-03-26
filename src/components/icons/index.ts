@@ -116,7 +116,6 @@ export const DocumentCodeIcon = wrapIcon(
   BaseDocumentCodeIcon,
   defineMessage`Document code`,
 );
-
 export const DotIcon = wrapIcon(
   BaseDotIcon,
   defineMessage`Unread notification`,

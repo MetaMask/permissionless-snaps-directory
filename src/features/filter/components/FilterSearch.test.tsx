@@ -28,11 +28,6 @@ jest.mock('viem/actions', () => ({
 
 describe('FilterSearch', () => {
   it('renders', () => {
-    const mock = getMock(useStaticQuery);
-    mock.mockReturnValue({
-      fusejs: {},
-    });
-
     const { getByPlaceholderText } = render(<FilterSearch />);
 
     expect(getByPlaceholderText('Search users or snaps')).toBeInTheDocument();

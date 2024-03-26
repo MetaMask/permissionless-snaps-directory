@@ -1,5 +1,6 @@
 import { Flex, Link, useDisclosure } from '@chakra-ui/react';
 import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { useEffect, type FunctionComponent } from 'react';
 
 import { Category } from './Category';
@@ -39,6 +40,7 @@ export type MetadataProps = {
 };
 
 export const Metadata: FunctionComponent<MetadataProps> = ({ snap }) => {
+  const { _ } = useLingui();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -61,7 +63,7 @@ export const Metadata: FunctionComponent<MetadataProps> = ({ snap }) => {
       >
         {category && (
           <Data
-            label={t`Category`}
+            label={_(t`Category`)}
             value={<Category category={category as RegistrySnapCategory} />}
           />
         )}
@@ -70,12 +72,12 @@ export const Metadata: FunctionComponent<MetadataProps> = ({ snap }) => {
         {<CommunitySentiment snap={snap} />}
         {(support?.contact || support?.faq || support?.knowledgeBase) && (
           <Data
-            label={t`Support`}
+            label={_(t`Support`)}
             value={
               <>
                 {support.contact && (
                   <ExternalLink href={support.contact}>
-                    {getLinkText(support.contact, t`Contact`)}
+                    {getLinkText(support.contact, _(t`Contact`))}
                   </ExternalLink>
                 )}
                 {support.faq && (

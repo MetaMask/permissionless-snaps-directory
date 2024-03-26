@@ -6,6 +6,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.0]
+### Added
+- Add support for screenshots ([#352](https://github.com/MetaMask/snaps-directory/pull/352))
+
+### Changed
+- Tweak popularity calculation ([#354](https://github.com/MetaMask/snaps-directory/pull/354))
+
+### Fixed
+- Improve modal behavior ([#363](https://github.com/MetaMask/snaps-directory/pull/363))
+
+## [1.9.0]
+### Added
+- Add support for multiple locales ([#328](https://github.com/MetaMask/snaps-directory/pull/328))
+
+## [1.8.0]
+### Added
+- Add EIP-6963 support ([#316](https://github.com/MetaMask/snaps-directory/pull/316))
+
+### Changed
+- Update banner link and ordering ([#323](https://github.com/MetaMask/snaps-directory/pull/323))
+- Simplify protocol name detection ([#317](https://github.com/MetaMask/snaps-directory/pull/317))
+- Update popularity label to "Most Popular" ([#302](https://github.com/MetaMask/snaps-directory/pull/302))
+
+### Fixed
+- Fix banners for non-circular icons ([#305](https://github.com/MetaMask/snaps-directory/pull/305))
+
 ## [1.7.0]
 ### Added
 - Add account management category ([#164](https://github.com/MetaMask/snaps-directory/pull/164), [#301](https://github.com/MetaMask/snaps-directory/pull/301))
@@ -148,7 +174,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Initial test release.
 
-[Unreleased]: https://github.com/MetaMask/snaps-directory/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/MetaMask/snaps-directory/compare/v1.10.0...HEAD
+[1.10.0]: https://github.com/MetaMask/snaps-directory/compare/v1.9.0...v1.10.0
+[1.9.0]: https://github.com/MetaMask/snaps-directory/compare/v1.8.0...v1.9.0
+[1.8.0]: https://github.com/MetaMask/snaps-directory/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/MetaMask/snaps-directory/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/MetaMask/snaps-directory/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/MetaMask/snaps-directory/compare/v1.4.0...v1.5.0

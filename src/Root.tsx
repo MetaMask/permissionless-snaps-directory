@@ -1,19 +1,14 @@
-import { i18n } from '@lingui/core';
-import { I18nProvider } from '@lingui/react';
 import { ConnectKitProvider } from 'connectkit';
 import type { GatsbyBrowser } from 'gatsby';
 import { WagmiConfig } from 'wagmi';
 
-import { Layout, SnapsProvider } from './components';
+import { Layout, LocaleProvider, SnapsProvider } from './components';
 import { WAGMI_CONFIG } from './config/wagmi-config';
-import { messages } from './locales/en-US/messages';
+import { DEFAULT_LOCALE } from './locales';
 import { createStore } from './store';
 
 // eslint-disable-next-line import/no-unassigned-import, import/extensions
 import './assets/fonts/fonts.css';
-
-i18n.load('en-US', messages);
-i18n.activate('en-US');
 
 /**
  * Wrap every page in the specified components. This can be used to wrap pages
@@ -28,11 +23,19 @@ i18n.activate('en-US');
  * @param options.props - The props for the page.
  * @returns The wrapped page element.
  */
-export const wrapPageElement: GatsbyBrowser['wrapPageElement'] = ({
-  element,
-  props,
-}) => {
-  return <Layout {...props}>{element}</Layout>;
+export const wrapPageElement: GatsbyBrowser<
+  Record<string, unknown>,
+  {
+    locale: string;
+  }
+>['wrapPageElement'] = ({ element, props }) => {
+  const { locale = DEFAULT_LOCALE } = props.pageContext;
+
+  return (
+    <LocaleProvider defaultLocale={locale}>
+      <Layout {...props}>{element}</Layout>
+    </LocaleProvider>
+  );
 };
 
 /**
@@ -58,9 +61,7 @@ export const wrapRootElement: GatsbyBrowser['wrapRootElement'] = ({
   return (
     <WagmiConfig config={WAGMI_CONFIG}>
       <ConnectKitProvider>
-        <SnapsProvider store={store}>
-          <I18nProvider i18n={i18n}>{element}</I18nProvider>
-        </SnapsProvider>
+        <SnapsProvider store={store}>{element}</SnapsProvider>
       </ConnectKitProvider>
     </WagmiConfig>
   );

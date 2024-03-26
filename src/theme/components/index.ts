@@ -20,8 +20,8 @@ export const components = {
   Menu,
   Modal,
   Skeleton,
+  Tabs,
   Tag,
   Text,
-  Tabs,
   Tooltip,
 };

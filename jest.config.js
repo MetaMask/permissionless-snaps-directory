@@ -97,6 +97,8 @@ module.exports = {
     '^.+\\.svg(\\?raw)?$': '<rootDir>/src/__mocks__/svg.tsx',
     '^.+\\.(png|css)': '<rootDir>/src/__mocks__/file.ts',
     '^connectkit$': '<rootDir>/node_modules/connectkit/build/index.es.js',
+    // Force resolve nanoid to CJS to fix Jest tests
+    nanoid: require.resolve('nanoid'),
     d3: '<rootDir>/node_modules/d3/dist/d3.min.js',
   },
 
@@ -120,7 +122,7 @@ module.exports = {
 
   // "resetMocks" resets all mocks, including mocked modules, to jest.fn(),
   // between each test case.
-  resetMocks: true,
+  // resetMocks: true,
 
   // Reset the module registry before running each individual test
   // resetModules: false,
@@ -157,7 +159,7 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: 'jest-environment-jsdom',
+  testEnvironment: './jest.environment.js',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},

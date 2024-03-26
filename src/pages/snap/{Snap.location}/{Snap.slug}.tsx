@@ -6,11 +6,13 @@ import {
   Stack,
   StackDivider,
 } from '@chakra-ui/react';
+import { t } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import { graphql } from 'gatsby';
 import { type FunctionComponent } from 'react';
 import { useAccount } from 'wagmi';
 
-import { InstallSnapButton, SnapWebsiteButton } from '../../../components';
+import { InstallSnapButton, SEO, SnapWebsiteButton } from '../../../components';
 import { RegistrySnapCategory } from '../../../constants';
 import {
   Authorship,
@@ -19,13 +21,17 @@ import {
   NotificationAcknowledger,
   Permissions,
   RelatedSnaps,
+  Screenshots,
   useGetInstalledSnapsQuery,
 } from '../../../features';
 import { EndorseSnap } from '../../../features/snap/components/EndorseSnap';
 import { ReportSnap } from '../../../features/snap/components/ReportSnap';
-import type { Fields } from '../../../utils';
+import type { Fields, Screenshot } from '../../../utils';
 
 type SnapPageProps = {
+  pageContext: {
+    locale: string;
+  };
   data: {
     snap: Fields<
       Queries.Snap,
@@ -48,11 +54,31 @@ type SnapPageProps = {
       | 'privateCode'
       | 'privacyPolicy'
       | 'termsOfUse'
-    >;
+    > & { screenshots: Screenshot[] };
   };
 };
 
-const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
+const Head: FunctionComponent<SnapPageProps> = ({ data, pageContext }) => {
+  const { _ } = useLingui();
+
+  const title = _(t`${data.snap.name} on the MetaMask Snaps Directory`);
+  const ogTitle = data.snap.name;
+  const metaDescription = _(
+    t`Customize your web3 experience with ${data.snap.name}.`,
+  );
+
+  return (
+    <SEO
+      locale={pageContext.locale}
+      title={title}
+      ogTitle={ogTitle}
+      description={metaDescription}
+      banner={data.snap.banner.publicURL}
+    />
+  );
+};
+
+const SnapPage: FunctionComponent<SnapPageProps> = ({ data, pageContext }) => {
   const {
     name,
     snapId,
@@ -64,6 +90,7 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
     latestChecksum,
     category,
     permissions,
+    screenshots,
   } = data.snap;
 
   const { data: installedSnaps } = useGetInstalledSnapsQuery();
@@ -72,6 +99,7 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
 
   return (
     <Box position="relative">
+      <Head data={data} pageContext={pageContext} />
       <Box
         pointerEvents="none"
         position="absolute"
@@ -125,6 +153,13 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
         </Flex>
 
         <Divider marginY="8" />
+
+        {screenshots.length > 0 && (
+          <Box marginBottom="8" overflowX="auto" paddingBottom="2">
+            <Screenshots name={name} screenshots={screenshots} />
+          </Box>
+        )}
+
         <Metadata snap={data.snap} />
         <Divider marginTop="8" marginBottom="12" />
 
@@ -152,43 +187,6 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
         )}
       </Container>
     </Box>
-  );
-};
-
-type HeadProps = SnapPageProps & {
-  data: {
-    site: {
-      siteMetadata: Fields<
-        Queries.SiteSiteMetadata,
-        'title' | 'description' | 'author' | 'siteUrl'
-      >;
-    };
-  };
-};
-
-export const Head: FunctionComponent<HeadProps> = ({ data }) => {
-  const title = `${data.snap.name} on the MetaMask Snaps Directory`;
-  const description = `Customize your web3 experience with ${data.snap.name}.`;
-  const image = `${data.site.siteMetadata.siteUrl}${data.snap.banner.publicURL}`;
-
-  return (
-    <>
-      <html lang="en" />
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      <meta property="og:title" content={data.snap.name} />
-      <meta property="og:site_name" content={data.site.siteMetadata.title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:type" content="website" />
-      <meta name="og:image" content={image} />
-      <meta name="og:image:width" content="1200" />
-      <meta name="og:image:height" content="630" />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:creator" content={data.site.siteMetadata.author} />
-      <meta name="twitter:title" content={data.snap.name} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
-    </>
   );
 };
 
@@ -233,14 +231,16 @@ export const query = graphql`
       privateCode
       privacyPolicy
       termsOfUse
-    }
-
-    site {
-      siteMetadata {
-        title
-        description
-        author
-        siteUrl
+      screenshots {
+        childImageSharp {
+          medium: gatsbyImageData(
+            layout: FIXED
+            width: 400
+            height: 225
+            quality: 90
+          )
+          large: gatsbyImageData(width: 960, height: 540, quality: 100)
+        }
       }
     }
   }

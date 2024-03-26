@@ -492,7 +492,7 @@ describe('SNAP_PERMISSIONS', () => {
               "id": "TuvFzN",
               "message": "Manage {name} accounts",
               "values": Object {
-                "name": "Testnet (all coins)",
+                "name": "Testnet",
               },
             },
             "weight": 1,
@@ -575,7 +575,7 @@ describe('SNAP_PERMISSIONS', () => {
               "id": "TuvFzN",
               "message": "Manage {name} accounts",
               "values": Object {
-                "name": "Testnet (all coins)",
+                "name": "Test Networks",
               },
             },
             "weight": 1,
@@ -627,8 +627,8 @@ describe('SNAP_PERMISSIONS', () => {
         Array [
           Object {
             "description": Object {
-              "id": "rh23nf",
-              "message": "Allow {name} to view your public keys (and addresses) for $1. This does not grant any control of accounts or assets.",
+              "id": "qogTk8",
+              "message": "Allow {name} to view your public keys (and addresses) for the requested network. This does not grant any control of accounts or assets.",
               "values": Object {
                 "name": "Snap",
               },
@@ -641,15 +641,15 @@ describe('SNAP_PERMISSIONS', () => {
               "id": "P4MCkP",
               "message": "View your public key for {name}",
               "values": Object {
-                "name": "Testnet (all coins)",
+                "name": "Testnet",
               },
             },
             "weight": 2,
           },
           Object {
             "description": Object {
-              "id": "rh23nf",
-              "message": "Allow {name} to view your public keys (and addresses) for $1. This does not grant any control of accounts or assets.",
+              "id": "qogTk8",
+              "message": "Allow {name} to view your public keys (and addresses) for the requested network. This does not grant any control of accounts or assets.",
               "values": Object {
                 "name": "Snap",
               },
@@ -670,8 +670,8 @@ describe('SNAP_PERMISSIONS', () => {
           },
           Object {
             "description": Object {
-              "id": "rh23nf",
-              "message": "Allow {name} to view your public keys (and addresses) for $1. This does not grant any control of accounts or assets.",
+              "id": "qogTk8",
+              "message": "Allow {name} to view your public keys (and addresses) for the requested network. This does not grant any control of accounts or assets.",
               "values": Object {
                 "name": "Snap",
               },
@@ -880,8 +880,8 @@ describe('getPermissions', () => {
       Array [
         Object {
           "description": Object {
-            "id": "rh23nf",
-            "message": "Allow {name} to view your public keys (and addresses) for $1. This does not grant any control of accounts or assets.",
+            "id": "qogTk8",
+            "message": "Allow {name} to view your public keys (and addresses) for the requested network. This does not grant any control of accounts or assets.",
             "values": Object {
               "name": "Snap",
             },
@@ -894,7 +894,7 @@ describe('getPermissions', () => {
             "id": "P4MCkP",
             "message": "View your public key for {name}",
             "values": Object {
-              "name": "Testnet (all coins)",
+              "name": "Testnet",
             },
           },
           "weight": 2,
