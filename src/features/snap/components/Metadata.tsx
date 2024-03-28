@@ -67,7 +67,7 @@ export const Metadata: FunctionComponent<MetadataProps> = ({ snap }) => {
     <Flex marginBottom="8" gap="4" justifyContent="space-between">
       <MetadataModal snap={snap} isOpen={isOpen} onClose={onClose} />
       <Flex
-        gap={['6', null, null, '16']}
+        gap={['6', null, null, '22']}
         flexDirection={['column', null, null, 'row']}
       >
         {category && (
@@ -76,8 +76,8 @@ export const Metadata: FunctionComponent<MetadataProps> = ({ snap }) => {
             value={<Category category={category as RegistrySnapCategory} />}
           />
         )}
-        <CommunitySentiment snap={snap} />
         <Data label={t`Identifier`} value={<Identifier snapId={snapId} />} />
+        <CommunitySentiment snap={snap} />
         {author && <MetadataItems address={author.address as Hex} />}
         <Data
           label={t`Source Code`}

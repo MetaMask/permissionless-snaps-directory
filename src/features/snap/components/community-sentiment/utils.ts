@@ -19,8 +19,6 @@ export const getColorForSentiment = (type: SentimentType) => {
 
 export const getSentimentTypeFromResult = (result: number) => {
   switch (result) {
-    case 0:
-      return SentimentType.InsufficientReview;
     case 1:
       return SentimentType.Endorsed;
     case 2:
@@ -28,6 +26,6 @@ export const getSentimentTypeFromResult = (result: number) => {
     case 3:
       return SentimentType.Reported;
     default:
-      return SentimentType.Unknown;
+      return SentimentType.InsufficientReview;
   }
 };

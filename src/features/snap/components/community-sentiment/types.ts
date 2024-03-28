@@ -3,5 +3,4 @@ export enum SentimentType {
   Endorsed = 'Endorsed',
   InReview = 'In Review',
   Reported = 'Reported',
-  Unknown = 'Unknown',
 }
