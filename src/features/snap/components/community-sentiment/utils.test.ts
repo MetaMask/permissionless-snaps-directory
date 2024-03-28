@@ -21,8 +21,8 @@ describe('getSentimentTypeFromResult', () => {
     ${1}   | ${SentimentType.Endorsed}
     ${2}   | ${SentimentType.InReview}
     ${3}   | ${SentimentType.Reported}
-    ${4}   | ${SentimentType.Unknown}
-    ${-1}  | ${SentimentType.Unknown}
+    ${4}   | ${SentimentType.InsufficientReview}
+    ${-1}  | ${SentimentType.InsufficientReview}
   `('returns $expectedType for result $result', ({ result, expectedType }) => {
     expect(getSentimentTypeFromResult(result)).toBe(expectedType);
   });
