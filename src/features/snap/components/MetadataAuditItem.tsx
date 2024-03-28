@@ -1,6 +1,6 @@
-import { Link } from 'gatsby';
+import { Text } from '@chakra-ui/react';
 import { t } from '@lingui/macro';
-import { navigate } from 'gatsby';
+import { Link } from 'gatsby';
 import type { FunctionComponent } from 'react';
 import type { Hex } from 'viem';
 import { mainnet, useEnsName } from 'wagmi';
@@ -34,7 +34,7 @@ export const MetadataAuditItem: FunctionComponent<MetadataAuditItemProps> = ({
               key={`auditor-${index}`}
               to={`/account/?address=${auditorAddresses[index]}`}
             >
-              {auditor}
+              <Text color="info.default">{auditor}</Text>
             </Link>
           ))}
         />
