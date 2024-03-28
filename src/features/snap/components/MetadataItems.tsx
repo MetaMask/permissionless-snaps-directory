@@ -26,16 +26,7 @@ export const MetadataItems: FunctionComponent<MetadataItemsProps> = ({
         <Data
           label={t`Developer`}
           value={
-            <Link
-              // eslint-disable-next-line @typescript-eslint/no-misused-promises
-              onClick={async () =>
-                navigate(`/account/?address=${address}`, {
-                  replace: true,
-                })
-              }
-            >
-              {data ?? trimAddress(address)}
-            </Link>
+            <Link to={`/account/?address=${address}`}>
           }
         />
       )}
