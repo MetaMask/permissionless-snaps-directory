@@ -54,7 +54,11 @@ export const CommunitySentiment: FunctionComponent<CommunitySentimentProps> = ({
   const render = () => {
     return (
       <Box>
-        <Tag variant={getColorForSentiment(sentimentType)} onClick={onOpen}>
+        <Tag
+          variant={getColorForSentiment(sentimentType)}
+          onClick={onOpen}
+          cursor={'pointer'}
+        >
           <SignHexagonIcon margin={-1} fill="currentColor"></SignHexagonIcon>
           <TagLabel>
             <Trans>{sentimentType}</Trans>
