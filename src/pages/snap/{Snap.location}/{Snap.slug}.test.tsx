@@ -10,6 +10,11 @@ import {
   VALID_ACCOUNT_1,
 } from '../../../utils/test-utils';
 
+jest.mock('../../../features', () => ({
+  ...jest.requireActual('../../../features'),
+  Metadata: () => <div data-testid="metadata" />,
+}));
+
 jest.mock('../../../hooks/useVerifiableCredential', () => ({
   ...jest.requireActual('../../../hooks/useVerifiableCredential'),
   useVerifiableCredential: () => ({

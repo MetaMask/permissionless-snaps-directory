@@ -4,7 +4,13 @@ import { getMockSnap, render } from '../../../utils/test-utils';
 
 jest.mock('../../../hooks');
 jest.mock('./community-sentiment', () => ({
-  CommunitySentiment: () => <div />,
+  CommunitySentiment: () => <div data-testid="community-sentiment" />,
+}));
+jest.mock('./MetadataItems', () => ({
+  MetadataItems: () => <div data-testid="metadata-items" />,
+}));
+jest.mock('./MetadataModal', () => ({
+  MetadataModal: () => <div data-testid="metadata-modal" />,
 }));
 
 describe('Metadata', () => {
@@ -27,16 +33,15 @@ describe('Metadata', () => {
     expect(queryByText('Security')).toBeInTheDocument();
   });
 
-  it('renders the developer', () => {
+  it('renders the metadata items', () => {
     const mockDispatch = jest.fn().mockImplementation(() => ({
       catch: jest.fn(),
     }));
     mockUseDispatch.mockReturnValue(mockDispatch);
 
     const { snap } = getMockSnap();
-    const { queryByText } = render(<Metadata snap={snap} />);
-    expect(queryByText('Developer')).toBeInTheDocument();
-    expect(queryByText('Author')).toBeInTheDocument();
+    const { queryByTestId } = render(<Metadata snap={snap} />);
+    expect(queryByTestId('metadata-items')).toBeInTheDocument();
   });
 
   it('renders the developer even when fetchSnapAssertionsForSnapId fails', () => {
@@ -50,10 +55,11 @@ describe('Metadata', () => {
     );
 
     const { snap } = getMockSnap();
-    const { queryByText } = render(
+    const { queryByTestId } = render(
       <Metadata
         snap={{
           ...snap,
+          privateCode: true,
           support: {
             contact: '',
             faq: '',
@@ -63,7 +69,7 @@ describe('Metadata', () => {
       />,
     );
 
-    expect(queryByText('Developer')).toBeInTheDocument();
+    expect(queryByTestId('metadata-items')).toBeInTheDocument();
   });
 
   it('renders the key recovery link', () => {

@@ -2,8 +2,9 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import type { Address } from '@wagmi/core';
 import semver from 'semver/preload';
+import type { Hex } from 'viem';
 
-import { getInstalledSnaps } from './api';
+import { fetchAuditors, getInstalledSnaps } from './api';
 import type { RegistrySnapCategory } from '../../constants';
 import type { ApplicationState } from '../../store';
 import type { Fields } from '../../utils';
@@ -165,3 +166,39 @@ export const getUpdatableSnaps = createSelector(
       .map((snapId) => snaps?.find((item) => item.snapId === snapId))
       .filter(Boolean) as Snap[],
 );
+
+export type AuditorsState = {
+  auditors: { name: string; address: string }[] | null;
+};
+
+const initialAuditorsState: AuditorsState = {
+  auditors: null,
+};
+
+export const auditorsSlice = createSlice({
+  name: 'auditors',
+  initialState: initialAuditorsState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchAuditors.fulfilled, (state, action) => {
+      const auditors = action.payload;
+      state.auditors = auditors;
+    });
+  },
+});
+
+export const getAuditorAddressesByNames = (auditorNames: string[]) =>
+  createSelector(
+    (state: ApplicationState) => ({
+      auditors: state.auditors.auditors,
+    }),
+    ({ auditors }) => {
+      if (!auditors) {
+        return [];
+      }
+      const auditorAddresses = auditors
+        ?.filter((item) => auditorNames.includes(item.name))
+        .map((item) => item.address);
+      return auditorAddresses as Hex[];
+    },
+  );

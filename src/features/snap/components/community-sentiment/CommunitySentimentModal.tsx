@@ -1,5 +1,4 @@
 import {
-  Button,
   HStack,
   Tag,
   VStack,
@@ -15,7 +14,6 @@ import { SentimentType } from './types';
 import { getColorForSentiment, getSentimentTypeFromResult } from './utils';
 import {
   CheckFilledShadowIcon,
-  ExternalLinkIcon,
   SignHexagonIcon,
   SimpleModal,
   WarningFilledShadowIcon,
@@ -130,26 +128,6 @@ export const CommunitySentimentModal: FunctionComponent<
                     <Text variant="blue">
                       <Trans>{reportsCount} reports</Trans>
                     </Text>
-                  </HStack>
-                </VStack>
-              </HStack>
-              <HStack>
-                <VStack alignItems="flex-start">
-                  <HStack noOfLines={2}>
-                    <Text>
-                      <Trans>SOURCE CODE</Trans>
-                    </Text>
-                  </HStack>
-                  <HStack>
-                    <Button
-                      variant="link"
-                      fontWeight={'light'}
-                      rightIcon={<ExternalLinkIcon />}
-                    >
-                      <Text variant="blue">
-                        <Trans>GitHub</Trans>
-                      </Text>
-                    </Button>
                   </HStack>
                 </VStack>
               </HStack>

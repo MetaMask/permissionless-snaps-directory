@@ -1,4 +1,9 @@
+import { mock } from 'ts-mockito';
+
+import { fetchAuditors } from './api';
 import {
+  auditorsSlice,
+  getAuditorAddressesByNames,
   getSnapByChecksum,
   getSnaps,
   getUpdatableSnaps,
@@ -6,6 +11,7 @@ import {
   setSnaps,
   snapsSlice,
 } from './store';
+import type { ApplicationState } from '../../store';
 import {
   getMockQueryResponse,
   getMockSnap,
@@ -218,5 +224,46 @@ describe('snapsSlice', () => {
     });
 
     expect(getSnapByChecksum('foo')(state)).toBeUndefined();
+  });
+});
+
+describe('auditorsSlice reducers', () => {
+  it('should handle fetchAuditors.fulfilled correctly', () => {
+    const initialState = { auditors: null };
+    const action = {
+      type: fetchAuditors.fulfilled.type,
+      payload: [
+        { name: 'Auditor1', address: '0x123' },
+        { name: 'Auditor2', address: '0x456' },
+      ],
+    };
+    const newState = auditorsSlice.reducer(initialState, action);
+    expect(newState.auditors).toStrictEqual([
+      { name: 'Auditor1', address: '0x123' },
+      { name: 'Auditor2', address: '0x456' },
+    ]);
+  });
+});
+
+describe('getAuditorAddressesByNames selector', () => {
+  it('should return an empty array if auditors data is null', () => {
+    const applicationState = mock<ApplicationState>();
+    applicationState.auditors = { auditors: null };
+    const result = getAuditorAddressesByNames(['Auditor1'])(applicationState);
+    expect(result).toStrictEqual([]);
+  });
+
+  it('should return auditor addresses for given names', () => {
+    const applicationState = mock<ApplicationState>();
+    applicationState.auditors = {
+      auditors: [
+        { name: 'Auditor1', address: '0x123' },
+        { name: 'Auditor2', address: '0x456' },
+      ],
+    };
+    const result = getAuditorAddressesByNames(['Auditor1', 'Auditor2'])(
+      applicationState,
+    );
+    expect(result).toStrictEqual(['0x123', '0x456']);
   });
 });

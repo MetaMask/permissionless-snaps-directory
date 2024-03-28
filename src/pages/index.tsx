@@ -7,7 +7,12 @@ import { useEffect, type FunctionComponent, Fragment } from 'react';
 import banner from '../assets/images/seo/home.png';
 import { PermissionlessIntroductory } from '../components/PermissionlessIntroductory';
 import { RegistrySnapCategory, SNAP_CATEGORY_LINKS } from '../constants';
-import { Banner, FilteredSnaps, resetFilters } from '../features';
+import {
+  Banner,
+  FilteredSnaps,
+  fetchAuditors,
+  resetFilters,
+} from '../features';
 import { Order } from '../features/filter/constants';
 import { useDispatch } from '../hooks';
 import type { Fields } from '../utils';
@@ -79,6 +84,7 @@ const IndexPage: FunctionComponent<IndexPageProps> = ({ data }) => {
 
   useEffect(() => {
     dispatch(resetFilters());
+    dispatch(fetchAuditors()).catch((error) => console.log(error));
   }, [dispatch]);
 
   return (

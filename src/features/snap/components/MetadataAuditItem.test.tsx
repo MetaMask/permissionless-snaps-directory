@@ -1,7 +1,7 @@
 import { act } from 'react-dom/test-utils';
 import { useEnsName } from 'wagmi';
 
-import { MetadataItems } from './MetadataItems';
+import { MetadataAuditItem } from './MetadataAuditItem';
 import { VALID_ACCOUNT_1, render } from '../../../utils/test-utils';
 
 jest.mock('wagmi', () => ({
@@ -17,11 +17,11 @@ const buildEnsNameMock = (name?: string, isLoading = false) => {
   }));
 };
 
-describe('MetadataItems', () => {
-  it('renders the developer', async () => {
+describe('MetadataAuditItem', () => {
+  it('renders the auditors', async () => {
     buildEnsNameMock('ens.mock.name');
     const { queryByText, getByText } = render(
-      <MetadataItems address={VALID_ACCOUNT_1} />,
+      <MetadataAuditItem auditorAddresses={[VALID_ACCOUNT_1]} />,
     );
 
     expect(queryByText('ens.mock.name')).toBeInTheDocument();
@@ -31,9 +31,11 @@ describe('MetadataItems', () => {
     await act(async () => link.click());
   });
 
-  it('renders the developer without ens name', () => {
+  it('renders the auditors without ens names', () => {
     buildEnsNameMock(undefined);
-    const { queryByText } = render(<MetadataItems address={VALID_ACCOUNT_1} />);
+    const { queryByText } = render(
+      <MetadataAuditItem auditorAddresses={[VALID_ACCOUNT_1]} />,
+    );
 
     expect(queryByText('ens.mock.name')).not.toBeInTheDocument();
   });
