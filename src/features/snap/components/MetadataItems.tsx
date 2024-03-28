@@ -1,4 +1,4 @@
-import { Link } from '@chakra-ui/react';
+import { Link } from 'gatsby';
 import { t } from '@lingui/macro';
 import { navigate } from 'gatsby';
 import type { FunctionComponent } from 'react';
