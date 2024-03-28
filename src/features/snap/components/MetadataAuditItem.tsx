@@ -32,12 +32,7 @@ export const MetadataAuditItem: FunctionComponent<MetadataAuditItemProps> = ({
           value={auditors.map((auditor, index) => (
             <Link
               key={`auditor-${index}`}
-              // eslint-disable-next-line @typescript-eslint/no-misused-promises
-              onClick={async () =>
-                navigate(`/account/?address=${auditorAddresses[index]}`, {
-                  replace: true,
-                })
-              }
+              to={`/account/?address=${auditorAddresses[index]}`}
             >
               {auditor}
             </Link>
