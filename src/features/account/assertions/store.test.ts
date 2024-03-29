@@ -14,6 +14,7 @@ import {
   getCurrentTrustworthinessLevelForIssuer,
   getIssuedAssertions,
   getIssuedAssertionsForIssuerId,
+  getTechnicalEndorsementsForAccountId,
   isAccountEndorsedByIssuer,
   isAccountReportedByIssuer,
 } from './store';
@@ -307,6 +308,77 @@ describe('Selectors', () => {
         endorsementsCount: 1,
         reportsCount: 1,
       });
+    });
+  });
+
+  describe('getTechnicalEndorsementsForAccountId', () => {
+    it('should return technical endorsements for a specific accountId', () => {
+      const earlierDate = new Date('2022-01-01');
+      const middleDate = new Date('2022-01-02');
+      const laterDate = new Date('2022-01-03');
+      const accountAssertion1: AccountAssertionState = {
+        accountId: 'accountId',
+        issuer: 'issuer',
+        trustworthiness: [
+          { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
+        ],
+        creationAt: earlierDate, // Earlier date
+      };
+      const accountAssertion2: AccountAssertionState = {
+        accountId: 'accountId',
+        issuer: 'issuer',
+        trustworthiness: [
+          { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
+        ],
+        creationAt: middleDate, // Middle date
+      };
+      const accountAssertion3: AccountAssertionState = {
+        accountId: 'accountId',
+        issuer: 'issuer',
+        trustworthiness: [
+          { level: 1, scope: TrustworthinessScope.UserExperienceDesign },
+        ],
+        creationAt: laterDate, // Later date
+      };
+      const accountAssertion4: AccountAssertionState = {
+        accountId: 'accountId',
+        issuer: 'issuer',
+        trustworthiness: [
+          { level: 1, scope: TrustworthinessScope.SoftwareSecurity },
+        ],
+        creationAt: laterDate, // Later date
+      };
+      const accountAssertion5: AccountAssertionState = {
+        accountId: 'accountId',
+        issuer: 'issuer',
+        trustworthiness: [
+          { level: -1, scope: TrustworthinessScope.SoftwareSecurity },
+        ],
+        creationAt: laterDate, // Later date
+      };
+      const mockedApplicationState: ApplicationState = mock<ApplicationState>();
+      mockedApplicationState.accountAssertions.accountAssertions = [
+        accountAssertion1,
+        accountAssertion2,
+        accountAssertion3,
+        accountAssertion4,
+        accountAssertion5,
+      ];
+
+      const accountAssertionDetails = getTechnicalEndorsementsForAccountId(
+        'accountId',
+      )(mockedApplicationState);
+
+      expect(accountAssertionDetails).toStrictEqual([
+        {
+          type: TrustworthinessScope.SoftwareDevelopment,
+          endorsements: [accountAssertion1, accountAssertion2],
+        },
+        {
+          type: TrustworthinessScope.SoftwareSecurity,
+          endorsements: [accountAssertion4],
+        },
+      ]);
     });
   });
 

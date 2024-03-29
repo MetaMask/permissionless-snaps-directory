@@ -6,6 +6,7 @@ import {
   fetchAssertionsForAllAccounts,
 } from './api';
 import type { AccountAssertion, Trustworthiness } from './types';
+import { TrustworthinessScope } from './types';
 import { type ApplicationState } from '../../../store';
 
 export type AccountAssertionState = {
@@ -147,6 +148,50 @@ export const getAccountAssertionDetailsForAccountId = (accountId: string) =>
           ).length > 0,
       ).length,
     };
+  });
+
+// Selector to get endorsements for a specific accountId
+export const getTechnicalEndorsementsForAccountId = (accountId: string) =>
+  createSelector(getAccountAssertions, (accountAssertions) => {
+    const developmentEndorsements: AccountAssertionState[] = [];
+    const securityEndorsements: AccountAssertionState[] = [];
+
+    const orderedAssertions = [...accountAssertions].sort(
+      (a: AccountAssertionState, b: AccountAssertionState) =>
+        new Date(b.issuanceDate).getTime() - new Date(a.issuanceDate).getTime(),
+    );
+
+    orderedAssertions.forEach((assertion) => {
+      if (
+        assertion.accountId === accountId &&
+        assertion.trustworthiness.some(
+          (trustworthiness) => trustworthiness.level >= 0,
+        )
+      ) {
+        assertion.trustworthiness.forEach((trustworthiness) => {
+          if (
+            trustworthiness.scope === TrustworthinessScope.SoftwareDevelopment
+          ) {
+            developmentEndorsements.push(assertion);
+          } else if (
+            trustworthiness.scope === TrustworthinessScope.SoftwareSecurity
+          ) {
+            securityEndorsements.push(assertion);
+          }
+        });
+      }
+    });
+
+    return [
+      {
+        type: TrustworthinessScope.SoftwareDevelopment,
+        endorsements: developmentEndorsements,
+      },
+      {
+        type: TrustworthinessScope.SoftwareSecurity,
+        endorsements: securityEndorsements,
+      },
+    ];
   });
 
 export const getCurrentTrustworthinessLevelForIssuer = (

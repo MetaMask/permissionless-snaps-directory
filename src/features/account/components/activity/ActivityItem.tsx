@@ -4,12 +4,12 @@ import { formatDistanceToNow } from 'date-fns';
 import type { FunctionComponent } from 'react';
 import { useCallback, useMemo } from 'react';
 
-import { ActivitySubject } from './ActivitySubject';
 import {
   QuestionIcon,
   StarFilledIcon,
   WarningIcon,
 } from '../../../../components';
+import { EntityName } from '../../../../components/EntityName';
 import type { AccountAssertionState } from '../../assertions/store';
 
 export type ActivityItemProps = {
@@ -100,7 +100,7 @@ export const ActivityItem: FunctionComponent<ActivityItemProps> = ({
     <HStack mb={4} width={'100%'} justifyContent={'space-between'}>
       <HStack>
         <Text>{type()}</Text>
-        <ActivitySubject subject={assertion.accountId} />
+        <EntityName subject={assertion.accountId} />
         <Text>{reason()}</Text>
       </HStack>
       <Box alignContent={'flex-end'}>
