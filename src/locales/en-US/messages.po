@@ -19,16 +19,16 @@ msgstr "{0} on the MetaMask Snaps Directory"
 
 #: src/components/RequestSignModal.tsx
 msgid "{buttonText}"
-msgstr "{buttonText}"
+msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
 #: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
 msgid "{endorsementsCount} endorsements"
-msgstr "{endorsementsCount} endorsements"
+msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
 msgid "{linkLabel}"
-msgstr "{linkLabel}"
+msgstr ""
 
 #: src/components/PostInstallModal.tsx
 msgid "{name} is now ready to use."
@@ -40,65 +40,66 @@ msgstr "{nameText} Snaps"
 
 #: src/pages/{Category.name}/index.tsx
 msgid "{nameText} Snaps on the MetaMask Snaps Directory"
-msgstr "{nameText} Snaps on the MetaMask Snaps Directory"
+msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "{pkhAddress} has been endorsed."
-msgstr "{pkhAddress} has been endorsed."
+msgstr ""
 
 #: src/features/account/AccountReport.tsx
 msgid "{pkhAddress} has been reported."
-msgstr "{pkhAddress} has been reported."
+msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
 #: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
 #: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
 msgid "{reportsCount} reports"
-msgstr "{reportsCount} reports"
+msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
 msgid "{sentimentType}"
-msgstr "{sentimentType}"
+msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
 msgid "{sentimentType} {0}"
-msgstr "{sentimentType} {0}"
+msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "{shortSubAddress} has been added to your trust circle"
-msgstr "{shortSubAddress} has been added to your trust circle"
+msgstr ""
 
 #: src/features/snap/components/EndorseSnap.tsx
 msgid "{snapName} has been endorsed."
-msgstr "{snapName} has been endorsed."
+msgstr ""
 
 #: src/features/snap/components/ReportSnap.tsx
 msgid "{snapName} has been reported."
-msgstr "{snapName} has been reported."
+msgstr ""
 
 #: src/features/community/CommunityList.tsx
 msgid "{title}"
-msgstr "{title}"
+msgstr ""
 
 #: src/components/FooterCopyright.tsx
 msgid "©{0} MetaMask. All rights reserved."
 msgstr ""
 
+#: src/features/snap/components/Metadata.tsx
 #: src/features/snap/components/MetadataModal.tsx
 msgid "<0>{name}</0> uses code that isn't viewable by the public. Critical parts of the codebase were audited for security, but later versions of the code may not be. Make sure you trust <1>{0}</1> before installing and using <2>{name}</2>."
 msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
 msgid "<0>{snapName}</0> {suffixText}"
-msgstr "<0>{snapName}</0> {suffixText}"
+msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "Ability to develop reliable Snaps"
-msgstr "Ability to develop reliable Snaps"
+msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "Ability to evaluate Snaps security"
-msgstr "Ability to evaluate Snaps security"
+msgstr ""
 
 #: src/components/FooterLinks.tsx
 msgid "About"
@@ -122,11 +123,11 @@ msgstr ""
 
 #: src/pages/account/index.tsx
 msgid "Account Profile"
-msgstr "Account Profile"
+msgstr ""
 
 #: src/features/account/components/activity/ActivitySection.tsx
 msgid "Activity"
-msgstr "Activity"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Add"
@@ -134,7 +135,7 @@ msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Add <0>{shortSubAddress}</0> to your trust circle"
-msgstr "Add <0>{shortSubAddress}</0> to your trust circle"
+msgstr ""
 
 #: src/features/snap/permissions.tsx
 msgid "Add and control Ethereum accounts"
@@ -147,7 +148,7 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Add to my circle"
-msgstr "Add to my circle"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Add user"
@@ -155,7 +156,7 @@ msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Added to your trust circle"
-msgstr "Added to your trust circle"
+msgstr ""
 
 #: src/features/snaps/components/NoSnaps.tsx
 msgid "Adjust your search or display all available Snaps by clicking below."
@@ -268,16 +269,20 @@ msgstr ""
 
 #: src/features/account/components/activity/ActivityItem.tsx
 msgid "and"
-msgstr "and"
+msgstr ""
 
 #: src/features/snap/components/MetadataModal.tsx
-msgid "Audit"
+msgid "Audit Reports"
+msgstr ""
+
+#: src/features/snap/components/MetadataAuditItem.tsx
+msgid "Audited By"
 msgstr ""
 
 #: src/components/icons/index.ts
 #: src/features/account/components/AccountRoleTags.tsx
 msgid "Auditor"
-msgstr "Auditor"
+msgstr ""
 
 #: src/components/InstallUnsupportedMobile.tsx
 msgid "Available on desktop"
@@ -286,7 +291,7 @@ msgstr ""
 #: src/components/icons/index.ts
 #: src/components/icons/index.ts
 msgid "Avatar"
-msgstr "Avatar"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Back"
@@ -333,11 +338,11 @@ msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
 msgid "Community Sentiment"
-msgstr "Community Sentiment"
+msgstr ""
 
 #: src/components/ConnectButtonInner.tsx
 msgid "Connect"
-msgstr "Connect"
+msgstr ""
 
 #: src/features/snap/permissions.tsx
 msgid "Connect to {snapId}"
@@ -348,6 +353,7 @@ msgid "Connect to non-Ethereum blockchains with MetaMask."
 msgstr ""
 
 #: src/features/snap/components/Metadata.tsx
+#: src/features/snap/components/MetadataModal.tsx
 msgid "Contact"
 msgstr ""
 
@@ -361,15 +367,15 @@ msgstr ""
 
 #: src/features/account/MoreOptionMenu.tsx
 msgid "Copied"
-msgstr "Copied"
+msgstr ""
 
 #: src/features/account/MoreOptionMenu.tsx
 msgid "Copy profile link"
-msgstr "Copy profile link"
+msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
 msgid "could not be evaluated by your community and might be unsecure"
-msgstr "could not be evaluated by your community and might be unsecure"
+msgstr ""
 
 #: src/constants.ts
 msgid "Create an Ethereum Account"
@@ -393,11 +399,11 @@ msgstr ""
 
 #: src/features/account/components/snaps/DevelopedSnapsSection.tsx
 msgid "Developed by this user"
-msgstr "Developed by this user"
+msgstr ""
 
 #: src/features/account/AccountProfileTabs.tsx
 msgid "Developed Snaps"
-msgstr "Developed Snaps"
+msgstr ""
 
 #: src/components/icons/index.ts
 #: src/features/account/components/AccountRoleTags.tsx
@@ -424,11 +430,11 @@ msgstr ""
 
 #: src/pages/account/index.tsx
 msgid "Discover the MetaMask Snaps Directory Account Profile page."
-msgstr "Discover the MetaMask Snaps Directory Account Profile page."
+msgstr ""
 
 #: src/features/account/AccountReport.tsx
 msgid "Disinformation"
-msgstr "Disinformation"
+msgstr ""
 
 #: src/features/snap/permissions.tsx
 msgid "Display a custom screen"
@@ -464,21 +470,21 @@ msgstr ""
 
 #: src/components/EndorseButton.tsx
 msgid "Endorse"
-msgstr "Endorse"
+msgstr ""
 
 #: src/features/snap/components/modals/EndorseSnapModal.tsx
 msgid "Endorse <0>{snapName}</0>"
-msgstr "Endorse <0>{snapName}</0>"
+msgstr ""
 
 #: src/components/EndorseButton.tsx
 #: src/features/account/components/activity/ActivityItem.tsx
 #: src/features/account/components/activity/ActivityItem.tsx
 msgid "Endorsed"
-msgstr "Endorsed"
+msgstr ""
 
 #: src/features/snap/components/community-sentiment/utils.ts
 msgid "error"
-msgstr "error"
+msgstr ""
 
 #: src/features/account/AccountReport.tsx
 #: src/features/account/AccountReport.tsx
@@ -490,7 +496,7 @@ msgstr "error"
 #: src/features/snap/components/ReportSnap.tsx
 #: src/features/snap/components/ReportSnap.tsx
 msgid "Error"
-msgstr "Error"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Ethereum"
@@ -498,7 +504,7 @@ msgstr ""
 
 #: src/features/account/MoreOptionMenu.tsx
 msgid "Etherscan"
-msgstr "Etherscan"
+msgstr ""
 
 #: src/components/FooterAccountManagementTerms.tsx
 msgid "Experimental Beta"
@@ -506,7 +512,7 @@ msgstr ""
 
 #: src/components/PermissionlessDisclaimer.tsx
 msgid "Experimental site for testing only. Official Snaps Directory: <0>snaps.metamask.io</0>"
-msgstr "Experimental site for testing only. Official Snaps Directory: <0>snaps.metamask.io</0>"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Explore"
@@ -538,7 +544,7 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Export"
-msgstr "Export"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "External link"
@@ -546,39 +552,40 @@ msgstr ""
 
 #: src/features/account/MoreOptionMenu.tsx
 msgid "Failed to copy profile link to clipboard"
-msgstr "Failed to copy profile link to clipboard"
+msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "Failed to create endorsement for {pkhAddress}."
-msgstr "Failed to create endorsement for {pkhAddress}."
+msgstr ""
 
 #: src/features/snap/components/EndorseSnap.tsx
 #: src/features/snap/components/EndorseSnap.tsx
 msgid "Failed to create endorsement for {snapName}."
-msgstr "Failed to create endorsement for {snapName}."
+msgstr ""
 
 #: src/features/account/AccountReport.tsx
 #: src/features/account/AccountReport.tsx
 msgid "Failed to create report for {pkhAddress}."
-msgstr "Failed to create report for {pkhAddress}."
+msgstr ""
 
 #: src/features/snap/components/ReportSnap.tsx
 #: src/features/snap/components/ReportSnap.tsx
 msgid "Failed to create report for {snapName}."
-msgstr "Failed to create report for {snapName}."
+msgstr ""
 
 #: src/hooks/useSignErrorHandler.ts
 #: src/hooks/useSignErrorHandler.ts
 msgid "Failed to sign the message"
-msgstr "Failed to sign the message"
+msgstr ""
 
 #: src/hooks/useSignErrorHandler.ts
 #: src/hooks/useSignErrorHandler.ts
 msgid "Failed to verify signature"
-msgstr "Failed to verify signature"
+msgstr ""
 
 #: src/features/snap/components/Metadata.tsx
+#: src/features/snap/components/MetadataModal.tsx
 msgid "FAQ"
 msgstr ""
 
@@ -611,10 +618,6 @@ msgstr ""
 msgid "Get in touch"
 msgstr ""
 
-#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
-msgid "GitHub"
-msgstr "GitHub"
-
 #: src/components/icons/index.ts
 msgid "Global"
 msgstr ""
@@ -625,7 +628,7 @@ msgstr ""
 
 #: src/features/snap/components/EndorseSnap.tsx
 msgid "Good user experience"
-msgstr "Good user experience"
+msgstr ""
 
 #: src/components/InstallUnsupportedDesktopUpdate.tsx
 #: src/components/InstallUnsupportedMobile.tsx
@@ -642,19 +645,19 @@ msgstr ""
 
 #: src/features/account/AccountReport.tsx
 msgid "Hacking"
-msgstr "Hacking"
+msgstr ""
 
 #: src/features/account/AccountReport.tsx
 msgid "Harassment"
-msgstr "Harassment"
+msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
 msgid "has been evaluated as secure by your community"
-msgstr "has been evaluated as secure by your community"
+msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
 msgid "has been evaluated as unsecure by your community"
-msgstr "has been evaluated as unsecure by your community"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Hierarchy"
@@ -664,7 +667,8 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: src/features/snap/components/MetadataItems.tsx
+#: src/features/snap/components/Metadata.tsx
+#: src/features/snap/components/MetadataModal.tsx
 msgid "Identifier"
 msgstr ""
 
@@ -689,7 +693,7 @@ msgstr ""
 
 #: src/pages/{Category.name}/installed.tsx
 msgid "Installed {nameText} Snaps on the MetaMask Snaps Directory"
-msgstr "Installed {nameText} Snaps on the MetaMask Snaps Directory"
+msgstr ""
 
 #: src/pages/installed.tsx
 msgid "Installed Snaps"
@@ -697,7 +701,7 @@ msgstr ""
 
 #: src/pages/installed.tsx
 msgid "Installed Snaps on the MetaMask Snaps Directory"
-msgstr "Installed Snaps on the MetaMask Snaps Directory"
+msgstr ""
 
 #: src/components/InstallSnapButton.tsx
 msgid "Installing {name}"
@@ -711,21 +715,23 @@ msgstr ""
 #: src/hooks/useSignErrorHandler.ts
 #: src/hooks/useSignErrorHandler.ts
 msgid "Invalid Signature"
-msgstr "Invalid Signature"
+msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
 msgid "is currently under review by your community and may be insecure"
-msgstr "is currently under review by your community and may be insecure"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Key"
 msgstr ""
 
 #: src/features/snap/components/Metadata.tsx
+#: src/features/snap/components/MetadataModal.tsx
 msgid "Key Recovery"
 msgstr ""
 
 #: src/features/snap/components/Metadata.tsx
+#: src/features/snap/components/MetadataModal.tsx
 msgid "Knowledge Base"
 msgstr ""
 
@@ -740,14 +746,14 @@ msgstr ""
 
 #: src/pages/latest.tsx
 msgid "Latest Snaps on the MetaMask Snaps Directory"
-msgstr "Latest Snaps on the MetaMask Snaps Directory"
+msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 #: src/features/snap/components/modals/EndorseSnapModal.tsx
 #: src/features/snap/components/modals/ReportSnapModal.tsx
 msgid "Learn more"
-msgstr "Learn more"
+msgstr ""
 
 #: src/features/snap/components/MetadataModal.tsx
 msgid "Legal"
@@ -800,7 +806,7 @@ msgstr ""
 
 #: src/pages/account/index.tsx
 msgid "MetaMask Snaps Directory - Account Profile"
-msgstr "MetaMask Snaps Directory - Account Profile"
+msgstr ""
 
 #: src/components/InstallUnsupportedMobile.tsx
 msgid "MetaMask Snaps is in open beta and only supported via our extension clients on desktop such as <0>Brave</0>, <1>Chrome</1>, or <2>Firefox</2>."
@@ -808,7 +814,7 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "More Options"
-msgstr "More Options"
+msgstr ""
 
 #: src/features/filter/constants.tsx
 #: src/pages/index.tsx
@@ -846,7 +852,7 @@ msgstr ""
 
 #: src/components/CommunityButton.tsx
 msgid "Open community menu"
-msgstr "Open community menu"
+msgstr ""
 
 #: src/features/filter/components/FilterButton.tsx
 msgid "Open filter menu"
@@ -858,7 +864,7 @@ msgstr ""
 
 #: src/features/account/AccountReport.tsx
 msgid "Other"
-msgstr "Other"
+msgstr ""
 
 #: src/pages/404.tsx
 msgid "Page not found"
@@ -879,7 +885,7 @@ msgstr ""
 
 #: src/features/account/MoreOptionMenu.tsx
 msgid "Profile link copied to clipboard"
-msgstr "Profile link copied to clipboard"
+msgstr ""
 
 #: src/features/snap/permissions.tsx
 msgid "Provide domain and address lookups"
@@ -891,11 +897,11 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Question blue"
-msgstr "Question blue"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Question red"
-msgstr "Question red"
+msgstr ""
 
 #: src/features/snap/components/RelatedSnaps.tsx
 msgid "Related Snaps"
@@ -904,22 +910,22 @@ msgstr ""
 #: src/components/icons/index.ts
 #: src/components/ReportButton.tsx
 msgid "Report"
-msgstr "Report"
+msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
 msgid "Report for <0>{reportEntity}</0> as a malicious actor"
-msgstr "Report for <0>{reportEntity}</0> as a malicious actor"
+msgstr ""
 
 #: src/features/snap/components/modals/ReportSnapModal.tsx
 msgid "Report for <0>{snapName}</0> as a malicious snap"
-msgstr "Report for <0>{snapName}</0> as a malicious snap"
+msgstr ""
 
 #: src/components/ReportButton.tsx
 #: src/features/account/components/AccountRoleTags.tsx
 #: src/features/account/components/activity/ActivityItem.tsx
 #: src/features/account/components/activity/ActivityItem.tsx
 msgid "Reported"
-msgstr "Reported"
+msgstr ""
 
 #: src/pages/explore.tsx
 msgid "Results for \"{searchQuery}\""
@@ -927,19 +933,19 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Reviewer"
-msgstr "Reviewer"
+msgstr ""
 
 #: src/features/account/AccountProfileTabs.tsx
 msgid "Reviews"
-msgstr "Reviews"
+msgstr ""
 
 #: src/features/snap/components/ReportSnap.tsx
 msgid "Scam"
-msgstr "Scam"
+msgstr ""
 
 #: src/features/account/AccountReport.tsx
 msgid "Scamming"
-msgstr "Scamming"
+msgstr ""
 
 #: src/features/snap/permissions.tsx
 msgid "Schedule and execute periodic actions"
@@ -956,7 +962,7 @@ msgstr ""
 
 #: src/features/filter/components/FilterSearchInput.tsx
 msgid "Search users or snaps"
-msgstr "Search users or snaps"
+msgstr ""
 
 #: src/components/icons/index.ts
 #: src/constants.ts
@@ -969,7 +975,7 @@ msgstr ""
 
 #: src/features/account/AccountProfileTabs.tsx
 msgid "Security Reports"
-msgstr "Security Reports"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Security search"
@@ -1009,11 +1015,11 @@ msgstr ""
 
 #: src/features/snap/components/EndorseSnap.tsx
 msgid "Seems secure"
-msgstr "Seems secure"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Share"
-msgstr "Share"
+msgstr ""
 
 #: src/features/snap/permissions.tsx
 msgid "Show notifications"
@@ -1023,20 +1029,20 @@ msgstr ""
 #: src/components/icons/index.ts
 #: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Sign"
-msgstr "Sign"
+msgstr ""
 
 #: src/features/account/components/modals/AddToUserCircleModal.tsx
 msgid "Sign to add"
-msgstr "Sign to add"
+msgstr ""
 
 #: src/features/snap/components/modals/EndorseSnapModal.tsx
 msgid "Sign to endorse"
-msgstr "Sign to endorse"
+msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
 #: src/features/snap/components/modals/ReportSnapModal.tsx
 msgid "Sign to report"
-msgstr "Sign to report"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Snap"
@@ -1044,23 +1050,20 @@ msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "Software Development"
-msgstr "Software Development"
+msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "Software Security"
-msgstr "Software Security"
+msgstr ""
 
 #: src/features/filter/Filter.tsx
 msgid "Sort"
 msgstr ""
 
+#: src/features/snap/components/Metadata.tsx
 #: src/features/snap/components/MetadataModal.tsx
 msgid "Source Code"
 msgstr ""
-
-#: src/features/snap/components/community-sentiment/CommunitySentimentModal.tsx
-msgid "SOURCE CODE"
-msgstr "SOURCE CODE"
 
 #: src/components/icons/index.ts
 msgid "Speedometer"
@@ -1069,7 +1072,7 @@ msgstr ""
 #: src/components/icons/index.ts
 #: src/components/icons/index.ts
 msgid "Star"
-msgstr "Star"
+msgstr ""
 
 #: src/components/Footer.tsx
 msgid "Start exploring blockchain applications in seconds. Trusted by over 30 million users worldwide."
@@ -1086,18 +1089,19 @@ msgstr ""
 #: src/features/snap/components/community-sentiment/utils.ts
 #: src/features/snap/components/community-sentiment/utils.ts
 msgid "success"
-msgstr "success"
+msgstr ""
 
 #: src/features/account/AccountReport.tsx
 #: src/features/account/AccountTEEndorsement.tsx
 #: src/features/snap/components/EndorseSnap.tsx
 #: src/features/snap/components/ReportSnap.tsx
 msgid "Success"
-msgstr "Success"
+msgstr ""
 
 #: src/components/FooterLinks.tsx
 #: src/features/banner/components/faq-banner/FaqBanner.tsx
 #: src/features/snap/components/Metadata.tsx
+#: src/features/snap/components/MetadataModal.tsx
 msgid "Support"
 msgstr ""
 
@@ -1120,19 +1124,19 @@ msgstr ""
 
 #: src/features/snap/components/modals/EndorseSnapModal.tsx
 msgid "This action will endorse the snap as secure in your community."
-msgstr "This action will endorse the snap as secure in your community."
+msgstr ""
 
 #: src/features/snap/components/modals/ReportSnapModal.tsx
 msgid "This action will flag the snap as a malicious in your community."
-msgstr "This action will flag the snap as a malicious in your community."
+msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
 msgid "This action will flag the user as a malicious in your community."
-msgstr "This action will flag the user as a malicious in your community."
+msgstr ""
 
 #: src/components/PermissionlessIntroductory.tsx
 msgid "This experimental version of the <0>Official Snaps Directory</0> is our next milestone towards permissionless innovation. We envision a community of users, developers, and security experts safeguarding Snaps based on collective sentiment—moving away from centralized gatekeeping. <1>Learn more</1>"
-msgstr "This experimental version of the <0>Official Snaps Directory</0> is our next milestone towards permissionless innovation. We envision a community of users, developers, and security experts safeguarding Snaps based on collective sentiment—moving away from centralized gatekeeping. <1>Learn more</1>"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Timer"
@@ -1152,36 +1156,36 @@ msgstr ""
 
 #: src/features/community/CommunityList.tsx
 msgid "Top Builders"
-msgstr "Top Builders"
+msgstr ""
 
 #: src/features/community/CommunityList.tsx
 msgid "Top Community Developers"
-msgstr "Top Community Developers"
+msgstr ""
 
 #: src/features/community/CommunityList.tsx
 msgid "Top Community Security Reviewers"
-msgstr "Top Community Security Reviewers"
+msgstr ""
 
 #: src/features/account/AccountProfileTabs.tsx
 msgid "Trusted Circle"
-msgstr "Trusted Circle"
+msgstr ""
 
 #: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Trusted technical abilities"
-msgstr "Trusted technical abilities"
+msgstr ""
 
 #: src/features/account/components/activity/ActivitySubject.tsx
 msgid "Unknown"
-msgstr "Unknown"
+msgstr ""
 
 #: src/features/account/components/activity/ActivityItem.tsx
 msgid "Unknown activity"
-msgstr "Unknown activity"
+msgstr ""
 
 #: src/hooks/useSignErrorHandler.ts
 #: src/hooks/useSignErrorHandler.ts
 msgid "Unknown Error"
-msgstr "Unknown Error"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Unread notification"
@@ -1213,11 +1217,11 @@ msgstr ""
 
 #: src/features/snap/components/EndorseSnap.tsx
 msgid "Useful"
-msgstr "Useful"
+msgstr ""
 
 #: src/components/icons/index.ts
 msgid "User check"
-msgstr "User check"
+msgstr ""
 
 #: src/features/snap/components/MetadataModal.tsx
 msgid "Version"
@@ -1247,12 +1251,12 @@ msgstr ""
 
 #: src/features/snap/components/ReportSnap.tsx
 msgid "Vulnerable"
-msgstr "Vulnerable"
+msgstr ""
 
 #: src/features/snap/components/community-sentiment/utils.ts
 #: src/features/snap/components/community-sentiment/utils.ts
 msgid "warning"
-msgstr "warning"
+msgstr ""
 
 #: src/components/icons/index.ts
 #: src/components/icons/index.ts
@@ -1262,7 +1266,7 @@ msgstr ""
 
 #: src/components/PermissionlessIntroductory.tsx
 msgid "We're experimenting"
-msgstr "We're experimenting"
+msgstr ""
 
 #: src/components/FooterLinks.tsx
 msgid "Website"
@@ -1282,5 +1286,5 @@ msgstr ""
 
 #: src/features/account/components/modals/TEEndorsementModal.tsx
 msgid "Your level of confidence in <0>{trustEntity}</0> skill set"
-msgstr "Your level of confidence in <0>{trustEntity}</0> skill set"
+msgstr ""
 

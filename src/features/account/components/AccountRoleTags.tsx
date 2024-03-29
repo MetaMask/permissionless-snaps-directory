@@ -28,9 +28,9 @@ export type AccountRoleTagProps = {
 export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
   trustScores,
 }) => {
-  const roles = [] as AccountRole[];
+  let roles = [] as AccountRole[];
 
-  trustScores.forEach((trustScore) => {
+  for (const trustScore of trustScores) {
     if (trustScore.result >= 0) {
       if (trustScore.trustScoreScope === TrustScoreScope.SoftwareDevelopment) {
         const role: AccountRole = {
@@ -56,13 +56,15 @@ export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
         roles.push(role);
       }
     } else {
+      // If there is reported role, remove all other roles
       const role: AccountRole = {
         roleType: AccountRoleType.Reported,
         tier: 0,
       };
-      roles.push(role);
+      roles = [role];
+      break;
     }
-  });
+  }
 
   const getRoleAttributes = (role: AccountRole) => {
     switch (role.roleType) {

@@ -206,6 +206,7 @@ export const query = graphql`
       onboard
       category
       author {
+        address
         name
         website
       }

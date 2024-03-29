@@ -60,5 +60,20 @@ describe('Selectors', () => {
 
       expect(snapTrustScoreDetails).toStrictEqual(snapTrustScore);
     });
+
+    it('should return snapTrustScore with result -1 for snapId not available in the state', () => {
+      const snapTrustScore = {
+        snapId: 'snapId',
+        result: -1,
+      };
+      const mockedApplicationState: ApplicationState = mock<ApplicationState>();
+      mockedApplicationState.snapTrustScores.snapTrustScores = [];
+
+      const snapTrustScoreDetails = getSnapTrustScoreForSnapId('snapId')(
+        mockedApplicationState,
+      );
+
+      expect(snapTrustScoreDetails).toStrictEqual(snapTrustScore);
+    });
   });
 });

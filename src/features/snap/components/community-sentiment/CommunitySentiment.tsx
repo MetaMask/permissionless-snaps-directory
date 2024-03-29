@@ -1,11 +1,4 @@
-import {
-  HStack,
-  Link,
-  Tag,
-  TagLabel,
-  VStack,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Box, Link, Tag, TagLabel, useDisclosure } from '@chakra-ui/react';
 import { Trans, t } from '@lingui/macro';
 import { type FunctionComponent } from 'react';
 
@@ -60,34 +53,26 @@ export const CommunitySentiment: FunctionComponent<CommunitySentimentProps> = ({
 
   const render = () => {
     return (
-      <VStack>
-        <HStack alignSelf={'flex-start'}>
-          <Tag
-            textTransform="none"
-            variant={getColorForSentiment(sentimentType)}
-            onClick={onOpen}
-          >
-            <SignHexagonIcon margin={-1} fill="currentColor"></SignHexagonIcon>
-            <TagLabel>
-              <Trans>{sentimentType}</Trans>
-            </TagLabel>
-          </Tag>
-          {renderLinkLabel(onOpen)}
-        </HStack>
+      <Box>
+        <Tag
+          variant={getColorForSentiment(sentimentType)}
+          onClick={onOpen}
+          cursor={'pointer'}
+        >
+          <SignHexagonIcon margin={-1} fill="currentColor"></SignHexagonIcon>
+          <TagLabel>
+            <Trans>{sentimentType}</Trans>
+          </TagLabel>
+        </Tag>
+        {renderLinkLabel(onOpen)}
         <CommunitySentimentModal
           snap={snap}
           isOpen={isOpen}
           onClose={onClose}
         />
-      </VStack>
+      </Box>
     );
   };
 
-  return (
-    sentimentType !== SentimentType.Unknown && (
-      <>
-        <Data label={t`Community Sentiment`} value={render()} />
-      </>
-    )
-  );
+  return <Data label={t`Community Sentiment`} value={render()} />;
 };

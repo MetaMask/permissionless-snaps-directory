@@ -1,5 +1,6 @@
-import { createSelector } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSelector } from '@reduxjs/toolkit';
 import { createApi } from '@reduxjs/toolkit/query/react';
+import axios from 'axios';
 
 import { getUpdateAvailable } from './store';
 import { SnapEventType, track } from '../../analytics';
@@ -15,6 +16,9 @@ export type InstallSnapArgs = {
   snapId: string;
   version: string;
 };
+
+const REGISTRY_URL =
+  'https://raw.githubusercontent.com/MetaMask/permissionless-snaps-directory/dev/snaps-registry.json';
 
 export type InstalledSnaps = Record<string, { version: string }>;
 export type InstallSnapResult = Record<string, { error: unknown }>;
@@ -117,6 +121,24 @@ export const snapsApi = createApi({
     }),
   }),
 });
+
+export const fetchAuditors = createAsyncThunk(
+  'snap/fetchAuditors',
+  async () => {
+    try {
+      const response = await axios.get(REGISTRY_URL);
+      const auditors: { name: string; address: string }[] = Object.entries(
+        response.data.auditors as { [key: string]: { address: string } }, // Type assertion
+      ).map(([name, details]) => ({
+        name,
+        address: (details as { address: string }).address, // Type assertion
+      }));
+      return auditors as { name: string; address: string }[];
+    } catch (error) {
+      return [] as { name: string; address: string }[];
+    }
+  },
+);
 
 export const {
   useGetVersionQuery,

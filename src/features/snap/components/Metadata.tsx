@@ -1,8 +1,10 @@
-import { Flex, Link, useDisclosure } from '@chakra-ui/react';
+import { Box, Flex, Link, useDisclosure } from '@chakra-ui/react';
 import { t, Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 import { useEffect, type FunctionComponent } from 'react';
+import type { Hex } from 'viem';
 
+import { Identifier, SourceCode } from '.';
 import { Category } from './Category';
 import { CommunitySentiment } from './community-sentiment';
 import { Data } from './Data';
@@ -52,13 +54,22 @@ export const Metadata: FunctionComponent<MetadataProps> = ({ snap }) => {
     );
   }, [dispatch, snap.latestChecksum]);
 
-  const { category, support } = snap;
+  const {
+    name,
+    author,
+    category,
+    support,
+    sourceCode,
+    additionalSourceCode,
+    privateCode,
+    snapId,
+  } = snap;
 
   return (
     <Flex marginBottom="8" gap="4" justifyContent="space-between">
       <MetadataModal snap={snap} isOpen={isOpen} onClose={onClose} />
       <Flex
-        gap={['6', null, null, '16']}
+        gap={['6', null, null, '22']}
         flexDirection={['column', null, null, 'row']}
       >
         {category && (
@@ -67,9 +78,38 @@ export const Metadata: FunctionComponent<MetadataProps> = ({ snap }) => {
             value={<Category category={category as RegistrySnapCategory} />}
           />
         )}
-
-        <MetadataItems snap={snap} />
-        {<CommunitySentiment snap={snap} />}
+        <Data label={t`Identifier`} value={<Identifier snapId={snapId} />} />
+        <CommunitySentiment snap={snap} />
+        {author && <MetadataItems address={author.address as Hex} />}
+        <Data
+          label={t`Source Code`}
+          value={
+            <SourceCode
+              url={sourceCode}
+              additionalUrls={additionalSourceCode}
+            />
+          }
+          warning={
+            privateCode && (
+              <Trans>
+                <Box as="span" fontWeight="500">
+                  {name}
+                </Box>{' '}
+                uses code that isn&apos;t viewable by the public. Critical parts
+                of the codebase were audited for security, but later versions of
+                the code may not be. Make sure you trust{' '}
+                <Box as="span" fontWeight="500">
+                  {author.name}
+                </Box>{' '}
+                before installing and using{' '}
+                <Box as="span" fontWeight="500">
+                  {name}
+                </Box>
+                .
+              </Trans>
+            )
+          }
+        />
         {(support?.contact || support?.faq || support?.knowledgeBase) && (
           <Data
             label={_(t`Support`)}
