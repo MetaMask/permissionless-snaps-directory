@@ -395,7 +395,7 @@ msgstr ""
 
 #: src/components/icons/index.ts
 #: src/features/account/components/AccountRoleTags.tsx
-#: src/features/snap/components/MetadataItems.tsx
+#: src/features/snap/components/MetadataItem.tsx
 msgid "Developer"
 msgstr ""
 

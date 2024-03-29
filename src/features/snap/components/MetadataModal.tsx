@@ -14,11 +14,11 @@ import { Identifier, MetadataAuditItem } from '.';
 import { Audits } from './Audits';
 import { Data } from './Data';
 import { Legal } from './Legal';
-import { MetadataItems } from './MetadataItems';
+import { MetadataItem } from './MetadataItem';
 import { SourceCode } from './SourceCode';
 import { ExternalLink } from '../../../components';
 import { useSelector } from '../../../hooks';
-import { getLinkText, type Fields } from '../../../utils';
+import { type Fields, getLinkText } from '../../../utils';
 import { getAuditorAddressesByNames } from '../../snaps';
 
 export type MetadataModalProps = {
@@ -76,7 +76,7 @@ export const MetadataModal: FunctionComponent<MetadataModalProps> = ({
         <ModalCloseButton />
         <ModalBody display="flex" flexDirection="column" gap="4">
           <Data label={t`Identifier`} value={<Identifier snapId={snapId} />} />
-          {author && <MetadataItems address={author.address as Hex} />}
+          {author && <MetadataItem address={author.address as Hex} />}
           <MetadataAuditItem auditorAddresses={auditorAddresses} />
           <Data label={t`Version`} value={latestVersion} />
           <Data

@@ -1,40 +1,41 @@
-import { act } from 'react-dom/test-utils';
-import { useEnsName } from 'wagmi';
+import { MetadataItem } from './MetadataItem';
+import { useVerifiableCredential } from '../../../hooks';
+import { render, VALID_ACCOUNT_1 } from '../../../utils/test-utils';
 
-import { MetadataItems } from './MetadataItems';
-import { VALID_ACCOUNT_1, render } from '../../../utils/test-utils';
+jest.mock('../../../hooks');
 
 jest.mock('wagmi', () => ({
   ...jest.requireActual('wagmi'),
   useEnsName: jest.fn(),
 }));
 
-const buildEnsNameMock = (name?: string, isLoading = false) => {
-  const mockUseEnsName = useEnsName as jest.Mock;
-  mockUseEnsName.mockImplementation(() => ({
-    data: name,
-    isLoading,
-  }));
-};
+jest.mock('../../../hooks/useVerifiableCredential', () => ({
+  ...jest.requireActual('../../../hooks/useVerifiableCredential'),
+  useVerifiableCredential: jest.fn(),
+}));
 
-describe('MetadataItems', () => {
-  it('renders the developer', async () => {
-    buildEnsNameMock('ens.mock.name');
-    const { queryByText, getByText } = render(
-      <MetadataItems address={VALID_ACCOUNT_1} />,
-    );
+jest.mock('../../../components/EntityName', () => ({
+  EntityName: () => <div data-testid="entity-name" />,
+}));
 
-    expect(queryByText('ens.mock.name')).toBeInTheDocument();
-
-    const link = getByText('ens.mock.name');
-
-    await act(async () => link.click());
+describe('MetadataItem', () => {
+  let mockUseVerifiableCredential: jest.Mock;
+  beforeEach(() => {
+    mockUseVerifiableCredential = useVerifiableCredential as jest.Mock;
+    mockUseVerifiableCredential.mockClear();
+    mockUseVerifiableCredential.mockReturnValue({
+      accountVCBuilder: {
+        getSubjectDid: jest.fn().mockReturnValue(VALID_ACCOUNT_1),
+      },
+    });
   });
 
-  it('renders the developer without ens name', () => {
-    buildEnsNameMock(undefined);
-    const { queryByText } = render(<MetadataItems address={VALID_ACCOUNT_1} />);
+  it('renders the developer entity', async () => {
+    const { queryByText, queryByTestId } = render(
+      <MetadataItem address={VALID_ACCOUNT_1} />,
+    );
 
-    expect(queryByText('ens.mock.name')).not.toBeInTheDocument();
+    expect(queryByText('Developer')).toBeInTheDocument();
+    expect(queryByTestId('entity-name')).toBeInTheDocument();
   });
 });

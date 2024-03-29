@@ -6,8 +6,8 @@ jest.mock('../../../hooks');
 jest.mock('./community-sentiment', () => ({
   CommunitySentiment: () => <div data-testid="community-sentiment" />,
 }));
-jest.mock('./MetadataItems', () => ({
-  MetadataItems: () => <div data-testid="metadata-items" />,
+jest.mock('./MetadataItem', () => ({
+  MetadataItem: () => <div data-testid="metadata-item" />,
 }));
 jest.mock('./MetadataModal', () => ({
   MetadataModal: () => <div data-testid="metadata-modal" />,
@@ -41,7 +41,7 @@ describe('Metadata', () => {
 
     const { snap } = getMockSnap();
     const { queryByTestId } = render(<Metadata snap={snap} />);
-    expect(queryByTestId('metadata-items')).toBeInTheDocument();
+    expect(queryByTestId('metadata-item')).toBeInTheDocument();
   });
 
   it('renders the developer even when fetchSnapAssertionsForSnapId fails', () => {
@@ -69,7 +69,7 @@ describe('Metadata', () => {
       />,
     );
 
-    expect(queryByTestId('metadata-items')).toBeInTheDocument();
+    expect(queryByTestId('metadata-item')).toBeInTheDocument();
   });
 
   it('renders the key recovery link', () => {
