@@ -19,15 +19,11 @@ describe('EndorseSnapModal', () => {
       />,
     );
 
-    expect(
-      queryByText(
-        'This action will endorse the snap as secure in your community.',
-      ),
-    ).toBeInTheDocument();
-    expect(queryByText('Sign to endorse')).toBeInTheDocument();
+    expect(queryByText('Endorse a Trustworthy Snap')).toBeInTheDocument();
     expect(queryByText('snap1')).toBeInTheDocument();
     expect(queryByText('option1')).toBeInTheDocument();
     expect(queryByText('option2')).toBeInTheDocument();
+    expect(queryByText('Sign to endorse')).toBeInTheDocument();
   });
 
   it('checks checkbox options when clicked', () => {

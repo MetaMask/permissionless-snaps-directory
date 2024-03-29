@@ -1,6 +1,6 @@
 import { Center, Link, Text, VStack } from '@chakra-ui/react';
-import { Trans, t } from '@lingui/macro';
-import { useState, type FunctionComponent } from 'react';
+import { t, Trans } from '@lingui/macro';
+import { type FunctionComponent, useState } from 'react';
 
 import {
   MultipleCheckboxOptions,
@@ -47,17 +47,16 @@ export const EndorseSnapModal: FunctionComponent<EndorseSnapModalProps> = ({
       <Center>
         <VStack textAlign="center" fontSize="md">
           <Text fontWeight="medium">
+            <Trans>Endorse a Trustworthy Snap</Trans>
+          </Text>
+
+          <Text noOfLines={2} fontWeight="regular" as="span">
             <Trans>
               Endorse{' '}
               <Text variant="blue" as="span">
                 {snapName}
               </Text>{' '}
-            </Trans>
-          </Text>
-
-          <Text noOfLines={2} fontWeight="regular" as="span">
-            <Trans>
-              This action will endorse the snap as secure in your community.
+              as trustworthy for your community.
             </Trans>{' '}
             <Link>
               <Trans>Learn more</Trans>
@@ -66,9 +65,7 @@ export const EndorseSnapModal: FunctionComponent<EndorseSnapModalProps> = ({
           <MultipleCheckboxOptions
             options={options}
             onChange={(values) => {
-              setSelectedOptions(
-                options.filter((_, index) => values[index] === true),
-              );
+              setSelectedOptions(options.filter((_, index) => values[index]));
             }}
           />
         </VStack>

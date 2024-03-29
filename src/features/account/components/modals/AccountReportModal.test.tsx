@@ -4,7 +4,7 @@ import { AccountReportModal } from './AccountReportModal';
 import { render } from '../../../../utils/test-utils';
 
 describe('AccountReportModal', () => {
-  const options = ['label 1', 'label 2', 'label 3'];
+  const options = ['option1', 'option2'];
 
   it('renders', () => {
     const onSign = jest.fn().mockResolvedValue(true);
@@ -20,10 +20,11 @@ describe('AccountReportModal', () => {
       />,
     );
 
+    expect(queryByText('Report a Malicious Actor')).toBeInTheDocument();
+    expect(queryByText('mock.ens.name')).toBeInTheDocument();
+    expect(queryByText('option1')).toBeInTheDocument();
+    expect(queryByText('option2')).toBeInTheDocument();
     expect(queryByText('Sign to report')).toBeInTheDocument();
-    expect(queryByText('label 1')).toBeInTheDocument();
-    expect(queryByText('label 2')).toBeInTheDocument();
-    expect(queryByText('label 3')).toBeInTheDocument();
   });
 
   it("calls `onSign` with selected item's value when clicking on sign button", async () => {
@@ -41,10 +42,10 @@ describe('AccountReportModal', () => {
     );
 
     await act(async () => {
-      getByText('label 1').click();
+      getByText('option1').click();
       getByText('Sign to report').click();
     });
 
-    expect(onSign).toHaveBeenCalledWith(['label 1']);
+    expect(onSign).toHaveBeenCalledWith(['option1']);
   });
 });

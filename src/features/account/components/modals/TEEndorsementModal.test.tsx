@@ -6,12 +6,12 @@ import { render } from '../../../../utils/test-utils';
 describe('TEEndorsementModal', () => {
   const options = [
     {
-      label: 'label 1',
+      label: 'option1',
       description: 'description 1',
       value: 'value 1',
     },
     {
-      label: 'label 2',
+      label: 'option2',
       description: 'description 2',
       value: 'value 2',
     },
@@ -31,11 +31,11 @@ describe('TEEndorsementModal', () => {
       />,
     );
 
-    expect(queryByText('Sign')).toBeInTheDocument();
-    expect(queryByText('label 1')).toBeInTheDocument();
-    expect(queryByText('label 2')).toBeInTheDocument();
-    expect(queryByText('description 1')).toBeInTheDocument();
-    expect(queryByText('description 2')).toBeInTheDocument();
+    expect(queryByText('Endorse Technical Expertises')).toBeInTheDocument();
+    expect(queryByText('mock.ens.name')).toBeInTheDocument();
+    expect(queryByText('option1')).toBeInTheDocument();
+    expect(queryByText('option2')).toBeInTheDocument();
+    expect(queryByText('Sign to endorse')).toBeInTheDocument();
   });
 
   it('does not render description if it has not provided', async () => {
@@ -57,9 +57,9 @@ describe('TEEndorsementModal', () => {
       />,
     );
 
-    expect(queryByText('Sign')).toBeInTheDocument();
-    expect(queryByText('label 1')).toBeInTheDocument();
-    expect(queryByText('label 2')).toBeInTheDocument();
+    expect(queryByText('Sign to endorse')).toBeInTheDocument();
+    expect(queryByText('option1')).toBeInTheDocument();
+    expect(queryByText('option2')).toBeInTheDocument();
     expect(queryByText('description 1')).not.toBeInTheDocument();
     expect(queryByText('description 2')).not.toBeInTheDocument();
   });
@@ -80,8 +80,8 @@ describe('TEEndorsementModal', () => {
 
     await act(async () =>
       act(() => {
-        getByText('label 1').click();
-        getByText('Sign').click();
+        getByText('option1').click();
+        getByText('Sign to endorse').click();
       }),
     );
 
