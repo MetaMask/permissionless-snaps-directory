@@ -6,11 +6,11 @@ import { Data } from './Data';
 import { EntityName } from '../../../components/EntityName';
 import { useVerifiableCredential } from '../../../hooks';
 
-export type MetadataItemsProps = {
+export type MetadataItemProps = {
   address: Hex;
 };
 
-export const MetadataItems: FunctionComponent<MetadataItemsProps> = ({
+export const MetadataItem: FunctionComponent<MetadataItemProps> = ({
   address,
 }) => {
   const { accountVCBuilder } = useVerifiableCredential();
@@ -20,9 +20,7 @@ export const MetadataItems: FunctionComponent<MetadataItemsProps> = ({
         <Data
           label={t`Developer`}
           value={
-            <EntityName
-              subject={accountVCBuilder.getSubjectDid(address)}
-            ></EntityName>
+            <EntityName subject={accountVCBuilder.getSubjectDid(address)} />
           }
         />
       )}

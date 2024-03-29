@@ -21,9 +21,9 @@ export const MetadataAuditItem: FunctionComponent<MetadataAuditItemProps> = ({
           label={t`Audited By`}
           value={auditorAddresses.map((auditorAddress, index) => (
             <EntityName
-              key={`auditor-${index}`}
+              key={`${auditorAddress}-${index}`}
               subject={accountVCBuilder.getSubjectDid(auditorAddress)}
-            ></EntityName>
+            />
           ))}
         />
       )}

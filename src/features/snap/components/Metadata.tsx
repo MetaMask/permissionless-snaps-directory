@@ -1,13 +1,13 @@
 import { Box, Flex, Link, useDisclosure } from '@chakra-ui/react';
 import { t, Trans } from '@lingui/macro';
-import { useEffect, type FunctionComponent } from 'react';
+import { type FunctionComponent, useEffect } from 'react';
 import type { Hex } from 'viem';
 
 import { Identifier, SourceCode } from '.';
 import { Category } from './Category';
 import { CommunitySentiment } from './community-sentiment';
 import { Data } from './Data';
-import { MetadataItems } from './MetadataItems';
+import { MetadataItem } from './MetadataItem';
 import { MetadataModal } from './MetadataModal';
 import { ExternalLink } from '../../../components';
 import type { RegistrySnapCategory } from '../../../constants';
@@ -78,7 +78,7 @@ export const Metadata: FunctionComponent<MetadataProps> = ({ snap }) => {
         )}
         <Data label={t`Identifier`} value={<Identifier snapId={snapId} />} />
         <CommunitySentiment snap={snap} />
-        {author && <MetadataItems address={author.address as Hex} />}
+        {author && <MetadataItem address={author.address as Hex} />}
         <Data
           label={t`Source Code`}
           value={

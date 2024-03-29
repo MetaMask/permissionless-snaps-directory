@@ -1,6 +1,6 @@
-import { MetadataItems } from './MetadataItems';
+import { MetadataItem } from './MetadataItem';
 import { useVerifiableCredential } from '../../../hooks';
-import { VALID_ACCOUNT_1, render } from '../../../utils/test-utils';
+import { render, VALID_ACCOUNT_1 } from '../../../utils/test-utils';
 
 jest.mock('../../../hooks');
 
@@ -18,7 +18,7 @@ jest.mock('../../../components/EntityName', () => ({
   EntityName: () => <div data-testid="entity-name" />,
 }));
 
-describe('MetadataItems', () => {
+describe('MetadataItem', () => {
   let mockUseVerifiableCredential: jest.Mock;
   beforeEach(() => {
     mockUseVerifiableCredential = useVerifiableCredential as jest.Mock;
@@ -32,7 +32,7 @@ describe('MetadataItems', () => {
 
   it('renders the developer entity', async () => {
     const { queryByText, queryByTestId } = render(
-      <MetadataItems address={VALID_ACCOUNT_1} />,
+      <MetadataItem address={VALID_ACCOUNT_1} />,
     );
 
     expect(queryByText('Developer')).toBeInTheDocument();

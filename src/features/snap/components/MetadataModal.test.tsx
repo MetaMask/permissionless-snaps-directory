@@ -10,8 +10,8 @@ jest.mock('.', () => ({
   MetadataAuditItem: () => <div data-testid="metadata-audit-item" />,
 }));
 
-jest.mock('./MetadataItems', () => ({
-  MetadataItems: () => <div data-testid="metadata-items" />,
+jest.mock('./MetadataItem', () => ({
+  MetadataItem: () => <div data-testid="metadata-item" />,
 }));
 
 jest.mock('./Audits', () => ({
