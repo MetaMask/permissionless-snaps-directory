@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_metamask_snaps_directory=self.webpackChunk_metamask_snaps_directory||[]).push([[720],{45720:function(e,s,a){a.d(s,{normalize:function(){return n.F}});var n=a(54842)}}]);
