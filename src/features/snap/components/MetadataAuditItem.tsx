@@ -4,6 +4,7 @@ import type { Hex } from 'viem';
 
 import { Data } from './Data';
 import { EntityName } from '../../../components/EntityName';
+import { useVerifiableCredential } from '../../../hooks';
 
 export type MetadataAuditItemProps = {
   auditorAddresses: Hex[];
@@ -12,6 +13,7 @@ export type MetadataAuditItemProps = {
 export const MetadataAuditItem: FunctionComponent<MetadataAuditItemProps> = ({
   auditorAddresses,
 }) => {
+  const { accountVCBuilder } = useVerifiableCredential();
   return (
     <>
       {auditorAddresses.length > 0 && (
@@ -20,7 +22,7 @@ export const MetadataAuditItem: FunctionComponent<MetadataAuditItemProps> = ({
           value={auditorAddresses.map((auditorAddress, index) => (
             <EntityName
               key={`auditor-${index}`}
-              subject={`did:pkh:eip155:1:${auditorAddress}`}
+              subject={accountVCBuilder.getSubjectDid(auditorAddress)}
             ></EntityName>
           ))}
         />
