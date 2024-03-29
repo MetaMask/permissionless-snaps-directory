@@ -1,6 +1,6 @@
 import { Center, Link, Text, VStack } from '@chakra-ui/react';
-import { Trans, t } from '@lingui/macro';
-import { useState, type FunctionComponent } from 'react';
+import { t, Trans } from '@lingui/macro';
+import { type FunctionComponent, useState } from 'react';
 
 import {
   MultipleCheckboxOptions,
@@ -47,18 +47,16 @@ export const ReportSnapModal: FunctionComponent<ReportSnapModalProps> = ({
       <Center>
         <VStack textAlign="center" fontSize="md">
           <Text fontWeight="medium">
-            <Trans>
-              Report for{' '}
-              <Text variant="blue" as="span">
-                {snapName}
-              </Text>{' '}
-              as a malicious snap
-            </Trans>
+            <Trans>Report an Untrustworthy Snap</Trans>
           </Text>
 
           <Text noOfLines={2} as="span">
             <Trans>
-              This action will flag the snap as a malicious in your community.
+              Report{' '}
+              <Text variant="blue" as="span">
+                {snapName}
+              </Text>{' '}
+              as untrustworthy to safeguard your community.
             </Trans>{' '}
             <Link>
               <Trans>Learn more</Trans>

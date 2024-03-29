@@ -19,10 +19,11 @@ describe('ReportSnapModal', () => {
       />,
     );
 
-    expect(queryByText('Sign to report')).toBeInTheDocument();
+    expect(queryByText('Report an Untrustworthy Snap')).toBeInTheDocument();
     expect(queryByText('snap1')).toBeInTheDocument();
     expect(queryByText('option1')).toBeInTheDocument();
     expect(queryByText('option2')).toBeInTheDocument();
+    expect(queryByText('Sign to report')).toBeInTheDocument();
   });
 
   it('checks checkbox options when clicked', () => {

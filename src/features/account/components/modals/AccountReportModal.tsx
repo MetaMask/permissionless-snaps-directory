@@ -1,6 +1,6 @@
 import { Center, Link, Text, VStack } from '@chakra-ui/react';
-import { Trans, t } from '@lingui/macro';
-import { useState, type FunctionComponent } from 'react';
+import { t, Trans } from '@lingui/macro';
+import { type FunctionComponent, useState } from 'react';
 
 import {
   MultipleCheckboxOptions,
@@ -47,18 +47,16 @@ export const AccountReportModal: FunctionComponent<AccountReportModalProps> = ({
       <Center>
         <VStack textAlign="center" fontSize="md">
           <Text fontWeight="medium">
-            <Trans>
-              Report for{' '}
-              <Text variant="blue" as="span">
-                {reportEntity}
-              </Text>{' '}
-              as a malicious actor
-            </Trans>
+            <Trans>Report a Malicious Actor</Trans>
           </Text>
 
           <Text noOfLines={2} as="span">
             <Trans>
-              This action will flag the user as a malicious in your community.
+              Report{' '}
+              <Text variant="blue" as="span">
+                {reportEntity}
+              </Text>{' '}
+              as malicious to safeguard your community.
             </Trans>{' '}
             <Link>
               <Trans>Learn more</Trans>

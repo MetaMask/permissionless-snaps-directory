@@ -96,7 +96,7 @@ describe('AccountTEEndorsement', () => {
 
     await act(async () => getByText('Endorse').click());
 
-    expect(queryByText('Sign')).toBeInTheDocument();
+    expect(queryByText('Sign to endorse')).toBeInTheDocument();
   });
 
   it('does not sign when signature is null', async () => {
@@ -125,8 +125,8 @@ describe('AccountTEEndorsement', () => {
 
     await act(async () => getByText('Endorse').click());
 
-    expect(queryByText('Sign')).toBeInTheDocument();
-    await act(async () => getByText('Sign').click());
+    expect(queryByText('Sign to endorse')).toBeInTheDocument();
+    await act(async () => getByText('Sign to endorse').click());
     expect(mockSignMessage).toHaveBeenCalled();
 
     expect(queryByText('Endorse')).toBeInTheDocument();
@@ -143,11 +143,11 @@ describe('AccountTEEndorsement', () => {
 
     await act(async () => getByText('Endorse').click());
 
-    expect(queryByText('Sign')).toBeInTheDocument();
+    expect(queryByText('Sign to endorse')).toBeInTheDocument();
 
     await act(async () => getByLabelText('Close').click());
 
-    expect(queryByText('Sign')).not.toBeInTheDocument();
+    expect(queryByText('Sign to endorse')).not.toBeInTheDocument();
   });
 
   it('displays `Success` toast when endorsement is successful', async () => {
@@ -169,7 +169,7 @@ describe('AccountTEEndorsement', () => {
 
     await act(async () => getByText('Endorse').click());
     await act(async () => getByText('Software Development').click());
-    await act(async () => getByText('Sign').click());
+    await act(async () => getByText('Sign to endorse').click());
 
     // Wait for async actions to complete
     await waitFor(() => {
@@ -204,7 +204,7 @@ describe('AccountTEEndorsement', () => {
     );
 
     await act(async () => getByText('Endorse').click());
-    await act(async () => getByText('Sign').click());
+    await act(async () => getByText('Sign to endorse').click());
 
     // Wait for async actions to complete
     await waitFor(() => {
@@ -236,7 +236,7 @@ describe('AccountTEEndorsement', () => {
     );
 
     await act(async () => getByText('Endorse').click());
-    await act(async () => getByText('Sign').click());
+    await act(async () => getByText('Sign to endorse').click());
 
     // Wait for async actions to complete
     await waitFor(() => {
@@ -263,7 +263,7 @@ describe('AccountTEEndorsement', () => {
     );
 
     await act(async () => getByText('Endorse').click());
-    await act(async () => getByText('Sign').click());
+    await act(async () => getByText('Sign to endorse').click());
 
     // Wait for async actions to complete
     await waitFor(() => {

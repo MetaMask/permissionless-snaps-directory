@@ -1,6 +1,6 @@
-import { Center, Text, VStack, Checkbox, Box } from '@chakra-ui/react';
-import { Trans, t } from '@lingui/macro';
-import { useState, type FunctionComponent } from 'react';
+import { Box, Center, Checkbox, Link, Text, VStack } from '@chakra-ui/react';
+import { t, Trans } from '@lingui/macro';
+import { type FunctionComponent, useState } from 'react';
 
 import { AvatarBlueIcon, RequestSignModal } from '../../../../components';
 
@@ -54,23 +54,26 @@ export const TEEndorsementModal: FunctionComponent<TEEndorsementModalProps> = ({
       isLoading={isLoading}
       mode="positive"
       headerIcon={<AvatarBlueIcon />}
-      buttonText={t`Sign`}
+      buttonText={t`Sign to endorse`}
       onClose={onClose}
       onSignButtonClick={onSignButtonClick}
     >
       <Center>
         <VStack fontSize="md">
           <Text fontWeight="medium" textAlign="center">
-            <Trans>Trusted technical abilities</Trans>
+            <Trans>Endorse Technical Expertises</Trans>
           </Text>
-          <Text textAlign="center">
+          <Text noOfLines={2} as="span">
             <Trans>
-              Your level of confidence in{' '}
+              Endorse{' '}
               <Text variant="blue" as="span">
                 {trustEntity}
               </Text>{' '}
-              skill set
-            </Trans>
+              expertise within your community.
+            </Trans>{' '}
+            <Link>
+              <Trans>Learn more</Trans>
+            </Link>
           </Text>
           {options.map((option: TEEndorsementOption, index: number) => (
             <Box
