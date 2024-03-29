@@ -27,7 +27,6 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
   data,
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
-  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
   useEffect(() => {
     const width = 1248;
@@ -169,15 +168,10 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
         .on('mouseover', function () {
           // Apply glow effect on mouseover
           d3.select(this.parentNode).style('filter', 'url(#glow)');
-          utteranceRef.current = new SpeechSynthesisUtterance(
-            `This user's address is ${this.parentNode.id}`,
-          );
-          window.speechSynthesis.speak(utteranceRef.current);
         })
         .on('mouseout', function () {
           // Remove the glow effect on mouseout
           d3.select(this.parentNode).style('filter', null);
-          window.speechSynthesis.cancel();
         });
     }
 

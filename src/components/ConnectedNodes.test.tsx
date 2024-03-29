@@ -16,17 +16,6 @@ describe('ConnectedNodes', () => {
     ],
   };
 
-  beforeEach(() => {
-    // Mock the SpeechSynthesisUtterance and window.speechSynthesis objects
-    // eslint-disable-next-line no-restricted-globals
-    window.speechSynthesis = {
-      speak: jest.fn(),
-      cancel: jest.fn(),
-    } as any;
-    // eslint-disable-next-line no-restricted-globals
-    window.SpeechSynthesisUtterance = jest.fn() as any;
-  });
-
   it('renders correct number of nodes', () => {
     render(<ConnectedNodes data={testData} />);
     const nodes = screen.getAllByTestId('jazzicon');
