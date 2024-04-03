@@ -60,4 +60,5 @@ export type SnapAssertionResponse = {
   type: string;
   proof?: ProofEip712;
   credentialSubject: SnapCredentialSubject;
+  issuanceDate: Date;
 };
