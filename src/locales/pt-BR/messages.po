@@ -118,6 +118,7 @@ msgid "Account Profile"
 msgstr ""
 
 #: src/features/account/components/activity/ActivitySection.tsx
+#: src/features/snap/components/activity/ActivitySection.tsx
 msgid "Activity"
 msgstr ""
 
@@ -260,6 +261,7 @@ msgid "Alphabetical"
 msgstr ""
 
 #: src/features/account/components/activity/ActivityItem.tsx
+#: src/features/snap/components/activity/ActivityItem.tsx
 msgid "and"
 msgstr ""
 
@@ -483,6 +485,7 @@ msgid "Endorsed"
 msgstr ""
 
 #: src/features/account/components/technical-expertise/TechnicalExpertiseItem.tsx
+#: src/features/snap/components/activity/ActivityItem.tsx
 msgid "Endorsed by"
 msgstr ""
 
@@ -928,6 +931,10 @@ msgstr ""
 #: src/features/account/components/activity/ActivityItem.tsx
 #: src/features/account/components/activity/ActivityItem.tsx
 msgid "Reported"
+msgstr ""
+
+#: src/features/snap/components/activity/ActivityItem.tsx
+msgid "Reported by"
 msgstr ""
 
 #: src/pages/explore.tsx
