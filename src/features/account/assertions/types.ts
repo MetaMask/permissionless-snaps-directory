@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import type { SubjectType, Value } from './enums';
+
 export enum TrustworthinessScope {
   Honesty = 'Honesty',
   SoftwareSecurity = 'Software security',
@@ -74,4 +76,9 @@ export type AccountAssertion = {
   id: string;
   creationAt: Date;
   assertion: AccountAssertionResponse;
+  issuerId: string;
+  subjectId: string;
+  subjectType: SubjectType;
+  value: Value;
+  reasons: string[];
 };

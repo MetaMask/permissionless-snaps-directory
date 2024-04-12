@@ -19,7 +19,7 @@ jest.mock('../../../../components/EntityName', () => ({
 }));
 
 const snapEndorsementAssertion: SnapAssertionState = {
-  snapId: 'snap://mockChecksum',
+  snapId: 'mockChecksum',
   issuer: '0xmockAddress1',
   statusReason: { type: SnapStatusReasonType.Endorse, value: ['Reason'] },
   creationAt: new Date(),
@@ -28,7 +28,7 @@ const snapEndorsementAssertion: SnapAssertionState = {
 };
 
 const snapReportAssertion: SnapAssertionState = {
-  snapId: 'snap://mockChecksum',
+  snapId: 'mockChecksum',
   issuer: '0xmockAddress2',
   statusReason: { type: SnapStatusReasonType.Malicious, value: ['Reason'] },
   creationAt: new Date(),

@@ -43,15 +43,12 @@ export const AccountTEEndorsement: FunctionComponent<
 
   const trimmedAddress = useMemo(() => trimAddress(address), [address]);
 
-  const pkhAddress = accountVCBuilder.getSubjectDid(address);
-  const issuer = accountVCBuilder.getSubjectDid(connectedAddress);
-
   const latestTrustworthinessLevel = useSelector(
-    getCurrentTrustworthinessLevelForIssuer(pkhAddress, issuer),
+    getCurrentTrustworthinessLevelForIssuer(address, connectedAddress),
   );
 
   const isAccountEndorsed = useSelector(
-    isAccountEndorsedByIssuer(pkhAddress, issuer),
+    isAccountEndorsedByIssuer(address, connectedAddress),
   );
 
   const trustEntity = data ?? trimmedAddress;
@@ -105,25 +102,25 @@ export const AccountTEEndorsement: FunctionComponent<
       dispatch(createAccountAssertion(assertion))
         .then((action) => {
           if (action.type.endsWith('fulfilled')) {
-            dispatch(fetchAccountAssertionsForAccountId(pkhAddress)).catch(
+            dispatch(fetchAccountAssertionsForAccountId(address)).catch(
               (error) => console.log(error),
             );
             setEndorsed(true);
             showSuccessMsg({
               title: t`Success`,
-              description: t`${pkhAddress} has been endorsed.`,
+              description: t`${address} has been endorsed.`,
             });
           } else {
             showErrorMsg({
               title: t`Error`,
-              description: t`Failed to create endorsement for ${pkhAddress}.`,
+              description: t`Failed to create endorsement for ${address}.`,
             });
           }
         })
         .catch(() => {
           showErrorMsg({
             title: t`Error`,
-            description: t`Failed to create endorsement for ${pkhAddress}.`,
+            description: t`Failed to create endorsement for ${address}.`,
           });
         });
     }

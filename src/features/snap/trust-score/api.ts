@@ -10,12 +10,10 @@ export const fetchTrustScoreForSnapId = createAsyncThunk(
   'snapTrustScore/fetchTrustScoreForSnapId',
   async (snapId: string): Promise<SnapTrustScore> => {
     try {
-      const response = await axios.get(
-        `${BASE_URL}/trustscores/id/snap://${snapId}`,
-      );
+      const response = await axios.get(`${BASE_URL}/trustscores/id/${snapId}`);
       if (response.data.length === 0) {
         return {
-          subjectId: `snap://${snapId}`,
+          subjectId: `${snapId}`,
           value: -1,
           trustScoreScope: '',
           result: -1,
@@ -24,7 +22,7 @@ export const fetchTrustScoreForSnapId = createAsyncThunk(
       return response.data[0];
     } catch (error) {
       return {
-        subjectId: `snap://${snapId}`,
+        subjectId: `${snapId}`,
         value: -1,
         trustScoreScope: '',
         result: -1,

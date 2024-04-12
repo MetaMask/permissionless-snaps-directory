@@ -41,8 +41,8 @@ const getConnectedNodesForLevel = (
   // Find assertions for the account ignoring the previous ones
   const endorsementsOnAccount = accountAssertions.accountAssertions.filter(
     (assertion) =>
-      assertion.accountId === accountId &&
-      !ignoreAccountIds.includes(assertion.issuer.toLowerCase()),
+      assertion.subjectId === accountId &&
+      !ignoreAccountIds.includes(assertion.issuerId.toLowerCase()),
   );
 
   // Get top 2 connections for the account
@@ -51,11 +51,11 @@ const getConnectedNodesForLevel = (
   // Adding the top two connections to the final result
   topTwoConnections.forEach((connection) => {
     accountConnections.links.push({
-      source: connection.accountId,
-      target: connection.issuer,
+      source: connection.subjectId,
+      target: connection.issuerId,
     });
     accountConnections.nodes.push({
-      id: connection.issuer,
+      id: connection.issuerId,
       group: level + 1,
       isMain: false,
     });
@@ -74,7 +74,7 @@ const getConnectedNodesForLevel = (
     topTwoConnections.forEach((connection) => {
       const issuerConnections = getConnectedNodesForLevel(
         accountAssertions,
-        connection.issuer,
+        connection.issuerId,
         connectedNodeLevel,
         ignoreAccountIds,
       );
@@ -82,6 +82,24 @@ const getConnectedNodesForLevel = (
       accountConnections.nodes.push(...issuerConnections.nodes);
     });
   }
+
+  // Remove duplicate links
+  accountConnections.links = accountConnections.links.filter(
+    (currentLink, index, self) =>
+      index ===
+      self.findIndex(
+        (link) =>
+          link.source === currentLink.source &&
+          link.target === currentLink.target,
+      ),
+  );
+
+  // Remove duplicate nodes
+  accountConnections.nodes = accountConnections.nodes.filter(
+    (currentNode, index, self) =>
+      index === self.findIndex((node) => node.id === currentNode.id),
+  );
+
   return accountConnections;
 };
 

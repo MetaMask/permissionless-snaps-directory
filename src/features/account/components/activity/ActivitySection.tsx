@@ -2,10 +2,9 @@ import { Box, Divider, Heading } from '@chakra-ui/react';
 import { t } from '@lingui/macro';
 import type { Address } from '@wagmi/core';
 import type { FunctionComponent } from 'react';
-import { useMemo } from 'react';
 
 import { ActivityItem } from './ActivityItem';
-import { useSelector, useVerifiableCredential } from '../../../../hooks';
+import { useSelector } from '../../../../hooks';
 import { getIssuedAssertionsForIssuerId } from '../../assertions/store';
 
 export type ActivitySectionProps = {
@@ -15,12 +14,7 @@ export type ActivitySectionProps = {
 export const ActivitySection: FunctionComponent<ActivitySectionProps> = ({
   address,
 }) => {
-  const { accountVCBuilder } = useVerifiableCredential();
-  const pkhAddress = useMemo(
-    () => accountVCBuilder.getSubjectDid(address),
-    [accountVCBuilder, address],
-  );
-  const assertions = useSelector(getIssuedAssertionsForIssuerId(pkhAddress));
+  const assertions = useSelector(getIssuedAssertionsForIssuerId(address));
 
   if (assertions && assertions.length !== 0) {
     return (
@@ -32,7 +26,7 @@ export const ActivitySection: FunctionComponent<ActivitySectionProps> = ({
         <Box data-testid="activity-section">
           {assertions.map((assertion, index) => (
             <ActivityItem
-              key={`${assertion.accountId}-${index}`}
+              key={`${assertion.subjectId}-${index}`}
               assertion={assertion}
             />
           ))}

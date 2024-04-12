@@ -52,7 +52,7 @@ export const ActivityItem: FunctionComponent<ActivityItemProps> = ({
     <HStack mb={4} width={'100%'} justifyContent={'space-between'}>
       <HStack>
         <Text>{type()}</Text>
-        <EntityName subject={assertion.issuer} />
+        <EntityName subject={assertion.issuer} isSnap={false} />
         <Text>{reason()}</Text>
       </HStack>
       <Box alignContent={'flex-end'}>

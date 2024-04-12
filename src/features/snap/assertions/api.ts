@@ -13,7 +13,7 @@ export const fetchSnapAssertionsForSnapId = createAsyncThunk(
   async (snapId: string) => {
     try {
       const response = await axios.get(
-        `${BASE_URL}/assertions/subjects/snap://${snapId}`,
+        `${BASE_URL}/assertions/subjects/${snapId}`,
       );
       return { snapId, assertions: response.data.assertions } as {
         snapId: string;

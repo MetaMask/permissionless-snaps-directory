@@ -5,6 +5,7 @@ import {
   fetchAssertionsByIssuer,
   fetchAssertionsForAllAccounts,
 } from './api';
+import { SubjectType, Value } from './enums';
 import {
   accountAssertionsSlice,
   type AccountAssertionsState,
@@ -31,20 +32,26 @@ describe('accountAssertionsSlice', () => {
       const mockAssertionResponse: AccountAssertion = mock<AccountAssertion>();
       mockAssertionResponse.id = 'id';
       mockAssertionResponse.assertion = mock<AccountAssertionResponse>();
-      mockAssertionResponse.assertion.issuer = 'did:pkh:issuer';
-      mockAssertionResponse.assertion.credentialSubject.id =
-        'did:pkh:accountId';
+      mockAssertionResponse.issuerId = 'issuerId';
+      mockAssertionResponse.subjectId = 'subjectId';
+
       const mockPayload = {
-        accountId: 'did:pkh:accountId',
+        accountId: 'subjectId',
         assertions: [mockAssertionResponse],
       };
+
       const initialState: AccountAssertionsState = {
         accountAssertions: [
           {
-            accountId: 'did:pkh:accountId',
-            issuer: 'did:pkh:issuer',
+            subjectId: 'subjectId',
+            subjectType: SubjectType.User,
+            issuerId: 'issuerId',
             trustworthiness: [],
             creationAt: new Date(),
+            value: Value.Endorsement,
+            reasons: ['reason'],
+            statusReason: { type: 'test', value: ['test'] },
+            issuanceDate: new Date(),
           },
         ],
         issuedAssertions: [],
@@ -65,18 +72,22 @@ describe('accountAssertionsSlice', () => {
       const mockAssertionResponse: AccountAssertion = mock<AccountAssertion>();
       mockAssertionResponse.id = 'id';
       mockAssertionResponse.assertion = mock<AccountAssertionResponse>();
-      mockAssertionResponse.assertion.issuer = 'did:pkh:issuer';
-      mockAssertionResponse.assertion.credentialSubject.id =
-        'did:pkh:accountId';
+      mockAssertionResponse.issuerId = 'issuerId';
+      mockAssertionResponse.subjectId = 'subjectId';
       const mockPayload = [mockAssertionResponse];
 
       const initialState: AccountAssertionsState = {
         accountAssertions: [
           {
-            accountId: 'did:pkh:accountId',
-            issuer: 'did:pkh:issuer',
+            subjectId: 'subjectId',
+            issuerId: 'issuerId',
             trustworthiness: [],
             creationAt: new Date(),
+            value: Value.Endorsement,
+            statusReason: { type: 'test', value: ['test'] },
+            issuanceDate: new Date(),
+            subjectType: SubjectType.User,
+            reasons: ['reason'],
           },
         ],
         issuedAssertions: [],
@@ -93,23 +104,22 @@ describe('accountAssertionsSlice', () => {
       const mockAssertionResponse1: AccountAssertion = mock<AccountAssertion>();
       mockAssertionResponse1.id = 'id';
       mockAssertionResponse1.assertion = mock<AccountAssertionResponse>();
-      mockAssertionResponse1.assertion.issuer = 'did:pkh:issuer';
+      mockAssertionResponse1.issuerId = 'issuerId';
+      mockAssertionResponse1.subjectId = 'subjectId';
       mockAssertionResponse1.assertion.issuanceDate = new Date(
         '2023-01-01T00:00:00Z',
       );
-      mockAssertionResponse1.assertion.credentialSubject.id =
-        'did:pkh:accountId';
       const mockAssertionResponse2: AccountAssertion = mock<AccountAssertion>();
       mockAssertionResponse2.id = 'id';
       mockAssertionResponse2.assertion = mock<AccountAssertionResponse>();
-      mockAssertionResponse2.assertion.issuer = 'did:pkh:issuer';
+      mockAssertionResponse2.issuerId = 'issuerId';
+      mockAssertionResponse2.subjectId = 'subjectId';
       mockAssertionResponse2.assertion.issuanceDate = new Date(
         '2024-01-01T00:00:00Z',
       );
-      mockAssertionResponse2.assertion.credentialSubject.id =
-        'did:pkh:accountId';
 
       const mockPayload = {
+        accountId: 'subjectId',
         assertions: [mockAssertionResponse1, mockAssertionResponse2],
       };
 
@@ -117,7 +127,11 @@ describe('accountAssertionsSlice', () => {
         accountAssertions: [],
         issuedAssertions: [],
       };
-      const action = fetchAssertionsByIssuer.fulfilled(mockPayload, '');
+      const action = fetchAssertionsByIssuer.fulfilled(
+        mockPayload,
+        '',
+        'issuerId',
+      );
 
       const newState = accountAssertionsSlice.reducer(initialState, action);
 
@@ -162,21 +176,27 @@ describe('Selectors', () => {
   describe('getIssuedAssertionsForIssuerId', () => {
     it('should return assertions issued by a specific issuerId', () => {
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
-      const assertion1 = {
-        accountId: 'accountId',
-        issuer: 'issuerId',
+      const assertion1: AccountAssertionState = {
+        subjectId: 'subjectId',
+        subjectType: SubjectType.User,
+        issuerId: 'issuerId',
         trustworthiness: [],
         creationAt: new Date(),
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
+        value: Value.Endorsement,
+        reasons: ['reason'],
       };
-      const assertion2 = {
-        accountId: 'accountId',
-        issuer: 'notIssuerId',
+      const assertion2: AccountAssertionState = {
+        subjectId: 'subjectId',
+        subjectType: SubjectType.User,
+        issuerId: 'notIssuerId',
         trustworthiness: [],
         creationAt: new Date(),
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
+        value: Value.Endorsement,
+        reasons: ['reason'],
       };
       mockedApplicationState.issuedAssertions = {
         accountAssertions: [],
@@ -192,27 +212,32 @@ describe('Selectors', () => {
   });
 
   describe('getAccountAssertionDetailsForAccountId', () => {
-    it('should return account assertion details for a specific accountId when there are no account assertions in the store', () => {
+    it('should return account assertion details for a specific subjectId when there are no account assertions in the store', () => {
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [];
 
       const accountAssertionDetails = getAccountAssertionDetailsForAccountId(
-        'accountId',
+        'subjectId',
       )(mockedApplicationState);
 
       expect(accountAssertionDetails).toStrictEqual({
-        accountId: 'accountId',
+        accountId: 'subjectId',
         endorsementsCount: 0,
         reportsCount: 0,
       });
     });
 
-    it('should return account assertion details for a specific accountId with no endorsements or reports', () => {
-      const accountAssertion = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+    it('should return account assertion details for a specific subjectId with no endorsements or reports', () => {
+      const accountAssertion: AccountAssertionState = {
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [],
         creationAt: new Date(),
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
 
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
@@ -221,24 +246,29 @@ describe('Selectors', () => {
       ];
 
       const accountAssertionDetails = getAccountAssertionDetailsForAccountId(
-        'accountId',
+        'subjectId',
       )(mockedApplicationState);
 
       expect(accountAssertionDetails).toStrictEqual({
-        accountId: 'accountId',
+        accountId: 'subjectId',
         endorsementsCount: 0,
         reportsCount: 0,
       });
     });
 
-    it('should return account assertion details for a specific accountId with endorsements but no reports', () => {
+    it('should return account assertion details for a specific subjectId with endorsements but no reports', () => {
       const accountAssertion: AccountAssertionState = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [
           { level: 1, scope: TrustworthinessScope.SoftwareDevelopment }, // Positive endorsement
         ],
         creationAt: new Date(),
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
 
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
@@ -247,24 +277,29 @@ describe('Selectors', () => {
       ];
 
       const accountAssertionDetails = getAccountAssertionDetailsForAccountId(
-        'accountId',
+        'subjectId',
       )(mockedApplicationState);
 
       expect(accountAssertionDetails).toStrictEqual({
-        accountId: 'accountId',
+        accountId: 'subjectId',
         endorsementsCount: 1,
         reportsCount: 0,
       });
     });
 
-    it('should return account assertion details for a specific accountId with reports but no endorsements', () => {
+    it('should return account assertion details for a specific subjectId with reports but no endorsements', () => {
       const accountAssertion: AccountAssertionState = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [
           { level: -1, scope: TrustworthinessScope.Honesty }, // Negative report
         ],
         creationAt: new Date(),
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
 
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
@@ -273,25 +308,30 @@ describe('Selectors', () => {
       ];
 
       const accountAssertionDetails = getAccountAssertionDetailsForAccountId(
-        'accountId',
+        'subjectId',
       )(mockedApplicationState);
 
       expect(accountAssertionDetails).toStrictEqual({
-        accountId: 'accountId',
+        accountId: 'subjectId',
         endorsementsCount: 0,
         reportsCount: 1,
       });
     });
 
-    it('should return account assertion details for a specific accountId with both endorsements and reports', () => {
+    it('should return account assertion details for a specific subjectId with both endorsements and reports', () => {
       const accountAssertion: AccountAssertionState = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [
           { level: 1, scope: TrustworthinessScope.SoftwareDevelopment }, // Positive endorsement
           { level: -1, scope: TrustworthinessScope.Honesty }, // Negative report
         ],
         creationAt: new Date(),
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
 
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
@@ -300,11 +340,11 @@ describe('Selectors', () => {
       ];
 
       const accountAssertionDetails = getAccountAssertionDetailsForAccountId(
-        'accountId',
+        'subjectId',
       )(mockedApplicationState);
 
       expect(accountAssertionDetails).toStrictEqual({
-        accountId: 'accountId',
+        accountId: 'subjectId',
         endorsementsCount: 1,
         reportsCount: 1,
       });
@@ -312,49 +352,74 @@ describe('Selectors', () => {
   });
 
   describe('getTechnicalEndorsementsForAccountId', () => {
-    it('should return technical endorsements for a specific accountId', () => {
+    it('should return technical endorsements for a specific subjectId', () => {
       const earlierDate = new Date('2022-01-01');
       const middleDate = new Date('2022-01-02');
       const laterDate = new Date('2022-01-03');
       const accountAssertion1: AccountAssertionState = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [
           { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
         ],
         creationAt: earlierDate, // Earlier date
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
       const accountAssertion2: AccountAssertionState = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [
           { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
         ],
         creationAt: middleDate, // Middle date
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
       const accountAssertion3: AccountAssertionState = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [
           { level: 1, scope: TrustworthinessScope.UserExperienceDesign },
         ],
         creationAt: laterDate, // Later date
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
       const accountAssertion4: AccountAssertionState = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [
           { level: 1, scope: TrustworthinessScope.SoftwareSecurity },
         ],
         creationAt: laterDate, // Later date
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
       const accountAssertion5: AccountAssertionState = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [
           { level: -1, scope: TrustworthinessScope.SoftwareSecurity },
         ],
         creationAt: laterDate, // Later date
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [
@@ -366,7 +431,7 @@ describe('Selectors', () => {
       ];
 
       const accountAssertionDetails = getTechnicalEndorsementsForAccountId(
-        'accountId',
+        'subjectId',
       )(mockedApplicationState);
 
       expect(accountAssertionDetails).toStrictEqual([
@@ -387,8 +452,8 @@ describe('Selectors', () => {
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [];
       const result = getCurrentTrustworthinessLevelForIssuer(
-        'accountId',
-        'issuer',
+        'subjectId',
+        'issuerId',
       )(mockedApplicationState);
       expect(result).toBeUndefined();
     });
@@ -398,26 +463,41 @@ describe('Selectors', () => {
       const middleDate = new Date('2022-01-02');
       const laterDate = new Date('2022-01-03');
       const accountAssertion1: AccountAssertionState = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [
           { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
         ],
         creationAt: earlierDate, // Earlier date
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
       const accountAssertion2: AccountAssertionState = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [
           { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
         ],
         creationAt: middleDate, // Middle date
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
       const accountAssertion3: AccountAssertionState = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [{ level: -1, scope: TrustworthinessScope.Honesty }],
         creationAt: laterDate, // Later date
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [
@@ -427,8 +507,8 @@ describe('Selectors', () => {
       ];
 
       const result = getCurrentTrustworthinessLevelForIssuer(
-        'accountId',
-        'issuer',
+        'subjectId',
+        'issuerId',
       )(mockedApplicationState);
       expect(result).toBe(-1); // Ensure the latest level is returned
     });
@@ -439,20 +519,25 @@ describe('Selectors', () => {
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [];
       const result = isAccountEndorsedByIssuer(
-        'accountId',
-        'issuer',
+        'subjectId',
+        'issuerId',
       )(mockedApplicationState);
       expect(result).toBe(false);
     });
 
     it('should return true if account is endorsed by the issuer', () => {
       const accountAssertion: AccountAssertionState = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [
           { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
         ],
         creationAt: new Date(),
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [
@@ -460,18 +545,23 @@ describe('Selectors', () => {
       ];
 
       const result = isAccountEndorsedByIssuer(
-        'accountId',
-        'issuer',
+        'subjectId',
+        'issuerId',
       )(mockedApplicationState);
       expect(result).toBe(true);
     });
 
     it('should return false if account is not endorsed by the issuer', () => {
       const accountAssertion: AccountAssertionState = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [{ level: -1, scope: TrustworthinessScope.Honesty }],
         creationAt: new Date(),
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [
@@ -479,8 +569,8 @@ describe('Selectors', () => {
       ];
 
       const result = isAccountEndorsedByIssuer(
-        'accountId',
-        'issuer',
+        'subjectId',
+        'issuerId',
       )(mockedApplicationState);
       expect(result).toBe(false);
     });
@@ -491,18 +581,23 @@ describe('Selectors', () => {
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [];
       const result = isAccountReportedByIssuer(
-        'accountId',
-        'issuer',
+        'subjectId',
+        'issuerId',
       )(mockedApplicationState);
       expect(result).toBe(false);
     });
 
     it('should return true if account is reported by the issuer', () => {
       const accountAssertion: AccountAssertionState = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [{ level: -1, scope: TrustworthinessScope.Honesty }],
         creationAt: new Date(),
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [
@@ -510,20 +605,25 @@ describe('Selectors', () => {
       ];
 
       const result = isAccountReportedByIssuer(
-        'accountId',
-        'issuer',
+        'subjectId',
+        'issuerId',
       )(mockedApplicationState);
       expect(result).toBe(true);
     });
 
     it('should return false if account is not reported by the issuer', () => {
       const accountAssertion: AccountAssertionState = {
-        accountId: 'accountId',
-        issuer: 'issuer',
+        subjectId: 'subjectId',
+        issuerId: 'issuerId',
         trustworthiness: [
           { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
         ],
         creationAt: new Date(),
+        value: Value.Endorsement,
+        statusReason: { type: 'test', value: ['test'] },
+        issuanceDate: new Date(),
+        subjectType: SubjectType.User,
+        reasons: ['reason'],
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [
@@ -531,8 +631,8 @@ describe('Selectors', () => {
       ];
 
       const result = isAccountReportedByIssuer(
-        'accountId',
-        'issuer',
+        'subjectId',
+        'issuerId',
       )(mockedApplicationState);
       expect(result).toBe(false);
     });

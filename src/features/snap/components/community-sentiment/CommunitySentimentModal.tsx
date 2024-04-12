@@ -1,14 +1,14 @@
 import {
-  HStack,
-  Tag,
-  VStack,
-  Text,
   Box,
-  TagLabel,
+  HStack,
   type ModalProps,
+  Tag,
+  TagLabel,
+  Text,
+  VStack,
 } from '@chakra-ui/react';
-import { Trans, t } from '@lingui/macro';
-import { useCallback, type FunctionComponent } from 'react';
+import { t, Trans } from '@lingui/macro';
+import { type FunctionComponent, useCallback } from 'react';
 
 import { SentimentType } from './types';
 import { getColorForSentiment, getSentimentTypeFromResult } from './utils';
@@ -79,62 +79,56 @@ export const CommunitySentimentModal: FunctionComponent<
     }
   }, [sentimentType]);
   return (
-    sentimentType !== SentimentType.Unknown && (
-      <SimpleModal
-        isOpen={isOpen}
-        onClose={onClose}
-        headerIcon={getHeaderIcon()}
-      >
-        <VStack textAlign="center">
-          <Text fontSize="md" fontWeight="bold">
-            {getHeaderTitle()}
-          </Text>
-          <Box
-            background="background.default"
-            padding="1rem"
-            margin={'1.5'}
-            borderRadius="1rem"
-            width={'100%'}
-          >
-            <VStack alignItems="flex-start" spacing={'1.5rem'}>
-              <HStack>
-                <VStack alignItems="flex-start">
-                  <HStack>
-                    <Tag
-                      textTransform="none"
-                      height={'1.5rem'}
-                      variant={getColorForSentiment(sentimentType)}
-                    >
-                      <SignHexagonIcon
-                        margin={-1}
-                        fill="currentColor"
-                      ></SignHexagonIcon>
-                      <TagLabel>
-                        <Trans>
-                          {sentimentType}{' '}
-                          {sentimentType === SentimentType.Endorsed ||
-                          sentimentType === SentimentType.Reported
-                            ? 'by Community'
-                            : ''}
-                        </Trans>
-                      </TagLabel>
-                    </Tag>
-                  </HStack>
-                  <HStack fontSize={'sm'}>
-                    <Text variant="blue">
-                      <Trans>{endorsementsCount} endorsements</Trans>
-                    </Text>
-                    <Text> and </Text>
-                    <Text variant="blue">
-                      <Trans>{reportsCount} reports</Trans>
-                    </Text>
-                  </HStack>
-                </VStack>
-              </HStack>
-            </VStack>
-          </Box>
-        </VStack>
-      </SimpleModal>
-    )
+    <SimpleModal isOpen={isOpen} onClose={onClose} headerIcon={getHeaderIcon()}>
+      <VStack textAlign="center">
+        <Text fontSize="md" fontWeight="bold">
+          {getHeaderTitle()}
+        </Text>
+        <Box
+          background="background.default"
+          padding="1rem"
+          margin={'1.5'}
+          borderRadius="1rem"
+          width={'100%'}
+        >
+          <VStack alignItems="flex-start" spacing={'1.5rem'}>
+            <HStack>
+              <VStack alignItems="flex-start">
+                <HStack>
+                  <Tag
+                    textTransform="none"
+                    height={'1.5rem'}
+                    variant={getColorForSentiment(sentimentType)}
+                  >
+                    <SignHexagonIcon
+                      margin={-1}
+                      fill="currentColor"
+                    ></SignHexagonIcon>
+                    <TagLabel>
+                      <Trans>
+                        {sentimentType}{' '}
+                        {sentimentType === SentimentType.Endorsed ||
+                        sentimentType === SentimentType.Reported
+                          ? 'by Community'
+                          : ''}
+                      </Trans>
+                    </TagLabel>
+                  </Tag>
+                </HStack>
+                <HStack fontSize={'sm'}>
+                  <Text variant="blue">
+                    <Trans>{endorsementsCount} endorsements</Trans>
+                  </Text>
+                  <Text> and </Text>
+                  <Text variant="blue">
+                    <Trans>{reportsCount} reports</Trans>
+                  </Text>
+                </HStack>
+              </VStack>
+            </HStack>
+          </VStack>
+        </Box>
+      </VStack>
+    </SimpleModal>
   );
 };

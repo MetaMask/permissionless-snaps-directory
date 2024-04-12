@@ -36,7 +36,7 @@ describe('CommunitySentiment', () => {
       const endorsements = [];
       for (let i = 0; i < sentiment.endorsements; i++) {
         endorsements.push({
-          snapId: 'snap://checksum',
+          snapId: 'checksum',
           issuer: `issuer${i + 1}`,
           currentStatus: SnapCurrentStatus.Endorsed,
           creationAt: new Date(),
@@ -45,7 +45,7 @@ describe('CommunitySentiment', () => {
       const reports = [];
       for (let i = 0; i < sentiment.reports; i++) {
         reports.push({
-          snapId: 'snap://checksum',
+          snapId: 'checksum',
           issuer: `issuer${i + 1}`,
           currentStatus: SnapCurrentStatus.Disputed,
           creationAt: new Date(),
@@ -56,9 +56,7 @@ describe('CommunitySentiment', () => {
           snapAssertions: [...endorsements, ...reports],
         },
         snapTrustScores: {
-          snapTrustScores: [
-            { snapId: 'snap://checksum', result: sentiment.result },
-          ],
+          snapTrustScores: [{ snapId: 'checksum', result: sentiment.result }],
         },
       });
 
@@ -85,7 +83,7 @@ describe('CommunitySentiment', () => {
       snapAssertions: {
         snapAssertions: [
           {
-            snapId: 'snap://checksum',
+            snapId: 'checksum',
             issuer: 'issuer1',
             currentStatus: SnapCurrentStatus.Disputed,
             creationAt: new Date(),
@@ -93,7 +91,7 @@ describe('CommunitySentiment', () => {
         ],
       },
       snapTrustScores: {
-        snapTrustScores: [{ snapId: 'snap://checksum', result: 0 }],
+        snapTrustScores: [{ snapId: 'checksum', result: 0 }],
       },
     });
     render(
@@ -112,7 +110,7 @@ describe('CommunitySentiment', () => {
       snapAssertions: {
         snapAssertions: [
           {
-            snapId: 'snap://checksum',
+            snapId: 'checksum',
             issuer: 'issuer1',
             currentStatus: SnapCurrentStatus.Disputed,
             creationAt: new Date(),
@@ -120,7 +118,7 @@ describe('CommunitySentiment', () => {
         ],
       },
       snapTrustScores: {
-        snapTrustScores: [{ snapId: 'snap://checksum', result: -1 }],
+        snapTrustScores: [{ snapId: 'checksum', result: -1 }],
       },
     });
     render(
@@ -138,7 +136,7 @@ describe('CommunitySentiment', () => {
       snapAssertions: {
         snapAssertions: [
           {
-            snapId: 'snap://checksum',
+            snapId: 'checksum',
             issuer: 'issuer1',
             currentStatus: SnapCurrentStatus.Endorsed,
             creationAt: new Date(),
@@ -146,7 +144,7 @@ describe('CommunitySentiment', () => {
         ],
       },
       snapTrustScores: {
-        snapTrustScores: [{ snapId: 'snap://checksum', result: 1 }],
+        snapTrustScores: [{ snapId: 'checksum', result: 1 }],
       },
     });
     render(

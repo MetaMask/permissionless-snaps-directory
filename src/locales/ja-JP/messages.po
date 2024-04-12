@@ -13,6 +13,14 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/features/account/AccountTEEndorsement.tsx
+msgid "{address} has been endorsed."
+msgstr ""
+
+#: src/features/account/AccountReport.tsx
+msgid "{address} has been reported."
+msgstr ""
+
 #: src/components/RequestSignModal.tsx
 msgid "{buttonText}"
 msgstr ""
@@ -32,14 +40,6 @@ msgstr ""
 
 #: src/pages/{Category.name}/index.tsx
 msgid "{nameText} Snaps on the MetaMask Snaps Directory"
-msgstr ""
-
-#: src/features/account/AccountTEEndorsement.tsx
-msgid "{pkhAddress} has been endorsed."
-msgstr ""
-
-#: src/features/account/AccountReport.tsx
-msgid "{pkhAddress} has been reported."
 msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
@@ -555,7 +555,7 @@ msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
 #: src/features/account/AccountTEEndorsement.tsx
-msgid "Failed to create endorsement for {pkhAddress}."
+msgid "Failed to create endorsement for {address}."
 msgstr ""
 
 #: src/features/snap/components/EndorseSnap.tsx
@@ -565,7 +565,7 @@ msgstr ""
 
 #: src/features/account/AccountReport.tsx
 #: src/features/account/AccountReport.tsx
-msgid "Failed to create report for {pkhAddress}."
+msgid "Failed to create report for {address}."
 msgstr ""
 
 #: src/features/snap/components/ReportSnap.tsx

@@ -5,17 +5,21 @@ import {
   fetchAssertionsByIssuer,
   fetchAssertionsForAllAccounts,
 } from './api';
+import type { SubjectType, Value } from './enums';
 import type { AccountAssertion, Trustworthiness } from './types';
 import { TrustworthinessScope } from './types';
 import { type ApplicationState } from '../../../store';
 
 export type AccountAssertionState = {
-  accountId: string;
-  issuer: string;
+  subjectId: string;
+  issuerId: string;
   trustworthiness: Trustworthiness[];
   statusReason: { type: string; value: string[] };
   creationAt: Date;
   issuanceDate: Date;
+  subjectType: SubjectType;
+  value: Value;
+  reasons: string[];
 };
 
 export type AccountAssertionsState = {
@@ -30,12 +34,12 @@ const initialState: AccountAssertionsState = {
 
 const getAccountAssertionsWithCurrentStatusForIssuer = (
   accountAssertions: AccountAssertionState[],
-  issuer: string,
+  issuerId: string,
   accountId: string,
 ) => {
   return accountAssertions.filter(
     (assertion) =>
-      assertion.issuer === issuer && assertion.accountId === accountId,
+      assertion.issuerId === issuerId && assertion.subjectId === accountId,
   );
 };
 
@@ -48,19 +52,22 @@ export const accountAssertionsSlice = createSlice({
       fetchAccountAssertionsForAccountId.fulfilled,
       (state, action) => {
         const otherAccountAssertionStates = state.accountAssertions.filter(
-          (assertion) => assertion.accountId !== action.payload.accountId,
+          (assertion) => assertion.subjectId !== action.payload.accountId,
         );
         const newAccountAssertions = action.payload.assertions;
         const updateAccountAssertionStates: AccountAssertionState[] =
           newAccountAssertions.map((assertion) => {
             return {
-              accountId: assertion.assertion.credentialSubject.id,
-              issuer: assertion.assertion.issuer,
+              subjectId: assertion.subjectId,
+              issuerId: assertion.issuerId,
               trustworthiness:
                 assertion.assertion.credentialSubject.trustworthiness,
               statusReason: assertion.assertion.credentialSubject.statusReason,
               creationAt: assertion.creationAt,
               issuanceDate: assertion.assertion.issuanceDate,
+              subjectType: assertion.subjectType,
+              value: assertion.value,
+              reasons: assertion.reasons,
             };
           });
         state.accountAssertions = [
@@ -76,13 +83,16 @@ export const accountAssertionsSlice = createSlice({
         const accountAssertions = action.payload;
         state.accountAssertions = accountAssertions.map((assertion) => {
           return {
-            accountId: assertion.assertion.credentialSubject.id,
-            issuer: assertion.assertion.issuer,
+            subjectId: assertion.subjectId,
+            issuerId: assertion.issuerId,
             trustworthiness:
               assertion.assertion.credentialSubject.trustworthiness,
             statusReason: assertion.assertion.credentialSubject.statusReason,
             creationAt: assertion.creationAt,
             issuanceDate: assertion.assertion.issuanceDate,
+            subjectType: assertion.subjectType,
+            value: assertion.value,
+            reasons: assertion.reasons,
           };
         });
       },
@@ -98,13 +108,16 @@ export const accountAssertionsSlice = createSlice({
       const last10Assertions = orderedAssertions.slice(0, 10);
       state.issuedAssertions = last10Assertions.map((assertion) => {
         return {
-          accountId: assertion.assertion.credentialSubject.id,
-          issuer: assertion.assertion.issuer,
+          subjectId: assertion.subjectId,
+          issuerId: assertion.issuerId,
           trustworthiness:
             assertion.assertion.credentialSubject.trustworthiness,
           statusReason: assertion.assertion.credentialSubject.statusReason,
           creationAt: assertion.creationAt,
           issuanceDate: assertion.assertion.issuanceDate,
+          subjectType: assertion.subjectType,
+          value: assertion.value,
+          reasons: assertion.reasons,
         };
       });
     });
@@ -125,7 +138,7 @@ export const getIssuedAssertions = createSelector(
 
 export const getIssuedAssertionsForIssuerId = (issuerId: string) =>
   createSelector(getIssuedAssertions, (issuedAssertions) =>
-    issuedAssertions.filter((assertion) => assertion.issuer === issuerId),
+    issuedAssertions.filter((assertion) => assertion.issuerId === issuerId),
   );
 
 // Selector to get accountAssertions for a specific accountId
@@ -135,14 +148,14 @@ export const getAccountAssertionDetailsForAccountId = (accountId: string) =>
       accountId,
       endorsementsCount: accountAssertions.filter(
         (assertion) =>
-          assertion.accountId === accountId &&
+          assertion.subjectId === accountId &&
           assertion.trustworthiness.filter(
             (trustworthiness) => trustworthiness.level >= 0,
           ).length > 0,
       ).length,
       reportsCount: accountAssertions.filter(
         (assertion) =>
-          assertion.accountId === accountId &&
+          assertion.subjectId === accountId &&
           assertion.trustworthiness.filter(
             (trustworthiness) => trustworthiness.level < 0,
           ).length > 0,
@@ -163,7 +176,7 @@ export const getTechnicalEndorsementsForAccountId = (accountId: string) =>
 
     orderedAssertions.forEach((assertion) => {
       if (
-        assertion.accountId === accountId &&
+        assertion.subjectId === accountId &&
         assertion.trustworthiness.some(
           (trustworthiness) => trustworthiness.level >= 0,
         )
@@ -196,12 +209,12 @@ export const getTechnicalEndorsementsForAccountId = (accountId: string) =>
 
 export const getCurrentTrustworthinessLevelForIssuer = (
   accountId: string,
-  issuer: string,
+  issuerId: string,
 ) =>
   createSelector(getAccountAssertions, (accountAssertions) => {
     const filteredAssertions = accountAssertions.filter(
       (assertion) =>
-        assertion.issuer === issuer && assertion.accountId === accountId,
+        assertion.issuerId === issuerId && assertion.subjectId === accountId,
     );
     if (filteredAssertions.length === 0) {
       return undefined;
@@ -213,11 +226,14 @@ export const getCurrentTrustworthinessLevelForIssuer = (
     return latestTrustworthiness?.level;
   });
 
-export const isAccountEndorsedByIssuer = (accountId: string, issuer: string) =>
+export const isAccountEndorsedByIssuer = (
+  accountId: string,
+  issuerId: string,
+) =>
   createSelector(getAccountAssertions, (accountAssertions) => {
     const filteredAssertions = getAccountAssertionsWithCurrentStatusForIssuer(
       accountAssertions,
-      issuer,
+      issuerId,
       accountId,
     ).filter(
       (assertion) =>
@@ -229,11 +245,14 @@ export const isAccountEndorsedByIssuer = (accountId: string, issuer: string) =>
     return filteredAssertions.length !== 0;
   });
 
-export const isAccountReportedByIssuer = (accountId: string, issuer: string) =>
+export const isAccountReportedByIssuer = (
+  accountId: string,
+  issuerId: string,
+) =>
   createSelector(getAccountAssertions, (accountAssertions) => {
     const filteredAssertions = getAccountAssertionsWithCurrentStatusForIssuer(
       accountAssertions,
-      issuer,
+      issuerId,
       accountId,
     ).filter(
       (assertion) =>
