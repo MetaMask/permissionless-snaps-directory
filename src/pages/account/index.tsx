@@ -37,14 +37,13 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (address) {
-      const issuer = accountVCBuilder.getIssuerDid(address);
-      dispatch(fetchAccountAssertionsForAccountId(issuer)).catch((error) =>
+      dispatch(fetchAccountAssertionsForAccountId(address)).catch((error) =>
         console.log(error),
       );
-      dispatch(fetchTrustScoreForAccountId(issuer)).catch((error) =>
+      dispatch(fetchTrustScoreForAccountId(address)).catch((error) =>
         console.log(error),
       );
-      dispatch(fetchAssertionsByIssuer(issuer)).catch((error) =>
+      dispatch(fetchAssertionsByIssuer(address)).catch((error) =>
         console.log(error),
       );
     }

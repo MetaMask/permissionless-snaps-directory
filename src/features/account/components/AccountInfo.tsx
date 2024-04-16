@@ -7,7 +7,7 @@ import { useAccount, useEnsName } from 'wagmi';
 import { AccountRoleTags } from './AccountRoleTags';
 import { MoreOptionMenu } from '..';
 import { ConnectedNodes } from '../../../components';
-import { useSelector, useVerifiableCredential } from '../../../hooks';
+import { useSelector } from '../../../hooks';
 import { trimAddress } from '../../../utils';
 import { getAccountConnectedNodes } from '../connections/store';
 import { getAccountTrustScoreForAccountId } from '../trust-score/store';
@@ -24,13 +24,8 @@ export const AccountInfo: FunctionComponent<AccountInfoProps> = ({
     chainId: mainnet.id,
   });
   const { isConnected } = useAccount();
-
-  const { accountVCBuilder } = useVerifiableCredential();
-
-  const accountId = accountVCBuilder.getSubjectDid(address);
-
-  const trustScores = useSelector(getAccountTrustScoreForAccountId(accountId));
-  const connectedNodes = useSelector(getAccountConnectedNodes(accountId));
+  const trustScores = useSelector(getAccountTrustScoreForAccountId(address));
+  const connectedNodes = useSelector(getAccountConnectedNodes(address));
 
   return (
     <VStack spacing="8" data-testid="account-info">

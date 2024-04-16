@@ -2,6 +2,7 @@ import { act } from '@testing-library/react';
 
 import { ActivityItem } from './ActivityItem';
 import { render } from '../../../../utils/test-utils';
+import { SubjectType, Value } from '../../assertions/enums';
 import type { AccountAssertionState } from '../../assertions/store';
 import { TrustworthinessScope } from '../../assertions/types';
 
@@ -16,22 +17,29 @@ jest.mock('../../../../components/EntityName', () => ({
 }));
 
 const snapAssertion: AccountAssertionState = {
-  accountId: 'snap://mockChecksum',
-  issuer: '0xmockAddress',
+  subjectId: 'mockChecksum',
+  subjectType: SubjectType.Snap,
+  issuerId: '0xmockAddress',
   trustworthiness: [],
   statusReason: { type: 'Endorse', value: ['Value'] },
   creationAt: new Date(),
   issuanceDate: new Date(),
+  reasons: ['Reason 1', 'Reason 2'],
+  value: Value.Endorsement,
 };
 
 const peerAssertion: AccountAssertionState = {
-  accountId: '0xmockAddress',
-  issuer: '0xmockAddress',
+  subjectId: '0xmockAddress',
+  subjectType: SubjectType.User,
+  issuerId: '0xmockAddress',
   trustworthiness: [
     { level: 1, reason: ['Reason'], scope: TrustworthinessScope.Honesty },
   ],
   creationAt: new Date(),
   issuanceDate: new Date(),
+  reasons: ['Reason 1', 'Reason 2'],
+  statusReason: { type: 'Endorse', value: ['Value'] },
+  value: Value.Endorsement,
 };
 
 describe('ActivityItem', () => {
@@ -44,12 +52,13 @@ describe('ActivityItem', () => {
   });
 
   it('renders a snap report activity item', async () => {
-    snapAssertion.statusReason = {
-      ...snapAssertion.statusReason,
-      type: 'Malicious',
+    const newSnapAssertion = {
+      ...snapAssertion,
+      value: Value.Dispute,
     };
+
     const { queryByTestId } = await act(async () =>
-      render(<ActivityItem assertion={snapAssertion} />),
+      render(<ActivityItem assertion={newSnapAssertion} />),
     );
 
     expect(queryByTestId('entity-name')).toBeInTheDocument();
@@ -64,22 +73,36 @@ describe('ActivityItem', () => {
   });
 
   it('renders a peer report activity item', async () => {
-    peerAssertion.trustworthiness = [
-      { level: -1, reason: ['Reason'], scope: TrustworthinessScope.Honesty },
-    ];
+    const newPeerAssertion = {
+      ...peerAssertion,
+      value: Value.Dispute,
+    };
 
     const { queryByTestId } = await act(async () =>
-      render(<ActivityItem assertion={peerAssertion} />),
+      render(<ActivityItem assertion={newPeerAssertion} />),
     );
 
     expect(queryByTestId('entity-name')).toBeInTheDocument();
   });
 
-  it('renders an activity item even without knowing its type', async () => {
-    snapAssertion.statusReason.type = 'Something';
+  it('renders a snap activity item even without knowing its type', async () => {
+    const newSnapAssertion = { ...snapAssertion, value: 'Something' };
 
     const { queryByText, queryByTestId } = await act(async () =>
-      render(<ActivityItem assertion={snapAssertion} />),
+      // @ts-expect-error - We want to test the case where the value is unknown
+      render(<ActivityItem assertion={newSnapAssertion} />),
+    );
+
+    expect(queryByText('Unknown activity')).toBeInTheDocument();
+    expect(queryByTestId('entity-name')).toBeInTheDocument();
+  });
+
+  it('renders a peer activity item even without knowing its type', async () => {
+    const newPeerAssertion = { ...peerAssertion, value: 'Something' };
+
+    const { queryByText, queryByTestId } = await act(async () =>
+      // @ts-expect-error - We want to test the case where the value is unknown
+      render(<ActivityItem assertion={newPeerAssertion} />),
     );
 
     expect(queryByText('Unknown activity')).toBeInTheDocument();
@@ -87,50 +110,46 @@ describe('ActivityItem', () => {
   });
 
   it('renders a snap activity item even without knowing its reason', async () => {
-    // @ts-expect-error - We want to test the case where the value is undefined
-    snapAssertion.statusReason.value = undefined;
-
-    const { queryByTestId } = await act(async () =>
-      render(<ActivityItem assertion={snapAssertion} />),
-    );
-
-    expect(queryByTestId('entity-name')).toBeInTheDocument();
-  });
-
-  it('renders a peer activity item even without its reason', async () => {
-    peerAssertion.trustworthiness = [];
+    const newSnapAssertion = { ...snapAssertion, reasons: [] };
 
     const { queryByText, queryByTestId } = await act(async () =>
-      render(<ActivityItem assertion={peerAssertion} />),
+      render(<ActivityItem assertion={newSnapAssertion} />),
     );
 
     expect(queryByText('for')).not.toBeInTheDocument();
     expect(queryByTestId('entity-name')).toBeInTheDocument();
   });
 
-  it('renders an activity item even with multiple reasons', async () => {
-    peerAssertion.trustworthiness = [
-      {
-        level: 1,
-        scope: TrustworthinessScope.Honesty,
-      },
-      {
-        level: 1,
-        scope: TrustworthinessScope.SoftwareDevelopment,
-      },
-      {
-        level: 1,
-        scope: TrustworthinessScope.SoftwareSecurity,
-      },
-    ];
+  it('renders a peer activity item even without its reason', async () => {
+    const newPeerAssertion = { ...peerAssertion, reasons: [] };
 
+    const { queryByText, queryByTestId } = await act(async () =>
+      render(<ActivityItem assertion={newPeerAssertion} />),
+    );
+
+    expect(queryByText('for')).not.toBeInTheDocument();
+    expect(queryByTestId('entity-name')).toBeInTheDocument();
+  });
+
+  it('renders an activity item even with on single reason', async () => {
+    const newPeerAssertion = { ...peerAssertion, reasons: ['Reason 1'] };
+
+    const { queryByText, queryByTestId } = await act(async () =>
+      render(<ActivityItem assertion={newPeerAssertion} />),
+    );
+
+    expect(queryByText(`for ${peerAssertion.reasons[0]}`)).toBeInTheDocument();
+    expect(queryByTestId('entity-name')).toBeInTheDocument();
+  });
+
+  it('renders an activity item even with multiple reasons', async () => {
     const { queryByText, queryByTestId } = await act(async () =>
       render(<ActivityItem assertion={peerAssertion} />),
     );
 
     expect(
       queryByText(
-        `for ${TrustworthinessScope.Honesty}, ${TrustworthinessScope.SoftwareDevelopment} and ${TrustworthinessScope.SoftwareSecurity}`,
+        `for ${peerAssertion.reasons[0]} and ${peerAssertion.reasons[1]}`,
       ),
     ).toBeInTheDocument();
     expect(queryByTestId('entity-name')).toBeInTheDocument();

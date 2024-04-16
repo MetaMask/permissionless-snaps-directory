@@ -1,5 +1,5 @@
 import { Box, Divider, Heading, SimpleGrid } from '@chakra-ui/react';
-import { Trans, t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
 
 import { AccountCardShort } from './components';

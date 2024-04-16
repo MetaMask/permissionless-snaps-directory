@@ -40,7 +40,6 @@ describe('MetadataModal', () => {
     const { snap } = getMockSnap();
     // @ts-expect-error - We want to test the case where the value is undefined
     snap.audits = undefined;
-    console.log(snap);
     const { queryByTestId } = render(
       <MetadataModal snap={snap} isOpen={true} onClose={jest.fn()} />,
     );

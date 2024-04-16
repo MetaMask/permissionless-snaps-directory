@@ -3,6 +3,7 @@ import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { fetchSnapAssertionsForSnapId } from './api';
 import { SnapCurrentStatus } from './types';
 import { type ApplicationState } from '../../../store';
+import type { SubjectType } from '../../account/assertions/enums';
 
 export enum SnapStatusReasonType {
   Endorse = 'Endorse',
@@ -16,6 +17,7 @@ export type SnapAssertionState = {
   statusReason: { type: SnapStatusReasonType; value?: string[] | undefined };
   creationAt: Date;
   issuanceDate: Date;
+  subjectType: SubjectType;
 };
 
 export type SnapAssertionsState = {
@@ -35,7 +37,7 @@ const getSnapAssertionsWithCurrentStatusForIssuer = (
   return snapAssertions.filter(
     (assertion) =>
       assertion.issuer === issuer &&
-      assertion.snapId === `snap://${snapId}` &&
+      assertion.snapId === snapId &&
       assertion.currentStatus === snapCurrentStatus,
   );
 };
@@ -47,18 +49,19 @@ export const snapAssertionsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchSnapAssertionsForSnapId.fulfilled, (state, action) => {
       const otherSnapAssertionStates = state.snapAssertions.filter(
-        (assertion) => assertion.snapId !== `snap://${action.payload.snapId}`,
+        (assertion) => assertion.snapId !== `${action.payload.snapId}`,
       );
       const newSnapAssertions = action.payload.assertions;
       const updateSnapAssertionStates: SnapAssertionState[] =
         newSnapAssertions.map((assertion) => {
           return {
-            snapId: assertion.assertion.credentialSubject.id,
-            issuer: assertion.assertion.issuer,
+            snapId: assertion.subjectId,
+            issuer: assertion.issuerId,
             currentStatus: assertion.assertion.credentialSubject.currentStatus,
             statusReason: assertion.assertion.credentialSubject.statusReason,
             creationAt: assertion.creationAt,
             issuanceDate: assertion.assertion.issuanceDate,
+            subjectType: assertion.subjectType,
           };
         });
       state.snapAssertions = [
@@ -79,15 +82,15 @@ export const getSnapAssertions = createSelector(
 export const getSnapAssertionDetailsForSnapId = (snapId: string) =>
   createSelector(getSnapAssertions, (snapAssertions) => {
     return {
-      snapId: `snap://${snapId}`,
+      snapId: `${snapId}`,
       endorsementsCount: snapAssertions.filter(
         (assertion) =>
-          assertion.snapId === `snap://${snapId}` &&
+          assertion.snapId === `${snapId}` &&
           assertion.currentStatus === SnapCurrentStatus.Endorsed,
       ).length,
       reportsCount: snapAssertions.filter(
         (assertion) =>
-          assertion.snapId === `snap://${snapId}` &&
+          assertion.snapId === `${snapId}` &&
           assertion.currentStatus === SnapCurrentStatus.Disputed,
       ).length,
     };
@@ -97,7 +100,7 @@ export const getSnapAssertionDetailsForSnapId = (snapId: string) =>
 export const getIssuedAssertionsForSnapId = (snapId: string) =>
   createSelector(getSnapAssertions, (snapAssertions) => {
     const filteredAssertions = snapAssertions.filter(
-      (assertion) => assertion.snapId === `snap://${snapId}`,
+      (assertion) => assertion.snapId === snapId,
     );
 
     // Sort the filtered assertions array by `issuanceDate` in descending order
@@ -115,7 +118,7 @@ export const getCurrentSnapStatusForIssuer = (snapId: string, issuer: string) =>
   createSelector(getSnapAssertions, (snapAssertions) => {
     const filteredAssertions = snapAssertions.filter(
       (assertion) =>
-        assertion.issuer === issuer && assertion.snapId === `snap://${snapId}`,
+        assertion.issuer === issuer && assertion.snapId === `${snapId}`,
     );
     if (filteredAssertions.length === 0) {
       return null;

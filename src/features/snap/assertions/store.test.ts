@@ -2,21 +2,21 @@ import { mock } from 'ts-mockito';
 
 import { fetchSnapAssertionsForSnapId } from './api';
 import {
-  snapAssertionsSlice,
-  getSnapAssertions,
-  getSnapAssertionDetailsForSnapId,
-  type SnapAssertionsState,
-  type SnapAssertionState,
   getCurrentSnapStatusForIssuer,
+  getIssuedAssertionsForSnapId,
+  getSnapAssertionDetailsForSnapId,
+  getSnapAssertions,
   isSnapEndorsedByIssuer,
   isSnapReportedByIssuer,
+  snapAssertionsSlice,
+  type SnapAssertionsState,
+  type SnapAssertionState,
   SnapStatusReasonType,
-  getIssuedAssertionsForSnapId,
 } from './store';
 import {
-  SnapCurrentStatus,
   type SnapAssertion,
   type SnapCredentialSubject,
+  SnapCurrentStatus,
 } from './types';
 import { type ApplicationState } from '../../../store';
 
@@ -26,7 +26,7 @@ describe('snapAssertionsSlice', () => {
       const mockSnapAssertion: SnapAssertion = mock<SnapAssertion>();
       mockSnapAssertion.assertion.credentialSubject =
         mock<SnapCredentialSubject>();
-      mockSnapAssertion.assertion.credentialSubject.id = 'snap://snapId';
+      mockSnapAssertion.assertion.credentialSubject.id = 'snapId';
       const mockPayload = {
         snapId: 'snapId',
         assertions: [mockSnapAssertion],
@@ -34,7 +34,7 @@ describe('snapAssertionsSlice', () => {
       const initialState: SnapAssertionsState = {
         snapAssertions: [
           {
-            snapId: 'snap://snapId',
+            snapId: 'snapId',
             issuer: 'issuer',
             statusReason: {
               type: SnapStatusReasonType.Endorse,
@@ -74,7 +74,7 @@ describe('Selectors', () => {
   describe('getSnapAssertionDetailsForSnapId', () => {
     it('should return snap assertion details for a specific snapId', () => {
       const snapAssertion = {
-        snapId: 'snap://snapId',
+        snapId: 'snapId',
         issuer: 'issuer',
         statusReason: {
           type: SnapStatusReasonType.Endorse,
@@ -92,7 +92,7 @@ describe('Selectors', () => {
       );
 
       expect(snapAssertionDetails).toStrictEqual({
-        snapId: 'snap://snapId',
+        snapId: 'snapId',
         endorsementsCount: 1,
         reportsCount: 0,
       });
@@ -114,7 +114,7 @@ describe('Selectors', () => {
       const middleDate = new Date('2022-01-02');
       const laterDate = new Date('2022-01-03');
       const snapAssertion1: SnapAssertionState = {
-        snapId: 'snap://snapId1',
+        snapId: 'snapId1',
         issuer: 'issuer',
         statusReason: {
           type: SnapStatusReasonType.Endorse,
@@ -125,7 +125,7 @@ describe('Selectors', () => {
         issuanceDate: earlierDate,
       };
       const snapAssertion2: SnapAssertionState = {
-        snapId: 'snap://snapId1',
+        snapId: 'snapId1',
         issuer: 'issuer',
         statusReason: {
           type: SnapStatusReasonType.Malicious,
@@ -136,7 +136,7 @@ describe('Selectors', () => {
         issuanceDate: laterDate,
       };
       const snapAssertion3: SnapAssertionState = {
-        snapId: 'snap://snapId2',
+        snapId: 'snapId2',
         issuer: 'issuer',
         statusReason: {
           type: SnapStatusReasonType.Endorse,
@@ -176,7 +176,7 @@ describe('Selectors', () => {
       const middleDate = new Date('2022-01-02');
       const laterDate = new Date('2022-01-03');
       const snapAssertion1: SnapAssertionState = {
-        snapId: 'snap://snapId',
+        snapId: 'snapId',
         issuer: 'issuer',
         statusReason: {
           type: SnapStatusReasonType.Endorse,
@@ -187,7 +187,7 @@ describe('Selectors', () => {
         issuanceDate: earlierDate,
       };
       const snapAssertion2: SnapAssertionState = {
-        snapId: 'snap://snapId',
+        snapId: 'snapId',
         issuer: 'issuer',
         statusReason: {
           type: SnapStatusReasonType.Malicious,
@@ -198,7 +198,7 @@ describe('Selectors', () => {
         issuanceDate: laterDate,
       };
       const snapAssertion3: SnapAssertionState = {
-        snapId: 'snap://snapId',
+        snapId: 'snapId',
         issuer: 'issuer',
         statusReason: {
           type: SnapStatusReasonType.Endorse,
@@ -236,7 +236,7 @@ describe('Selectors', () => {
 
     it('should return true if snap is endorsed by the issuer', () => {
       const snapAssertion: SnapAssertionState = {
-        snapId: 'snap://snapId',
+        snapId: 'snapId',
         issuer: 'issuer',
         statusReason: {
           type: SnapStatusReasonType.Endorse,
@@ -258,7 +258,7 @@ describe('Selectors', () => {
 
     it('should return false if snap is not endorsed by the issuer', () => {
       const snapAssertion: SnapAssertionState = {
-        snapId: 'snap://snapId',
+        snapId: 'snapId',
         issuer: 'issuer',
         statusReason: {
           type: SnapStatusReasonType.Malicious,
@@ -292,7 +292,7 @@ describe('Selectors', () => {
 
     it('should return true if snap is reported by the issuer', () => {
       const snapAssertion: SnapAssertionState = {
-        snapId: 'snap://snapId',
+        snapId: 'snapId',
         issuer: 'issuer',
         statusReason: {
           type: SnapStatusReasonType.Malicious,
@@ -314,7 +314,7 @@ describe('Selectors', () => {
 
     it('should return false if snap is not reported by the issuer', () => {
       const snapAssertion: SnapAssertionState = {
-        snapId: 'snap://snapId',
+        snapId: 'snapId',
         issuer: 'issuer',
         statusReason: {
           type: SnapStatusReasonType.Endorse,

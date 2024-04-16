@@ -10,6 +10,7 @@ import {
   WarningIcon,
 } from '../../../../components';
 import { EntityName } from '../../../../components/EntityName';
+import { SubjectType, Value } from '../../assertions/enums';
 import type { AccountAssertionState } from '../../assertions/store';
 
 export type ActivityItemProps = {
@@ -20,20 +21,20 @@ export const ActivityItem: FunctionComponent<ActivityItemProps> = ({
   assertion,
 }) => {
   const isSnap = useMemo(
-    () => assertion.accountId.startsWith('snap://'),
-    [assertion.accountId],
+    () => assertion.subjectType === SubjectType.Snap,
+    [assertion.subjectType],
   );
 
   const type = useCallback(() => {
     if (isSnap) {
-      if (assertion.statusReason?.type === 'Endorse') {
+      if (assertion.value === Value.Endorsement) {
         return (
           <span style={{ display: 'flex', alignItems: 'center' }}>
             <StarFilledIcon width="20px" fill="icon.muted" mr={2} />
             {t`Endorsed`}
           </span>
         );
-      } else if (assertion.statusReason?.type === 'Malicious') {
+      } else if (assertion.value === Value.Dispute) {
         return (
           <span style={{ display: 'flex', alignItems: 'center' }}>
             <WarningIcon width="20px" fill="icon.muted" mr={2} />
@@ -41,22 +42,14 @@ export const ActivityItem: FunctionComponent<ActivityItemProps> = ({
           </span>
         );
       }
-    } else if (
-      assertion.trustworthiness?.filter(
-        (trustworthiness) => trustworthiness.level >= 0,
-      ).length > 0
-    ) {
+    } else if (assertion.value === Value.Endorsement) {
       return (
         <span style={{ display: 'flex', alignItems: 'center' }}>
           <StarFilledIcon width="20px" fill="icon.muted" mr={2} />
           {t`Endorsed`}
         </span>
       );
-    } else if (
-      assertion.trustworthiness?.filter(
-        (trustworthiness) => trustworthiness.level < 0,
-      ).length > 0
-    ) {
+    } else if (assertion.value === Value.Dispute) {
       return (
         <span style={{ display: 'flex', alignItems: 'center' }}>
           <WarningIcon width="20px" fill="icon.muted" mr={2} />
@@ -74,15 +67,7 @@ export const ActivityItem: FunctionComponent<ActivityItemProps> = ({
   }, [isSnap, assertion]);
 
   const reason = useCallback(() => {
-    let reasons;
-
-    if (isSnap) {
-      reasons = [...(assertion.statusReason?.value || [])];
-    } else {
-      reasons = assertion.trustworthiness?.map(
-        (trustworthiness) => trustworthiness.scope,
-      );
-    }
+    const reasons = [...assertion.reasons];
 
     if (!reasons || reasons.length === 0) {
       return '';
@@ -94,13 +79,16 @@ export const ActivityItem: FunctionComponent<ActivityItemProps> = ({
     const lastItemLink = t`and`;
 
     return `for ${reasons.join(', ')} ${lastItemLink} ${lastItem}`;
-  }, [isSnap, assertion]);
+  }, [assertion]);
 
   return (
     <HStack mb={4} width={'100%'} justifyContent={'space-between'}>
       <HStack>
         <Text>{type()}</Text>
-        <EntityName subject={assertion.accountId} />
+        <EntityName
+          subject={assertion.subjectId}
+          isSnap={assertion.subjectType === SubjectType.Snap}
+        />
         <Text>{reason()}</Text>
       </HStack>
       <Box alignContent={'flex-end'}>

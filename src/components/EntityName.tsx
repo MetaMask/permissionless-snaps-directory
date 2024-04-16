@@ -4,41 +4,28 @@ import type { Address } from '@wagmi/core';
 import { mainnet } from '@wagmi/core/chains';
 import { Link } from 'gatsby';
 import type { FunctionComponent } from 'react';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { useEnsName } from 'wagmi';
 
 import { getSnapByChecksum } from '../features';
-import { useSelector, useVerifiableCredential } from '../hooks';
+import { useSelector } from '../hooks';
 import { trimAddress } from '../utils';
 
 export type ActivitySubjectProps = {
   subject: string;
+  isSnap: boolean;
   title?: string;
 };
 
 export const EntityName: FunctionComponent<ActivitySubjectProps> = ({
   subject,
+  isSnap,
   title,
 }) => {
-  const { accountVCBuilder, snapVCBuilder } = useVerifiableCredential();
-
-  const isSnap = useMemo(() => subject.startsWith('snap://'), [subject]);
-  const snapVersionId = useMemo(
-    () => snapVCBuilder.getSnapIdFromDid(subject),
-    [snapVCBuilder, subject],
-  );
-  const snap = useSelector(getSnapByChecksum(snapVersionId ?? ''));
-
-  const attestedSubject = useMemo(() => {
-    if (isSnap) {
-      return snapVCBuilder.getSnapIdFromDid(subject);
-    }
-
-    return accountVCBuilder.getAddressFromDid(subject);
-  }, [isSnap, subject, snapVCBuilder, accountVCBuilder]);
+  const snap = useSelector(getSnapByChecksum(subject));
 
   const { data } = useEnsName({
-    address: attestedSubject as Address,
+    address: subject as Address,
     chainId: mainnet.id,
     enabled: !isSnap,
   });
@@ -52,14 +39,12 @@ export const EntityName: FunctionComponent<ActivitySubjectProps> = ({
       return data;
     }
 
-    return attestedSubject ? trimAddress(attestedSubject) : t`Unknown`;
-  }, [title, isSnap, data, attestedSubject, snap?.name]);
+    return subject ? trimAddress(subject) : t`Unknown`;
+  }, [title, isSnap, data, subject, snap?.name]);
 
   const buildLink = useCallback(() => {
-    return isSnap
-      ? `${snap?.gatsbyPath}`
-      : `/account/?address=${attestedSubject}`;
-  }, [isSnap, snap, attestedSubject]);
+    return isSnap ? `${snap?.gatsbyPath}` : `/account/?address=${subject}`;
+  }, [isSnap, snap, subject]);
 
   return (
     <Link to={buildLink()}>
