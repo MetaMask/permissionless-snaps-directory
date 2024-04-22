@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 
 import { FilterSearchInput } from './FilterSearchInput';
 import { useDispatch, useSearchResults, useSelector } from '../../../hooks';
-import { AccountCard } from '../../community/components';
+import { AccountCard } from '../../account';
 import { getSnapsById } from '../../snaps';
 import { SnapCard } from '../../snaps/components';
 import { Order } from '../constants';

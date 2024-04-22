@@ -69,6 +69,7 @@ msgid "{snapName} has been reported."
 msgstr ""
 
 #: src/features/community/CommunityList.tsx
+#: src/features/users/UsersList.tsx
 msgid "{title}"
 msgstr ""
 
@@ -527,6 +528,10 @@ msgstr ""
 
 #: src/pages/index.tsx
 msgid "Explore All Snaps"
+msgstr ""
+
+#: src/features/users/UsersList.tsx
+msgid "Explore community"
 msgstr ""
 
 #: src/pages/explore.tsx
@@ -1224,8 +1229,8 @@ msgstr ""
 msgid "Version {0} update available"
 msgstr ""
 
-#: src/features/community/components/AccountCard.tsx
-#: src/features/community/components/AccountCardShort.tsx
+#: src/features/account/components/AccountCard.tsx
+#: src/features/account/components/AccountCardShort.tsx
 #: src/features/snaps/components/SnapCard.tsx
 msgid "View"
 msgstr ""

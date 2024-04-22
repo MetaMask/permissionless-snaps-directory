@@ -1,4 +1,4 @@
-import { CommunityList } from './CommunityList';
+import { UsersList } from './UsersList';
 import { useSelector } from '../../hooks';
 import { render } from '../../utils/test-utils';
 import { TrustScoreScope } from '../account/trust-score/types';
@@ -9,7 +9,7 @@ jest.mock('../account', () => ({
   AccountCardShort: () => <div data-testid="account-card-short" />,
 }));
 
-const mockTopDevelopers = [
+const mockUsers = [
   {
     accountId: 'developer1',
     result: 1,
@@ -24,9 +24,6 @@ const mockTopDevelopers = [
     accuracy: 0.4,
     rank: 4,
   },
-];
-
-const mockTopAuditors = [
   {
     accountId: 'auditor1',
     result: 1,
@@ -50,25 +47,14 @@ describe('CommunityList', () => {
     mockUseSelector.mockClear();
   });
 
-  it('renders top community developers', () => {
-    mockUseSelector.mockReturnValueOnce(mockTopDevelopers);
+  it('renders all users', () => {
+    mockUseSelector.mockReturnValueOnce(mockUsers);
     mockUseSelector.mockReturnValueOnce([]);
 
-    const { queryAllByTestId } = render(<CommunityList />);
+    const { queryAllByTestId } = render(<UsersList />);
 
     expect(queryAllByTestId('account-card-short')).toHaveLength(
-      mockTopDevelopers.length + 6, // 6 is the number of authors hardcoded
-    );
-  });
-
-  it('renders top community security reviewers', () => {
-    mockUseSelector.mockReturnValueOnce([]);
-    mockUseSelector.mockReturnValueOnce(mockTopAuditors);
-
-    const { queryAllByTestId } = render(<CommunityList />);
-
-    expect(queryAllByTestId('account-card-short')).toHaveLength(
-      mockTopAuditors.length + 6, // 6 is the number of authors hardcoded
+      mockUsers.length,
     );
   });
 });

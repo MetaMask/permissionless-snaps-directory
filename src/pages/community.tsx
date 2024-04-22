@@ -1,9 +1,10 @@
 import { Container } from '@chakra-ui/react';
 import { useEffect, type FunctionComponent } from 'react';
 
-import { CommunityList } from '../features';
+import { UsersList } from '../features';
 import { fetchAssertionsForAllAccounts } from '../features/account/assertions/api';
 import { fetchTrustScoreForAllAccounts } from '../features/account/trust-score/api';
+import { fetchAllUsers } from '../features/users/api';
 import { useDispatch } from '../hooks';
 
 const CommunityPage: FunctionComponent = () => {
@@ -15,11 +16,12 @@ const CommunityPage: FunctionComponent = () => {
     dispatch(fetchAssertionsForAllAccounts()).catch((error) =>
       console.log(error),
     );
+    dispatch(fetchAllUsers()).catch((error) => console.log(error));
   }, [dispatch]);
 
   return (
     <Container maxWidth="container.xl" paddingTop="0" marginTop={20}>
-      <CommunityList />
+      <UsersList />
     </Container>
   );
 };
