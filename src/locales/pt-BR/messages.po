@@ -275,7 +275,6 @@ msgid "Audited By"
 msgstr ""
 
 #: src/components/icons/index.ts
-#: src/features/account/components/AccountRoleTags.tsx
 msgid "Auditor"
 msgstr ""
 
@@ -397,7 +396,6 @@ msgid "Developed Snaps"
 msgstr ""
 
 #: src/components/icons/index.ts
-#: src/features/account/components/AccountRoleTags.tsx
 #: src/features/snap/components/MetadataItem.tsx
 msgid "Developer"
 msgstr ""
@@ -979,6 +977,10 @@ msgstr ""
 msgid "Security"
 msgstr ""
 
+#: src/features/account/components/AccountRoleTags.tsx
+msgid "Security Engineer"
+msgstr ""
+
 #: src/components/icons/index.ts
 msgid "Security key"
 msgstr ""
@@ -1060,6 +1062,10 @@ msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "Software Development"
+msgstr ""
+
+#: src/features/account/components/AccountRoleTags.tsx
+msgid "Software Engineer"
 msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
