@@ -25,15 +25,15 @@ describe('AccountRoleTags component', () => {
       <AccountRoleTags trustScores={mockTrustScores} />,
     );
 
-    expect(getByText('Developer')).toBeInTheDocument();
-    expect(getByText('Auditor')).toBeInTheDocument();
+    expect(getByText('Software Engineer')).toBeInTheDocument();
+    expect(getByText('Security Engineer')).toBeInTheDocument();
   });
 
   it('renders correctly without trust scores', () => {
     const { queryByText } = render(<AccountRoleTags trustScores={[]} />);
 
-    expect(queryByText('Developer')).not.toBeInTheDocument();
-    expect(queryByText('Auditor')).not.toBeInTheDocument();
+    expect(queryByText('Software Engineer')).not.toBeInTheDocument();
+    expect(queryByText('Security Engineer')).not.toBeInTheDocument();
     expect(queryByText('Reported')).not.toBeInTheDocument();
   });
 
@@ -51,7 +51,7 @@ describe('AccountRoleTags component', () => {
     );
 
     expect(getByText('🧑‍💻')).toBeInTheDocument();
-    expect(getByText('Developer')).toBeInTheDocument();
+    expect(getByText('Software Engineer')).toBeInTheDocument();
   });
 
   it('renders Auditor Tier 1 role correctly', () => {
@@ -68,7 +68,7 @@ describe('AccountRoleTags component', () => {
     );
 
     expect(queryByText('🥇')).toBeInTheDocument();
-    expect(queryByText('Auditor')).toBeInTheDocument();
+    expect(queryByText('Security Engineer')).toBeInTheDocument();
   });
 
   it('renders Auditor Tier 2 role correctly', () => {
@@ -85,7 +85,7 @@ describe('AccountRoleTags component', () => {
     );
 
     expect(queryByText('🥈')).toBeInTheDocument();
-    expect(queryByText('Auditor')).toBeInTheDocument();
+    expect(queryByText('Security Engineer')).toBeInTheDocument();
   });
 
   it('renders Auditor Tier 3 role correctly', () => {
@@ -102,7 +102,7 @@ describe('AccountRoleTags component', () => {
     );
 
     expect(queryByText('🥉')).toBeInTheDocument();
-    expect(queryByText('Auditor')).toBeInTheDocument();
+    expect(queryByText('Security Engineer')).toBeInTheDocument();
   });
 
   it('renders Auditor with no Tier role correctly', () => {
@@ -121,7 +121,7 @@ describe('AccountRoleTags component', () => {
     expect(queryByText('🥇')).not.toBeInTheDocument();
     expect(queryByText('🥈')).not.toBeInTheDocument();
     expect(queryByText('🥉')).not.toBeInTheDocument();
-    expect(queryByText('Auditor')).toBeInTheDocument();
+    expect(queryByText('Security Engineer')).toBeInTheDocument();
   });
 
   it('renders Auditor with no Tier role when accuracy is not available', () => {
@@ -136,7 +136,7 @@ describe('AccountRoleTags component', () => {
     expect(queryByText('🥇')).not.toBeInTheDocument();
     expect(queryByText('🥈')).not.toBeInTheDocument();
     expect(queryByText('🥉')).not.toBeInTheDocument();
-    expect(queryByText('Auditor')).toBeInTheDocument();
+    expect(queryByText('Security Engineer')).toBeInTheDocument();
   });
 
   it('renders Reported role correctly', () => {
