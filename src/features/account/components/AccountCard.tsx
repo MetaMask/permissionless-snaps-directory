@@ -5,12 +5,10 @@ import type { FunctionComponent } from 'react';
 import { type Hex } from 'viem';
 import { mainnet, useEnsName } from 'wagmi';
 
+import type { AccountTrustScore } from './AccountRoleTags';
+import { AccountRoleTags } from './AccountRoleTags';
 import { Card, JazzIcon } from '../../../components';
 import { trimAddress } from '../../../utils';
-import {
-  AccountRoleTags,
-  type AccountTrustScore,
-} from '../../account/components/AccountRoleTags';
 
 export type AccountCardProps = {
   accountId: string;

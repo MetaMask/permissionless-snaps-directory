@@ -7,7 +7,7 @@ import { render } from '../utils/test-utils';
 jest.mock('../hooks');
 
 jest.mock('../features', () => ({
-  CommunityList: () => <div data-testid="community-list" />,
+  UsersList: () => <div data-testid="users-list" />,
 }));
 
 describe('CommunityPage', () => {
@@ -23,8 +23,8 @@ describe('CommunityPage', () => {
     mockDispatch.mockImplementation(async () => Promise.resolve({}));
     const { queryByTestId } = await act(async () => render(<CommunityPage />));
 
-    expect(mockDispatch).toHaveBeenCalledTimes(2);
-    expect(queryByTestId('community-list')).toBeInTheDocument();
+    expect(mockDispatch).toHaveBeenCalledTimes(3);
+    expect(queryByTestId('users-list')).toBeInTheDocument();
   });
 
   it('should render even if fetchTrustScoreForAllAccounts action fails', async () => {
@@ -34,10 +34,11 @@ describe('CommunityPage', () => {
       Promise.reject(new Error()),
     );
     mockDispatch.mockImplementationOnce(async () => Promise.resolve({}));
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve({}));
     const { queryByTestId } = await act(async () => render(<CommunityPage />));
 
-    expect(mockDispatch).toHaveBeenCalledTimes(2);
-    expect(queryByTestId('community-list')).toBeInTheDocument();
+    expect(mockDispatch).toHaveBeenCalledTimes(3);
+    expect(queryByTestId('users-list')).toBeInTheDocument();
   });
 
   it('should render even if fetchAssertionsForAllAccounts action fails', async () => {
@@ -47,9 +48,24 @@ describe('CommunityPage', () => {
     mockDispatch.mockImplementationOnce(async () =>
       Promise.reject(new Error()),
     );
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve({}));
     const { queryByTestId } = await act(async () => render(<CommunityPage />));
 
-    expect(mockDispatch).toHaveBeenCalledTimes(2);
-    expect(queryByTestId('community-list')).toBeInTheDocument();
+    expect(mockDispatch).toHaveBeenCalledTimes(3);
+    expect(queryByTestId('users-list')).toBeInTheDocument();
+  });
+
+  it('should render even if fetchAllUsers action fails', async () => {
+    const mockDispatch = jest.fn();
+    mockUseDispatch.mockReturnValue(mockDispatch);
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve({}));
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve({}));
+    mockDispatch.mockImplementationOnce(async () =>
+      Promise.reject(new Error()),
+    );
+    const { queryByTestId } = await act(async () => render(<CommunityPage />));
+
+    expect(mockDispatch).toHaveBeenCalledTimes(3);
+    expect(queryByTestId('users-list')).toBeInTheDocument();
   });
 });

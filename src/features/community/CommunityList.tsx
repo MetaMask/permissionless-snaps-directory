@@ -2,8 +2,8 @@ import { Box, Divider, Heading, SimpleGrid } from '@chakra-ui/react';
 import { t, Trans } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
 
-import { AccountCardShort } from './components';
 import { useSelector } from '../../hooks';
+import { AccountCardShort } from '../account';
 import {
   getTopAccountsForScope,
   getTopAuthors,
