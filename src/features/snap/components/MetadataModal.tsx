@@ -76,7 +76,7 @@ export const MetadataModal: FunctionComponent<MetadataModalProps> = ({
         <ModalCloseButton />
         <ModalBody display="flex" flexDirection="column" gap="4">
           <Data label={t`Identifier`} value={<Identifier snapId={snapId} />} />
-          {author && <MetadataItem address={author.address as Hex} />}
+          {author?.address && <MetadataItem address={author.address as Hex} />}
           <MetadataAuditItem auditorAddresses={auditorAddresses} />
           <Data label={t`Version`} value={latestVersion} />
           <Data

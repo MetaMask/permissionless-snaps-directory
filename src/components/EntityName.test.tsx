@@ -100,4 +100,15 @@ describe('ActivitySubject', () => {
 
     expect(queryByText('cool title')).toBeInTheDocument();
   });
+
+  it('renders an item without surrounding margin', async () => {
+    const { queryByText } = await act(async () =>
+      render(
+        <EntityName subject={peerSubject} isSnap={false} noMargin={true} />,
+      ),
+    );
+
+    const item = queryByText('test.eth');
+    expect(item).toBeInTheDocument();
+  });
 });
