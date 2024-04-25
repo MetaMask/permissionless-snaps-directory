@@ -78,7 +78,7 @@ export const Metadata: FunctionComponent<MetadataProps> = ({ snap }) => {
         )}
         <Data label={t`Identifier`} value={<Identifier snapId={snapId} />} />
         <CommunitySentiment snap={snap} />
-        {author && <MetadataItem address={author.address as Hex} />}
+        {author?.address && <MetadataItem address={author.address as Hex} />}
         <Data
           label={t`Source Code`}
           value={

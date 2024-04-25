@@ -15,12 +15,14 @@ export type ActivitySubjectProps = {
   subject: string;
   isSnap: boolean;
   title?: string;
+  noMargin?: boolean;
 };
 
 export const EntityName: FunctionComponent<ActivitySubjectProps> = ({
   subject,
   isSnap,
   title,
+  noMargin,
 }) => {
   const snap = useSelector(getSnapByChecksum(subject));
 
@@ -48,7 +50,7 @@ export const EntityName: FunctionComponent<ActivitySubjectProps> = ({
 
   return (
     <Link to={buildLink()}>
-      <Text color="info.default" ml={-1} mr={-1}>
+      <Text color="info.default" mx={noMargin ? 0 : -1}>
         {displaySubject()}
       </Text>
     </Link>
