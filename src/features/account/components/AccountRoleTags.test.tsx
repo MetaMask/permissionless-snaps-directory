@@ -25,8 +25,8 @@ describe('AccountRoleTags component', () => {
       <AccountRoleTags trustScores={mockTrustScores} />,
     );
 
-    expect(getByText('Software Engineer')).toBeInTheDocument();
-    expect(getByText('Security Engineer')).toBeInTheDocument();
+    expect(getByText('🧑‍💻 Software Engineer')).toBeInTheDocument();
+    expect(getByText('🥇 Security Engineer')).toBeInTheDocument();
   });
 
   it('renders correctly without trust scores', () => {
@@ -50,8 +50,7 @@ describe('AccountRoleTags component', () => {
       <AccountRoleTags trustScores={mockTrustScores} />,
     );
 
-    expect(getByText('🧑‍💻')).toBeInTheDocument();
-    expect(getByText('Software Engineer')).toBeInTheDocument();
+    expect(getByText('🧑‍💻 Software Engineer')).toBeInTheDocument();
   });
 
   it('renders Auditor Tier 1 role correctly', () => {
@@ -67,8 +66,7 @@ describe('AccountRoleTags component', () => {
       <AccountRoleTags trustScores={mockTrustScores} />,
     );
 
-    expect(queryByText('🥇')).toBeInTheDocument();
-    expect(queryByText('Security Engineer')).toBeInTheDocument();
+    expect(queryByText('🥇 Security Engineer')).toBeInTheDocument();
   });
 
   it('renders Auditor Tier 2 role correctly', () => {
@@ -84,8 +82,7 @@ describe('AccountRoleTags component', () => {
       <AccountRoleTags trustScores={mockTrustScores} />,
     );
 
-    expect(queryByText('🥈')).toBeInTheDocument();
-    expect(queryByText('Security Engineer')).toBeInTheDocument();
+    expect(queryByText('🥈 Security Engineer')).toBeInTheDocument();
   });
 
   it('renders Auditor Tier 3 role correctly', () => {
@@ -101,8 +98,7 @@ describe('AccountRoleTags component', () => {
       <AccountRoleTags trustScores={mockTrustScores} />,
     );
 
-    expect(queryByText('🥉')).toBeInTheDocument();
-    expect(queryByText('Security Engineer')).toBeInTheDocument();
+    expect(queryByText('🥉 Security Engineer')).toBeInTheDocument();
   });
 
   it('renders Auditor with no Tier role correctly', () => {
@@ -148,7 +144,6 @@ describe('AccountRoleTags component', () => {
       <AccountRoleTags trustScores={mockTrustScores} />,
     );
 
-    expect(queryByText('👹')).toBeInTheDocument();
-    expect(queryByText('Reported')).toBeInTheDocument();
+    expect(queryByText('👹 Reported')).toBeInTheDocument();
   });
 });

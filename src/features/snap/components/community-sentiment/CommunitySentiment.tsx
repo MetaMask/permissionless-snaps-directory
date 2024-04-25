@@ -1,5 +1,5 @@
 import { Box, Link, Tag, TagLabel, useDisclosure } from '@chakra-ui/react';
-import { Trans, t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { type FunctionComponent } from 'react';
 
 import { CommunitySentimentModal } from './CommunitySentimentModal';
@@ -53,7 +53,7 @@ export const CommunitySentiment: FunctionComponent<CommunitySentimentProps> = ({
 
   const render = () => {
     return (
-      <Box>
+      <Box display="flex" alignItems="center" gap="0.25rem">
         <Tag
           variant={getColorForSentiment(sentimentType)}
           onClick={onOpen}
