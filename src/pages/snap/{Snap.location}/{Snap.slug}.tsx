@@ -21,6 +21,7 @@ import {
   RelatedSnaps,
   useGetInstalledSnapsQuery,
 } from '../../../features';
+import { ActivitySection } from '../../../features/snap/components/activity/ActivitySection';
 import { EndorseSnap } from '../../../features/snap/components/EndorseSnap';
 import { ReportSnap } from '../../../features/snap/components/ReportSnap';
 import type { Fields } from '../../../utils';
@@ -138,6 +139,8 @@ const SnapPage: FunctionComponent<SnapPageProps> = ({ data }) => {
           <Description name={name} description={description} />
           <Permissions snap={data.snap} permissions={permissions} />
         </Stack>
+
+        <ActivitySection latestChecksum={latestChecksum} />
 
         {/* TODO: Enable account management category when there are more Snaps
             in the registry. */}

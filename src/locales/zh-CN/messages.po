@@ -13,6 +13,14 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/features/account/AccountTEEndorsement.tsx
+msgid "{address} has been endorsed."
+msgstr ""
+
+#: src/features/account/AccountReport.tsx
+msgid "{address} has been reported."
+msgstr ""
+
 #: src/components/RequestSignModal.tsx
 msgid "{buttonText}"
 msgstr ""
@@ -32,14 +40,6 @@ msgstr ""
 
 #: src/pages/{Category.name}/index.tsx
 msgid "{nameText} Snaps on the MetaMask Snaps Directory"
-msgstr ""
-
-#: src/features/account/AccountTEEndorsement.tsx
-msgid "{pkhAddress} has been endorsed."
-msgstr ""
-
-#: src/features/account/AccountReport.tsx
-msgid "{pkhAddress} has been reported."
 msgstr ""
 
 #: src/features/snap/components/community-sentiment/CommunitySentiment.tsx
@@ -69,6 +69,7 @@ msgid "{snapName} has been reported."
 msgstr ""
 
 #: src/features/community/CommunityList.tsx
+#: src/features/users/UsersList.tsx
 msgid "{title}"
 msgstr ""
 
@@ -118,6 +119,7 @@ msgid "Account Profile"
 msgstr ""
 
 #: src/features/account/components/activity/ActivitySection.tsx
+#: src/features/snap/components/activity/ActivitySection.tsx
 msgid "Activity"
 msgstr ""
 
@@ -260,6 +262,7 @@ msgid "Alphabetical"
 msgstr ""
 
 #: src/features/account/components/activity/ActivityItem.tsx
+#: src/features/snap/components/activity/ActivityItem.tsx
 msgid "and"
 msgstr ""
 
@@ -272,7 +275,6 @@ msgid "Audited By"
 msgstr ""
 
 #: src/components/icons/index.ts
-#: src/features/account/components/AccountRoleTags.tsx
 msgid "Auditor"
 msgstr ""
 
@@ -394,7 +396,6 @@ msgid "Developed Snaps"
 msgstr ""
 
 #: src/components/icons/index.ts
-#: src/features/account/components/AccountRoleTags.tsx
 #: src/features/snap/components/MetadataItem.tsx
 msgid "Developer"
 msgstr ""
@@ -483,6 +484,7 @@ msgid "Endorsed"
 msgstr ""
 
 #: src/features/account/components/technical-expertise/TechnicalExpertiseItem.tsx
+#: src/features/snap/components/activity/ActivityItem.tsx
 msgid "Endorsed by"
 msgstr ""
 
@@ -526,6 +528,10 @@ msgstr ""
 msgid "Explore All Snaps"
 msgstr ""
 
+#: src/features/users/UsersList.tsx
+msgid "Explore community"
+msgstr ""
+
 #: src/pages/explore.tsx
 msgid "Explore Snaps"
 msgstr ""
@@ -552,7 +558,7 @@ msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
 #: src/features/account/AccountTEEndorsement.tsx
-msgid "Failed to create endorsement for {pkhAddress}."
+msgid "Failed to create endorsement for {address}."
 msgstr ""
 
 #: src/features/snap/components/EndorseSnap.tsx
@@ -562,7 +568,7 @@ msgstr ""
 
 #: src/features/account/AccountReport.tsx
 #: src/features/account/AccountReport.tsx
-msgid "Failed to create report for {pkhAddress}."
+msgid "Failed to create report for {address}."
 msgstr ""
 
 #: src/features/snap/components/ReportSnap.tsx
@@ -930,6 +936,10 @@ msgstr ""
 msgid "Reported"
 msgstr ""
 
+#: src/features/snap/components/activity/ActivityItem.tsx
+msgid "Reported by"
+msgstr ""
+
 #: src/pages/explore.tsx
 msgid "Results for \"{searchQuery}\""
 msgstr ""
@@ -965,6 +975,10 @@ msgstr ""
 #: src/components/icons/index.ts
 #: src/constants.ts
 msgid "Security"
+msgstr ""
+
+#: src/features/account/components/AccountRoleTags.tsx
+msgid "Security Engineer"
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -1048,6 +1062,10 @@ msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
 msgid "Software Development"
+msgstr ""
+
+#: src/features/account/components/AccountRoleTags.tsx
+msgid "Software Engineer"
 msgstr ""
 
 #: src/features/account/AccountTEEndorsement.tsx
@@ -1217,8 +1235,8 @@ msgstr ""
 msgid "Version {0} update available"
 msgstr ""
 
-#: src/features/community/components/AccountCard.tsx
-#: src/features/community/components/AccountCardShort.tsx
+#: src/features/account/components/AccountCard.tsx
+#: src/features/account/components/AccountCardShort.tsx
 #: src/features/snaps/components/SnapCard.tsx
 msgid "View"
 msgstr ""

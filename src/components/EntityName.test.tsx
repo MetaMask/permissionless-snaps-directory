@@ -18,9 +18,8 @@ jest.mock('wagmi', () => ({
   createConfig: jest.fn(),
 }));
 
-const snapSubject = 'snap://mockChecksumFoo';
-const peerSubject =
-  'did:pkh:eip155:1:0x04bC337f14ad1F7ED42A03f89C5e44eF1cE792f9';
+const snapSubject = 'mockChecksumFoo';
+const peerSubject = '0x04bC337f14ad1F7ED42A03f89C5e44eF1cE792f9';
 
 describe('ActivitySubject', () => {
   let mockUseVerifiableCredential: jest.Mock;
@@ -54,7 +53,7 @@ describe('ActivitySubject', () => {
     });
 
     const { queryByText } = await act(async () =>
-      render(<EntityName subject={snapSubject} />, store),
+      render(<EntityName subject={snapSubject} isSnap={true} />, store),
     );
 
     expect(queryByText('foo-snap')).toBeInTheDocument();
@@ -64,7 +63,7 @@ describe('ActivitySubject', () => {
     const fooSnap = getMockSnap({
       snapId: 'foo-snap',
       name: 'foo-snap',
-      versions: [{ version: '1.0.0', checksum: 'mockChecksumFoo' }],
+      versions: [{ version: '1.0.0', checksum: 'mockChecksumBar' }],
     }).snap;
 
     const store = createStore({
@@ -73,19 +72,8 @@ describe('ActivitySubject', () => {
       },
     });
 
-    mockUseVerifiableCredential.mockReturnValue({
-      accountVCBuilder: {
-        getAddressFromDid: jest
-          .fn()
-          .mockReturnValue('0x04bC337f14ad1F7ED42A03f89C5e44eF1cE792f9'),
-      },
-      snapVCBuilder: {
-        getSnapIdFromDid: jest.fn().mockReturnValue(undefined),
-      },
-    });
-
     const { queryByText } = await act(async () =>
-      render(<EntityName subject={snapSubject} />, store),
+      render(<EntityName subject={snapSubject} isSnap={true} />, store),
     );
 
     expect(queryByText('Unknown')).toBeInTheDocument();
@@ -93,7 +81,7 @@ describe('ActivitySubject', () => {
 
   it('renders an account subject with ENS', async () => {
     const { queryByText } = await act(async () =>
-      render(<EntityName subject={peerSubject} />),
+      render(<EntityName subject={peerSubject} isSnap={false} />),
     );
 
     expect(queryByText('test.eth')).toBeInTheDocument();
@@ -101,9 +89,26 @@ describe('ActivitySubject', () => {
 
   it('renders pre-specified title', async () => {
     const { queryByText } = await act(async () =>
-      render(<EntityName subject={peerSubject} title={'cool title'} />),
+      render(
+        <EntityName
+          subject={peerSubject}
+          isSnap={false}
+          title={'cool title'}
+        />,
+      ),
     );
 
     expect(queryByText('cool title')).toBeInTheDocument();
+  });
+
+  it('renders an item without surrounding margin', async () => {
+    const { queryByText } = await act(async () =>
+      render(
+        <EntityName subject={peerSubject} isSnap={false} noMargin={true} />,
+      ),
+    );
+
+    const item = queryByText('test.eth');
+    expect(item).toBeInTheDocument();
   });
 });

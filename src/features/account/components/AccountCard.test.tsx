@@ -3,7 +3,7 @@ import { useAccount, useEnsName } from 'wagmi';
 
 import { AccountCard } from './AccountCard';
 import { render, VALID_ACCOUNT_1 } from '../../../utils/test-utils';
-import { TrustScoreScope } from '../../account/trust-score/types';
+import { TrustScoreScope } from '../trust-score/types';
 
 jest.mock('wagmi', () => ({
   ...jest.requireActual('wagmi'),
@@ -16,7 +16,7 @@ jest.mock('wagmi', () => ({
   }),
 }));
 
-jest.mock('../../account/components/AccountRoleTags', () => ({
+jest.mock('./AccountRoleTags', () => ({
   AccountRoleTags: () => <div data-testid="account-role-tags" />,
 }));
 

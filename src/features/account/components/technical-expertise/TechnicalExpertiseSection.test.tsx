@@ -54,7 +54,7 @@ describe('TechnicalExpertiseSection', () => {
     mockGetAddress.mockReturnValue(address);
     const accountAssertion1: AccountAssertionState = {
       accountId: 'accountId',
-      issuer: '0xIssuer1',
+      issuerId: '0xIssuer1',
       trustworthiness: [
         { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
       ],
@@ -62,7 +62,7 @@ describe('TechnicalExpertiseSection', () => {
     };
     const accountAssertion2: AccountAssertionState = {
       accountId: 'accountId',
-      issuer: '0xIssuer2',
+      issuerId: '0xIssuer2',
       trustworthiness: [
         { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
       ],
@@ -70,7 +70,7 @@ describe('TechnicalExpertiseSection', () => {
     };
     const accountAssertion3: AccountAssertionState = {
       accountId: 'accountId',
-      issuer: '0xIssuer3',
+      issuerId: '0xIssuer3',
       trustworthiness: [
         { level: 1, scope: TrustworthinessScope.SoftwareSecurity },
       ],

@@ -1,4 +1,4 @@
-import { Tag, TagLabel, HStack } from '@chakra-ui/react';
+import { HStack, Tag, TagLabel } from '@chakra-ui/react';
 import { t } from '@lingui/macro';
 import { type FunctionComponent } from 'react';
 
@@ -72,7 +72,7 @@ export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
         return {
           bg: '#FFDC5B40',
           color: '#FFC700',
-          label: t`Developer`,
+          label: t`Software Engineer`,
         };
       case AccountRoleType.Reported:
         return {
@@ -84,7 +84,7 @@ export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
         return {
           bg: '#72398E40',
           color: '#AE00FF',
-          label: t`Auditor`,
+          label: t`Security Engineer`,
         };
     }
   };

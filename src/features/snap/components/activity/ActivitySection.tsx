@@ -1,20 +1,19 @@
 import { Box, Divider, Heading } from '@chakra-ui/react';
 import { t } from '@lingui/macro';
-import type { Address } from '@wagmi/core';
 import type { FunctionComponent } from 'react';
 
 import { ActivityItem } from './ActivityItem';
 import { useSelector } from '../../../../hooks';
-import { getIssuedAssertionsForIssuerId } from '../../assertions/store';
+import { getIssuedAssertionsForSnapId } from '../../assertions/store';
 
 export type ActivitySectionProps = {
-  address: Address;
+  latestChecksum: string;
 };
 
 export const ActivitySection: FunctionComponent<ActivitySectionProps> = ({
-  address,
+  latestChecksum,
 }) => {
-  const assertions = useSelector(getIssuedAssertionsForIssuerId(address));
+  const assertions = useSelector(getIssuedAssertionsForSnapId(latestChecksum));
 
   if (assertions && assertions.length !== 0) {
     return (
@@ -26,7 +25,7 @@ export const ActivitySection: FunctionComponent<ActivitySectionProps> = ({
         <Box data-testid="activity-section">
           {assertions.map((assertion, index) => (
             <ActivityItem
-              key={`${assertion.subjectId}-${index}`}
+              key={`${assertion.snapId}-${index}`}
               assertion={assertion}
             />
           ))}

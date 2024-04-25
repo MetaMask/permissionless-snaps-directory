@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+
 // TODO: Create a common package for shared types
+import type { SubjectType } from '../../account/assertions/enums';
+
 export enum SnapCurrentStatus {
   Endorsed = 'Endorsed',
   Disputed = 'Disputed',
@@ -53,6 +56,9 @@ export type SnapAssertion = {
   id: string;
   creationAt: Date;
   assertion: SnapAssertionResponse;
+  subjectId: string;
+  issuerId: string;
+  subjectType: SubjectType;
 };
 
 export type SnapAssertionResponse = {
@@ -60,4 +66,5 @@ export type SnapAssertionResponse = {
   type: string;
   proof?: ProofEip712;
   credentialSubject: SnapCredentialSubject;
+  issuanceDate: Date;
 };

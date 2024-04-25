@@ -4,6 +4,8 @@ import { CommunitySentimentModal } from './CommunitySentimentModal';
 import { SentimentType } from './types';
 import { createStore } from '../../../../store';
 import { render } from '../../../../utils/test-utils';
+import { SubjectType } from '../../../account/assertions/enums';
+import { SnapStatusReasonType } from '../../assertions/store';
 import { SnapCurrentStatus } from '../../assertions/types';
 
 describe('CommunitySentimentModal', () => {
@@ -40,21 +42,33 @@ describe('CommunitySentimentModal', () => {
         snapAssertions: {
           snapAssertions: [
             {
-              snapId: 'snap://checksum',
+              snapId: 'checksum1',
               issuer: 'issuer1',
               currentStatus: SnapCurrentStatus.Endorsed,
               creationAt: new Date(),
+              subjectType: SubjectType.Snap,
+              statusReason: {
+                type: SnapStatusReasonType.Endorse,
+                value: ['Value'],
+              },
+              issuanceDate: new Date(),
             },
             {
-              snapId: 'snap://checksum',
+              snapId: 'checksum1',
               issuer: 'issuer2',
               currentStatus: SnapCurrentStatus.Disputed,
               creationAt: new Date(),
+              subjectType: SubjectType.Snap,
+              statusReason: {
+                type: SnapStatusReasonType.Malicious,
+                value: ['Value'],
+              },
+              issuanceDate: new Date(),
             },
           ],
         },
         snapTrustScores: {
-          snapTrustScores: [{ snapId: 'snap://checksum', result }],
+          snapTrustScores: [{ snapId: 'checksum1', result }],
         },
       });
 
@@ -62,7 +76,7 @@ describe('CommunitySentimentModal', () => {
         <CommunitySentimentModal
           isOpen={true}
           onClose={onCloseMock}
-          snap={{ name: 'Snap Name', latestChecksum: 'checksum' }}
+          snap={{ name: 'Snap Name', latestChecksum: 'checksum1' }}
         />,
         store,
       );
@@ -78,15 +92,21 @@ describe('CommunitySentimentModal', () => {
       snapAssertions: {
         snapAssertions: [
           {
-            snapId: 'snap://checksum',
+            snapId: 'checksum',
+            subjectType: SubjectType.Snap,
             issuer: 'issuer1',
             currentStatus: SnapCurrentStatus.Endorsed,
             creationAt: new Date(),
+            statusReason: {
+              type: SnapStatusReasonType.Endorse,
+              value: ['Value'],
+            },
+            issuanceDate: new Date(),
           },
         ],
       },
       snapTrustScores: {
-        snapTrustScores: [{ snapId: 'snap://checksum', result: 1 }],
+        snapTrustScores: [{ snapId: 'checksum', result: 1 }],
       },
     });
     render(

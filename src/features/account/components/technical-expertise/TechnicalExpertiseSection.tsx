@@ -2,32 +2,22 @@ import { Box, Divider, Heading, HStack } from '@chakra-ui/react';
 import { t } from '@lingui/macro';
 import type { Address } from '@wagmi/core';
 import type { FunctionComponent } from 'react';
-import { useMemo } from 'react';
 
 import { TechnicalExpertiseItem } from './TechnicalExpertiseItem';
-import { useSelector, useVerifiableCredential } from '../../../../hooks';
+import { useSelector } from '../../../../hooks';
 import { AccountTEEndorsement } from '../../AccountTEEndorsement';
 import { getTechnicalEndorsementsForAccountId } from '../../assertions/store';
 
 export type TechnicalExpertiseSectionProps = {
   address: Address;
-  connectedAddress?: Address;
+  connectedAddress: Address | undefined;
 };
 
 export const TechnicalExpertiseSection: FunctionComponent<
   TechnicalExpertiseSectionProps
 > = ({ address, connectedAddress }) => {
-  const { accountVCBuilder } = useVerifiableCredential();
-  const pkhAddress = useMemo(
-    () => accountVCBuilder.getSubjectDid(address),
-    [accountVCBuilder, address],
-  );
-  const myDid = useMemo(
-    () => accountVCBuilder.getSubjectDid(connectedAddress),
-    [accountVCBuilder, connectedAddress],
-  );
   const endorsements = useSelector(
-    getTechnicalEndorsementsForAccountId(pkhAddress),
+    getTechnicalEndorsementsForAccountId(address),
   );
 
   const hasEndorsement = endorsements?.some(
@@ -62,7 +52,7 @@ export const TechnicalExpertiseSection: FunctionComponent<
               key={`${endorsementType.type}-${index}`}
               endorsements={endorsementType.endorsements}
               type={endorsementType.type}
-              myDid={myDid}
+              myAddress={connectedAddress}
             />
           ))}
         </Box>

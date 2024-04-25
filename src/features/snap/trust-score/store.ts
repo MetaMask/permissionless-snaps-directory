@@ -47,7 +47,7 @@ export const getSnapTrustScoreForSnapId = (snapId: string) =>
     getSnapTrustScores,
     (snapTrustScores) =>
       snapTrustScores?.find(
-        (snapTrustScore) => snapTrustScore.snapId === `snap://${snapId}`,
+        (snapTrustScore) => snapTrustScore.snapId === `${snapId}`,
       ) ?? {
         snapId,
         result: -1,

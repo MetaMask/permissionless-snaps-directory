@@ -1,22 +1,24 @@
 import { HStack, Text, VStack } from '@chakra-ui/react';
 import { t } from '@lingui/macro';
+import type { Address } from '@wagmi/core';
 import type { FunctionComponent } from 'react';
 
 import { EntityName } from '../../../../components/EntityName';
 import type { AccountAssertionState } from '../../assertions/store';
-import type { PKHDid, TrustworthinessScope } from '../../assertions/types';
+import type { TrustworthinessScope } from '../../assertions/types';
 
 export type TechnicalExpertiseItemProps = {
   endorsements: AccountAssertionState[];
   type: TrustworthinessScope;
-  myDid: PKHDid;
+  myAddress: Address | undefined;
 };
 
 export const TechnicalExpertiseItem: FunctionComponent<
   TechnicalExpertiseItemProps
-> = ({ endorsements, type, myDid }) => {
+> = ({ endorsements, type, myAddress }) => {
   const isEndorsedByMe = endorsements.find(
-    (endorsement) => endorsement.issuer.toLowerCase() === myDid.toLowerCase(),
+    (endorsement) =>
+      endorsement.issuerId.toLowerCase() === myAddress?.toLowerCase(),
   );
 
   const endorsementsCount = endorsements.length;
@@ -30,11 +32,12 @@ export const TechnicalExpertiseItem: FunctionComponent<
       <Text fontWeight={'medium'}>{type}</Text>
       <HStack>
         <Text>{t`Endorsed by`}</Text>
-        {isEndorsedByMe && (
+        {isEndorsedByMe && myAddress && (
           <>
             <EntityName
-              key={`${myDid}-${type}`}
-              subject={myDid}
+              key={`${myAddress}-${type}`}
+              subject={myAddress.toLowerCase()}
+              isSnap={false}
               title={`${t`you`}`}
             />
             {endorsementsCount > 1 && <Text ml={-1}>,</Text>}
@@ -43,15 +46,16 @@ export const TechnicalExpertiseItem: FunctionComponent<
         {endorsements.slice(0, maxEndorsements).map((endorsement, index) => (
           <>
             <EntityName
-              key={`${endorsement.issuer}-${type}`}
-              subject={endorsement.issuer}
+              key={`${endorsement.issuerId}-${index}`}
+              subject={endorsement.issuerId}
+              isSnap={false}
             />
             {index < maxEndorsements - 1 && <Text ml={-1}>,</Text>}
           </>
         ))}
-        {endorsementsCount > maxEndorsements && (
+        {endorsementsCount > maxEndorsements + 1 && (
           <Text ml={0}>{`+ ${
-            endorsementsCount - maxEndorsements
+            endorsementsCount - maxEndorsementsToDisplay
           } ${t`more`}`}</Text>
         )}
       </HStack>

@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
-import { useState, type FunctionComponent, useEffect } from 'react';
+import { type FunctionComponent, useEffect, useState } from 'react';
 
 import { EndorseSnapModal } from './modals/EndorseSnapModal';
 import { EndorseButton } from '../../../components';
@@ -33,14 +33,12 @@ export const EndorseSnap: FunctionComponent<EndorseSnapProps> = ({
 }) => {
   const { signMessage, signError, snapVCBuilder } = useVerifiableCredential();
 
-  const issuer = snapVCBuilder.getIssuerDid(address);
-
   const latestSnapStatus = useSelector(
-    getCurrentSnapStatusForIssuer(snapChecksum, issuer),
+    getCurrentSnapStatusForIssuer(snapChecksum, address),
   );
 
   const isSnapEndorsed = useSelector(
-    isSnapEndorsedByIssuer(snapChecksum, issuer),
+    isSnapEndorsedByIssuer(snapChecksum, address),
   );
 
   const [showModal, setShowModal] = useState(false);

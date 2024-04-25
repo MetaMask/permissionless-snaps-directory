@@ -17,7 +17,7 @@ describe('fetchTrustScoreForSnapId', () => {
     const mockResponse = {
       data: [
         {
-          subjectId: 'snap://snapId',
+          subjectId: 'snapId',
           value: 5,
           trustScoreScope: '',
           result: 5,
@@ -59,7 +59,7 @@ describe('fetchTrustScoreForSnapId', () => {
       fetchTrustScoreForSnapId.fulfilled(
         {
           result: -1,
-          subjectId: 'snap://snapId',
+          subjectId: 'snapId',
           trustScoreScope: '',
           value: -1,
         },
@@ -69,7 +69,7 @@ describe('fetchTrustScoreForSnapId', () => {
     );
   });
 
-  it('should handle empty respose with default values', async () => {
+  it('should handle empty response with default values', async () => {
     // Arrange
     const snapId = 'snapId';
     mockedAxios.get.mockResolvedValueOnce({ data: [] });
@@ -85,7 +85,7 @@ describe('fetchTrustScoreForSnapId', () => {
       fetchTrustScoreForSnapId.fulfilled(
         {
           result: -1,
-          subjectId: 'snap://snapId',
+          subjectId: 'snapId',
           trustScoreScope: '',
           value: -1,
         },
