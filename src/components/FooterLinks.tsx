@@ -26,7 +26,7 @@ export const FOOTER_LINKS = [
       },
       {
         title: defineMessage`Feedback`,
-        url: 'https://survey.usabilla.com/live/s/64f99fe2b12d6940df7c0357?utm_source=snapsdirectory&utm_medium=landing-page&utm_campaign=2023_Sep_snaps-launch_awareness_content',
+        url: 'https://www.getfeedback.com/r/SugORXsV',
       },
       {
         title: defineMessage`Support`,
