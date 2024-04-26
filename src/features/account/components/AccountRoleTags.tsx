@@ -115,8 +115,9 @@ export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
         const attr = getRoleAttributes(role);
         return (
           <Tag key={i} variant="user" bg={attr.bg} borderRadius="full">
-            <TagLabel>{getRoleIcon(role)}</TagLabel>
-            <TagLabel color={attr.color}>{attr.label}</TagLabel>
+            <TagLabel color={attr.color}>
+              {getRoleIcon(role)} {attr.label}
+            </TagLabel>
           </Tag>
         );
       })}
