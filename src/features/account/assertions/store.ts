@@ -169,31 +169,30 @@ export const getTechnicalEndorsementsForAccountId = (accountId: string) =>
     const developmentEndorsements: AccountAssertionState[] = [];
     const securityEndorsements: AccountAssertionState[] = [];
 
-    const orderedAssertions = [...accountAssertions].sort(
+    const assertionsForAccountId = accountAssertions.filter(
+      (assertion) => assertion.subjectId === accountId,
+    );
+
+    const orderedAssertions = [...assertionsForAccountId].sort(
       (a: AccountAssertionState, b: AccountAssertionState) =>
         new Date(b.issuanceDate).getTime() - new Date(a.issuanceDate).getTime(),
     );
 
-    orderedAssertions.forEach((assertion) => {
-      if (
-        assertion.subjectId === accountId &&
-        assertion.trustworthiness.some(
-          (trustworthiness) => trustworthiness.level >= 0,
-        )
-      ) {
-        assertion.trustworthiness.forEach((trustworthiness) => {
-          if (
-            trustworthiness.scope === TrustworthinessScope.SoftwareDevelopment
-          ) {
-            developmentEndorsements.push(assertion);
-          } else if (
-            trustworthiness.scope === TrustworthinessScope.SoftwareSecurity
-          ) {
-            securityEndorsements.push(assertion);
-          }
-        });
-      }
-    });
+    developmentEndorsements.push(
+      ...orderedAssertions.filter((assertion) =>
+        assertion.reasons.includes(
+          TrustworthinessScope.SoftwareDevelopment.toString(),
+        ),
+      ),
+    );
+
+    securityEndorsements.push(
+      ...orderedAssertions.filter((assertion) =>
+        assertion.reasons.includes(
+          TrustworthinessScope.SoftwareSecurity.toString(),
+        ),
+      ),
+    );
 
     return [
       {

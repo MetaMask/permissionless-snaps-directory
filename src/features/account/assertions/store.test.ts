@@ -49,7 +49,7 @@ describe('accountAssertionsSlice', () => {
             trustworthiness: [],
             creationAt: new Date(),
             value: Value.Endorsement,
-            reasons: ['reason'],
+            reasons: [''],
             statusReason: { type: 'test', value: ['test'] },
             issuanceDate: new Date(),
           },
@@ -87,7 +87,7 @@ describe('accountAssertionsSlice', () => {
             statusReason: { type: 'test', value: ['test'] },
             issuanceDate: new Date(),
             subjectType: SubjectType.User,
-            reasons: ['reason'],
+            reasons: [''],
           },
         ],
         issuedAssertions: [],
@@ -185,7 +185,7 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         value: Value.Endorsement,
-        reasons: ['reason'],
+        reasons: [''],
       };
       const assertion2: AccountAssertionState = {
         subjectId: 'subjectId',
@@ -196,7 +196,7 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         value: Value.Endorsement,
-        reasons: ['reason'],
+        reasons: [''],
       };
       mockedApplicationState.issuedAssertions = {
         accountAssertions: [],
@@ -237,7 +237,7 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [''],
       };
 
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
@@ -268,7 +268,7 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [TrustworthinessScope.SoftwareDevelopment.toString()],
       };
 
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
@@ -299,7 +299,7 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [TrustworthinessScope.Honesty.toString()],
       };
 
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
@@ -331,7 +331,10 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [
+          TrustworthinessScope.SoftwareDevelopment.toString(),
+          TrustworthinessScope.Honesty.toString(),
+        ],
       };
 
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
@@ -358,7 +361,7 @@ describe('Selectors', () => {
       const laterDate = new Date('2022-01-03');
       const accountAssertion1: AccountAssertionState = {
         subjectId: 'subjectId',
-        issuerId: 'issuerId',
+        issuerId: 'issuerId1',
         trustworthiness: [
           { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
         ],
@@ -367,11 +370,11 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [TrustworthinessScope.SoftwareDevelopment.toString()],
       };
       const accountAssertion2: AccountAssertionState = {
         subjectId: 'subjectId',
-        issuerId: 'issuerId',
+        issuerId: 'issuerId2',
         trustworthiness: [
           { level: 1, scope: TrustworthinessScope.SoftwareDevelopment },
         ],
@@ -380,11 +383,11 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [TrustworthinessScope.SoftwareDevelopment.toString()],
       };
       const accountAssertion3: AccountAssertionState = {
         subjectId: 'subjectId',
-        issuerId: 'issuerId',
+        issuerId: 'issuerId3',
         trustworthiness: [
           { level: 1, scope: TrustworthinessScope.UserExperienceDesign },
         ],
@@ -393,11 +396,11 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [TrustworthinessScope.UserExperienceDesign.toString()],
       };
       const accountAssertion4: AccountAssertionState = {
         subjectId: 'subjectId',
-        issuerId: 'issuerId',
+        issuerId: 'issuerId4',
         trustworthiness: [
           { level: 1, scope: TrustworthinessScope.SoftwareSecurity },
         ],
@@ -406,20 +409,18 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [TrustworthinessScope.SoftwareSecurity.toString()],
       };
       const accountAssertion5: AccountAssertionState = {
         subjectId: 'subjectId',
-        issuerId: 'issuerId',
-        trustworthiness: [
-          { level: -1, scope: TrustworthinessScope.SoftwareSecurity },
-        ],
+        issuerId: 'issuerId5',
+        trustworthiness: [{ level: -1, scope: TrustworthinessScope.Honesty }],
         creationAt: laterDate, // Later date
         value: Value.Endorsement,
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [TrustworthinessScope.Honesty.toString()],
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [
@@ -473,7 +474,7 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [TrustworthinessScope.SoftwareDevelopment.toString()],
       };
       const accountAssertion2: AccountAssertionState = {
         subjectId: 'subjectId',
@@ -486,7 +487,7 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [TrustworthinessScope.SoftwareDevelopment.toString()],
       };
       const accountAssertion3: AccountAssertionState = {
         subjectId: 'subjectId',
@@ -497,7 +498,7 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [TrustworthinessScope.Honesty.toString()],
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [
@@ -537,7 +538,7 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [TrustworthinessScope.SoftwareDevelopment.toString()],
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [
@@ -561,7 +562,7 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [TrustworthinessScope.Honesty.toString()],
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [
@@ -597,7 +598,7 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [TrustworthinessScope.Honesty.toString()],
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [
@@ -623,7 +624,7 @@ describe('Selectors', () => {
         statusReason: { type: 'test', value: ['test'] },
         issuanceDate: new Date(),
         subjectType: SubjectType.User,
-        reasons: ['reason'],
+        reasons: [TrustworthinessScope.SoftwareDevelopment.toString()],
       };
       const mockedApplicationState: ApplicationState = mock<ApplicationState>();
       mockedApplicationState.accountAssertions.accountAssertions = [
