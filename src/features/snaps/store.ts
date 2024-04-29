@@ -202,3 +202,35 @@ export const getAuditorAddressesByNames = (auditorNames: string[]) =>
       return auditorAddresses as Hex[];
     },
   );
+
+export const isAuditor = (address: Address) =>
+  createSelector(
+    (state: ApplicationState) => ({
+      auditors: state.auditors.auditors,
+    }),
+    ({ auditors }) => {
+      if (!auditors) {
+        return false;
+      }
+      return (
+        auditors.filter((auditor) => auditor.address === address).length > 0
+      );
+    },
+  );
+
+export const isBuilder = (address: Address) =>
+  createSelector(
+    (state: ApplicationState) => getSnaps(state),
+    (snaps) => {
+      if (!snaps || snaps.length === 0) {
+        return false;
+      }
+
+      return (
+        snaps.filter(
+          (snap) =>
+            snap.author?.address?.toLowerCase() === address.toLowerCase(),
+        ).length > 0
+      );
+    },
+  );

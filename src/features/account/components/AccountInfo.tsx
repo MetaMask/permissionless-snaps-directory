@@ -9,6 +9,7 @@ import { MoreOptionMenu } from '..';
 import { ConnectedNodes } from '../../../components';
 import { useSelector } from '../../../hooks';
 import { trimAddress } from '../../../utils';
+import { isAuditor, isBuilder } from '../../snaps/store';
 import { getAccountConnectedNodes } from '../connections/store';
 import { getAccountTrustScoreForAccountId } from '../trust-score/store';
 
@@ -26,11 +27,19 @@ export const AccountInfo: FunctionComponent<AccountInfoProps> = ({
   const { isConnected } = useAccount();
   const trustScores = useSelector(getAccountTrustScoreForAccountId(address));
   const connectedNodes = useSelector(getAccountConnectedNodes(address));
+  const isAuditorUser = useSelector(isAuditor(address));
+  const isBuilderUser = useSelector(isBuilder(address));
 
   return (
     <VStack spacing="8" data-testid="account-info">
       <ConnectedNodes data={connectedNodes}></ConnectedNodes>
-      {trustScores.length > 0 && <AccountRoleTags trustScores={trustScores} />}
+      {trustScores.length > 0 && (
+        <AccountRoleTags
+          trustScores={trustScores}
+          isAuditor={isAuditorUser}
+          isBuilder={isBuilderUser}
+        />
+      )}
       <HStack>
         <Heading
           as="h3"

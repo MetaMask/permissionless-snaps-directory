@@ -275,6 +275,7 @@ msgid "Audited By"
 msgstr ""
 
 #: src/components/icons/index.ts
+#: src/features/account/components/AccountRoleTags.tsx
 msgid "Auditor"
 msgstr ""
 
@@ -301,6 +302,10 @@ msgstr ""
 
 #: src/features/banner/components/create-snap-banner/CreateSnapBanner.tsx
 msgid "Build your own Snap"
+msgstr ""
+
+#: src/features/account/components/AccountRoleTags.tsx
+msgid "Builder"
 msgstr ""
 
 #: src/features/filter/Filter.tsx
