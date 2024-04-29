@@ -6,7 +6,9 @@ import { TrustScoreScope } from '../trust-score/types';
 
 export enum AccountRoleType {
   Developer = 'developer',
+  Security = 'security',
   Auditor = 'auditor',
+  Builder = 'builder',
   Reported = 'reported',
 }
 
@@ -23,12 +25,30 @@ export type AccountTrustScore = {
 
 export type AccountRoleTagProps = {
   trustScores: AccountTrustScore[];
+  isAuditor?: boolean | undefined;
+  isBuilder?: boolean | undefined;
 };
 
 export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
   trustScores,
+  isAuditor,
+  isBuilder,
 }) => {
   let roles = [] as AccountRole[];
+
+  if (isBuilder) {
+    roles.push({
+      roleType: AccountRoleType.Builder,
+      tier: 0,
+    });
+  }
+
+  if (isAuditor) {
+    roles.push({
+      roleType: AccountRoleType.Auditor,
+      tier: 0,
+    });
+  }
 
   for (const trustScore of trustScores) {
     if (trustScore.result >= 0) {
@@ -50,7 +70,7 @@ export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
           }
         }
         const role: AccountRole = {
-          roleType: AccountRoleType.Auditor,
+          roleType: AccountRoleType.Security,
           tier,
         };
         roles.push(role);
@@ -74,17 +94,29 @@ export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
           color: '#FFC700',
           label: t`Software Engineer`,
         };
-      case AccountRoleType.Reported:
-        return {
-          bg: '#D738471A',
-          color: '#D73847',
-          label: t`Reported`,
-        };
-      default:
+      case AccountRoleType.Security:
         return {
           bg: '#72398E40',
           color: '#AE00FF',
           label: t`Security Engineer`,
+        };
+      case AccountRoleType.Auditor:
+        return {
+          bg: '#F66A0A1A',
+          color: '#F66A0A',
+          label: t`Auditor`,
+        };
+      case AccountRoleType.Builder:
+        return {
+          bg: '#1C823440',
+          color: '#1C8234',
+          label: t`Builder`,
+        };
+      default:
+        return {
+          bg: '#D738471A',
+          color: '#D73847',
+          label: t`Reported`,
         };
     }
   };
@@ -94,6 +126,10 @@ export const AccountRoleTags: FunctionComponent<AccountRoleTagProps> = ({
       case AccountRoleType.Developer:
         return '🧑‍💻';
       case AccountRoleType.Auditor:
+        return '🛡️';
+      case AccountRoleType.Builder:
+        return '🛠';
+      case AccountRoleType.Security:
         switch (role.tier) {
           case 1:
             return '🥇';

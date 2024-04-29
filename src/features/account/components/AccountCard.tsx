@@ -8,7 +8,9 @@ import { mainnet, useEnsName } from 'wagmi';
 import type { AccountTrustScore } from './AccountRoleTags';
 import { AccountRoleTags } from './AccountRoleTags';
 import { Card, JazzIcon } from '../../../components';
+import { useSelector } from '../../../hooks';
 import { trimAddress } from '../../../utils';
+import { isAuditor, isBuilder } from '../../snaps/store';
 
 export type AccountCardProps = {
   accountId: string;
@@ -26,6 +28,8 @@ export const AccountCard: FunctionComponent<AccountCardProps> = ({
   const address = (
     accountId.startsWith('0x') ? accountId : accountId.split(':')[4]
   ) as Hex;
+  const isAuditorUser = useSelector(isAuditor(address));
+  const isBuilderUser = useSelector(isBuilder(address));
   const { data } = useEnsName({
     address,
     chainId: mainnet.id,
@@ -64,7 +68,13 @@ export const AccountCard: FunctionComponent<AccountCardProps> = ({
           </Button>
         </Flex>
       </Card>
-      {trustScore && <AccountRoleTags trustScores={[trustScore]} />}
+      {trustScore && (
+        <AccountRoleTags
+          trustScores={[trustScore]}
+          isAuditor={isAuditorUser}
+          isBuilder={isBuilderUser}
+        />
+      )}
     </Link>
   );
 };

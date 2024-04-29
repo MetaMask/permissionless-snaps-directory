@@ -8,11 +8,15 @@ import {
   getSnaps,
   getUpdatableSnaps,
   getUpdateAvailable,
+  isAuditor,
+  isBuilder,
   setSnaps,
   snapsSlice,
 } from './store';
 import type { ApplicationState } from '../../store';
 import {
+  VALID_ACCOUNT_1,
+  VALID_ACCOUNT_2,
   getMockQueryResponse,
   getMockSnap,
   getMockState,
@@ -265,5 +269,52 @@ describe('getAuditorAddressesByNames selector', () => {
       applicationState,
     );
     expect(result).toStrictEqual(['0x123', '0x456']);
+  });
+});
+
+describe('isAuditor selector', () => {
+  it('should return true when matching auditor is found', () => {
+    const applicationState = mock<ApplicationState>();
+    applicationState.auditors = {
+      auditors: [
+        { name: 'Auditor1', address: VALID_ACCOUNT_1 },
+        { name: 'Auditor2', address: VALID_ACCOUNT_2 },
+      ],
+    };
+    const result = isAuditor(VALID_ACCOUNT_1)(applicationState);
+    expect(result).toBe(true);
+  });
+
+  it('should return false if there are no auditors', () => {
+    const applicationState = mock<ApplicationState>();
+    applicationState.auditors = { auditors: null };
+    const result = isAuditor(VALID_ACCOUNT_1)(applicationState);
+    expect(result).toBe(false);
+  });
+});
+
+describe('isBuilder selector', () => {
+  const fooSnap = getMockSnap({
+    snapId: 'foo-snap',
+    author: {
+      address: VALID_ACCOUNT_1,
+      name: 'FooAuthor',
+      website: 'foo.com',
+    },
+  }).snap;
+  const state = getMockState({
+    snaps: {
+      snaps: [fooSnap],
+    },
+  });
+
+  it('should return true when matching builder is found', () => {
+    const result = isBuilder(VALID_ACCOUNT_1)(state);
+    expect(result).toBe(true);
+  });
+
+  it('should return false if the address is not found in any Snaps author section', () => {
+    const result = isBuilder(VALID_ACCOUNT_2)(state);
+    expect(result).toBe(false);
   });
 });

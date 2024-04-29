@@ -146,4 +146,13 @@ describe('AccountRoleTags component', () => {
 
     expect(queryByText('👹 Reported')).toBeInTheDocument();
   });
+
+  it('renders Auditor and Builder roles correctly', () => {
+    const { queryByText } = render(
+      <AccountRoleTags trustScores={[]} isBuilder={true} isAuditor={true} />,
+    );
+
+    expect(queryByText('🛡️ Auditor')).toBeInTheDocument();
+    expect(queryByText('🛠 Builder')).toBeInTheDocument();
+  });
 });
