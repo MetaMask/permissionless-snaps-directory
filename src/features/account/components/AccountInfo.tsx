@@ -31,15 +31,8 @@ export const AccountInfo: FunctionComponent<AccountInfoProps> = ({
   const isBuilderUser = useSelector(isBuilder(address));
 
   return (
-    <VStack spacing="8" data-testid="account-info">
+    <VStack spacing="4" data-testid="account-info">
       <ConnectedNodes data={connectedNodes}></ConnectedNodes>
-      {trustScores.length > 0 && (
-        <AccountRoleTags
-          trustScores={trustScores}
-          isAuditor={isAuditorUser}
-          isBuilder={isBuilderUser}
-        />
-      )}
       <HStack>
         <Heading
           as="h3"
@@ -59,6 +52,15 @@ export const AccountInfo: FunctionComponent<AccountInfoProps> = ({
             {/* Hidden for now */}
             {/* <AddToUserCircleModal subjectAddress={address} /> */}
           </>
+        )}
+      </HStack>
+      <HStack>
+        {trustScores.length > 0 && (
+          <AccountRoleTags
+            trustScores={trustScores}
+            isAuditor={isAuditorUser}
+            isBuilder={isBuilderUser}
+          />
         )}
       </HStack>
     </VStack>
