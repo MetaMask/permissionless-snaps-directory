@@ -30,7 +30,7 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
 
   useEffect(() => {
     const width = 1248;
-    const height = 507;
+    const height = 457;
 
     const links: Link[] = data.links.map((link) => ({ ...link }));
     const nodes: Node[] = data.nodes.map((node) => ({ ...node, location: 0 }));
@@ -96,7 +96,7 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
       .select(svgRef.current)
       .attr('width', '100%')
       .attr('height', height)
-      .attr('viewBox', [-width / 2, -height + 100, width, height]);
+      .attr('viewBox', [-width / 2, -height + 50, width, height]);
 
     createLinks();
 
