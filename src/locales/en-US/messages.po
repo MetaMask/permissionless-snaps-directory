@@ -276,6 +276,7 @@ msgstr ""
 
 #: src/components/icons/index.ts
 #: src/features/account/components/AccountRoleTags.tsx
+#: src/features/users/filter/constants.tsx
 msgid "Auditor"
 msgstr ""
 
@@ -305,10 +306,12 @@ msgid "Build your own Snap"
 msgstr ""
 
 #: src/features/account/components/AccountRoleTags.tsx
+#: src/features/users/filter/constants.tsx
 msgid "Builder"
 msgstr ""
 
 #: src/features/filter/Filter.tsx
+#: src/features/users/filter/Filter.tsx
 msgid "Categories"
 msgstr ""
 
@@ -493,6 +496,11 @@ msgstr ""
 msgid "Endorsed by"
 msgstr ""
 
+#: src/features/users/filter/components/FilterTags.tsx
+#: src/features/users/filter/Filter.tsx
+msgid "Endorsed by you"
+msgstr ""
+
 #: src/features/snap/components/community-sentiment/utils.ts
 msgid "error"
 msgstr ""
@@ -615,6 +623,10 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "Flash"
+msgstr ""
+
+#: src/features/users/filter/Filter.tsx
+msgid "For you"
 msgstr ""
 
 #: src/features/banner/components/faq-banner/FaqBanner.tsx
@@ -865,6 +877,7 @@ msgid "Open community menu"
 msgstr ""
 
 #: src/features/filter/components/FilterButton.tsx
+#: src/features/users/filter/components/FilterButton.tsx
 msgid "Open filter menu"
 msgstr ""
 
@@ -945,6 +958,15 @@ msgstr ""
 msgid "Reported by"
 msgstr ""
 
+#: src/features/users/filter/components/FilterTags.tsx
+#: src/features/users/filter/Filter.tsx
+msgid "Reported by you"
+msgstr ""
+
+#: src/features/users/filter/components/FilterTags.tsx
+msgid "Reported users"
+msgstr ""
+
 #: src/pages/explore.tsx
 msgid "Results for \"{searchQuery}\""
 msgstr ""
@@ -983,6 +1005,7 @@ msgid "Security"
 msgstr ""
 
 #: src/features/account/components/AccountRoleTags.tsx
+#: src/features/users/filter/constants.tsx
 msgid "Security Engineer"
 msgstr ""
 
@@ -1038,8 +1061,28 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
+#: src/features/users/filter/constants.tsx
+msgid "Show auditors from existing snaps."
+msgstr ""
+
+#: src/features/users/filter/constants.tsx
+msgid "Show builders who have developed at least one snap."
+msgstr ""
+
 #: src/features/snap/permissions.tsx
 msgid "Show notifications"
+msgstr ""
+
+#: src/features/users/filter/Filter.tsx
+msgid "Show reported users"
+msgstr ""
+
+#: src/features/users/filter/constants.tsx
+msgid "Show security engineers."
+msgstr ""
+
+#: src/features/users/filter/constants.tsx
+msgid "Show software engineers from the community."
 msgstr ""
 
 #: src/components/icons/index.ts
@@ -1070,6 +1113,7 @@ msgid "Software Development"
 msgstr ""
 
 #: src/features/account/components/AccountRoleTags.tsx
+#: src/features/users/filter/constants.tsx
 msgid "Software Engineer"
 msgstr ""
 
