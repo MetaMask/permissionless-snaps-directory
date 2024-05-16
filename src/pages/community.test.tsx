@@ -10,6 +10,10 @@ jest.mock('../features', () => ({
   UsersList: () => <div data-testid="users-list" />,
 }));
 
+jest.mock('../features/users/filter', () => ({
+  Filter: () => <div data-testid="filter" />,
+}));
+
 describe('CommunityPage', () => {
   let mockUseDispatch: jest.Mock;
   beforeEach(() => {
@@ -23,7 +27,7 @@ describe('CommunityPage', () => {
     mockDispatch.mockImplementation(async () => Promise.resolve({}));
     const { queryByTestId } = await act(async () => render(<CommunityPage />));
 
-    expect(mockDispatch).toHaveBeenCalledTimes(3);
+    expect(mockDispatch).toHaveBeenCalledTimes(2);
     expect(queryByTestId('users-list')).toBeInTheDocument();
   });
 
@@ -34,10 +38,9 @@ describe('CommunityPage', () => {
       Promise.reject(new Error()),
     );
     mockDispatch.mockImplementationOnce(async () => Promise.resolve({}));
-    mockDispatch.mockImplementationOnce(async () => Promise.resolve({}));
     const { queryByTestId } = await act(async () => render(<CommunityPage />));
 
-    expect(mockDispatch).toHaveBeenCalledTimes(3);
+    expect(mockDispatch).toHaveBeenCalledTimes(2);
     expect(queryByTestId('users-list')).toBeInTheDocument();
   });
 
@@ -48,24 +51,9 @@ describe('CommunityPage', () => {
     mockDispatch.mockImplementationOnce(async () =>
       Promise.reject(new Error()),
     );
-    mockDispatch.mockImplementationOnce(async () => Promise.resolve({}));
     const { queryByTestId } = await act(async () => render(<CommunityPage />));
 
-    expect(mockDispatch).toHaveBeenCalledTimes(3);
-    expect(queryByTestId('users-list')).toBeInTheDocument();
-  });
-
-  it('should render even if fetchAllUsers action fails', async () => {
-    const mockDispatch = jest.fn();
-    mockUseDispatch.mockReturnValue(mockDispatch);
-    mockDispatch.mockImplementationOnce(async () => Promise.resolve({}));
-    mockDispatch.mockImplementationOnce(async () => Promise.resolve({}));
-    mockDispatch.mockImplementationOnce(async () =>
-      Promise.reject(new Error()),
-    );
-    const { queryByTestId } = await act(async () => render(<CommunityPage />));
-
-    expect(mockDispatch).toHaveBeenCalledTimes(3);
+    expect(mockDispatch).toHaveBeenCalledTimes(2);
     expect(queryByTestId('users-list')).toBeInTheDocument();
   });
 });
