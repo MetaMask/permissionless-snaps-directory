@@ -5,21 +5,6 @@ import { FilterTag } from './FilterTag';
 import { render } from '../../../../utils/test-utils';
 import { UserCategory } from '../../store';
 
-jest.mock('../constants', () => {
-  return {
-    USER_CATEGORY_LABELS: {
-      'software expert': {
-        name: {
-          message: 'Software Engineer',
-        },
-      },
-      auditor: {
-        name: { message: undefined },
-      },
-    },
-  };
-});
-
 describe('FilterTag', () => {
   const mockHandleClick = jest.fn();
 
@@ -50,17 +35,6 @@ describe('FilterTag', () => {
 
   it('handles click event correctly', () => {
     const category: UserCategory = UserCategory.SoftwareEngineer;
-    const { getByTestId } = renderFilterTag(category);
-    const closeIcon = getByTestId(`filter-${category}-close`);
-    act(() => {
-      fireEvent.click(closeIcon);
-    });
-    expect(mockHandleClick).toHaveBeenCalledTimes(1);
-    expect(mockHandleClick).toHaveBeenCalledWith(category);
-  });
-
-  it('renders the category without lable for invalid category', () => {
-    const category: UserCategory = UserCategory.Auditor;
     const { getByTestId } = renderFilterTag(category);
     const closeIcon = getByTestId(`filter-${category}-close`);
     act(() => {

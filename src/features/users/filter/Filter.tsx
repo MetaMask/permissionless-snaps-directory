@@ -1,14 +1,15 @@
 import {
+  Divider,
   Menu,
   MenuButton,
   MenuGroup,
   MenuList,
-  Text,
   Stack,
-  Divider,
+  Text,
 } from '@chakra-ui/react';
 import { t, Trans } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
+import { useAccount } from 'wagmi';
 
 import {
   FilterButton,
@@ -25,14 +26,16 @@ import {
   toggleEndorsedByYou,
   toggleReportedByYou,
   toggleShowReportedUsers,
+  type UserCategory,
 } from '../store';
-import { type UserCategory } from '../store';
 
 export const Filter: FunctionComponent = () => {
   const dispatch = useDispatch();
   const endorsedByYou = useSelector(getEndorsedByYou);
   const reportedByYou = useSelector(getReportedByYou);
   const showReportedUsers = useSelector(getShowReportedUsers);
+
+  const { isConnected } = useAccount();
 
   const handleClickEndorsedByYou = () => {
     dispatch(toggleEndorsedByYou());
@@ -51,25 +54,33 @@ export const Filter: FunctionComponent = () => {
       <Menu closeOnSelect={false} isLazy={true}>
         <MenuButton as={FilterButton} />
         <MenuList width="17.188rem" boxShadow="md">
-          <MenuGroup marginLeft="2" title={t`For you`} data-testid="menu-group">
-            <FilterItem
-              checked={endorsedByYou}
-              onClick={handleClickEndorsedByYou}
-            >
-              <Text>
-                <Trans>Endorsed by you</Trans>
-              </Text>
-            </FilterItem>
-            <FilterItem
-              checked={reportedByYou}
-              onClick={handleClickReportedByYou}
-            >
-              <Text>
-                <Trans>Reported by you</Trans>
-              </Text>
-            </FilterItem>
-          </MenuGroup>
-          <Divider borderColor={'#E2E8F0'} />
+          {isConnected && (
+            <>
+              <MenuGroup
+                marginLeft="2"
+                title={t`For you`}
+                data-testid="menu-group"
+              >
+                <FilterItem
+                  checked={endorsedByYou}
+                  onClick={handleClickEndorsedByYou}
+                >
+                  <Text>
+                    <Trans>Endorsed by you</Trans>
+                  </Text>
+                </FilterItem>
+                <FilterItem
+                  checked={reportedByYou}
+                  onClick={handleClickReportedByYou}
+                >
+                  <Text>
+                    <Trans>Reported by you</Trans>
+                  </Text>
+                </FilterItem>
+              </MenuGroup>
+              <Divider borderColor={'#E2E8F0'} />
+            </>
+          )}
           <MenuGroup
             marginLeft="2"
             title={t`Categories`}

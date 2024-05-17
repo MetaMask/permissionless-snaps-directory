@@ -20,7 +20,7 @@ export const FilterTag: FunctionComponent<FilterTagProps> = ({
       <TagLabel>
         <Trans
           data-testid="trans-component"
-          id={USER_CATEGORY_LABELS[category].name.message ?? ''}
+          id={USER_CATEGORY_LABELS[category].name.id}
         />
       </TagLabel>
       <CloseIcon

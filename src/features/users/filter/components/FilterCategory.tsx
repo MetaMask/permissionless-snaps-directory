@@ -24,7 +24,7 @@ export const FilterCategory: FunctionComponent<FilterCategoryProps> = ({
   return (
     <FilterItem checked={checked} onClick={handleClick}>
       <Text>
-        <Trans id={USER_CATEGORY_LABELS[category].name.message ?? ''} />
+        <Trans id={USER_CATEGORY_LABELS[category].name.id} />
       </Text>
       <Box flexGrow={1} />
     </FilterItem>

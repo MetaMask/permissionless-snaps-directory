@@ -1,9 +1,10 @@
 import { act, fireEvent } from '@testing-library/react';
+import { useAccount } from 'wagmi';
 
 import { Filter } from './Filter';
 import { useDispatch, useSelector } from '../../../hooks';
 import { createStore } from '../../../store';
-import { render } from '../../../utils/test-utils';
+import { render, VALID_ACCOUNT_1 } from '../../../utils/test-utils';
 import {
   toggleEndorsedByYou,
   toggleReportedByYou,
@@ -17,15 +18,23 @@ jest.mock('./components', () => ({
 
 jest.mock('../../../hooks');
 
+jest.mock('wagmi', () => ({
+  useAccount: jest.fn(),
+  createConfig: jest.fn(),
+}));
+
 describe('Filter Component', () => {
   const mockStore = createStore();
   let mockUseSelector: jest.Mock;
+  let mockUseAccount: jest.Mock;
   let mockUseDispatch: jest.Mock;
   const mockDispatch = jest.fn();
 
   beforeEach(() => {
     mockUseSelector = useSelector as jest.Mock;
     mockUseSelector.mockClear();
+    mockUseAccount = useAccount as jest.Mock;
+    mockUseAccount.mockClear();
     mockUseDispatch = useDispatch as jest.Mock;
     mockUseDispatch.mockClear();
     mockUseDispatch.mockReturnValue(mockDispatch);
@@ -34,6 +43,10 @@ describe('Filter Component', () => {
         type: 'fulfilled',
       }),
     );
+    mockUseAccount.mockImplementation(() => ({
+      address: VALID_ACCOUNT_1,
+      isConnected: true,
+    }));
   });
 
   it('renders correctly', () => {

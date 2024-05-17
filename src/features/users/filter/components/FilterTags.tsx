@@ -1,6 +1,6 @@
 import { Tag, TagLabel } from '@chakra-ui/react';
 import { Trans } from '@lingui/macro';
-import { useEffect, type FunctionComponent } from 'react';
+import { type FunctionComponent, useEffect } from 'react';
 import { useAccount } from 'wagmi';
 
 import { FilterTag } from './FilterTag';

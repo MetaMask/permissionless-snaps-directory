@@ -5,22 +5,7 @@ import { act } from '@testing-library/react';
 import { FilterCategory } from './FilterCategory';
 import { createStore } from '../../../../store';
 import { render } from '../../../../utils/test-utils';
-import { UserCategory, getCategory } from '../../store';
-
-jest.mock('../constants', () => {
-  return {
-    USER_CATEGORY_LABELS: {
-      'software expert': {
-        name: {
-          message: 'Software Engineer',
-        },
-      },
-      auditor: {
-        name: { message: undefined },
-      },
-    },
-  };
-});
+import { getCategory, UserCategory } from '../../store';
 
 describe('FilterCategory', () => {
   it('renders', () => {
@@ -52,15 +37,5 @@ describe('FilterCategory', () => {
     expect(getCategory(UserCategory.SoftwareEngineer)(store.getState())).toBe(
       false,
     );
-  });
-
-  it('renders blank label if category is invalid', () => {
-    const { queryByText } = render(
-      <Menu>
-        <FilterCategory category={UserCategory.Auditor} />
-      </Menu>,
-    );
-
-    expect(queryByText('auditor')).not.toBeInTheDocument();
   });
 });
