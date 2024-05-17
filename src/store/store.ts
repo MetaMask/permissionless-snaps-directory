@@ -12,7 +12,7 @@ import { snapAssertionsSlice } from '../features/snap/assertions/store';
 import { snapTrustScoresSlice } from '../features/snap/trust-score/store';
 import { snapsApi } from '../features/snaps/api';
 import { auditorsSlice, snapsSlice } from '../features/snaps/store';
-import { usersSlice } from '../features/users/store';
+import { filterUsersSlice } from '../features/users/store';
 
 const reducer = combineReducers({
   accountProfile: accountProfileSlice.reducer,
@@ -26,7 +26,7 @@ const reducer = combineReducers({
   accountAssertions: accountAssertionsSlice.reducer,
   issuedAssertions: accountAssertionsSlice.reducer,
   accountTrustScores: accountTrustScoresSlice.reducer,
-  users: usersSlice.reducer,
+  users: filterUsersSlice.reducer,
 });
 
 /**

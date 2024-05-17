@@ -1,68 +1,89 @@
 import axios from 'axios';
+import { mock } from 'ts-mockito';
 
-import { fetchAllUsers } from './api';
+import { fetchUsers } from './api';
+import type { User } from './store';
+import { UserCategory } from './store';
 
-// Mock axios methods
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-describe('fetchAllUsers', () => {
-  const mockUsers = [
-    {
-      id: 'accountId1',
-      preferredName: 'User 1',
-      website: 'https://user1.com',
-      endorsementCount: 1,
-      disputeCount: 0,
-      createdAt: '2021-01-01',
-      rank: 1,
-    },
-    {
-      id: 'accountId2',
-      preferredName: 'User 2',
-      website: 'https://user2.com',
-      endorsementCount: 2,
-      disputeCount: 1,
-      createdAt: '2021-01-02',
-      rank: 2,
-    },
-  ];
+describe('fetchUsers', () => {
+  const mockUsers = [mock<User>(), mock<User>()];
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should fetch all accounts successfully', async () => {
-    // Arrange
-    mockedAxios.get.mockResolvedValueOnce({
-      data: mockUsers,
-    });
+  it('fetches users when all filters are applied', async () => {
+    const filterArgs = {
+      categories: [
+        UserCategory.Auditor,
+        UserCategory.Builder,
+        UserCategory.SecurityEngineer,
+        UserCategory.SoftwareEngineer,
+      ],
+      endorsedByYou: true,
+      reportedByYou: true,
+      showReportedUsers: true,
+      userId: '123',
+    };
+    mockedAxios.get.mockResolvedValueOnce({ data: mockUsers });
 
     const dispatch = jest.fn();
+    const getState = jest.fn();
 
-    // Act
-    await fetchAllUsers()(dispatch, jest.fn(), null);
+    await fetchUsers(filterArgs)(dispatch, getState, undefined);
 
-    // Assert
-    expect(mockedAxios.get.mock.calls).toHaveLength(1);
+    expect(mockedAxios.get.mock.calls[0]).toHaveLength(1);
     expect(dispatch).toHaveBeenCalledWith(
-      fetchAllUsers.fulfilled(mockUsers, expect.anything()),
+      fetchUsers.fulfilled(mockUsers, expect.anything(), expect.anything()),
     );
   });
 
-  it('should handle fetch error gracefully', async () => {
-    // Arrange
-    const mockError = new Error('Failed to fetch accounts');
-    mockedAxios.get.mockRejectedValueOnce(mockError);
+  it('fetches users when no filters are applied', async () => {
+    const filterArgs: {
+      categories: UserCategory[];
+      endorsedByYou: boolean;
+      reportedByYou: boolean;
+      showReportedUsers: boolean;
+      userId: string | undefined;
+    } = {
+      categories: [],
+      endorsedByYou: false,
+      reportedByYou: false,
+      showReportedUsers: false,
+      userId: undefined,
+    };
+    mockedAxios.get.mockResolvedValueOnce({ data: mockUsers });
 
     const dispatch = jest.fn();
+    const getState = jest.fn();
 
-    // Act
-    await fetchAllUsers()(dispatch, jest.fn(), null);
+    await fetchUsers(filterArgs)(dispatch, getState, undefined);
 
-    // Assert
-    expect(mockedAxios.get.mock.calls).toHaveLength(1);
-    expect(dispatch).toHaveBeenLastCalledWith(
-      fetchAllUsers.fulfilled([], expect.anything()),
+    expect(mockedAxios.get.mock.calls[0]).toHaveLength(1);
+    expect(dispatch).toHaveBeenCalledWith(
+      fetchUsers.fulfilled(mockUsers, expect.anything(), expect.anything()),
     );
+  });
+
+  it('handles error gracefully', async () => {
+    const filterArgs = {
+      categories: [UserCategory.SoftwareEngineer],
+      endorsedByYou: false,
+      reportedByYou: false,
+      showReportedUsers: false,
+      userId: undefined,
+    };
+    const errorMessage = 'Failed to fetch users';
+    mockedAxios.get.mockRejectedValueOnce(new Error(errorMessage));
+
+    const dispatch = jest.fn();
+    const getState = jest.fn();
+
+    const result = await fetchUsers(filterArgs)(dispatch, getState, undefined);
+
+    expect(result.payload).toStrictEqual([]);
   });
 });

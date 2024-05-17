@@ -1,9 +1,10 @@
+import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 
-import { fetchAllUsers } from './api';
+import { fetchUsers } from './api';
 import { type ApplicationState } from '../../store';
 
-export type UserState = {
+export type User = {
   id: string;
   preferredName: string | undefined;
   website: string | undefined;
@@ -13,21 +14,83 @@ export type UserState = {
   rank: number | null;
 };
 
+export enum UserCategory {
+  Auditor = 'auditor',
+  Builder = 'builder',
+  SecurityEngineer = 'security engineers',
+  SoftwareEngineer = 'software expert',
+}
+
 export type UsersState = {
-  users: UserState[];
+  searchResults: { users: User[] };
+  endorsedByYou: boolean;
+  reportedByYou: boolean;
+  showReportedUsers: boolean;
+  categories: UserCategory[];
 };
+
+const INITIAL_USER_CATEGORIES = Object.values(UserCategory) as UserCategory[];
 
 const initialState: UsersState = {
-  users: [],
+  searchResults: { users: [] },
+  endorsedByYou: false,
+  reportedByYou: false,
+  showReportedUsers: false,
+  categories: INITIAL_USER_CATEGORIES,
 };
 
-export const usersSlice = createSlice({
-  name: 'fetchAllUsersSlice',
+export const filterUsersSlice = createSlice({
+  name: 'filterUsers',
   initialState,
-  reducers: {},
+  reducers: {
+    setSearchResults: (state, action: PayloadAction<{ users: User[] }>) => {
+      state.searchResults = action.payload;
+    },
+    resetSearch: (state) => {
+      state.searchResults = { users: [] };
+    },
+    filterAll: (state) => {
+      state.categories = INITIAL_USER_CATEGORIES;
+    },
+    toggleEndorsedByYou: (state) => {
+      state.endorsedByYou = !state.endorsedByYou;
+    },
+    toggleReportedByYou: (state) => {
+      state.reportedByYou = !state.reportedByYou;
+    },
+    toggleShowReportedUsers: (state) => {
+      state.showReportedUsers = !state.showReportedUsers;
+    },
+    toggleCategory: (
+      state,
+      action: PayloadAction<{ category: UserCategory }>,
+    ) => {
+      const { category } = action.payload;
+      // If the category is already selected, remove it.
+      if (state.categories.includes(category)) {
+        state.categories = state.categories.filter(
+          (value) => value !== category,
+        );
+      } else {
+        // Otherwise, add it by creating a new array with the updated value.
+        state.categories = [...state.categories, category];
+      }
+
+      // If no categories are selected, select all.
+      if (state.categories.length === 0) {
+        state.categories = INITIAL_USER_CATEGORIES;
+      }
+    },
+    setCategory: (state, action: PayloadAction<UserCategory>) => {
+      state.categories = [action.payload];
+    },
+    resetFilters: () => {
+      return initialState;
+    },
+  },
   extraReducers: (builder) => {
-    builder.addCase(fetchAllUsers.fulfilled, (state, action) => {
-      state.users = action.payload.map((usersPayload) => ({
+    builder.addCase(fetchUsers.fulfilled, (state, action) => {
+      state.searchResults.users = action.payload.map((usersPayload) => ({
         id: usersPayload.id,
         preferredName: usersPayload.preferredName,
         website: usersPayload.website,
@@ -40,10 +103,53 @@ export const usersSlice = createSlice({
   },
 });
 
+export const {
+  setSearchResults,
+  resetSearch,
+  filterAll,
+  toggleEndorsedByYou,
+  toggleReportedByYou,
+  toggleShowReportedUsers,
+  toggleCategory,
+  setCategory,
+  resetFilters,
+} = filterUsersSlice.actions;
+
+export const getAll = createSelector(
+  (state: ApplicationState) => state.users,
+  ({ categories }) => categories.length === INITIAL_USER_CATEGORIES.length,
+);
+
+export const getCategories = createSelector(
+  (state: ApplicationState) => state.users,
+  ({ categories }) => categories,
+);
+
+export const getCategory = (category: UserCategory) =>
+  createSelector(
+    (state: ApplicationState) => state.users,
+    ({ categories }) => categories.includes(category),
+  );
+
+export const getEndorsedByYou = createSelector(
+  (state: ApplicationState) => state.users,
+  ({ endorsedByYou }) => endorsedByYou,
+);
+
+export const getReportedByYou = createSelector(
+  (state: ApplicationState) => state.users,
+  ({ reportedByYou }) => reportedByYou,
+);
+
+export const getShowReportedUsers = createSelector(
+  (state: ApplicationState) => state.users,
+  ({ showReportedUsers }) => showReportedUsers,
+);
+
 // Selector to get users from the store
 export const getUsers = createSelector(
   (state: ApplicationState) => state.users,
-  ({ users }) => users,
+  ({ searchResults }) => searchResults.users,
 );
 
 export const getAllUsers = () =>
