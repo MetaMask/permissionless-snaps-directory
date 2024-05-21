@@ -295,7 +295,12 @@
           "knowledgeBase": "https://docs.walletchat.fun/metamask-integration",
           "contact": "mailto:contact@walletchat.fun"
         },
-        "sourceCode": "https://github.com/Wallet-Chat/walletchat-metamask-snap"
+        "sourceCode": "https://github.com/Wallet-Chat/walletchat-metamask-snap",
+        "screenshots": [
+          "./images/walletchat-metamask-snap/1.png",
+          "./images/walletchat-metamask-snap/2.png",
+          "./images/walletchat-metamask-snap/3.png"
+        ]
       },
       "versions": {
         "0.2.2": {
@@ -363,9 +368,17 @@
           "faq": "https://walletguard.notion.site/Wallet-Guard-Snap-Frequently-Asked-Questions-FAQ-4e732cf0892846368048ed6e5f53a51a",
           "knowledgeBase": "https://walletguard.notion.site/Wallet-Guard-Snap-Knowledge-Base-8839534090e444d792e1b3aa86e0a762"
         },
-        "sourceCode": "https://github.com/wallet-guard/wallet-guard-snap"
+        "sourceCode": "https://github.com/wallet-guard/wallet-guard-snap",
+        "screenshots": [
+          "./images/wallet-guard-snap/1.png",
+          "./images/wallet-guard-snap/2.png",
+          "./images/wallet-guard-snap/3.png"
+        ]
       },
       "versions": {
+        "1.1.1": {
+          "checksum": "dsYUYgDXl66od8r0+zTyxScWR0UauZAHn8M+xHUQ0ss="
+        },
         "1.1.0": {
           "checksum": "pB87tpEB7Z+iMXWUuSpGEq5cAswLcAOJEDaxQq9Tcz0="
         },
@@ -400,9 +413,17 @@
           "faq": "https://app.push.org/snap/faq",
           "knowledgeBase": "https://app.push.org/snap/knowledge"
         },
-        "sourceCode": "https://github.com/ethereum-push-notification-service/push-protocol-snaps"
+        "sourceCode": "https://github.com/ethereum-push-notification-service/push-protocol-snaps",
+        "screenshots": [
+          "./images/@pushprotocol/snap/1.png",
+          "./images/@pushprotocol/snap/2.png",
+          "./images/@pushprotocol/snap/3.png"
+        ]
       },
       "versions": {
+        "1.1.13": {
+          "checksum": "8nCT1jxp2n3KFx7rzJGAmJKO5XmSeAUrk97gE44Tde8="
+        },
         "1.1.12": {
           "checksum": "bLscj+khp9cAMhRM0+0+RMR0ZbT4LESnaSFBWUw7X5c="
         }
@@ -501,6 +522,9 @@
         },
         "2.1.1": {
           "checksum": "lqz9XyQ0fC81A2LIRKSUInXBJEv26N9+8UIT5HcGG8E="
+        },
+        "2.1.2": {
+          "checksum": "NVydltk67wE3e1uAxlmal62P2EcP+cMfsNZ66EyJ7O4="
         }
       }
     },
@@ -531,6 +555,9 @@
         },
         "2.1.1": {
           "checksum": "G88Poc8uX2NVEqWnuOHZhEpt8TzD6fhOXbXZj2JGeSQ="
+        },
+        "2.1.2": {
+          "checksum": "cGgUQlMw+WDBaoWHvG4s/xaZO47vBrEp9sa+4DhBmTA="
         }
       }
     },
@@ -561,6 +588,9 @@
         },
         "2.1.1": {
           "checksum": "Lkw2STqcJn6zw3u7uB7QTBjVc539gv/RFdNL6DqAE0Q="
+        },
+        "2.1.3": {
+          "checksum": "J8ekYCK9+rqN9d6qBw85RomNqdXMbkB9s1eHnQkaABs="
         }
       }
     },
@@ -591,6 +621,9 @@
         },
         "2.2.0": {
           "checksum": "wX4pqJ2RkmZdllC1iVnHP4uE4sWiqTb6GWXNyEUDnCA="
+        },
+        "2.2.1": {
+          "checksum": "2omN9u/lT2cXPZ3O6j4wG3W3HBn/6No9JxH4ncqUG6M="
         }
       }
     },
@@ -621,6 +654,9 @@
         },
         "2.1.1": {
           "checksum": "uH2l5R13JDUJZGxdcOB6mDDSSWCji2MDpYC9tOYBd7g="
+        },
+        "2.1.2": {
+          "checksum": "6sJsnsPeGr45rdXrBtKhdNhbqBJhatSFzMWHP8gcWQ0="
         }
       }
     },
@@ -651,6 +687,9 @@
         },
         "2.1.1": {
           "checksum": "m2nHsw+2Ofob0EtfxjAWZjoXy0ZSMbUvr7xZmtp5p90="
+        },
+        "2.1.2": {
+          "checksum": "t6qrFcAL9Hw/7r7/Q4q1rSrFQ1FdWG+JaTDnLpBv9DM="
         }
       }
     },
@@ -681,6 +720,9 @@
         },
         "2.1.1": {
           "checksum": "N9i27+suBYwVHDzqQGtvafY55vHNCkcYAL7Fuw6wOz0="
+        },
+        "2.1.2": {
+          "checksum": "dHiE+9mYVkqNRma5GsZprTawv/bDUzcdbeciRzCmkhQ="
         }
       }
     },
@@ -711,6 +753,9 @@
         },
         "2.1.1": {
           "checksum": "H/SD72HvzJOGI687mfl8QLGrMyDIgYjEm45fmmWuZrU="
+        },
+        "2.1.2": {
+          "checksum": "dTL+fLvEFKI0vtcRZ0ZGxU2menzmWl3rPuOwnsqNMIQ="
         }
       }
     },
@@ -738,6 +783,9 @@
         },
         "2.1.1": {
           "checksum": "V4E+vD5xcCFOe83roTieTbZVXxH8byN7CJqCTCTBgqU="
+        },
+        "2.1.2": {
+          "checksum": "lhPQ91mCD7n9r0yiA/KxP/olypotYlAbGauZTTUHh2w="
         }
       }
     },
@@ -768,6 +816,9 @@
         },
         "2.2.1": {
           "checksum": "92szqCrEqmxOcL+MVbmPrOxJmC8jR5U4iKiVViZBupY="
+        },
+        "2.2.2": {
+          "checksum": "f9PoXGMUUbGJtHHvKt715/pvWiHR3KogkfWAV07itaM="
         }
       }
     },
@@ -801,6 +852,9 @@
         },
         "2.1.1": {
           "checksum": "oPeY40NbUed6VM6Ex0gteyIP8dZjtiIr0J4Pca2T3/U="
+        },
+        "2.1.2": {
+          "checksum": "t4cfOsg8zpOverDV5ZdNKovQFhg2wDLZM+nYq6qmddA="
         }
       }
     },
@@ -831,6 +885,9 @@
         },
         "2.1.1": {
           "checksum": "UG9pic6TiYCm/VVuVrbT6586mxjsEWXwXTGmoESR4w8="
+        },
+        "2.1.3": {
+          "checksum": "uLxnaoy3UvlSqkAVwSa1s3YRDmle0CLeeD6obROqNK4="
         }
       }
     },
@@ -864,6 +921,9 @@
         },
         "2.2.1": {
           "checksum": "tx2+S+SWVNjrs5O3YbVWBN0TsWwf/uw5u52yBPpIzwU="
+        },
+        "2.2.2": {
+          "checksum": "76NEiG+oW2yBCnvjY9TAjkitGYBfZ9hipf+i2l2e8uE="
         }
       }
     },
@@ -894,6 +954,9 @@
         },
         "2.1.2": {
           "checksum": "H20Dsk8zqD/lNFMdLY+aTyLg8XuJQCXGpQueiaVwWBI="
+        },
+        "2.1.3": {
+          "checksum": "n4JE2r3hx1TX4nWT6BelHRyaNJnW5Q3b3pMMLHvSPb0="
         }
       }
     },
@@ -921,7 +984,12 @@
           "faq": "https://docs.kleros.io/products/curate/kleros-scout-metamask-snaps/faqs",
           "knowledgeBase": "https://docs.kleros.io/products/curate/kleros-scout-metamask-snaps/knowledge-base"
         },
-        "sourceCode": "https://github.com/kleros/scout-snap"
+        "sourceCode": "https://github.com/kleros/scout-snap",
+        "screenshots": [
+          "./images/@kleros/scout-snap/1.png",
+          "./images/@kleros/scout-snap/2.png",
+          "./images/@kleros/scout-snap/3.png"
+        ]
       },
       "versions": {
         "1.1.0": {
@@ -980,11 +1048,16 @@
         "support": {
           "contact": "https://github.com/sotatek-dev/mina-snap/wiki/FAQ#how-do-i-reach-out-for-mina-snap-support"
         },
-        "sourceCode": "https://github.com/sotatek-dev/mina-snap"
+        "sourceCode": "https://github.com/sotatek-dev/mina-snap",
+        "screenshots": [
+          "./images/mina-portal/1.png",
+          "./images/mina-portal/2.png",
+          "./images/mina-portal/3.png"
+        ]
       },
       "versions": {
-        "0.1.4": {
-          "checksum": "icE/urU90jJr0wlzJ6kgoM61jz3uSvlGvUnzZTxANGw="
+        "0.1.6": {
+          "checksum": "I30rV0Vx18OeOz79Yu/OKQw1buyPXd7NGNduVTonhIw="
         }
       }
     },
@@ -1010,7 +1083,12 @@
           "contact": "https://discord.gg/NW5RqQP338",
           "faq": "https://github.com/pianity/arsnap/blob/main/packages/arsnap/FAQ.md"
         },
-        "sourceCode": "https://github.com/pianity/arsnap"
+        "sourceCode": "https://github.com/pianity/arsnap",
+        "screenshots": [
+          "./images/@pianity/arsnap/1.png",
+          "./images/@pianity/arsnap/2.png",
+          "./images/@pianity/arsnap/3.png"
+        ]
       },
       "versions": {
         "0.2.2": {
@@ -1155,6 +1233,9 @@
         },
         "2.1.1": {
           "checksum": "HsMiA68gfvszwts1V24kUURGhMk2iq/Vy0ALXqnA7lE="
+        },
+        "2.1.2": {
+          "checksum": "BXlcBtRno7GhLlq0cqal08ALFJa9G+DP/a1Ad7cTUKY="
         }
       }
     },
@@ -1170,6 +1251,9 @@
         },
         "1.1.2": {
           "checksum": "yh6gQI6x50HN+mte35DVEukn9IdXol9/3oiN1jwtl1Y="
+        },
+        "1.1.3": {
+          "checksum": "vO4Ep4ZPZCfGukm9uw9WvvoMoojZ77/3Q2ajMNNCHQA="
         }
       }
     },
@@ -1195,7 +1279,12 @@
           "contact": "mailto:metamask.snap@tenderly.co",
           "faq": "https://docs.tenderly.co/how-to-install-tenderly-tx-preview-snap"
         },
-        "sourceCode": "https://github.com/Tenderly/tenderly-snap"
+        "sourceCode": "https://github.com/Tenderly/tenderly-snap",
+        "screenshots": [
+          "./images/@tenderly/metamask-snap/1.png",
+          "./images/@tenderly/metamask-snap/2.png",
+          "./images/@tenderly/metamask-snap/3.png"
+        ]
       },
       "versions": {
         "1.2.1": {
@@ -1258,7 +1347,12 @@
           "contact": "https://academy.solflare.com/guides",
           "faq": "https://solflare.com/metamask"
         },
-        "sourceCode": "https://github.com/solflare-wallet/solflare-snap"
+        "sourceCode": "https://github.com/solflare-wallet/solflare-snap",
+        "screenshots": [
+          "./images/@solflare-wallet/solana-snap/1.png",
+          "./images/@solflare-wallet/solana-snap/2.png",
+          "./images/@solflare-wallet/solana-snap/3.png"
+        ]
       },
       "versions": {
         "1.0.3": {
@@ -1289,6 +1383,9 @@
         "sourceCode": "https://github.com/vegaprotocol/vega-snap"
       },
       "versions": {
+        "1.0.2": {
+          "checksum": "yhZUQOgl3oxKSyUwQa4F+Eh13aJ2ltz7KvBM7VTarxU="
+        },
         "1.0.1": {
           "checksum": "CmTs/E+H30LSIIFLcbHosdISjn8Gow/sSPi4PrBQWKE="
         },
@@ -1320,9 +1417,17 @@
           "contact": "https://discord.gg/M5xgNz7TTF",
           "knowledgeBase": "https://docs.masca.io/"
         },
-        "sourceCode": "https://github.com/blockchain-lab-um/masca"
+        "sourceCode": "https://github.com/blockchain-lab-um/masca",
+        "screenshots": [
+          "./images/@blockchain-lab-um/masca/1.png",
+          "./images/@blockchain-lab-um/masca/2.png",
+          "./images/@blockchain-lab-um/masca/3.png"
+        ]
       },
       "versions": {
+        "1.2.2": {
+          "checksum": "0+ZdkgoSljBRrV6JARt/+Z2Amq30jiWb2EItGfihB30="
+        },
         "1.1.0": {
           "checksum": "lvNJQRx0yBScxfNkwkCnAtiRKSDkCkDlp3uMVBZXF7A="
         },
@@ -1353,7 +1458,12 @@
           "contact": "https://leapwallet.notion.site/Leap-Cosmos-Wallet-Support-ba1da3c05d3341eaa44a1850ed3260ee",
           "faq": "https://leapwallet.notion.site/Leap-Cosmos-Wallet-Support-ba1da3c05d3341eaa44a1850ed3260ee#b9f076f6aeb947818b449a058cd2967b"
         },
-        "sourceCode": "https://github.com/leapwallet/cosmos-metamask-snap"
+        "sourceCode": "https://github.com/leapwallet/cosmos-metamask-snap",
+        "screenshots": [
+          "./images/@leapwallet/metamask-cosmos-snap/1.png",
+          "./images/@leapwallet/metamask-cosmos-snap/2.png",
+          "./images/@leapwallet/metamask-cosmos-snap/3.png"
+        ]
       },
       "versions": {
         "0.1.18": {
@@ -1367,7 +1477,7 @@
     "npm:web3-security-snap": {
       "id": "npm:web3-security-snap",
       "metadata": {
-        "name": "Web3 Security",
+        "name": "AnChain.AI",
         "author": {
           "name": "AnChain.AI",
           "website": "https://www.anchain.ai/"
@@ -1386,11 +1496,16 @@
           "contact": "https://discord.gg/RZ84RUNuNF",
           "faq": "https://snap.anchainai.com/#faq"
         },
+        "screenshots": [
+          "./images/web3-security-snap/1.png",
+          "./images/web3-security-snap/2.png",
+          "./images/web3-security-snap/3.png"
+        ],
         "sourceCode": "https://github.com/AnChainAI/web3-security-snap"
       },
       "versions": {
-        "1.0.2": {
-          "checksum": "hWHPH9JldbbLDgIYWj0i4rUs2BSwNbYANYivMI30fqA="
+        "1.0.3": {
+          "checksum": "yKSdXrV6vUdxXvBcDfydSW1aNGHiSa3EZXkfZMDGIt4="
         }
       }
     },
@@ -1417,9 +1532,17 @@
           "knowledgeBase": "https://rarimo.notion.site/RariMe-Knowledge-Doc-bf401216ae604f0faa490265f2ccd86f",
           "faq": "https://rarimo.notion.site/rariME-FAQ-19ebf31d8eaf4475aa8e64a1cc558800"
         },
+        "screenshots": [
+          "./images/@rarimo/rarime/1.png",
+          "./images/@rarimo/rarime/2.png",
+          "./images/@rarimo/rarime/3.png"
+        ],
         "sourceCode": "https://github.com/rarimo/rarime"
       },
       "versions": {
+        "2.1.0": {
+          "checksum": "CQgk91hCMZDesbgW1yDO4bWYyHY6Lpwp3b1GK/zPxY8="
+        },
         "2.0.3": {
           "checksum": "JYhh0dVzYXZVrMEI1gIfjYaZ4OEwGwGVaZmGrUgieXU="
         },
@@ -1452,6 +1575,9 @@
         "sourceCode": "https://gitlab.com/partisiablockchain/tools/snap"
       },
       "versions": {
+        "0.1.3": {
+          "checksum": "T9ziqYT5aK4Jc79wIzqGD6ZcaglEBeCFc/9Z/LB7esg="
+        },
         "0.1.2": {
           "checksum": "xrF1SkRRiUN/iuuxTO3lzF/gTciYRVVSzRap5soRhnA="
         }
@@ -1507,9 +1633,17 @@
         "support": {
           "contact": "https://discord.com/invite/fMcZBH8ErM"
         },
-        "sourceCode": "https://github.com/drift-labs/snap-solana"
+        "sourceCode": "https://github.com/drift-labs/snap-solana",
+        "screenshots": [
+          "./images/@drift-labs/snap-solana/1.png",
+          "./images/@drift-labs/snap-solana/2.png",
+          "./images/@drift-labs/snap-solana/3.png"
+        ]
       },
       "versions": {
+        "0.3.0": {
+          "checksum": "aBFo5H+O8XP+U6Q39mxbm6oLXV1IhsezUmbwMltHLBQ="
+        },
         "0.2.3": {
           "checksum": "rAMiFZ+6Cid0YmQp01E7jWBz04ELul5WmSvaNBpXE40="
         },
@@ -1610,11 +1744,8 @@
         "sourceCode": "https://github.com/cosmos/snap"
       },
       "versions": {
-        "0.1.17": {
-          "checksum": "O3k1mxMGVbP98FqhLnd57TJxwMWUsG+W0YwDNMrJpnY="
-        },
-        "0.1.16": {
-          "checksum": "G6BNnjUBiC+8a0LSrhRyG/mffBn3hYTTO2Uk1mk49I4="
+        "0.1.20": {
+          "checksum": "Ka5d45bzE3iPt6FchypG0ffAWNOJjFaIxzNNl3RcpPA="
         }
       }
     },
@@ -1640,7 +1771,12 @@
           "contact": "https://discord.gg/shapeshift",
           "knowledgeBase": "https://docs.shapeshift.com/faq/protocols/metamask-snaps"
         },
-        "sourceCode": "https://github.com/shapeshift/metamask-snaps"
+        "sourceCode": "https://github.com/shapeshift/metamask-snaps",
+        "screenshots": [
+          "./images/@shapeshiftoss/metamask-snaps/1.jpg",
+          "./images/@shapeshiftoss/metamask-snaps/2.jpg",
+          "./images/@shapeshiftoss/metamask-snaps/3.jpg"
+        ]
       },
       "versions": {
         "1.0.0": {
@@ -1673,11 +1809,16 @@
         "support": {
           "contact": "https://discord.gg/hYpHRjK"
         },
-        "sourceCode": "https://github.com/Consensys/starknet-snap"
+        "sourceCode": "https://github.com/Consensys/starknet-snap",
+        "screenshots": [
+          "./images/@consensys/starknet-snap/1.png",
+          "./images/@consensys/starknet-snap/2.png",
+          "./images/@consensys/starknet-snap/3.png"
+        ]
       },
       "versions": {
-        "2.4.0": {
-          "checksum": "lfxsHs6C6buodVo0zVJakNAHgIXAGkHyVTL12Rw0xdw="
+        "2.7.0": {
+          "checksum": "6/Jk/hS2+fEe3zcDlRg+jyY3MqFgW4C8R1EDkuE3iD0="
         }
       }
     },
@@ -1732,14 +1873,16 @@
           "contact": "https://discord.gg/xSAwrnCWcg",
           "faq": "https://github.com/ChainSafe/metamask-snap-polkadot/wiki/Example-dApp-Usage"
         },
-        "sourceCode": "https://github.com/ChainSafe/metamask-snap-polkadot"
+        "sourceCode": "https://github.com/ChainSafe/metamask-snap-polkadot",
+        "screenshots": [
+          "./images/@chainsafe/polkadot-snap/1.png",
+          "./images/@chainsafe/polkadot-snap/2.png",
+          "./images/@chainsafe/polkadot-snap/3.png"
+        ]
       },
       "versions": {
-        "0.8.2": {
-          "checksum": "gABFnG0sS/tkCW6tfzDdncgbw5Fn1e8XIBTaOtPBm8c="
-        },
-        "0.7.7": {
-          "checksum": "GwKusydp1vpDXY7B98s0zjVphX1d16ZnkGG3xfPqXHM="
+        "0.9.0": {
+          "checksum": "rqC+IUKWHbxmVhK+Ol78oK4pc5XOFHU1i+Pp/XQhbFs="
         }
       }
     },
@@ -1767,6 +1910,9 @@
         "sourceCode": "https://github.com/filecoin-project/filsnap/"
       },
       "versions": {
+        "1.0.2": {
+          "checksum": "r7O4VLRJ0+MKWXs7zLEk0vMzATDHh+mmpERkSbNAH4g="
+        },
         "1.0.1": {
           "checksum": "IAuCBc12H1qeknSu+6KjaW0DXSVyPwXrc+urlykkLdg="
         }
@@ -1883,7 +2029,12 @@
         "support": {
           "knowledgeBase": "https://docs.astar.network/docs/use/manage-wallets/wallet-providers/metamask-astar-snap/"
         },
-        "sourceCode": "https://github.com/AstarNetwork/metamask-snap-astar"
+        "sourceCode": "https://github.com/AstarNetwork/metamask-snap-astar",
+        "screenshots": [
+          "./images/@astar-network/snap/1.png",
+          "./images/@astar-network/snap/2.png",
+          "./images/@astar-network/snap/3.png"
+        ]
       },
       "versions": {
         "0.7.9": {
@@ -1946,7 +2097,12 @@
           "faq": "https://web3antivirus.io/snap/#faq",
           "knowledgeBase": "https://web3antivirus.notion.site/W3A-Snap-Knowledge-Base-3158f8369eaa4b5cb5a4bee33108f7fc"
         },
-        "sourceCode": "https://github.com/web3-antivirus/web3-antivirus-snap"
+        "sourceCode": "https://github.com/web3-antivirus/web3-antivirus-snap",
+        "screenshots": [
+          "./images/@web3-antivirus/web3-antivirus-snap/1.jpg",
+          "./images/@web3-antivirus/web3-antivirus-snap/2.jpg",
+          "./images/@web3-antivirus/web3-antivirus-snap/3.jpg"
+        ]
       },
       "versions": {
         "0.1.5": {
@@ -1976,7 +2132,12 @@
           "contact": "https://discord.gg/galactica",
           "knowledgeBase": "https://docs.galactica.com/"
         },
-        "sourceCode": "https://github.com/Galactica-corp/galactica-monorepo/tree/main/packages/snap"
+        "sourceCode": "https://github.com/Galactica-corp/galactica-monorepo/tree/main/packages/snap",
+        "screenshots": [
+          "./images/@galactica-net/snap/1.jpg",
+          "./images/@galactica-net/snap/2.jpg",
+          "./images/@galactica-net/snap/3.jpg"
+        ]
       },
       "versions": {
         "0.6.1": {
@@ -2005,7 +2166,12 @@
           "contact": "https://discord.gg/vfhpMjdbGU",
           "faq": "https://snap.rss3.io/"
         },
-        "sourceCode": "https://github.com/NaturalSelectionLabs/RSS3-Social-Notifier-Snap"
+        "sourceCode": "https://github.com/NaturalSelectionLabs/RSS3-Social-Notifier-Snap",
+        "screenshots": [
+          "./images/@rss3/social-notifier-snap/1.png",
+          "./images/@rss3/social-notifier-snap/2.png",
+          "./images/@rss3/social-notifier-snap/3.png"
+        ]
       },
       "versions": {
         "0.1.13": {
@@ -2037,38 +2203,8 @@
         "sourceCode": "https://github.com/Dedaub/metamask-snap"
       },
       "versions": {
-        "1.0.3": {
-          "checksum": "vJvkroIS/Y1DRmZlNvImiBmiVMGQ6arjg4Ba+O/kqSQ="
-        }
-      }
-    },
-    "npm:tm-chainsafer-snap": {
-      "id": "npm:tm-chainsafer-snap",
-      "metadata": {
-        "name": "TM ChainSafer",
-        "author": {
-          "name": "Trend Micro",
-          "website": "https://www.nexone.io/"
-        },
-        "summary": "Offers transaction insight and security assessment to highlight transaction risk and increase transaction awareness for users.",
-        "description": "TrendMicro ChainSafer provides the following features to ensure transaction safety as well as  more insights for users to judge transactions.\n\n1. Offering transaction risk assessment for users to check different security levels of transactions.\n2. Offering simulation for users to know asset(s) changes after transaction intention before they try to execute the real transaction.\n3. Offering project insights for users to understand more detail of targeted token contracts.",
-        "audits": [
-          {
-            "auditor": "SlowMist",
-            "report": "https://github.com/slowmist/Knowledge-Base/blob/master/open-report-V2/blockchain-application/SlowMist%20Audit%20Report%20-%20Chainsafer%20Snap_en-us.pdf"
-          }
-        ],
-        "category": "transaction insights",
-        "support": {
-          "contact": "mailto:chainsafer_support@trendmicro.com",
-          "faq": "https://www.nexone.io/en-us/metamask-snap",
-          "knowledgeBase": "https://www.nexone.io/en-us/faq-trend-micro-chainsafer"
-        },
-        "sourceCode": "https://github.com/trendmicro/app-metasec-chainsafer-snap"
-      },
-      "versions": {
-        "1.0.284": {
-          "checksum": "KaFJr3gPeoChzVARPMapXOiZmDx5mRIW+3QxFGHCi3E="
+        "1.0.4": {
+          "checksum": "2OisOYvg8ZdK9LcWO0Eu99DJb7LL2KYc/ipgoB+4GkQ="
         }
       }
     },
@@ -2126,8 +2262,8 @@
         "sourceCode": "https://github.com/hashgraph/hedera-metamask-snaps"
       },
       "versions": {
-        "0.2.4": {
-          "checksum": "GW5ZWO6uAdBmSjuVTZtszHzTfHTb4/uASBVTOxvPCU4="
+        "0.3.1": {
+          "checksum": "zpfccoay3oCy975ix89ZHluVi1mcr42DIiczmDje1IQ="
         }
       }
     },
@@ -2162,6 +2298,407 @@
         }
       }
     },
+    "npm:azero-wallet": {
+      "id": "npm:azero-wallet",
+      "metadata": {
+        "name": "Aleph Zero Wallet",
+        "author": {
+          "name": "Bide",
+          "website": "https://bide.dev/"
+        },
+        "website": "https://azero.dev/",
+        "summary": "Transact and sign messages on Aleph Zero network using MetaMask.",
+        "description": "With Aleph Zero Wallet, you can send transaction in native asset of Aleph Zero network, and sign transactions and messages using your MetaMask wallet.",
+        "audits": [
+          {
+            "auditor": "Sayfer",
+            "report": "https://sayfer.io/audits/metamask-snap-audit-report-for-alephzero/"
+          }
+        ],
+        "category": "interoperability",
+        "support": {
+          "contact": "mailto:support@bide.dev",
+          "knowledgeBase": "https://bide-dev.github.io/azero-wallet/",
+          "faq": "https://bide-dev.github.io/azero-wallet/faq.html"
+        },
+        "sourceCode": "https://github.com/bide-dev/azero-wallet/tree/main/packages/snap"
+      },
+      "versions": {
+        "0.3.6": {
+          "checksum": "VtlEruX2c9v+92vQLvD4x0OMfGpoLK6/w9+QDqJkLgs="
+        },
+        "0.3.4": {
+          "checksum": "Yj5GtWV5+Wu6T4cszpsY26qbxA8+S10lbShM2jKYqbo="
+        }
+      }
+    },
+    "npm:@fioprotocol/fio-wallet-snap": {
+      "id": "npm:@fioprotocol/fio-wallet-snap",
+      "metadata": {
+        "name": "FIO Wallet",
+        "author": {
+          "name": "FIO Protocol",
+          "website": "https://fio.net/"
+        },
+        "website": "https://fio.net/",
+        "summary": "Connect with MetaMask to FIO Protocol App to register your FREE custom FIO Handle and map it to all your crypto public addresses.",
+        "description": "Connect with MetaMask to FIO Protocol App to register your FREE custom FIO Handle and map it to all your crypto public addresses.\n\nFIO Protocol makes crypto easier. You can replace all your public wallet addresses with a single, secure, customizable handle and make any transaction, on any chain, as easy as sending an email. FIO Handles work across many leading wallets and exchanges.\n\nWith the FIO Protocol App you can also send and receive crypto payment requests and even sign NFTs to assert your ownership.\n\nHead over to FIO App to register your FREE FIO Handle: https://app.fio.net/",
+        "audits": [
+          {
+            "auditor": "Sayfer",
+            "report": "https://sayfer.io/audits/metamask-snap-audit-report-for-fio/"
+          }
+        ],
+        "category": "interoperability",
+        "support": {
+          "contact": "https://help.fio.net",
+          "knowledgeBase": "https://app.fio.net/metamask",
+          "faq": "https://app.fio.net/metamask"
+        },
+        "sourceCode": "https://github.com/fioprotocol/fio-wallet-snap"
+      },
+      "versions": {
+        "1.0.2": {
+          "checksum": "b6Z0SYw5x5yYEYu1TiguPRbRV/izLsjK0FFJ/+strwg="
+        }
+      }
+    },
+    "npm:defi-armor-snap": {
+      "id": "npm:defi-armor-snap",
+      "metadata": {
+        "name": "DeFi Armor",
+        "author": {
+          "name": "Eulith",
+          "website": "https://www.eulith.com/"
+        },
+        "website": "https://www.eulith.com/",
+        "summary": "Protect on-chain assets with full transaction simulation and a curated security policy.",
+        "description": "The DeFi Armor Snap brings the transaction simulation and policy engine of our standalone DeFi Armor product to MetaMask. Every transaction is deep-simulated and checked against our curated, customizable security policy. Any transfer of ETH or ERC-20 assets will be detected, even if it is deep inside the call stack. Warnings are issued when a transaction fails the security policy, along with a detailed explanation of what went wrong.",
+        "audits": [
+          {
+            "auditor": "Cure53",
+            "report": "https://github.com/Eulith/eulith-metamask-snap/blob/master/audit-report.pdf"
+          }
+        ],
+        "category": "transaction insights",
+        "support": {
+          "contact": "mailto:snap-support@eulith.com",
+          "knowledgeBase": "https://docs.google.com/document/d/1ZA-sUHE0a8e1kViCfG3xM9hm3vpZh_ZNcZ0xP-9JpLs/edit",
+          "faq": "https://docs.google.com/document/d/1ZA-sUHE0a8e1kViCfG3xM9hm3vpZh_ZNcZ0xP-9JpLs/edit"
+        },
+        "sourceCode": "https://github.com/Eulith/eulith-metamask-snap"
+      },
+      "versions": {
+        "0.2.5": {
+          "checksum": "hp4PBkTppEaWdIlrKnM7801rAimN4Y9t1+AB59yFHB4="
+        },
+        "0.2.4": {
+          "checksum": "M/AEe8l8UV+lIL0lqdlgFyDhoZ+IDysZ3r//tVXC2Ts="
+        },
+        "0.2.3": {
+          "checksum": "fd+wiJngXnDU/6Lt8tH7hQmyDTVLQsrVtQhyXqsFU60="
+        }
+      }
+    },
+    "npm:@gobob/bob-snap": {
+      "id": "npm:@gobob/bob-snap",
+      "metadata": {
+        "name": "BOB",
+        "author": {
+          "name": "BOB",
+          "website": "https://www.gobob.xyz/"
+        },
+        "website": "https://www.gobob.xyz/",
+        "summary": "The BOB Bitcoin Snap allows users to receive and transfer BTC as well as to inscribe and transfer ordinals including BRC20 and other inscription types.",
+        "description": "The BOB Bitcoin Snap unlocks Bitcoin, ordinals, BRC20, and more to MetaMask users.\n\nThe BOB Bitcoin Snap allows users to:\n\n- Receive and transfer BTC on Bitcoin\n\n- Mint ordinals and BRC20 on Bitcoin\n\n- Transfer ordinals, BRC20, runes, and other inscriptions",
+        "audits": [
+          {
+            "auditor": "Cure53",
+            "report": "https://github.com/bob-collective/bob-snap/blob/master/docs/audit.pdf"
+          }
+        ],
+        "category": "interoperability",
+        "support": {
+          "contact": "mailto:contact@gobob.xyz",
+          "knowledgeBase": "https://docs.gobob.xyz/docs/build/how-to/metamask-snap",
+          "faq": "https://docs.gobob.xyz/docs/build/how-to/metamask-snap"
+        },
+        "sourceCode": "https://github.com/bob-collective/bob-snap"
+      },
+      "versions": {
+        "2.0.11": {
+          "checksum": "UNNvSkasqOeujfTzwe0FTpswTufzXIgIV9or3UlkSi4="
+        }
+      }
+    },
+    "npm:@polkagate/snap": {
+      "id": "npm:@polkagate/snap",
+      "metadata": {
+        "name": "PolkaGate",
+        "author": {
+          "name": "PolkaGate",
+          "website": "https://polkagate.xyz/"
+        },
+        "website": "https://apps.polkagate.xyz/",
+        "summary": "Unlock the Power of Polkadot. Seamlessly manage accounts, connect to Polkadot dapps, and sign transactions.",
+        "description": "Enables MetaMask to interact with tokens within the Polkadot ecosystem, including Polkadot, Kusama, and more.\n\nAfter installing the Snap, visit https://apps.polkagate.xyz/ to manage transactions such as fund transfers, staking, participating in crowdloans, and more.",
+        "audits": [
+          {
+            "auditor": "Sayfer",
+            "report": "https://sayfer.io/audits/metamask-snap-audit-report-for-polkagate-snap/"
+          }
+        ],
+        "category": "interoperability",
+        "support": {
+          "contact": "mailto:polkagate@outlook.com",
+          "knowledgeBase": "https://github.com/PolkaGate/snap/wiki",
+          "faq": "https://github.com/PolkaGate/snap/wiki/FAQs"
+        },
+        "sourceCode": "https://github.com/PolkaGate/snap"
+      },
+      "versions": {
+        "0.2.2": {
+          "checksum": "JaBlxYBfufxGVNUFjgFJexdHVU/d0AxeqqIFIaNYsR4="
+        }
+      }
+    },
+    "npm:rubic-snap": {
+      "id": "npm:rubic-snap",
+      "metadata": {
+        "name": "Rubic",
+        "author": {
+          "name": "Rubic",
+          "website": "https://rubic.exchange/"
+        },
+        "website": "https://rubic.exchange/metamasksnap",
+        "summary": "Rubic's Best Rate Finder: instantaneously compare your swap on 200+ DEXs to find the best rate every time.",
+        "description": "Rubic's 'Best Rate Finder' makes it easier than ever before to pick the most cost-efficient route for your token swap by actively comparing swap rates across 200+ DEXs simultaneously – all within your MetaMask wallet.\n\nHere's how it works:\n\n1. Watch The Tutorial: https://www.youtube.com/watch?v=mqwcymo20Sw&ab_channel=Rubic\n\n2. Initiate your transaction on a DEX in a browser.\n\n3. Within the MetaMask transaction confirmation window, you'll have access to Rubic's Snap tab.\n\n4. Rubic's innovative 'Best Rate Finder' algorithm searches from over 200 DEXs, analyzing various routes to identify the most cost-efficient option for your intended swap.\n\n5. If Rubic indicates a better rate than the one offered by the current DEX you're on, you'll have the option to seamlessly switch to Rubic's App to complete the transaction using the more optimal route.\n\nStop juggling between multiple DEXs to find the best rate. Leave that heavy lifting to us and have peace of mind knowing you're always getting the best swap rate possible!\n\nSnap's Page - https://rubic.exchange/metamasksnap\n\nAbout Rubic:\n\nRubic aggregates 70+ blockchains and testnets, while it enables swaps of 15,500+ assets with the best rates, highest liquidity, and transaction speeds — in one click, thanks to the integration of 220+ DEXs and bridges.\n\nhttps://rubic.exchange/",
+        "audits": [
+          {
+            "auditor": "Cure53",
+            "report": "https://cure53.de/pentest-report_rubic-snap.pdf"
+          }
+        ],
+        "category": "interoperability",
+        "support": {
+          "contact": "https://t.me/RubicSupportBot",
+          "knowledgeBase": "https://rubic.exchange/blog/introducing-rubics-best-rate-finder-metamask-snap-revolutionizing-crypto-trading/",
+          "faq": "https://rubic.exchange/metamasksnap"
+        },
+        "sourceCode": "https://github.com/Cryptorubic/rubic-snap-frontend",
+        "screenshots": [
+          "./images/rubic-snap/1.png",
+          "./images/rubic-snap/2.png",
+          "./images/rubic-snap/3.png"
+        ]
+      },
+      "versions": {
+        "0.4.0": {
+          "checksum": "I8BnlhKoeV9j789awS0/IKC/G1Mu01PfkpHC9sNBogI="
+        }
+      }
+    },
+    "npm:onthis-snap": {
+      "id": "npm:onthis-snap",
+      "metadata": {
+        "name": "Onthis",
+        "author": {
+          "name": "Onthis",
+          "website": "onthis.xyz"
+        },
+        "website": "https://www.onthis.xyz/snap",
+        "summary": "Insights for Onthis contracts.",
+        "description": "Onthis Snap makes it easy to view contract details of your transaction before confirming. Ensuring peace of mind when interacting with any contracts deployed by Onthis.",
+        "audits": [
+          {
+            "auditor": "Veridise",
+            "report": "https://f8t2x8b2.rocketcdn.me/wp-content/uploads/2024/03/VAR_Onthis-V2.pdf"
+          }
+        ],
+        "category": "transaction insights",
+        "support": {
+          "contact": "mailto:admin@onthis.xyz",
+          "knowledgeBase": "https://docs.onthis.xyz/overview/shortcuts/metamask-snap",
+          "faq": "https://www.onthis.xyz/snap"
+        },
+        "sourceCode": "https://github.com/onthisxyz/snap",
+        "screenshots": [
+          "./images/onthis-snap/1.png",
+          "./images/onthis-snap/2.png",
+          "./images/onthis-snap/3.png"
+        ]
+      },
+      "versions": {
+        "1.4.0": {
+          "checksum": "Z20DrSs6yFCHS6jjQD7ZCnoPy3Q0VcF00aL6AgT8swg="
+        }
+      }
+    },
+    "npm:hapilabs-snap": {
+      "id": "npm:hapilabs-snap",
+      "metadata": {
+        "name": "HAPI",
+        "author": {
+          "name": "HAPI",
+          "website": "https://hapi.one/"
+        },
+        "website": "https://hapi.one/snap",
+        "summary": "HAPI Snap is a threat detection tool that can easily and seamlessly be used within the MetaMask wallet. Created by HAPI Team, one of the leading crypto native cybersecurity protocols, HAPI Snap enables users to be aware of all potentially dangerous activities on the blockchain, safeguarding against asset loss.",
+        "description": "HAPI Snap, developed by the HAPI Team, is an advanced tool for blockchain threat detection, providing users with the means to protect their digital assets from potential risks.\n\nMain Features:\n\n1. Data Aggregation: Gathers comprehensive threat data from diverse sources.\n\n2. AI Threat Detection: Utilizes AI for real-time risk assessment.\n\n3. Wallet Security Enhancement: Offers transaction analysis, phishing protection, and alerts.\n\n4. Free Access: Enables thorough due diligence without cost.\n\nAdvantages:\n\n- Superior Protection: Shields against a wide range of blockchain threats.\n\n- Informed Transactions: Facilitates educated decision-making with detailed threat data.\n\n- User-Friendly: Simple and automated monitoring for ease of use.\n\n- Cost-Effective: Free, unlimited access to security tools and data.\n\nEase of Use:\n\n- Quick setup, offering automated threat monitoring and intuitive access to security insights, making it accessible for all users without extra fees.",
+        "audits": [
+          {
+            "auditor": "Hacken",
+            "report": "https://hacken.io/audits/hapi-snap/"
+          }
+        ],
+        "category": "transaction insights",
+        "support": {
+          "contact": "mailto:i.am.hapi@hapi.one",
+          "knowledgeBase": "https://hapi.one/snap",
+          "faq": "https://hapi.one/snap"
+        },
+        "sourceCode": "https://github.com/HAPIprotocol/hapilabs-snap"
+      },
+      "versions": {
+        "1.0.2": {
+          "checksum": "84epmblZfaiYOhWLvIClfovtKJ3giY/DddsaEsDxP1k="
+        }
+      }
+    },
+    "npm:hashdit-snap-security": {
+      "id": "npm:hashdit-snap-security",
+      "metadata": {
+        "name": "HashDit Security",
+        "author": {
+          "name": "HashDit",
+          "website": "https://www.hashdit.io/"
+        },
+        "website": "https://www.hashdit.io/en/snap",
+        "summary": "Explore the power of HashDit Security and fortify your MetaMask experience. Navigate the crypto space with confidence.",
+        "description": "Transaction Screening:\n\nGain insights into the risk level of each transaction. Receive timely warnings before engaging with potentially vulnerable or malicious smart contracts.\n\nURL Risk Information:\n\nProtect yourself from phishing links and malicious websites by leveraging our advanced URL screening capabilities.\n\nFunctionCall Insights:\n\nUnderstand precisely which function is being called and the parameters it receives during smart contract interactions.",
+        "audits": [
+          {
+            "auditor": "SlowMist",
+            "report": "https://github.com/slowmist/Knowledge-Base/blob/master/open-report-V2/blockchain-application/SlowMist%20Audit%20Report%20-%20HashDit-Snaps_en-us.pdf"
+          }
+        ],
+        "category": "transaction insights",
+        "support": {
+          "contact": "mailto:support@hashdit.io",
+          "knowledgeBase": "https://hashdit.gitbook.io/hashdit-snap",
+          "faq": "https://hashdit.gitbook.io/hashdit-snap/information/faq-and-knowledge-base"
+        },
+        "sourceCode": "https://github.com/hashdit/metamask-snap"
+      },
+      "versions": {
+        "0.1.2": {
+          "checksum": "1k0qvd0FWI1z1z/24ynSuDhwSMPRajYKfXnyOTwcSSY="
+        }
+      }
+    },
+    "npm:@tezoroproject/snap": {
+      "id": "npm:@tezoroproject/snap",
+      "metadata": {
+        "name": "Tezoro",
+        "author": {
+          "name": "Tezoro, Inc.",
+          "website": "https://tezoro.io/"
+        },
+        "website": "https://tezoro.io/",
+        "summary": "Create an On-Chain Will for your digital assets: a smart contract that can recover your crypto if you lose access to your wallet or die. Non-custodial, automated, anonymous.",
+        "description": "Tezoro Snap provides a Digital Will service. Users can create a smart contract that will be able to recover assets and distribute them among beneficiaries. Users can choose under what circumstances their Digital Will will be executed: due to the inactivity of the wallet, on a specific date, through an executor on Etherscan or via Tezoro dashboard.\n\nTezoro Snap uses Snap's capabilities to provide notifications to users when their balance exceeds $2,000 and they should consider creating a Digital Will to ensure they don't lose access to assets.",
+        "audits": [
+          {
+            "auditor": "Consensys Diligence",
+            "report": "https://consensys.io/diligence/audits/2024/04/tezoro-snap/"
+          }
+        ],
+        "category": "transaction insights",
+        "support": {
+          "contact": "mailto:hello@tezoro.io",
+          "knowledgeBase": "https://tezoroio.notion.site/Knowledge-Base-b689d40be72340c79582942f22bb4912",
+          "faq": "https://tezoroio.notion.site/FAQ-1fdb392f83eb4dd6b5f86ad9cd9ca357"
+        },
+        "sourceCode": "https://github.com/tezoroproject/metamask-snap",
+        "screenshots": [
+          "./images/@tezoroproject/snap/1.png",
+          "./images/@tezoroproject/snap/2.png",
+          "./images/@tezoroproject/snap/3.png"
+        ]
+      },
+      "versions": {
+        "0.9.0": {
+          "checksum": "RRXI8F6v4FhcElULjnydzjMiMzop95oPfQP3p2hof2c="
+        }
+      }
+    },
+    "npm:@xtreamly/xtreamly_slippage_predictor": {
+      "id": "npm:@xtreamly/xtreamly_slippage_predictor",
+      "metadata": {
+        "name": "Xtreamly Slippage Predictor",
+        "author": {
+          "name": "Xtreamly",
+          "website": "https://info.xtreamly.io"
+        },
+        "website": "https://snap.xtreamly.io/",
+        "summary": "Predicting slippage and volatility in dynamic crypto markets.",
+        "description": "Xtreamly slippage prediction Snap provides insights and predicts slippage as well as volatility on DeX swaps.\n\nAfter installing the Snap, you will see the insights when swapping with ETH/USDT and ETH/USDC pairs on Uniswap V3.",
+        "audits": [
+          {
+            "auditor": "Sayfer",
+            "report": "https://sayfer.io/audits/metamask-snap-audit-report-for-xtreamly/"
+          }
+        ],
+        "category": "transaction insights",
+        "support": {
+          "contact": "mailto:info@xtreamly.io",
+          "knowledgeBase": "https://info.xtreamly.io/xtreamly-transforming-ethereum-with-ai-driven-liquidity-growth/product/snaps-user-guide",
+          "faq": "https://info.xtreamly.io/"
+        },
+        "sourceCode": "https://github.com/Xtreamly-Team/Slippage-Snap"
+      },
+      "versions": {
+        "1.0.20": {
+          "checksum": "UBR/528sDCNjuXRQO5GFwauQPm2goebAGFt8S+gzLt8="
+        }
+      }
+    },
+    "npm:@fort-major/msq": {
+      "id": "npm:@fort-major/msq",
+      "metadata": {
+        "name": "MSQ - Safe ICP Wallet",
+        "author": {
+          "name": "Fort Major",
+          "website": "https://github.com/fort-major"
+        },
+        "website": "https://icp.msq.tech/",
+        "summary": "Use your MetaMask wallet to interact with the Internet Computer blockchain.",
+        "description": "Seamless integration with MetaMask: Enables users to interact with the Internet Computer (ICP) blockchain directly from their MetaMask wallet.\n\nEnhanced security: Implements robust security measures to protect users from scams and malicious activities.\n\nImproved privacy: Utilizes a 'scoped identity model' to protect user identities and transaction details.\n\nUser-friendly interface: Offers a straightforward and intuitive experience for managing ICRC-1 assets, making blockchain interactions simpler.\n\nAutomatic installation: MSQ is installed automatically within MetaMask during the Snap installation, requiring no additional setup from the user.\n\nCommunity engagement: Active Discord community for user support, feedback, and ongoing development discussions.",
+        "audits": [
+          {
+            "auditor": "Consensys Diligence",
+            "report": "https://consensys.io/diligence/audits/2024/03/msq-snap/"
+          }
+        ],
+        "category": "interoperability",
+        "support": {
+          "contact": "https://discord.gg/RMxyF5Huhs",
+          "knowledgeBase": "https://discord.gg/RMxyF5Huhs",
+          "faq": "https://icp.msq.tech"
+        },
+        "sourceCode": "https://github.com/fort-major/msq",
+        "screenshots": [
+          "./images/@fort-major/msq/1.png",
+          "./images/@fort-major/msq/2.png",
+          "./images/@fort-major/msq/3.png"
+        ]
+      },
+      "versions": {
+        "0.3.3": {
+          "checksum": "HP2Qt6zRVhY51DWfMu+he84jn3ni7+OQ7/vHqy79JA4="
+        }
+      }
+    },
     "npm:@consensys/web3tickets-snap": {
       "id": "npm:@consensys/web3tickets-snap",
       "metadata": {
@@ -2186,8 +2723,8 @@
         "sourceCode": "https://github.com/Consensys/web3tickets-snap"
       },
       "versions": {
-        "0.0.6": {
-          "checksum": "02dpewyed8QuRPKbOEQ09RV9y2m8b1QgUYnJfialg7I="
+        "0.1.0": {
+          "checksum": "ntDaZu6KqqDCwmOvKMlHXIOXyYujXrKW45ZaKW92urk="
         }
       }
     },
@@ -2274,6 +2811,12 @@
         ]
       },
       "versions": {
+        "1.2.8": {
+          "checksum": "lXa6Y31ymkkxyR5IldOQKq4HnQEMAeEI1CrC54FL8C8="
+        },
+        "1.2.7": {
+          "checksum": "uq4KYgMufU824Q1zJU6om4IF7cDXrROZnICrLKEkua0="
+        },
         "1.2.6": {
           "checksum": "HCOp9b2PGeUPCpEthvGWnn2jnKPYYf6nZnBc8KXVwuc="
         }
@@ -2297,7 +2840,7 @@
           },
           {
             "auditor": "Least Authority",
-            "report": "https://leastauthority.com/wp-content/uploads/2024/01/Safeheron_Crypto_Suites__Multiparty_ECDSA_Updated_Final_Audit_Report_Least_Authority.pdf"
+            "report": "https://leastauthority.com/wp-content/uploads/2024/02/Safeheron_Crypto_Suites__Multiparty_ECDSA_Updated_Final_Audit_Report_Least_Authority.pdf"
           }
         ],
         "category": "account management",
@@ -2411,19 +2954,84 @@
         },
         "1.1.1": {
           "checksum": "jLIJlUMNJxBPdD7VXu+lauJFMbrlZ7Ctpa3CG48aB+I="
+        },
+        "1.1.2": {
+          "checksum": "+jhsvzvvvNA8Gf1d8zGZT0de5KpYoZsLfiz0EowMK0g="
         }
       }
-    }
-  },
-  "auditors": {
-    "OtterSec": {
-      "address": "0x2bE127806140dFd6c4DC1cAA0e828411B77E4BbF"
     },
-    "Hacken": {
-      "address": "0x381C5dD2C5F13d4d7D63F0C2318d58070a538C79"
+    "npm:@metamask/client-status-example-snap": {
+      "id": "npm:@metamask/client-status-example-snap",
+      "metadata": {
+        "name": "Client Status Example Snap",
+        "hidden": true
+      },
+      "versions": {
+        "1.0.1": {
+          "checksum": "NTV+uXRXbL4OA/RpOHRUTjfnHywIl/6Z+qLi4ikQSc8="
+        },
+        "1.0.2": {
+          "checksum": "6jscZ6A0qMZUnPm6AxpTHXY++XeNFtkT9Pr1OkjSTyI="
+        }
+      }
     },
-    "Cure53": {
-      "address": "0x9843D9bDb9a7cf7A5B0A18E1d1510A288e1F4A2D"
+    "npm:@metamask/home-page-example-snap": {
+      "id": "npm:@metamask/home-page-example-snap",
+      "metadata": {
+        "name": "Home Page Example Snap",
+        "hidden": true
+      },
+      "versions": {
+        "1.1.0": {
+          "checksum": "EhHC32ZDU+SWvnUAcm2ibsZdqfwlr4h+mAvmCqyPPK0="
+        },
+        "1.1.1": {
+          "checksum": "6wP6Hm3oTFQcO7CU9pj+LB0WvzU1dO1H3D9FRwieyo8="
+        },
+        "1.1.2": {
+          "checksum": "+RC3pwNreHxiMjByPmX0vglQye6wRfdfqC3/Y20tnc8="
+        }
+      }
+    },
+    "npm:@metamask/images-example-snap": {
+      "id": "npm:@metamask/images-example-snap",
+      "metadata": {
+        "name": "Images Example Snap",
+        "hidden": true
+      },
+      "versions": {
+        "1.1.0": {
+          "checksum": "SxUO9T9xJ/R+jHURdjaLvy0Wfq+6+7CkovvO0CB0wxY="
+        }
+      }
+    },
+    "npm:@consensys/linea-voyager": {
+      "id": "npm:@consensys/linea-voyager",
+      "metadata": {
+        "name": "Linea Voyager",
+        "author": {
+          "name": "Consensys",
+          "website": "https://consensys.io/"
+        },
+        "website": "https://voyager-snap.linea.build/",
+        "summary": "Track your collected Linea XP, POH status, and current activations from inside MetaMask",
+        "description": "The Linea Voyager Snap allows you to view your collected Linea XP, POH status, and current Linea Voyage activations from within MetaMask.\n\nAfter installing the Snap, visit the companion dapp: https://voyager-snap.linea.build/ to connect or watch the account you use on Linea. Then, click on Linea Voyager from the Snaps menu in MetaMask to open the Snap homepage and view your data.",
+        "category": "interoperability",
+        "support": {
+          "contact": "https://discord.com/invite/linea"
+        },
+        "sourceCode": "https://github.com/Consensys/linea-voyager-snap",
+        "screenshots": [
+          "./images/@consensys/linea-voyager/1.png",
+          "./images/@consensys/linea-voyager/2.png",
+          "./images/@consensys/linea-voyager/3.png"
+        ]
+      },
+      "versions": {
+        "0.7.1": {
+          "checksum": "4KvbsHMOXo78Qvx0obc09pb80mgJgYoBMexokSLOkGw="
+        }
+      }
     }
   },
   "blockedSnaps": [
@@ -2434,5 +3042,16 @@
     {
       "checksum": "A83r5/ZIcKuKwuAnQHHByVFCuofj7jGK5hOStmHY6A0="
     }
-  ]
+  ],
+  "auditors": {
+    "OtterSec": {
+      "address": "0x2bE127806140dFd6c4DC1cAA0e828411B77E4BbF"
+    },
+    "Hacken": {
+      "address": "0xC1Bba8Da92BbD8f8Ceb218030C4cb5800E1B55f1"
+    },
+    "Cure53": {
+      "address": "0x9843D9bDb9a7cf7A5B0A18E1d1510A288e1F4A2D"
+    }
+  }
 }
