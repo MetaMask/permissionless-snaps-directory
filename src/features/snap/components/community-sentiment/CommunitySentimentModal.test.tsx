@@ -8,6 +8,11 @@ import { SubjectType } from '../../../account/assertions/enums';
 import { SnapStatusReasonType } from '../../assertions/store';
 import { SnapCurrentStatus } from '../../assertions/types';
 
+jest.mock('../../../../components', () => ({
+  ...jest.requireActual('../../../../components'),
+  IssuersListModal: () => <div data-testid="issuers-list-modal" />,
+}));
+
 describe('CommunitySentimentModal', () => {
   const onCloseMock = jest.fn();
 
@@ -84,6 +89,14 @@ describe('CommunitySentimentModal', () => {
       expect(screen.queryByText(expectedText)).toBeInTheDocument();
       expect(screen.queryByText('1 endorsements')).toBeInTheDocument();
       expect(screen.queryByText('1 reports')).toBeInTheDocument();
+
+      fireEvent.click(screen.getByText('1 endorsements'));
+
+      expect(screen.queryAllByTestId('issuers-list-modal')).toHaveLength(1);
+
+      fireEvent.click(screen.getByText('1 reports'));
+
+      expect(screen.queryAllByTestId('issuers-list-modal')).toHaveLength(2);
     });
   });
 

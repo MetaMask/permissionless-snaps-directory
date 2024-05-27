@@ -1,4 +1,4 @@
-import { act } from '@testing-library/react';
+import { act, fireEvent } from '@testing-library/react';
 
 import { TechnicalExpertiseItem } from './TechnicalExpertiseItem';
 import { createStore } from '../../../../store';
@@ -11,9 +11,17 @@ jest.mock('../../../../components/EntityName', () => ({
   EntityName: () => <div data-testid="entity-name" />,
 }));
 
-const generateEndorsements = (count: number, issuerIds: string[]) => {
+jest.mock('../../../../components', () => ({
+  IssuersListModal: () => <div data-testid="issuers-list-modal" />,
+}));
+
+const generateEndorsements = (
+  count: number,
+  issuerIds: string[],
+  subjectId: string | undefined,
+) => {
   return Array.from({ length: count }, (_, i) => ({
-    subjectId: 'subjectId',
+    subjectId,
     subjectType: SubjectType.User,
     issuerId: issuerIds[i],
     creationAt: new Date(),
@@ -29,11 +37,11 @@ describe('TechnicalExpertiseItem', () => {
   it('renders a set of endorsements', async () => {
     const store = createStore();
 
-    const endorsements = generateEndorsements(3, [
-      'issuer1',
-      'issuer1',
-      'issuer1',
-    ]);
+    const endorsements = generateEndorsements(
+      3,
+      ['issuer1', 'issuer1', 'issuer1'],
+      'subject1',
+    );
 
     const { queryAllByTestId } = await act(async () =>
       render(
@@ -52,7 +60,7 @@ describe('TechnicalExpertiseItem', () => {
   it('renders a single endorsement', async () => {
     const store = createStore();
 
-    const endorsements = generateEndorsements(1, [VALID_ACCOUNT_1]);
+    const endorsements = generateEndorsements(1, [VALID_ACCOUNT_1], 'subject1');
 
     const { queryAllByTestId, queryByText } = await act(async () =>
       render(
@@ -72,7 +80,11 @@ describe('TechnicalExpertiseItem', () => {
   it('renders an endorsement made by the connected user', async () => {
     const store = createStore();
 
-    const endorsements = generateEndorsements(2, [VALID_ACCOUNT_1, 'issuer2']);
+    const endorsements = generateEndorsements(
+      2,
+      [VALID_ACCOUNT_1, 'issuer2'],
+      'subject1',
+    );
 
     const { queryAllByTestId, getByText } = await act(async () =>
       render(
@@ -92,12 +104,11 @@ describe('TechnicalExpertiseItem', () => {
   it('renders extra-numerous endorsements', async () => {
     const store = createStore();
 
-    const endorsements = generateEndorsements(4, [
-      VALID_ACCOUNT_1,
-      'issuer2',
-      'issuer3',
-      'issuer4',
-    ]);
+    const endorsements = generateEndorsements(
+      4,
+      [VALID_ACCOUNT_1, 'issuer2', 'issuer3', 'issuer4'],
+      'subject1',
+    );
 
     const { queryAllByTestId, getByText } = await act(async () =>
       render(
@@ -112,5 +123,37 @@ describe('TechnicalExpertiseItem', () => {
 
     expect(queryAllByTestId('entity-name')).toHaveLength(3);
     expect(getByText('+ 1 more')).toBeInTheDocument();
+
+    fireEvent.click(getByText('+ 1 more'));
+
+    expect(queryAllByTestId('issuers-list-modal')).toHaveLength(1);
+  });
+
+  it('renders extra-numerous endorsements with invalid subject Ids', async () => {
+    const store = createStore();
+
+    const endorsements = generateEndorsements(
+      4,
+      [VALID_ACCOUNT_1, 'issuer2', 'issuer3', 'issuer4'],
+      undefined,
+    );
+
+    const { queryAllByTestId, getByText } = await act(async () =>
+      render(
+        <TechnicalExpertiseItem
+          endorsements={endorsements}
+          type={TrustworthinessScope.SoftwareSecurity}
+          myAddress={VALID_ACCOUNT_1}
+        />,
+        store,
+      ),
+    );
+
+    expect(queryAllByTestId('entity-name')).toHaveLength(3);
+    expect(getByText('+ 1 more')).toBeInTheDocument();
+
+    fireEvent.click(getByText('+ 1 more'));
+
+    expect(queryAllByTestId('issuers-list-modal')).toHaveLength(1);
   });
 });
