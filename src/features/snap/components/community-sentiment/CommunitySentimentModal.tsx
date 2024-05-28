@@ -185,31 +185,31 @@ export const CommunitySentimentModal: FunctionComponent<
             </VStack>
           </Box>
         </VStack>
+        {isEndorsementIssersListModalOpen && (
+          <IssuersListModal
+            subject={snap.latestChecksum}
+            isSnap={true}
+            assertionType={Value.Endorsement}
+            issuers={issuersWhoEndorsed}
+            isOpen={isEndorsementIssersListModalOpen}
+            onClose={onEndorsementIssersListModalClose}
+          >
+            {''}
+          </IssuersListModal>
+        )}
+        {isReportIssersListModalOpen && (
+          <IssuersListModal
+            subject={snap.latestChecksum}
+            isSnap={true}
+            assertionType={Value.Endorsement}
+            issuers={issuersWhoReported}
+            isOpen={isReportIssersListModalOpen}
+            onClose={onReportIssersListModalClose}
+          >
+            {''}
+          </IssuersListModal>
+        )}
       </SimpleModal>
-      {isEndorsementIssersListModalOpen && (
-        <IssuersListModal
-          subject={snap.latestChecksum}
-          isSnap={true}
-          assertionType={Value.Endorsement}
-          issuers={issuersWhoEndorsed}
-          isOpen={isEndorsementIssersListModalOpen}
-          onClose={onEndorsementIssersListModalClose}
-        >
-          {''}
-        </IssuersListModal>
-      )}
-      {isReportIssersListModalOpen && (
-        <IssuersListModal
-          subject={snap.latestChecksum}
-          isSnap={true}
-          assertionType={Value.Endorsement}
-          issuers={issuersWhoReported}
-          isOpen={isReportIssersListModalOpen}
-          onClose={onReportIssersListModalClose}
-        >
-          {''}
-        </IssuersListModal>
-      )}
     </>
   );
 };
