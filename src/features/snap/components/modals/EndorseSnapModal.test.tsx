@@ -23,7 +23,7 @@ describe('EndorseSnapModal', () => {
     expect(queryByText('snap1')).toBeInTheDocument();
     expect(queryByText('option1')).toBeInTheDocument();
     expect(queryByText('option2')).toBeInTheDocument();
-    expect(queryByText('Sign to endorse')).toBeInTheDocument();
+    expect(queryByText('Attest your endorsement')).toBeInTheDocument();
   });
 
   it('checks checkbox options when clicked', () => {
@@ -66,7 +66,7 @@ describe('EndorseSnapModal', () => {
     );
 
     await act(async () => {
-      getByText('Sign to endorse').click();
+      getByText('Attest your endorsement').click();
     });
 
     expect(onSign).toHaveBeenCalled();

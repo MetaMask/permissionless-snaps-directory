@@ -1,20 +1,12 @@
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
-import { useState, type FunctionComponent, useEffect } from 'react';
+import { type FunctionComponent, useEffect, useState } from 'react';
+import { stringToHex } from 'viem';
 
 import { ReportSnapModal } from './modals/ReportSnapModal';
 import { ReportButton } from '../../../components';
-import {
-  useDispatch,
-  useSelector,
-  useVerifiableCredential,
-} from '../../../hooks';
-import { useSignErrorHandler } from '../../../hooks/useSignErrorHandler';
-import useToastMsg from '../../../hooks/useToastMsg';
-import {
-  createSnapAssertion,
-  fetchSnapAssertionsForSnapId,
-} from '../assertions/api';
+import { useSelector, useVerifiableCredential } from '../../../hooks';
+import { useVerax } from '../../../hooks/useVerax';
 import {
   getCurrentSnapStatusForIssuer,
   isSnapReportedByIssuer,
@@ -32,7 +24,7 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
   snapChecksum,
   snapName,
 }) => {
-  const { signMessage, signError, snapVCBuilder } = useVerifiableCredential();
+  const { snapVCBuilder } = useVerifiableCredential();
 
   const issuer = snapVCBuilder.getIssuerDid(address);
 
@@ -51,51 +43,23 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
     setReported(isSnapReported);
   }, [isSnapReported]);
 
-  const dispatch = useDispatch();
-
-  const { showSuccessMsg, showErrorMsg } = useToastMsg();
-
-  useSignErrorHandler(signError);
-
-  // TODO: hardcode options for now, change to dynamic if needed,
-  // TODO may need to consider change options to key value pair to support i18n, key to stored in DB, value is localized string shown in UI.
   const options = [t`Scam`, t`Vulnerable`];
 
+  const attest = useVerax(address);
+
   const onSign = async (selected: string[]) => {
-    const VC = snapVCBuilder.buildDisputedPayload(
-      address,
-      snapChecksum,
-      selected,
+    await attest(
+      '0xf7151fa0f8f527b14e962e5d75ee7b156a4801756a81f1043b36b09f95ae61eb',
+      [
+        {
+          reaction: 'Disputed',
+          reasons: selected && selected.length > 0 ? selected : [],
+        },
+      ],
+      stringToHex(`snap://${snapChecksum}`),
+      0,
     );
 
-    const signature = await signMessage(VC);
-    if (signature) {
-      const assertion = snapVCBuilder.getSignedAssertion(VC, signature);
-      dispatch(createSnapAssertion(assertion))
-        .then(async (action) => {
-          if (action.type.endsWith('fulfilled')) {
-            dispatch(fetchSnapAssertionsForSnapId(snapChecksum)).catch(
-              (error) => console.log(error),
-            );
-            setReported(true);
-            showSuccessMsg({
-              title: t`Success`,
-              description: t`${snapName} has been reported.`,
-            });
-          } else {
-            showErrorMsg({
-              title: t`Error`,
-              description: t`Failed to create report for ${snapName}.`,
-            });
-          }
-        })
-        .catch(() => {
-          showErrorMsg({
-            title: t`Error`,
-            description: t`Failed to create report for ${snapName}.`,
-          });
-        });
-    }
     setShowModal(false);
   };
 

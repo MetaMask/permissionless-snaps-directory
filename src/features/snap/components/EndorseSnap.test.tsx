@@ -1,16 +1,12 @@
-import { act, waitFor } from '@testing-library/react';
+import { act } from '@testing-library/react';
 
 import { EndorseSnap } from './EndorseSnap';
 import {
-  useVerifiableCredential,
   useDispatch,
   useSelector,
+  useVerifiableCredential,
 } from '../../../hooks';
-import { VALID_ACCOUNT_1, render } from '../../../utils/test-utils';
-import {
-  createSnapAssertion,
-  fetchSnapAssertionsForSnapId,
-} from '../assertions/api';
+import { render, VALID_ACCOUNT_1 } from '../../../utils/test-utils';
 
 jest.mock('../../../hooks/useVerifiableCredential', () => ({
   ...jest.requireActual('../../../hooks/useVerifiableCredential'),
@@ -69,41 +65,7 @@ describe('EndorseSnap', () => {
 
     await act(async () => getByText('Endorse').click());
 
-    expect(queryByText('Sign to endorse')).toBeInTheDocument();
-  });
-
-  it('does not sign when signature is null', async () => {
-    const mockSignMessage = jest.fn();
-
-    mockUseVerifiableCredential.mockReturnValue({
-      issuerAddress: 'issuerAddress',
-      signMessage: mockSignMessage,
-      snapVCBuilder: {
-        buildEndorsedPayload: jest.fn().mockReturnValue('VC'),
-        getSignedAssertion: jest.fn().mockReturnValue('assertion'),
-        getIssuerDid: jest.fn().mockReturnValue(VALID_ACCOUNT_1),
-      },
-      signError: null,
-    });
-
-    mockSignMessage.mockReturnValue(null);
-
-    const { queryByText, getByText } = render(
-      <EndorseSnap
-        snapName="Snap1"
-        snapChecksum="Snap1ID"
-        address={VALID_ACCOUNT_1}
-      />,
-    );
-
-    await act(async () => getByText('Endorse').click());
-
-    expect(queryByText('Sign to endorse')).toBeInTheDocument();
-    await act(async () => getByText('Sign to endorse').click());
-    expect(mockSignMessage).toHaveBeenCalled();
-
-    expect(queryByText('Endorse')).toBeInTheDocument();
-    expect(queryByText('Endorsed')).not.toBeInTheDocument();
+    expect(queryByText('Attest your endorsement')).toBeInTheDocument();
   });
 
   it('closes modal when close button is clicked', async () => {
@@ -117,138 +79,10 @@ describe('EndorseSnap', () => {
 
     await act(async () => getByText('Endorse').click());
 
-    expect(queryByText('Sign to endorse')).toBeInTheDocument();
+    expect(queryByText('Attest your endorsement')).toBeInTheDocument();
 
     await act(async () => getByLabelText('Close').click());
 
-    expect(queryByText('Sign to endorse')).not.toBeInTheDocument();
-  });
-
-  it('displays `Success` toast when endorsement is successful', async () => {
-    const mockDispatch = jest.fn();
-    mockUseDispatch.mockReturnValue(mockDispatch);
-    mockDispatch.mockImplementationOnce(async () =>
-      Promise.resolve({
-        type: 'fulfilled',
-      }),
-    );
-    mockDispatch.mockImplementationOnce(async () => Promise.resolve({}));
-
-    const { queryByText, getByText } = render(
-      <EndorseSnap
-        snapName="Snap1"
-        snapChecksum="Snap1ID"
-        address={VALID_ACCOUNT_1}
-      />,
-    );
-
-    await act(async () => getByText('Endorse').click());
-    await act(async () => getByText('Sign to endorse').click());
-
-    // Wait for async actions to complete
-    await waitFor(() => {
-      expect(queryByText('Success')).toBeInTheDocument();
-      expect(mockDispatch).toHaveBeenCalledTimes(2);
-      expect(mockDispatch).toHaveBeenCalledWith(
-        createSnapAssertion(expect.anything()),
-      );
-      expect(mockDispatch).toHaveBeenCalledWith(
-        fetchSnapAssertionsForSnapId(expect.anything()),
-      );
-    });
-  });
-
-  it('displays `Success` toast when endorsement is successful even when fetchSnapAssertionsForSnapId fails', async () => {
-    const mockDispatch = jest.fn();
-    mockUseDispatch.mockReturnValue(mockDispatch);
-    mockDispatch.mockImplementationOnce(async () =>
-      Promise.resolve({
-        type: 'fulfilled',
-      }),
-    );
-    mockDispatch.mockImplementationOnce(async () =>
-      Promise.reject(new Error()),
-    );
-
-    const { queryByText, getByText } = render(
-      <EndorseSnap
-        snapName="Snap1"
-        snapChecksum="Snap1ID"
-        address={VALID_ACCOUNT_1}
-      />,
-    );
-
-    await act(async () => getByText('Endorse').click());
-    await act(async () => getByText('Sign to endorse').click());
-
-    // Wait for async actions to complete
-    await waitFor(() => {
-      expect(queryByText('Success')).toBeInTheDocument();
-      expect(mockDispatch).toHaveBeenCalledTimes(2);
-      expect(mockDispatch).toHaveBeenCalledWith(
-        createSnapAssertion(expect.anything()),
-      );
-      expect(mockDispatch).toHaveBeenCalledWith(
-        fetchSnapAssertionsForSnapId(expect.anything()),
-      );
-    });
-  });
-
-  it('displays error message when createSnapAssertion is rejected', async () => {
-    const mockDispatch = jest.fn();
-    mockUseDispatch.mockReturnValue(mockDispatch);
-    mockDispatch.mockImplementationOnce(async () =>
-      Promise.resolve({
-        type: 'rejected',
-      }),
-    );
-
-    const { queryByText, getByText } = render(
-      <EndorseSnap
-        snapName="Snap1"
-        snapChecksum="Snap1ID"
-        address={VALID_ACCOUNT_1}
-      />,
-    );
-
-    await act(async () => getByText('Endorse').click());
-    await act(async () => getByText('Sign to endorse').click());
-
-    // Wait for async actions to complete
-    await waitFor(() => {
-      expect(queryByText('Error')).toBeInTheDocument();
-      expect(mockDispatch).toHaveBeenCalledTimes(1);
-      expect(mockDispatch).toHaveBeenCalledWith(
-        createSnapAssertion(expect.anything()),
-      );
-    });
-  });
-
-  it('displays error message when createSnapAssertion throws execption', async () => {
-    const mockDispatch = jest.fn();
-    mockUseDispatch.mockReturnValue(mockDispatch);
-    mockDispatch.mockImplementationOnce(async () =>
-      Promise.reject(new Error()),
-    );
-
-    const { queryByText, getByText } = render(
-      <EndorseSnap
-        snapName="Snap1"
-        snapChecksum="Snap1ID"
-        address={VALID_ACCOUNT_1}
-      />,
-    );
-
-    await act(async () => getByText('Endorse').click());
-    await act(async () => getByText('Sign to endorse').click());
-
-    // Wait for async actions to complete
-    await waitFor(() => {
-      expect(queryByText('Error')).toBeInTheDocument();
-      expect(mockDispatch).toHaveBeenCalledTimes(1);
-      expect(mockDispatch).toHaveBeenCalledWith(
-        createSnapAssertion(expect.anything()),
-      );
-    });
+    expect(queryByText('Attest your endorsement')).not.toBeInTheDocument();
   });
 });

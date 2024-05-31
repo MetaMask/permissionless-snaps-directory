@@ -60,14 +60,6 @@ msgstr ""
 msgid "{shortSubAddress} has been added to your trust circle"
 msgstr ""
 
-#: src/features/snap/components/EndorseSnap.tsx
-msgid "{snapName} has been endorsed."
-msgstr ""
-
-#: src/features/snap/components/ReportSnap.tsx
-msgid "{snapName} has been reported."
-msgstr ""
-
 #: src/features/community/CommunityList.tsx
 #: src/features/users/UsersList.tsx
 msgid "{title}"
@@ -264,6 +256,14 @@ msgstr ""
 #: src/features/account/components/activity/ActivityItem.tsx
 #: src/features/snap/components/activity/ActivityItem.tsx
 msgid "and"
+msgstr ""
+
+#: src/features/snap/components/modals/EndorseSnapModal.tsx
+msgid "Attest your endorsement"
+msgstr ""
+
+#: src/features/snap/components/modals/ReportSnapModal.tsx
+msgid "Attest your report"
 msgstr ""
 
 #: src/features/snap/components/MetadataModal.tsx
@@ -510,10 +510,6 @@ msgstr ""
 #: src/features/account/AccountTEEndorsement.tsx
 #: src/features/account/AccountTEEndorsement.tsx
 #: src/features/account/MoreOptionMenu.tsx
-#: src/features/snap/components/EndorseSnap.tsx
-#: src/features/snap/components/EndorseSnap.tsx
-#: src/features/snap/components/ReportSnap.tsx
-#: src/features/snap/components/ReportSnap.tsx
 msgid "Error"
 msgstr ""
 
@@ -578,19 +574,9 @@ msgstr ""
 msgid "Failed to create endorsement for {address}."
 msgstr ""
 
-#: src/features/snap/components/EndorseSnap.tsx
-#: src/features/snap/components/EndorseSnap.tsx
-msgid "Failed to create endorsement for {snapName}."
-msgstr ""
-
 #: src/features/account/AccountReport.tsx
 #: src/features/account/AccountReport.tsx
 msgid "Failed to create report for {address}."
-msgstr ""
-
-#: src/features/snap/components/ReportSnap.tsx
-#: src/features/snap/components/ReportSnap.tsx
-msgid "Failed to create report for {snapName}."
 msgstr ""
 
 #: src/hooks/useSignErrorHandler.ts
@@ -1099,12 +1085,10 @@ msgid "Sign to add"
 msgstr ""
 
 #: src/features/account/components/modals/TEEndorsementModal.tsx
-#: src/features/snap/components/modals/EndorseSnapModal.tsx
 msgid "Sign to endorse"
 msgstr ""
 
 #: src/features/account/components/modals/AccountReportModal.tsx
-#: src/features/snap/components/modals/ReportSnapModal.tsx
 msgid "Sign to report"
 msgstr ""
 
@@ -1162,8 +1146,6 @@ msgstr ""
 
 #: src/features/account/AccountReport.tsx
 #: src/features/account/AccountTEEndorsement.tsx
-#: src/features/snap/components/EndorseSnap.tsx
-#: src/features/snap/components/ReportSnap.tsx
 msgid "Success"
 msgstr ""
 
@@ -1279,6 +1261,10 @@ msgstr ""
 
 #: src/components/icons/index.ts
 msgid "User check"
+msgstr ""
+
+#: src/components/icons/index.ts
+msgid "Verax"
 msgstr ""
 
 #: src/features/snap/components/MetadataModal.tsx

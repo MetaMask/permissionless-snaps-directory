@@ -11,6 +11,9 @@ const SITE_URL = IS_STAGING
   : 'https://permissionless.snaps.metamask.io';
 
 const config: GatsbyConfig = {
+  flags: {
+    DEV_SSR: true,
+  },
   siteMetadata: {
     title: 'MetaMask Snaps Directory',
     description:
