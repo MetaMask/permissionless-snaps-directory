@@ -44,8 +44,9 @@ export const fetchUsers = createAsyncThunk(
       filterTypes.push(FilterType.ReportedUsers);
     }
     try {
-      const filtersQuery =
-        filterTypes.length > 0 ? `?filters=${JSON.stringify(filterTypes)}` : '';
+      const filtersQuery = `?filters=${
+        filterTypes.length > 0 ? JSON.stringify(filterTypes) : '[]'
+      }`;
       const userIdQuery = filterArgs.userId
         ? `&userId=${filterArgs.userId}`
         : '';

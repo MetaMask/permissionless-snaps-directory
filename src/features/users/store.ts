@@ -54,12 +54,21 @@ export const filterUsersSlice = createSlice({
     },
     toggleEndorsedByYou: (state) => {
       state.endorsedByYou = !state.endorsedByYou;
+      if (state.endorsedByYou) {
+        state.categories = [];
+      }
     },
     toggleReportedByYou: (state) => {
       state.reportedByYou = !state.reportedByYou;
+      if (state.reportedByYou) {
+        state.categories = [];
+      }
     },
     toggleShowReportedUsers: (state) => {
       state.showReportedUsers = !state.showReportedUsers;
+      if (state.showReportedUsers) {
+        state.categories = [];
+      }
     },
     toggleCategory: (
       state,
@@ -74,11 +83,6 @@ export const filterUsersSlice = createSlice({
       } else {
         // Otherwise, add it by creating a new array with the updated value.
         state.categories = [...state.categories, category];
-      }
-
-      // If no categories are selected, select all.
-      if (state.categories.length === 0) {
-        state.categories = INITIAL_USER_CATEGORIES;
       }
     },
     setCategory: (state, action: PayloadAction<UserCategory>) => {
