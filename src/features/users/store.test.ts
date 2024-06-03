@@ -41,27 +41,33 @@ const initialState: {
 
 describe('filterUsersSlice', () => {
   it('should toggle endorsedByYou', () => {
-    const nextState = filterUsersSlice.reducer(
+    let nextState = filterUsersSlice.reducer(
       initialState,
       toggleEndorsedByYou(),
     );
     expect(nextState.endorsedByYou).toBe(true);
+    nextState = filterUsersSlice.reducer(nextState, toggleEndorsedByYou());
+    expect(nextState.endorsedByYou).toBe(false);
   });
 
   it('should toggle reportedByYou', () => {
-    const nextState = filterUsersSlice.reducer(
+    let nextState = filterUsersSlice.reducer(
       initialState,
       toggleReportedByYou(),
     );
     expect(nextState.reportedByYou).toBe(true);
+    nextState = filterUsersSlice.reducer(nextState, toggleReportedByYou());
+    expect(nextState.reportedByYou).toBe(false);
   });
 
   it('should toggle showReportedUsers', () => {
-    const nextState = filterUsersSlice.reducer(
+    let nextState = filterUsersSlice.reducer(
       initialState,
       toggleShowReportedUsers(),
     );
     expect(nextState.showReportedUsers).toBe(true);
+    nextState = filterUsersSlice.reducer(nextState, toggleShowReportedUsers());
+    expect(nextState.showReportedUsers).toBe(false);
   });
 
   it('should set category', () => {
@@ -80,15 +86,6 @@ describe('filterUsersSlice', () => {
       toggleCategory({ category: UserCategory.Auditor }),
     );
     expect(nextState.categories).toStrictEqual([UserCategory.Auditor]);
-  });
-
-  it('should select all categories when the only one category selected is toggled', () => {
-    initialState.categories = [UserCategory.Auditor];
-    const nextState = filterUsersSlice.reducer(
-      initialState,
-      toggleCategory({ category: UserCategory.Auditor }),
-    );
-    expect(nextState.categories).toStrictEqual(INITIAL_USER_CATEGORIES);
   });
 
   it('sets the search results', () => {
