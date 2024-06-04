@@ -27,3 +27,5 @@ export * from './JazzIcon';
 export * from './IconMenu';
 export * from './IssuersListModal';
 export * from './MenuItemCard';
+export * from './Tooltip';
+export * from './UserNodeTooltip';

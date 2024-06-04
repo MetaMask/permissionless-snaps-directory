@@ -1,7 +1,12 @@
-import { screen } from '@testing-library/react';
+import { act, screen } from '@testing-library/react';
 
 import { ConnectedNodes, type ConnectedNodesProps } from './ConnectedNodes';
 import { render } from '../utils/test-utils';
+
+jest.mock('.', () => ({
+  ...jest.requireActual('.'),
+  Tooltip: () => <div data-testid="tooltip" />,
+}));
 
 describe('ConnectedNodes', () => {
   const testData: ConnectedNodesProps = {
@@ -34,11 +39,36 @@ describe('ConnectedNodes', () => {
     const nodeElements = screen.getAllByTestId('glow');
     expect(nodeElements).toHaveLength(3);
     const nodeElement = nodeElements[0] as any;
-    // eslint-disable-next-line no-restricted-globals
-    nodeElement.dispatchEvent(new MouseEvent('mouseover'));
+
+    act(() => {
+      // eslint-disable-next-line no-restricted-globals
+      nodeElement.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+    });
     expect(nodeElement.parentElement).toHaveStyle('filter: url(#glow)');
-    // eslint-disable-next-line no-restricted-globals
-    nodeElement.dispatchEvent(new MouseEvent('mouseout'));
+    act(() => {
+      // eslint-disable-next-line no-restricted-globals
+      nodeElement.dispatchEvent(new MouseEvent('mousemove', { bubbles: true }));
+    });
+    act(() => {
+      // eslint-disable-next-line no-restricted-globals
+      nodeElement.dispatchEvent(new MouseEvent('mouseout', { bubbles: true }));
+    });
     expect(nodeElement.parentElement).not.toHaveStyle('filter: url(#glow)');
+  });
+
+  it('redirects to the correct URL on node click', () => {
+    render(<ConnectedNodes data={testData} />);
+    const nodeElements = screen.getAllByTestId('jazzicon');
+    expect(nodeElements).toHaveLength(3);
+    const nodeElement = nodeElements[0] as any;
+
+    act(() => {
+      // eslint-disable-next-line no-restricted-globals
+      nodeElement.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    });
+
+    const expectedUrl = `http://localhost/`;
+    // eslint-disable-next-line no-restricted-globals
+    expect(window.location.href).toBe(expectedUrl);
   });
 });
