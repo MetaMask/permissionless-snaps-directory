@@ -243,7 +243,7 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
         .attr('data-testid', 'jazzicon')
         .on('click', function (event, node) {
           const address = node.id;
-          const url = `${window.location.origin}/account/?address=${address}`;
+          const url = `${window.location.href.split('=')[0]}=${address}`;
           window.location.href = url;
         });
     }
