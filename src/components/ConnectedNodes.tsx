@@ -1,7 +1,9 @@
 /* eslint-disable */
 import Jazzicon from '@metamask/jazzicon';
 import * as d3 from 'd3';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Address } from 'viem';
+import { Tooltip, UserNodeTooltip } from '.';
 
 interface Node extends d3.SimulationNodeDatum {
   id: string;
@@ -27,6 +29,7 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
   data,
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
+  const [tooltip, setTooltip] = useState({ visible: false, position: { x: 0, y: 0 }, content: null as any });
 
   useEffect(() => {
     const width = 1248;
@@ -104,7 +107,7 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
 
     const jazzicons = createJazzicons();
 
-    applyGlowToJazzions();
+    applyGlowAndTooltipToJazzions();
 
     convertJazziconsToCircle();
 
@@ -156,7 +159,7 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
       });
     }
 
-    function applyGlowToJazzions() {
+    function applyGlowAndTooltipToJazzions() {
       jazzicons
         .append('circle')
         .data(nodes)
@@ -165,13 +168,25 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
         .attr('r', 40) // Use the buffer radius
         .attr('opacity', 0) // Make the circle invisible
         .attr('data-testid', 'glow')
-        .on('mouseover', function () {
-          // Apply glow effect on mouseover
+        .on('mouseover', function (event, node) {
           d3.select(this.parentNode).style('filter', 'url(#glow)');
+          setTooltip({
+            visible: true,
+            position: { x: event.pageX, y: event.pageY },
+            content: <UserNodeTooltip address={node.id as Address} />,
+          });
+          d3.select(this).style('cursor', 'pointer');
         })
-        .on('mouseout', function () {
-          // Remove the glow effect on mouseout
+        .on('mousemove', function (event) {
+          setTooltip((prev) => ({
+            ...prev,
+            position: { x: event.pageX, y: event.pageY },
+          }));
+        })
+        .on('mouseout', function (event, node) {
           d3.select(this.parentNode).style('filter', null);
+          setTooltip({ visible: false, position: { x: 0, y: 0 }, content: null });
+          d3.select(this).style('cursor', 'default');
         });
     }
 
@@ -225,7 +240,12 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
             })`,
         )
         .attr('id', (node: any) => `${node.id})`)
-        .attr('data-testid', 'jazzicon');
+        .attr('data-testid', 'jazzicon')
+        .on('click', function (event, node) {
+          const address = node.id;
+          const url = `${window.location.href.split('=')[0]}=${address}`;
+          window.location.href = url;
+        });
     }
 
     function createGlowObject() {
@@ -241,5 +261,8 @@ export const ConnectedNodes: React.FC<{ data: ConnectedNodesProps }> = ({
     }
   }, [data]);
 
-  return <svg ref={svgRef} />;
+  return  <>
+  <svg ref={svgRef} />
+  <Tooltip visible={tooltip.visible} position={tooltip.position} content={tooltip.content} />
+</>;
 };
