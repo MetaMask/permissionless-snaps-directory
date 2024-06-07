@@ -13,10 +13,10 @@ import type { GatsbyNode, NodeInput } from 'gatsby';
 import { createFileNodeFromBuffer } from 'gatsby-source-filesystem';
 import { GraphQLJSONObject } from 'graphql-type-json';
 import type { RequestInfo, RequestInit } from 'node-fetch';
-import fetch from 'node-fetch';
 import { fetchBuilder, FileSystemCache } from 'node-fetch-cache';
 import path from 'path';
 
+import localRegistry from './snaps-registry.json';
 import type { PermissionlessSnapsRegistryDatabase } from './src/types/snaps-registry';
 import type { Fields } from './src/utils';
 import {
@@ -124,12 +124,8 @@ async function getRegistry() {
     new FileSystemCache({ cacheDirectory: fetchCachePath }),
   );
 
-  const registry: PermissionlessSnapsRegistryDatabase = await fetch(
-    REGISTRY_URL,
-    {
-      headers,
-    },
-  ).then(async (response) => response.json());
+  const registry =
+    localRegistry as unknown as PermissionlessSnapsRegistryDatabase;
 
   const cachedRegistry = await cachedFetch(REGISTRY_URL, { headers }).then(
     async (response: any) => response.json(),

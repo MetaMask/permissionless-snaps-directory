@@ -2413,6 +2413,37 @@
           "checksum": "jLIJlUMNJxBPdD7VXu+lauJFMbrlZ7Ctpa3CG48aB+I="
         }
       }
+    },
+    "npm:@polkagate/snap": {
+      "id": "npm:@polkagate/snap",
+      "metadata": {
+        "name": "PolkaGate",
+        "author": {
+          "name": "PolkaGate",
+          "website": "https://polkagate.xyz/"
+        },
+        "website": "https://apps.polkagate.xyz/",
+        "summary": "Unlock the Power of Polkadot. Seamlessly manage accounts, connect to Polkadot dapps, and sign transactions.",
+        "description": "Enables MetaMask to interact with tokens within the Polkadot ecosystem, including Polkadot, Kusama, and more.\n\nAfter installing the Snap, visit https://apps.polkagate.xyz/ to manage transactions such as fund transfers, staking, participating in crowdloans, and more.",
+        "audits": [
+          {
+            "auditor": "Sayfer",
+            "report": "https://sayfer.io/audits/metamask-snap-audit-report-for-polkagate-snap/"
+          }
+        ],
+        "category": "interoperability",
+        "support": {
+          "contact": "mailto:polkagate@outlook.com",
+          "knowledgeBase": "https://github.com/PolkaGate/snap/wiki",
+          "faq": "https://github.com/PolkaGate/snap/wiki/FAQs"
+        },
+        "sourceCode": "https://github.com/PolkaGate/snap"
+      },
+      "versions": {
+        "0.2.2": {
+          "checksum": "JaBlxYBfufxGVNUFjgFJexdHVU/d0AxeqqIFIaNYsR4="
+        }
+      }
     }
   },
   "auditors": {
