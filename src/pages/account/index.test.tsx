@@ -120,6 +120,7 @@ describe('Account Profile page', () => {
     );
     mockDispatch.mockImplementationOnce(async () => Promise.resolve());
     mockDispatch.mockImplementationOnce(async () => Promise.resolve());
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve());
 
     const address = VALID_ACCOUNT_1;
     mockGetAddress.mockReturnValue(address);
@@ -150,6 +151,7 @@ describe('Account Profile page', () => {
       Promise.reject(new Error()),
     );
     mockDispatch.mockImplementationOnce(async () => Promise.resolve());
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve());
 
     const address = VALID_ACCOUNT_1;
     mockGetAddress.mockReturnValue(address);
@@ -175,6 +177,38 @@ describe('Account Profile page', () => {
   it('renders if `fetchAssertionsByIssuer` failed', async () => {
     const mockDispatch = jest.fn();
     mockUseDispatch.mockReturnValue(mockDispatch);
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve());
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve());
+    mockDispatch.mockImplementationOnce(async () =>
+      Promise.reject(new Error()),
+    );
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve());
+
+    const address = VALID_ACCOUNT_1;
+    mockGetAddress.mockReturnValue(address);
+    mockUseAccount.mockReturnValue({
+      address: null,
+      isConnected: false,
+    });
+
+    const mockLocationSearchParam = {
+      search: new URLSearchParams({ address }),
+    };
+
+    const { queryByText, queryByTestId } = render(
+      <AccountProfilePage location={mockLocationSearchParam} />,
+    );
+
+    expect(
+      queryByText("The page you're looking for can't be found."),
+    ).not.toBeInTheDocument();
+    expect(queryByTestId('account-info')).toBeInTheDocument();
+  });
+
+  it('renders if `fetchAuditors` failed', async () => {
+    const mockDispatch = jest.fn();
+    mockUseDispatch.mockReturnValue(mockDispatch);
+    mockDispatch.mockImplementationOnce(async () => Promise.resolve());
     mockDispatch.mockImplementationOnce(async () => Promise.resolve());
     mockDispatch.mockImplementationOnce(async () => Promise.resolve());
     mockDispatch.mockImplementationOnce(async () =>
