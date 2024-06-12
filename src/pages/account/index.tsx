@@ -7,6 +7,7 @@ import { type FunctionComponent, useEffect } from 'react';
 import { useAccount } from 'wagmi';
 
 import banner from '../../assets/images/seo/home.png';
+import { fetchAuditors } from '../../features';
 import {
   AccountInfo,
   AccountReport,
@@ -46,6 +47,7 @@ const AccountPage: FunctionComponent<AccountPageProps> = ({ location }) => {
       dispatch(fetchAssertionsByIssuer(address)).catch((error) =>
         console.log(error),
       );
+      dispatch(fetchAuditors()).catch((error) => console.log(error));
     }
   }, [dispatch, accountVCBuilder, address]);
 
