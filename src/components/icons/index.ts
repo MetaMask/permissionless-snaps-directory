@@ -57,6 +57,7 @@ import BaseTimerIcon from './timer.svg';
 import BaseTransactionInsightsIcon from './transaction-insights.svg';
 import BaseUserCheckIcon from './user-check.svg';
 import BaseUserCircleAddFillIcon from './user-cirlce-add-filled.svg';
+import BaseVeraxIcon from './verax.svg';
 import BaseWarningFilledShadowIcon from './warning-filled-shadow.svg';
 import BaseWarningFilledIcon from './warning-filled.svg';
 import BaseWarningIcon from './warning.svg';
@@ -250,6 +251,8 @@ export const UserCircleAddIcon = wrapIcon(
   BaseUserCircleAddFillIcon,
   defineMessage`Add to my circle`,
 );
+
+export const VeraxIcon = wrapIcon(BaseVeraxIcon, defineMessage`Verax`);
 
 export const WarningFilledIcon = wrapIcon(
   BaseWarningFilledIcon,

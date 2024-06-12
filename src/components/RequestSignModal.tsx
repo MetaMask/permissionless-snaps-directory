@@ -2,7 +2,7 @@ import { Button, type ModalProps } from '@chakra-ui/react';
 import { Trans } from '@lingui/macro';
 import type { FunctionComponent } from 'react';
 
-import { SignIcon } from './icons';
+import { SignIcon, VeraxIcon } from './icons';
 import { SimpleModal } from './SimpleModal';
 
 export type RequestSignModalProps = ModalProps & {
@@ -55,7 +55,13 @@ export const RequestSignModal: FunctionComponent<RequestSignModalProps> = ({
           bg={mode === 'positive' ? 'info.default' : 'error.default'}
           fontSize="md"
           fontWeight="medium"
-          leftIcon={<SignIcon width="1rem" fill="currentColor" />}
+          leftIcon={
+            buttonText.includes('Attest') ? (
+              <VeraxIcon width="1rem" fill="currentColor" />
+            ) : (
+              <SignIcon width="1rem" fill="currentColor" />
+            )
+          }
           width="100%"
           isLoading={isLoading}
           isDisabled={buttonDisabled}

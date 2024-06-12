@@ -1,20 +1,12 @@
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
 import { type FunctionComponent, useEffect, useState } from 'react';
+import { stringToHex } from 'viem';
 
 import { EndorseSnapModal } from './modals/EndorseSnapModal';
 import { EndorseButton } from '../../../components';
-import {
-  useDispatch,
-  useSelector,
-  useVerifiableCredential,
-} from '../../../hooks';
-import { useSignErrorHandler } from '../../../hooks/useSignErrorHandler';
-import useToastMsg from '../../../hooks/useToastMsg';
-import {
-  createSnapAssertion,
-  fetchSnapAssertionsForSnapId,
-} from '../assertions/api';
+import { useSelector } from '../../../hooks';
+import { useVerax } from '../../../hooks/useVerax';
 import {
   getCurrentSnapStatusForIssuer,
   isSnapEndorsedByIssuer,
@@ -31,8 +23,6 @@ export const EndorseSnap: FunctionComponent<EndorseSnapProps> = ({
   snapChecksum,
   snapName,
 }) => {
-  const { signMessage, signError, snapVCBuilder } = useVerifiableCredential();
-
   const latestSnapStatus = useSelector(
     getCurrentSnapStatusForIssuer(snapChecksum, address),
   );
@@ -48,54 +38,23 @@ export const EndorseSnap: FunctionComponent<EndorseSnapProps> = ({
     setEndorsed(isSnapEndorsed);
   }, [isSnapEndorsed]);
 
-  const dispatch = useDispatch();
-
-  const { showSuccessMsg, showErrorMsg } = useToastMsg();
-
-  useSignErrorHandler(signError);
-
-  // TODO: hardcode options for now, change to dynamic if needed,
-  // TODO may need to consider change options to key value pair to support i18n, key to stored in DB, value is localized string shown in UI.
   const options = [t`Good user experience`, t`Useful`, t`Seems secure`];
 
+  const attest = useVerax(address);
+
   const onSign = async (selected: string[]) => {
-    const verifiableCredential = snapVCBuilder.buildEndorsedPayload(
-      address,
-      snapChecksum,
-      selected,
+    await attest(
+      '0xf7151fa0f8f527b14e962e5d75ee7b156a4801756a81f1043b36b09f95ae61eb',
+      [
+        {
+          reaction: 'Endorsed',
+          reasons: selected && selected.length > 0 ? selected : [],
+        },
+      ],
+      stringToHex(`snap://${snapChecksum}`),
+      0,
     );
 
-    const signature = await signMessage(verifiableCredential);
-    if (signature) {
-      const assertion = snapVCBuilder.getSignedAssertion(
-        verifiableCredential,
-        signature,
-      );
-      dispatch(createSnapAssertion(assertion))
-        .then((action) => {
-          if (action.type.endsWith('fulfilled')) {
-            dispatch(fetchSnapAssertionsForSnapId(snapChecksum)).catch(
-              (error) => console.log(error),
-            );
-            setEndorsed(true);
-            showSuccessMsg({
-              title: t`Success`,
-              description: t`${snapName} has been endorsed.`,
-            });
-          } else {
-            showErrorMsg({
-              title: t`Error`,
-              description: t`Failed to create endorsement for ${snapName}.`,
-            });
-          }
-        })
-        .catch(() => {
-          showErrorMsg({
-            title: t`Error`,
-            description: t`Failed to create endorsement for ${snapName}.`,
-          });
-        });
-    }
     setShowModal(false);
   };
 

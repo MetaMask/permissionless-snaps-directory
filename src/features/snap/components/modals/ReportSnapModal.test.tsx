@@ -23,7 +23,7 @@ describe('ReportSnapModal', () => {
     expect(queryByText('snap1')).toBeInTheDocument();
     expect(queryByText('option1')).toBeInTheDocument();
     expect(queryByText('option2')).toBeInTheDocument();
-    expect(queryByText('Sign to report')).toBeInTheDocument();
+    expect(queryByText('Attest your report')).toBeInTheDocument();
   });
 
   it('checks checkbox options when clicked', () => {
@@ -66,7 +66,7 @@ describe('ReportSnapModal', () => {
     );
 
     await act(async () => {
-      getByText('Sign to report').click();
+      getByText('Attest your report').click();
     });
 
     expect(onSign).toHaveBeenCalled();

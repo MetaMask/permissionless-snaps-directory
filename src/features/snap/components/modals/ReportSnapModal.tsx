@@ -40,7 +40,7 @@ export const ReportSnapModal: FunctionComponent<ReportSnapModalProps> = ({
       isLoading={isLoading}
       mode="negative"
       headerIcon={<QuestionRedIcon fill="error.default" />}
-      buttonText={t`Sign to report`}
+      buttonText={t`Attest your report`}
       onClose={onClose}
       onSignButtonClick={onSignButtonClick}
     >

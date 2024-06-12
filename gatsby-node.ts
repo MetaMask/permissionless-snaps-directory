@@ -499,9 +499,11 @@ export const createResolvers: GatsbyNode['createResolvers'] = ({
  * @param args - The Gatsby arguments.
  * @param args.actions - The Gatsby actions.
  * @param args.getConfig - A function to get the current Webpack configuration.
+ * @param args.loaders - The Gatsby loaders.
  */
 export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
   actions,
+  loaders,
   getConfig,
 }) => {
   const { replaceWebpackConfig } = actions;
@@ -526,6 +528,61 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
     config.externals[0]['node:crypto'] = cryptoBrowserify;
   }
 
+  actions.setWebpackConfig({
+    module: {
+      rules: [
+        {
+          test: /uReportSnap/u,
+          use: loaders.null(),
+        },
+        {
+          test: /uEndorseSnap/u,
+          use: loaders.null(),
+        },
+        {
+          test: /ReportSnapModal/u,
+          use: loaders.null(),
+        },
+        {
+          test: /EndorseSnapModal/u,
+          use: loaders.null(),
+        },
+        {
+          test: /useVerax/u,
+          use: loaders.null(),
+        },
+        {
+          test: /SnapPage/u,
+          use: loaders.null(),
+        },
+        {
+          test: /@verax-attestation-registry\/verax-sdk/u,
+          use: loaders.null(),
+        },
+        {
+          test: /@noble/u,
+          use: loaders.null(),
+        },
+        {
+          test: /viem/u,
+          use: loaders.null(),
+        },
+        {
+          test: /ConnectButton/u,
+          use: loaders.null(),
+        },
+        {
+          test: /@walletconnect/u,
+          use: loaders.null(),
+        },
+        {
+          test: /@walletconnect\/jsonrpc-http-connection/u,
+          use: loaders.null(),
+        },
+      ],
+    },
+  });
+
   replaceWebpackConfig({
     ...config,
     module: {
@@ -545,7 +602,7 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
                   plugins: ['removeTitle', 'removeDesc'],
                 },
                 svgProps: {
-                  accessibilityRole: 'image',
+                  accessibilityrole: 'image',
                 },
               },
             },

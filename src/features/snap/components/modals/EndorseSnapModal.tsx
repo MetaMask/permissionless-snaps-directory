@@ -40,7 +40,7 @@ export const EndorseSnapModal: FunctionComponent<EndorseSnapModalProps> = ({
       isLoading={isLoading}
       mode="positive"
       headerIcon={<StarFilledShadowIcon fill="info.default" />}
-      buttonText={t`Sign to endorse`}
+      buttonText={t`Attest your endorsement`}
       onClose={onClose}
       onSignButtonClick={onSignButtonClick}
     >

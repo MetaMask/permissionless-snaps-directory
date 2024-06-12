@@ -67,6 +67,7 @@
     "@metamask/snaps-sdk": "^2.0.0",
     "@metamask/utils": "^8.1.0",
     "@reduxjs/toolkit": "^1.9.6",
+    "@verax-attestation-registry/verax-sdk": "^1.8.0",
     "@wagmi/core": "^1.4.10",
     "axios": "^1.6.7",
     "connectkit": "^1.5.3",
@@ -153,7 +154,7 @@
     "sharp": "^0.32.5",
     "simple-git-hooks": "^2.9.0",
     "ts-mockito": "^2.6.1",
-    "typescript": "~4.8.4"
+    "typescript": "^5.2.2"
   },
   "packageManager": "yarn@3.6.3",
   "engines": {
@@ -182,7 +183,8 @@
       "@metamask/snaps-utils>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>keccak": false,
       "@metamask/snaps-utils>@metamask/permission-controller>@metamask/controller-utils>ethereumjs-util>ethereum-cryptography>secp256k1": false,
       "wagmi>@wagmi/core>@wagmi/connectors>@coinbase/wallet-sdk>keccak": false,
-      "@wagmi/core>@wagmi/connectors>@coinbase/wallet-sdk>keccak": false
+      "@wagmi/core>@wagmi/connectors>@coinbase/wallet-sdk>keccak": false,
+      "@verax-attestation-registry/verax-sdk>@graphprotocol/client-cli>@graphql-mesh/cli>node-libcurl": false
     }
   }
 }
