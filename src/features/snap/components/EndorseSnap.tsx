@@ -1,20 +1,14 @@
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
 import { type FunctionComponent, useEffect, useState } from 'react';
+import { useAccount } from 'wagmi';
 
 import { EndorseSnapModal } from './modals/EndorseSnapModal';
+import { writeSnapAssertion } from '../../../ceramic/snap-assertion';
 import { EndorseButton } from '../../../components';
-import {
-  useDispatch,
-  useSelector,
-  useVerifiableCredential,
-} from '../../../hooks';
+import { useSelector, useVerifiableCredential } from '../../../hooks';
 import { useSignErrorHandler } from '../../../hooks/useSignErrorHandler';
-import useToastMsg from '../../../hooks/useToastMsg';
-import {
-  createSnapAssertion,
-  fetchSnapAssertionsForSnapId,
-} from '../assertions/api';
+import type { Assertion } from '../../../utils';
 import {
   getCurrentSnapStatusForIssuer,
   isSnapEndorsedByIssuer,
@@ -31,6 +25,7 @@ export const EndorseSnap: FunctionComponent<EndorseSnapProps> = ({
   snapChecksum,
   snapName,
 }) => {
+  const { connector } = useAccount();
   const { signMessage, signError, snapVCBuilder } = useVerifiableCredential();
 
   const latestSnapStatus = useSelector(
@@ -48,10 +43,6 @@ export const EndorseSnap: FunctionComponent<EndorseSnapProps> = ({
     setEndorsed(isSnapEndorsed);
   }, [isSnapEndorsed]);
 
-  const dispatch = useDispatch();
-
-  const { showSuccessMsg, showErrorMsg } = useToastMsg();
-
   useSignErrorHandler(signError);
 
   // TODO: hardcode options for now, change to dynamic if needed,
@@ -67,34 +58,13 @@ export const EndorseSnap: FunctionComponent<EndorseSnapProps> = ({
 
     const signature = await signMessage(verifiableCredential);
     if (signature) {
-      const assertion = snapVCBuilder.getSignedAssertion(
-        verifiableCredential,
+      const provider = await connector?.getProvider();
+      await writeSnapAssertion(
+        verifiableCredential.message as Assertion,
         signature,
+        address,
+        provider,
       );
-      dispatch(createSnapAssertion(assertion))
-        .then((action) => {
-          if (action.type.endsWith('fulfilled')) {
-            dispatch(fetchSnapAssertionsForSnapId(snapChecksum)).catch(
-              (error) => console.log(error),
-            );
-            setEndorsed(true);
-            showSuccessMsg({
-              title: t`Success`,
-              description: t`${snapName} has been endorsed.`,
-            });
-          } else {
-            showErrorMsg({
-              title: t`Error`,
-              description: t`Failed to create endorsement for ${snapName}.`,
-            });
-          }
-        })
-        .catch(() => {
-          showErrorMsg({
-            title: t`Error`,
-            description: t`Failed to create endorsement for ${snapName}.`,
-          });
-        });
     }
     setShowModal(false);
   };

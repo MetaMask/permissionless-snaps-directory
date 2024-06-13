@@ -2,21 +2,18 @@ import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
 import { mainnet } from '@wagmi/core/chains';
 import { type FunctionComponent, useEffect, useMemo, useState } from 'react';
-import { useEnsName } from 'wagmi';
+import { useAccount, useEnsName } from 'wagmi';
 
-import {
-  createAccountAssertion,
-  fetchAccountAssertionsForAccountId,
-} from './assertions/api';
 import {
   getCurrentTrustworthinessLevelForIssuer,
   isAccountReportedByIssuer,
 } from './assertions/store';
 import { AccountReportModal } from './components';
+import { writeAccountAssertion } from '../../ceramic/account-assertion';
 import { ReportButton } from '../../components';
-import { useDispatch, useSelector, useVerifiableCredential } from '../../hooks';
+import { useSelector, useVerifiableCredential } from '../../hooks';
 import { useSignErrorHandler } from '../../hooks/useSignErrorHandler';
-import useToastMsg from '../../hooks/useToastMsg';
+import type { Assertion } from '../../utils';
 import { trimAddress } from '../../utils';
 
 type AccountReportProps = {
@@ -28,6 +25,7 @@ export const AccountReport: FunctionComponent<AccountReportProps> = ({
   address,
   connectedAddress,
 }) => {
+  const { connector } = useAccount();
   const { data } = useEnsName({
     address,
     chainId: mainnet.id,
@@ -55,10 +53,6 @@ export const AccountReport: FunctionComponent<AccountReportProps> = ({
     setEndorsed(isAccountReported);
   }, [isAccountReported]);
 
-  const dispatch = useDispatch();
-
-  const { showSuccessMsg, showErrorMsg } = useToastMsg();
-
   useSignErrorHandler(signError);
 
   // TODO: hardcode options for now, change to dynamic if needed
@@ -80,31 +74,13 @@ export const AccountReport: FunctionComponent<AccountReportProps> = ({
     const signature = await signMessage(VC);
 
     if (signature) {
-      const assertion = accountVCBuilder.getSignedAssertion(VC, signature);
-      dispatch(createAccountAssertion(assertion))
-        .then((action) => {
-          if (action.type.endsWith('fulfilled')) {
-            dispatch(fetchAccountAssertionsForAccountId(address)).catch(
-              (error) => console.log(error),
-            );
-            setEndorsed(true);
-            showSuccessMsg({
-              title: t`Success`,
-              description: t`${address} has been reported.`,
-            });
-          } else {
-            showErrorMsg({
-              title: t`Error`,
-              description: t`Failed to create report for ${address}.`,
-            });
-          }
-        })
-        .catch(() => {
-          showErrorMsg({
-            title: t`Error`,
-            description: t`Failed to create report for ${address}.`,
-          });
-        });
+      const provider = await connector?.getProvider();
+      await writeAccountAssertion(
+        VC.message as Assertion,
+        signature,
+        connectedAddress,
+        provider,
+      );
     }
     setShowModal(false);
   };

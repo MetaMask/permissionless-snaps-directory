@@ -1,0 +1,220 @@
+{
+  "models": {
+    "AccountAssertion": {
+      "interface": false,
+      "implements": [],
+      "id": "kjzl6hvfrbw6c9h6zqi0igj9u1t41rqk0uadwgqe9n6qyobve53g4osluk5igup",
+      "accountRelation": {
+        "type": "set",
+        "fields": ["subjectId"]
+      }
+    },
+    "SnapAssertion": {
+      "interface": false,
+      "implements": [],
+      "id": "kjzl6hvfrbw6ca3mbrimjk7q6wejelhnbepn7n2cwsmk10w0fn7rza9xdr3b0lx",
+      "accountRelation": {
+        "type": "set",
+        "fields": ["snapId"]
+      }
+    }
+  },
+  "objects": {
+    "AccountAssertion": {
+      "type": {
+        "type": "list",
+        "required": true,
+        "immutable": false,
+        "item": {
+          "type": "string",
+          "required": true,
+          "immutable": false
+        }
+      },
+      "context": {
+        "type": "list",
+        "required": true,
+        "immutable": false,
+        "item": {
+          "type": "string",
+          "required": true,
+          "immutable": false
+        }
+      },
+      "subjectId": {
+        "type": "did",
+        "required": true,
+        "immutable": true,
+        "indexed": true
+      },
+      "proofValue": {
+        "type": "string",
+        "required": true,
+        "immutable": false
+      },
+      "issuanceDate": {
+        "type": "string",
+        "required": true,
+        "immutable": false,
+        "indexed": true
+      },
+      "credentialSubject": {
+        "type": "reference",
+        "refType": "object",
+        "refName": "AccountCredentialSubject",
+        "required": true,
+        "immutable": false
+      },
+      "issuer": {
+        "type": "view",
+        "viewType": "documentAccount"
+      }
+    },
+    "AccountCredentialSubject": {
+      "trustWorthiness": {
+        "type": "list",
+        "required": true,
+        "immutable": false,
+        "item": {
+          "type": "reference",
+          "refType": "object",
+          "refName": "TrustWorthiness",
+          "required": true,
+          "immutable": false
+        }
+      }
+    },
+    "SnapAssertion": {
+      "type": {
+        "type": "list",
+        "required": true,
+        "immutable": false,
+        "item": {
+          "type": "string",
+          "required": true,
+          "immutable": false
+        }
+      },
+      "snapId": {
+        "type": "string",
+        "required": true,
+        "immutable": true,
+        "indexed": true
+      },
+      "context": {
+        "type": "list",
+        "required": true,
+        "immutable": false,
+        "item": {
+          "type": "string",
+          "required": true,
+          "immutable": false
+        }
+      },
+      "proofValue": {
+        "type": "string",
+        "required": true,
+        "immutable": false
+      },
+      "issuanceDate": {
+        "type": "string",
+        "required": true,
+        "immutable": false,
+        "indexed": true
+      },
+      "credentialSubject": {
+        "type": "reference",
+        "refType": "object",
+        "refName": "SnapCredentialSubject",
+        "required": true,
+        "immutable": false
+      },
+      "issuer": {
+        "type": "view",
+        "viewType": "documentAccount"
+      }
+    },
+    "SnapCredentialSubject": {
+      "statusReason": {
+        "type": "reference",
+        "refType": "object",
+        "refName": "StatusReason",
+        "required": true,
+        "immutable": false
+      },
+      "currentStatus": {
+        "type": "string",
+        "required": true,
+        "immutable": false
+      }
+    },
+    "StatusReason": {
+      "type": {
+        "type": "string",
+        "required": true,
+        "immutable": false
+      },
+      "value": {
+        "type": "list",
+        "required": true,
+        "immutable": false,
+        "item": {
+          "type": "string",
+          "required": true,
+          "immutable": false
+        }
+      }
+    },
+    "TrustWorthiness": {
+      "level": {
+        "type": "float",
+        "required": true,
+        "immutable": false
+      },
+      "scope": {
+        "type": "string",
+        "required": true,
+        "immutable": false
+      },
+      "reason": {
+        "type": "list",
+        "required": true,
+        "immutable": false,
+        "item": {
+          "type": "string",
+          "required": true,
+          "immutable": false
+        }
+      }
+    }
+  },
+  "enums": {},
+  "accountData": {
+    "accountAssertion": {
+      "type": "set",
+      "name": "AccountAssertion"
+    },
+    "accountAssertionList": {
+      "type": "connection",
+      "name": "AccountAssertion"
+    },
+    "snapAssertion": {
+      "type": "set",
+      "name": "SnapAssertion"
+    },
+    "snapAssertionList": {
+      "type": "connection",
+      "name": "SnapAssertion"
+    },
+    "subjectIdOfAccountAssertion": {
+      "type": "account-set",
+      "name": "AccountAssertion",
+      "property": "subjectId"
+    },
+    "subjectIdOfAccountAssertionList": {
+      "type": "account",
+      "name": "AccountAssertion",
+      "property": "subjectId"
+    }
+  }
+}

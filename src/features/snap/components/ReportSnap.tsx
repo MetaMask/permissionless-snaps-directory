@@ -1,20 +1,14 @@
 import { t } from '@lingui/macro';
 import type { Hex } from '@metamask/utils';
 import { useState, type FunctionComponent, useEffect } from 'react';
+import { useAccount } from 'wagmi';
 
 import { ReportSnapModal } from './modals/ReportSnapModal';
+import { writeSnapAssertion } from '../../../ceramic/snap-assertion';
 import { ReportButton } from '../../../components';
-import {
-  useDispatch,
-  useSelector,
-  useVerifiableCredential,
-} from '../../../hooks';
+import { useSelector, useVerifiableCredential } from '../../../hooks';
 import { useSignErrorHandler } from '../../../hooks/useSignErrorHandler';
-import useToastMsg from '../../../hooks/useToastMsg';
-import {
-  createSnapAssertion,
-  fetchSnapAssertionsForSnapId,
-} from '../assertions/api';
+import type { Assertion } from '../../../utils';
 import {
   getCurrentSnapStatusForIssuer,
   isSnapReportedByIssuer,
@@ -32,6 +26,7 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
   snapChecksum,
   snapName,
 }) => {
+  const { connector } = useAccount();
   const { signMessage, signError, snapVCBuilder } = useVerifiableCredential();
 
   const issuer = snapVCBuilder.getIssuerDid(address);
@@ -51,10 +46,6 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
     setReported(isSnapReported);
   }, [isSnapReported]);
 
-  const dispatch = useDispatch();
-
-  const { showSuccessMsg, showErrorMsg } = useToastMsg();
-
   useSignErrorHandler(signError);
 
   // TODO: hardcode options for now, change to dynamic if needed,
@@ -70,31 +61,13 @@ export const ReportSnap: FunctionComponent<ReportSnapProps> = ({
 
     const signature = await signMessage(VC);
     if (signature) {
-      const assertion = snapVCBuilder.getSignedAssertion(VC, signature);
-      dispatch(createSnapAssertion(assertion))
-        .then(async (action) => {
-          if (action.type.endsWith('fulfilled')) {
-            dispatch(fetchSnapAssertionsForSnapId(snapChecksum)).catch(
-              (error) => console.log(error),
-            );
-            setReported(true);
-            showSuccessMsg({
-              title: t`Success`,
-              description: t`${snapName} has been reported.`,
-            });
-          } else {
-            showErrorMsg({
-              title: t`Error`,
-              description: t`Failed to create report for ${snapName}.`,
-            });
-          }
-        })
-        .catch(() => {
-          showErrorMsg({
-            title: t`Error`,
-            description: t`Failed to create report for ${snapName}.`,
-          });
-        });
+      const provider = await connector?.getProvider();
+      await writeSnapAssertion(
+        VC.message as Assertion,
+        signature,
+        address,
+        provider,
+      );
     }
     setShowModal(false);
   };
