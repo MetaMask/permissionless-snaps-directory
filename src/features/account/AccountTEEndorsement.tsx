@@ -16,7 +16,7 @@ import { useSelector } from '../../hooks';
 import { useSignErrorHandler } from '../../hooks/useSignErrorHandler';
 import { useVerifiableCredential } from '../../hooks/useVerifiableCredential';
 import { trimAddress, TrustworthinessScope } from '../../utils';
-import type { Assertion, type Trustworthiness } from '../../utils';
+import type { Assertion, Trustworthiness } from '../../utils';
 
 type AccountTEEndorsementProps = {
   address: Hex;

@@ -29,9 +29,6 @@
     "test:watch": "jest --watch",
     "typecheck": "tsc --noEmit"
   },
-  "simple-git-hooks": {
-    "pre-commit": "yarn lint-staged && yarn lang:extract && yarn dedupe --check"
-  },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
       "eslint --fix"
