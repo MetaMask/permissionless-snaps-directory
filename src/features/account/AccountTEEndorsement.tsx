@@ -3,27 +3,20 @@ import type { Hex } from '@metamask/utils';
 import type { Address } from '@wagmi/core';
 import { mainnet } from '@wagmi/core/chains';
 import { type FunctionComponent, useEffect, useMemo, useState } from 'react';
-import { useEnsName } from 'wagmi';
+import { useAccount, useEnsName } from 'wagmi';
 
-import {
-  createAccountAssertion,
-  fetchAccountAssertionsForAccountId,
-} from './assertions/api';
 import {
   getCurrentTrustworthinessLevelForIssuer,
   isAccountEndorsedByIssuer,
 } from './assertions/store';
 import { TEEndorsementModal } from './components';
+import { writeAccountAssertion } from '../../ceramic/account-assertion';
 import { EndorseButton } from '../../components';
-import { useDispatch, useSelector } from '../../hooks';
+import { useSelector } from '../../hooks';
 import { useSignErrorHandler } from '../../hooks/useSignErrorHandler';
-import useToastMsg from '../../hooks/useToastMsg';
 import { useVerifiableCredential } from '../../hooks/useVerifiableCredential';
-import {
-  trimAddress,
-  type Trustworthiness,
-  TrustworthinessScope,
-} from '../../utils';
+import { trimAddress, TrustworthinessScope } from '../../utils';
+import type { Assertion, Trustworthiness } from '../../utils';
 
 type AccountTEEndorsementProps = {
   address: Hex;
@@ -33,6 +26,7 @@ type AccountTEEndorsementProps = {
 export const AccountTEEndorsement: FunctionComponent<
   AccountTEEndorsementProps
 > = ({ address, connectedAddress }) => {
+  const { connector } = useAccount();
   const { data } = useEnsName({
     address,
     chainId: mainnet.id,
@@ -59,10 +53,6 @@ export const AccountTEEndorsement: FunctionComponent<
   useEffect(() => {
     setEndorsed(isAccountEndorsed);
   }, [isAccountEndorsed]);
-
-  const dispatch = useDispatch();
-
-  const { showSuccessMsg, showErrorMsg } = useToastMsg();
 
   useSignErrorHandler(signError);
 
@@ -98,31 +88,13 @@ export const AccountTEEndorsement: FunctionComponent<
     const signature = await signMessage(VC);
 
     if (signature) {
-      const assertion = accountVCBuilder.getSignedAssertion(VC, signature);
-      dispatch(createAccountAssertion(assertion))
-        .then((action) => {
-          if (action.type.endsWith('fulfilled')) {
-            dispatch(fetchAccountAssertionsForAccountId(address)).catch(
-              (error) => console.log(error),
-            );
-            setEndorsed(true);
-            showSuccessMsg({
-              title: t`Success`,
-              description: t`${address} has been endorsed.`,
-            });
-          } else {
-            showErrorMsg({
-              title: t`Error`,
-              description: t`Failed to create endorsement for ${address}.`,
-            });
-          }
-        })
-        .catch(() => {
-          showErrorMsg({
-            title: t`Error`,
-            description: t`Failed to create endorsement for ${address}.`,
-          });
-        });
+      const provider = await connector?.getProvider();
+      await writeAccountAssertion(
+        VC.message as Assertion,
+        signature,
+        connectedAddress,
+        provider,
+      );
     }
     setShowModal(false);
   };
